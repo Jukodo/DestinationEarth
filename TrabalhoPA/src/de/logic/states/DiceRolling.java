@@ -27,8 +27,8 @@ public class DiceRolling extends StateAdapter{
     }
     
     @Override
-    public IStates setRollValue(IStates previousState, int value){
-        this.getGame().setRollValue(MAX_ALIENS);
+    public IStates setRollValue(IStates previousState, int dieToRoll, int value){
+        this.getGame().rollDie(dieToRoll, value);
         return previousState;
     }
     

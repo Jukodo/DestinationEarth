@@ -22,7 +22,6 @@ public class DataGame implements Constants{
     private int numTrapsParticle;
     private int currentTurn;
     private int dices[];
-    private int rollValue;
 
     public DataGame() {
         aliensList = new ArrayList <> ();
@@ -33,7 +32,6 @@ public class DataGame implements Constants{
         currentTurn = 0;
         ship = new Ship();
         dices = new int[MAX_DICES];
-        rollValue = 0;
     }
 
     /**Getters and Setters**/
@@ -109,14 +107,6 @@ public class DataGame implements Constants{
         this.dices = dices;
     }
 
-    public int getRollValue() {
-        return rollValue;
-    }
-
-    public void setRollValue(int rollValue) {
-        this.rollValue = rollValue;
-    }
-    
     /**Methods**/
     public void nextTurn(){
         setCurrentTurn(getCurrentTurn() + 1);
@@ -127,27 +117,33 @@ public class DataGame implements Constants{
         int random = 0;
         
         if(dieId < 0 || dieId >= MAX_DICES){
-            rollValue = 0;
             return 0;
         }
         
-       rollValue = dices[dieId] = random = (int) (Math.random() * (6 - 1)) + 1;
+       dices[dieId] = random = (int) (Math.random() * (6 - 1)) + 1;
        
        return random;
+    }
+    
+    public int rollDie(int dieId, int value){
+               
+        if((dieId < 0 || dieId >= MAX_DICES) && (value < 1 || value > 6)){
+            return 0;
+        }
+        
+       dices[dieId] = value;
+       
+       return value;
     }
     
     public void rollDice(int quantityOfDice){
         
         if(quantityOfDice > MAX_DICES){
-            rollValue = 0;
             return;
         }
         
         for(int i = 0; i < dices.length; i++){
-            rollValue += rollDie(i);
+            rollDie(i);
         }
     }
-
-
-    
 }

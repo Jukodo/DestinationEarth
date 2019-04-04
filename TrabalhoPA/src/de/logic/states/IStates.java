@@ -46,7 +46,7 @@ public interface IStates extends Serializable {
     //
     IStates activateCrewMember(int member);
     IStates rollDice(IStates previousState, int quantityOfDice);
-    IStates setRollValue(IStates previousState, int value);
+    IStates setRollValue(IStates previousState, int dieToRoll, int value);
     
     
     IStates saveGame();
