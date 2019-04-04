@@ -78,12 +78,12 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public IStates rollDie(IStates previousState) {
+    public IStates rollDice(IStates previousState, int quantityOfDice) {
         return this;
     }
 
     @Override
-    public IStates setDieValue(IStates previousState) {
+    public IStates setRollValue(IStates previousState, int value) {
         return this;
     }
 

@@ -17,6 +17,7 @@ public interface Constants {
     public static final int MAX_SEALED_ROOMS = 6;
     public static final int MAX_TRAPS_ORGANIC = 4;
     public static final int MAX_TRAPS_PARTICLE = 2;
+    public static final int MAX_DICES = 3;
     public static final int DEF_HULL_TRACKER = 8;
     public static final int DEF_COST_TRAP_ORGANIC = 1;
     public static final int DEF_COST_TRAP_PARTICLE = 1;

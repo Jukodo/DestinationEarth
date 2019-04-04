@@ -5,10 +5,31 @@
  */
 package de.logic.states;
 
+import de.logic.data.DataGame;
+
 /**
  *
  * @author Tiago
  */
-public class DiceRolling {
+public class DiceRolling extends StateAdapter{
+    
+    private IStates previousState;
+    
+    public DiceRolling(DataGame game, IStates previousState) {
+        super(game);
+        this.previousState = previousState;
+    }
+    
+    @Override
+    public IStates rollDice(IStates previousState, int quantityOfDice){
+        this.getGame().rollDice(quantityOfDice);
+        return previousState;
+    }
+    
+    @Override
+    public IStates setRollValue(IStates previousState, int value){
+        this.getGame().setRollValue(MAX_ALIENS);
+        return previousState;
+    }
     
 }
