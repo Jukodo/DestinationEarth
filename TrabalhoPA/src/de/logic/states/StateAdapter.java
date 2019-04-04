@@ -28,7 +28,12 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public IStates selectCrewMember(int member) {
+    public IStates selectCrewMember(int crewNumber, int crewType) {
+        return this;
+    }
+
+    @Override
+    public IStates selectCrewMemberColor(int crewNumber, int crewNumberColor) {
         return this;
     }
 

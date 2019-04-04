@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.logic.data;
+import static de.logic.data.Constants.*;
 import de.logic.data.members.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Tiago
- */
 public class Player {
     private String name;
-    private List<CrewMember> crew;
+    private CrewMember[] crew;
     int healthTracker;
     int inspirationPoints;
     int abilityPoints;
@@ -25,7 +17,7 @@ public class Player {
         this.inspirationPoints = inspirationPoints;
         this.abilityPoints = abilityPoints;
         
-       crew = new ArrayList<>();
+       crew = new CrewMember[NUM_CREW_MEMBERS];
     }
 
     /**Getters and Setters**/
@@ -37,12 +29,20 @@ public class Player {
         this.name = name;
     }
 
-    public List<CrewMember> getCrew() {
+    public CrewMember[] getCrew() {
         return crew;
     }
 
-    public void setCrew(List<CrewMember> crew) {
+    public void setCrew(CrewMember[] crew) {
         this.crew = crew;
+    }
+
+    public CrewMember getCrewMember(int index) {
+        return crew[index];
+    }
+
+    public void setCrewMember(int index, CrewMember crewMember) {
+        this.crew[index] = crewMember;
     }
 
     public int getHealthTracker() {

@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.logic.data.members;
 
 import de.logic.data.DataGame;
 
-/**
- *
- * @author Tiago
- */
 public abstract class CrewMember {
     
     private int movement;
@@ -18,6 +9,15 @@ public abstract class CrewMember {
     int color;
     private DataGame dataGame;  
     
+    
+    //Doesn't recieve color
+    public CrewMember(DataGame dataGame, int movement, int attack){
+        this.dataGame = dataGame;
+        this.movement = movement;
+        this.attack = attack;
+    }
+    
+    //Recieve color
     public CrewMember(DataGame dataGame, int movement, int attack, int color){
         this.dataGame = dataGame;
         this.movement = movement;
