@@ -41,6 +41,11 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     public IStates initializeCrewMembers() {
         return this;
     }
+    
+    @Override
+    public IStates placeCrewMember(int crewNumber, int crewType){
+        return this;
+    }
 
     @Override
     public IStates nextTurn() {

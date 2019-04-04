@@ -25,6 +25,9 @@ public interface IStates extends Serializable {
     IStates selectCrewMemberColor(int crewNumber, int crewMemberColor);
     IStates initializeCrewMembers();
     
+    //CrewPlacement
+    IStates placeCrewMember(int crewNumber, int crewType);
+    
     //JourneyPhase
     IStates nextTurn();
     
