@@ -13,4 +13,29 @@ import java.io.Serializable;
  */
 public interface IStates extends Serializable {
     
+    IStates start();
+    
+    IStates setPlayerName(String name);
+    
+    IStates selectCrewMember(int member);
+    IStates initializeCrewMembers();
+    
+    IStates nextTurn();
+    
+    IStates scanTurn();
+    
+    IStates spendInspirationPoints(int upgradeId);
+    
+    IStates spendAbilityPoints(int aiblityId);
+    
+    IStates moveAllAliens();
+       
+    IStates activateCrewMember(int member);
+    IStates rollDie(IStates previousState);
+    IStates setDieValue(IStates previousState);
+    
+    IStates saveGame();
+    IStates loadGame();
+    
+    IStates quit();
 }

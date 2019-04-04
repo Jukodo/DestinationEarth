@@ -25,4 +25,5 @@ public interface Constants {
     public static final int DEF_COST_FIX_HULL = 1;
     public static final int DEF_COST_DETONATE_TRAP_PARTICLE = 1;
     public static final int DEF_COST_SEAL_ROOM = 1;
+    public static final int DEF_INSPIRATION_POINTS = 1;
 }

@@ -29,6 +29,7 @@ public class DataGame implements Constants{
         numTrapsOrganic = MAX_TRAPS_ORGANIC;
         numTrapsParticle = MAX_TRAPS_PARTICLE;
         currentTurn = 0;
+        ship = new Ship();
     }
 
     /**Getters and Setters**/
