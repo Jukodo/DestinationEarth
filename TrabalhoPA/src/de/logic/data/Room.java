@@ -16,7 +16,8 @@ import java.util.List;
 public class Room {
     private static int totalRooms = 0;
     private final int id;
-    private boolean sealed;
+    private boolean isSealed;
+    private boolean canBeSealed;
     private String name;
     private List <Room> closestRooms;
     private List <Alien> aliensInside;
@@ -29,7 +30,7 @@ public class Room {
        membersInside = new ArrayList<>();
        
        id = ++totalRooms;
-       sealed = false;
+       isSealed = false;
     }
 
      /**Getters and Setters**/
@@ -42,11 +43,19 @@ public class Room {
     }
 
     public boolean isSealed() {
-        return sealed;
+        return isSealed;
     }
 
-    public void setSealed(boolean sealed) {
-        this.sealed = sealed;
+    public void setSealed(boolean isSealed) {
+        this.isSealed = isSealed;
+    }
+    
+    public boolean canBeSealed(){
+        return canBeSealed();
+    }
+    
+    public void setCanBeSealed(boolean canBeSealed){
+        this.canBeSealed = canBeSealed;
     }
 
     public List<Room> getClosestRooms() {
@@ -75,6 +84,11 @@ public class Room {
 
     public void setMembersInside(List<CrewMember> membersInside) {
         this.membersInside = membersInside;
+    }
+    
+    public void setMemberInside(CrewMember memberInside){
+        memberInside.setInside(true);
+        this.membersInside.add(memberInside);
     }
 
     public Trap getTrapInside() {

@@ -52,6 +52,14 @@ public class Player {
         }
         return true;
     }
+    
+    public boolean hasAllMembersOnBoard(){
+        for(int i = 0; i < NUM_CREW_MEMBERS; i++){
+            if(!this.crew[i].isInside())
+                return false;
+        }
+        return true;
+    }
 
     public int getHealthTracker() {
         return healthTracker;

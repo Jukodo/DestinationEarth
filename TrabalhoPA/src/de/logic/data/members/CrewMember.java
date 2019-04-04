@@ -7,7 +7,8 @@ public abstract class CrewMember {
     private int movement;
     private int attack;
     int color;
-    private DataGame dataGame;  
+    boolean inside;
+    private DataGame dataGame;
     
     
     //Doesn't recieve color
@@ -15,6 +16,7 @@ public abstract class CrewMember {
         this.dataGame = dataGame;
         this.movement = movement;
         this.attack = attack;
+        this.inside = false;
     }
     
     //Recieve color
@@ -23,6 +25,7 @@ public abstract class CrewMember {
         this.movement = movement;
         this.attack = attack;
         this.color = color;
+        this.inside = false;
     }
 
     /**Getters and Setters**/
@@ -48,6 +51,14 @@ public abstract class CrewMember {
 
     public void setColor(int color) {
         this.color = color;
+    }
+    
+    public boolean isInside() {
+        return inside;
+    }
+
+    public void setInside(boolean inside) {
+        this.inside = inside;
     }
 
     public DataGame getDataGame() {
