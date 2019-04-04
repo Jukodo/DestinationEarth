@@ -5,11 +5,22 @@
  */
 package de.logic.states;
 
+import de.logic.data.DataGame;
+
 /**
  *
  * @author Tiago
  */
-public class JourneyPhase {
-    //1 - next turn
-    //2 - nextPhase
+public class JourneyPhase extends StateAdapter{
+    
+    public JourneyPhase(DataGame game) 
+    {
+        super(game);
+    }
+    
+    @Override
+    public IStates nextTurn(){
+        this.getGame().nextTurn();
+        return new ScanningPhase(this.getGame());
+    }
 }

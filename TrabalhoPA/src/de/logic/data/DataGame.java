@@ -97,5 +97,8 @@ public class DataGame implements Constants{
         this.currentTurn = currentTurn;
     }
     
+    public void nextTurn(){
+        setCurrentTurn(getCurrentTurn() + 1);
+    }
     
 }

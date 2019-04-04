@@ -5,10 +5,16 @@
  */
 package de.logic.states;
 
+import de.logic.data.DataGame;
+
 /**
  *
  * @author Tiago
  */
-public class GameOver {
-    //1 - gameOver
+public class GameOver extends StateAdapter{
+  
+    public GameOver(DataGame game) {
+        super(game);
+    }
+    
 }

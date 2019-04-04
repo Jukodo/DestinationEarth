@@ -5,12 +5,30 @@
  */
 package de.logic.states;
 
+import de.logic.data.DataGame;
+
 /**
  *
  * @author Tiago
  */
-public class ScanningPhase {
+public class ScanningPhase extends StateAdapter{
     
-    //1 - Check rule
-    //2 - nextPhase
+    public ScanningPhase(DataGame game) {
+        super(game);
+
+    }
+    
+    @Override
+    public IStates scanTurn(){
+        
+        if(this.getGame().getCurrentTurn() == NUM_TURNS){
+            return new GameOver(this.getGame());
+        }
+        else if(this.getGame().getJourneyTracker()[this.getGame().getCurrentTurn()].compareToIgnoreCase("R") == 0){
+            return new RestPhase(this.getGame());
+        }
+        
+        return new CrewPhase(this.getGame());
+    }
+    
 }

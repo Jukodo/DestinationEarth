@@ -11,14 +11,10 @@ import de.logic.data.DataGame;
  *
  * @author Tiago
  */
-public class CrewPhase extends StateAdapter{
-    //1 - check AP
-    //2 - moveMember, atackAlien, healMember, fixHull, setTrap, detonateParticleDispenser, sealRoom
-    //3 - rollDice
-    //4 - nextPhase
-
-    public CrewPhase(DataGame game) {
+public class RestPhase extends StateAdapter{
+    
+    public RestPhase(DataGame game) {
         super(game);
     }
-  
+    
 }
