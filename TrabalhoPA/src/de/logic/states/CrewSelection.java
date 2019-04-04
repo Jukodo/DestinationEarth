@@ -65,9 +65,12 @@ public class CrewSelection extends StateAdapter{
     
     @Override
     public IStates initializeCrewMembers(){
-        
+        if(this.getGame().getPlayer().hasAllMembers())
+            return new CrewPlacement(this.getGame());
+        else
+            return this;//Add Log
     }
    //1 - Choose 2 crew members
    //2 - Choose color for each crew member
-   //3 - Lock in
+   //3 - Lock in (Go to CrewPlacement)
 }
