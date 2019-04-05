@@ -5,10 +5,16 @@
  */
 package de.logic.states;
 
+import de.logic.data.DataGame;
+
 /**
  *
  * @author Tiago
  */
-public class Beginning {
+public class Beginning extends StateAdapter{
+    
+    public Beginning(DataGame game) {
+        super(game);
+    }
     
 }

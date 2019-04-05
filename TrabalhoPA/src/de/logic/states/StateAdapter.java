@@ -43,7 +43,7 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
     
     @Override
-    public IStates placeCrewMember(int crewNumber, int crewType){
+    public IStates placeCrewMember(int crewNumber, int roomNumber){
         return this;
     }
 
@@ -73,7 +73,7 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public IStates activateCrewMember(int member) {
+    public IStates swapCrewMember() {
         return this;
     }
 
@@ -83,7 +83,7 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public IStates setRollValue(IStates previousState, int dieToRoll, int value) {
+    public IStates setDieRoll(IStates previousState, int dieToRoll, int value) {
         return this;
     }
 

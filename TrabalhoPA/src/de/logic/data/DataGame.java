@@ -32,6 +32,10 @@ public class DataGame implements Constants{
         currentTurn = 0;
         ship = new Ship();
         dices = new int[MAX_DICES];
+        
+        for(int i = 0; i < dices.length; i++){
+            dices[i] = 0;
+        }
     }
 
     /**Getters and Setters**/
@@ -99,14 +103,15 @@ public class DataGame implements Constants{
         this.currentTurn = currentTurn;
     }
     
-        public int[] getDices() {
+    public int[] getDices() {
         return dices;
     }
 
     public void setDices(int[] dices) {
         this.dices = dices;
     }
-
+    
+  
     /**Methods**/
     public void nextTurn(){
         setCurrentTurn(getCurrentTurn() + 1);
@@ -145,5 +150,30 @@ public class DataGame implements Constants{
         for(int i = 0; i < dices.length; i++){
             rollDie(i);
         }
+    }
+    
+    public int getDieValue(int dieId){
+        
+        if(dieId < 0 || dieId >= MAX_DICES){
+            return dices[0];
+        }
+        
+        return dices[dieId];
+    }
+    
+    @Override
+    public String toString()
+    {
+        String s;
+        
+        s = "Destination Earth" + System.lineSeparator();
+        s += "Turn: " + getCurrentTurn() + System.lineSeparator();
+        for(int i = 0; i < dices.length; i++){
+            s += "Die "+(i+1)+": [" + getDieValue(i)+ "] ";
+        }
+        s+= System.lineSeparator();
+        //s += "Die 1: [" + getDieValue(0)+ "] Die 2: [" + getDieValue(1) + "] Die 3: [" + getDieValue(2) + "]" + System.lineSeparator(); 
+        
+        return s;
     }
 }

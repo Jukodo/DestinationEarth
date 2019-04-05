@@ -5,6 +5,11 @@
  */
 package de;
 
+import de.ui.text.TextUI;
+import java.io.IOException;
+
+
+
 /**
  *
  * @author Tiago
@@ -15,7 +20,15 @@ public class TrabalhoPA {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        TextUI textUI = new TextUI(new DestinationEarth());
+        try { 
+            textUI.run();
+        } catch (IOException ex) {
+          //...
+        } catch (ClassNotFoundException ex) {
+          //...
+        }
+       
     }
     
 }

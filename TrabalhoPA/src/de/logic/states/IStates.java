@@ -26,7 +26,7 @@ public interface IStates extends Serializable {
     IStates initializeCrewMembers();
     
     //CrewPlacement
-    IStates placeCrewMember(int crewNumber, int crewType);
+    IStates placeCrewMember(int crewNumber, int roomNumber);
     
     //JourneyPhase
     IStates nextTurn();
@@ -43,10 +43,10 @@ public interface IStates extends Serializable {
     //AlienPhase
     IStates moveAllAliens();
     
-    //
-    IStates activateCrewMember(int member);
+    //General
+    IStates swapCrewMember();
     IStates rollDice(IStates previousState, int quantityOfDice);
-    IStates setRollValue(IStates previousState, int dieToRoll, int value);
+    IStates setDieRoll(IStates previousState, int dieToRoll, int value);
     
     
     IStates saveGame();
