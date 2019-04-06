@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.logic.data;
 
+import de.logic.data.members.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Tiago
- */
 public class DataGame implements Constants{
     private Player player;
     private Ship ship;
@@ -152,6 +144,7 @@ public class DataGame implements Constants{
         }
     }
     
+<<<<<<< Updated upstream
     public int getDieValue(int dieId){
         
         if(dieId < 0 || dieId >= MAX_DICES){
@@ -175,5 +168,59 @@ public class DataGame implements Constants{
         //s += "Die 1: [" + getDieValue(0)+ "] Die 2: [" + getDieValue(1) + "] Die 3: [" + getDieValue(2) + "]" + System.lineSeparator(); 
         
         return s;
+=======
+    public boolean selectCrewMember(int crewNumber, int crewType){
+        switch(crewType){
+            case 1:
+                getPlayer().setCrewMember(crewNumber, new Captain(this));
+                break;
+            case 2:
+                getPlayer().setCrewMember(crewNumber, new Commander(this));
+                break;
+            case 3:
+                getPlayer().setCrewMember(crewNumber, new CommsOfficer(this));
+                break;
+            case 4:
+                getPlayer().setCrewMember(crewNumber, new Doctor(this));
+                break;
+            case 5:
+                getPlayer().setCrewMember(crewNumber, new Engineer(this));
+                break;
+            case 6:
+                getPlayer().setCrewMember(crewNumber, new MoralOfficer(this));
+                break;
+            case 7:
+                getPlayer().setCrewMember(crewNumber, new NavigationOfficer(this));
+                break;
+            case 8:
+                getPlayer().setCrewMember(crewNumber, new RedShirt(this));
+                break;
+            case 9:
+                getPlayer().setCrewMember(crewNumber, new ScienceOfficer(this));
+                break;
+            case 10:
+                getPlayer().setCrewMember(crewNumber, new SecurityOfficer(this));
+                break;
+            case 11:
+                getPlayer().setCrewMember(crewNumber, new ShuttlePilot(this));
+                break;
+            case 12:
+                getPlayer().setCrewMember(crewNumber, new TransporterChief(this));
+                break;
+            default:
+                return false;
+        }
+        return true;
+    }
+    
+    public boolean selectCrewMemberColor(int crewNumber, int crewMemberColor){
+        //Exception ColorException = null;
+        if(crewMemberColor < 0 || crewMemberColor > 11)
+            return false;
+            //throw ColorException;
+        
+        getPlayer().getCrewMember(crewNumber).setColor(crewMemberColor);
+        return true;
+>>>>>>> Stashed changes
     }
 }
