@@ -144,7 +144,6 @@ public class DataGame implements Constants{
         }
     }
     
-<<<<<<< Updated upstream
     public int getDieValue(int dieId){
         
         if(dieId < 0 || dieId >= MAX_DICES){
@@ -153,22 +152,7 @@ public class DataGame implements Constants{
         
         return dices[dieId];
     }
-    
-    @Override
-    public String toString()
-    {
-        String s;
         
-        s = "Destination Earth" + System.lineSeparator();
-        s += "Turn: " + getCurrentTurn() + System.lineSeparator();
-        for(int i = 0; i < dices.length; i++){
-            s += "Die "+(i+1)+": [" + getDieValue(i)+ "] ";
-        }
-        s+= System.lineSeparator();
-        //s += "Die 1: [" + getDieValue(0)+ "] Die 2: [" + getDieValue(1) + "] Die 3: [" + getDieValue(2) + "]" + System.lineSeparator(); 
-        
-        return s;
-=======
     public boolean selectCrewMember(int crewNumber, int crewType){
         switch(crewType){
             case 1:
@@ -221,6 +205,21 @@ public class DataGame implements Constants{
         
         getPlayer().getCrewMember(crewNumber).setColor(crewMemberColor);
         return true;
->>>>>>> Stashed changes
+    }
+    
+    @Override
+    public String toString()
+    {
+        String s;
+        
+        s = "Destination Earth" + System.lineSeparator();
+        s += "Turn: " + getCurrentTurn() + System.lineSeparator();
+        for(int i = 0; i < dices.length; i++){
+            s += "Die "+(i+1)+": [" + getDieValue(i)+ "] ";
+        }
+        s+= System.lineSeparator();
+        //s += "Die 1: [" + getDieValue(0)+ "] Die 2: [" + getDieValue(1) + "] Die 3: [" + getDieValue(2) + "]" + System.lineSeparator(); 
+        
+        return s;
     }
 }
