@@ -11,5 +11,9 @@ public class NavigationOfficer extends CrewMember{
     public NavigationOfficer(DataGame dataGame, int color) {
         super(dataGame, 2, 1, color);
     }
-    
+
+    @Override
+    public String getName() {
+        return "NavigationOfficer";
+    }
 }

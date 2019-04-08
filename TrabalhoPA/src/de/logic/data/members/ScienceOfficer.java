@@ -11,5 +11,9 @@ public class ScienceOfficer extends CrewMember {
     public ScienceOfficer(DataGame dataGame, int color) {
         super(dataGame, 1, 1, color);
     }
-    
+
+    @Override
+    public String getName() {
+        return "ScienceOfficer";
+    }
 }

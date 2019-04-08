@@ -156,42 +156,49 @@ public class DataGame implements Constants{
     }
         
     public boolean selectCrewMember(int crewNumber, int crewType){
+        crewNumber--; //ARRAY INDEX = -1 of its number
+        
+        int color=-1;//KEEP THE COLOR OF THE CLASS BEFORE (IF BEING CHANGED INSTEAD OF CREATED FOR THE FIRST TIME)
+        CrewMember oldMember = getPlayer().getCrewMember(crewNumber);
+        if(oldMember != null)
+            color = oldMember.getColor();
+            
         switch(crewType){
             case 1:
-                getPlayer().setCrewMember(crewNumber, new Captain(this));
+                getPlayer().setCrewMember(crewNumber, new Captain(this, color));
                 break;
             case 2:
-                getPlayer().setCrewMember(crewNumber, new Commander(this));
+                getPlayer().setCrewMember(crewNumber, new Commander(this, color));
                 break;
             case 3:
-                getPlayer().setCrewMember(crewNumber, new CommsOfficer(this));
+                getPlayer().setCrewMember(crewNumber, new CommsOfficer(this, color));
                 break;
             case 4:
-                getPlayer().setCrewMember(crewNumber, new Doctor(this));
+                getPlayer().setCrewMember(crewNumber, new Doctor(this, color));
                 break;
             case 5:
-                getPlayer().setCrewMember(crewNumber, new Engineer(this));
+                getPlayer().setCrewMember(crewNumber, new Engineer(this, color));
                 break;
             case 6:
-                getPlayer().setCrewMember(crewNumber, new MoralOfficer(this));
+                getPlayer().setCrewMember(crewNumber, new MoralOfficer(this, color));
                 break;
             case 7:
-                getPlayer().setCrewMember(crewNumber, new NavigationOfficer(this));
+                getPlayer().setCrewMember(crewNumber, new NavigationOfficer(this, color));
                 break;
             case 8:
-                getPlayer().setCrewMember(crewNumber, new RedShirt(this));
+                getPlayer().setCrewMember(crewNumber, new RedShirt(this, color));
                 break;
             case 9:
-                getPlayer().setCrewMember(crewNumber, new ScienceOfficer(this));
+                getPlayer().setCrewMember(crewNumber, new ScienceOfficer(this, color));
                 break;
             case 10:
-                getPlayer().setCrewMember(crewNumber, new SecurityOfficer(this));
+                getPlayer().setCrewMember(crewNumber, new SecurityOfficer(this, color));
                 break;
             case 11:
-                getPlayer().setCrewMember(crewNumber, new ShuttlePilot(this));
+                getPlayer().setCrewMember(crewNumber, new ShuttlePilot(this, color));
                 break;
             case 12:
-                getPlayer().setCrewMember(crewNumber, new TransporterChief(this));
+                getPlayer().setCrewMember(crewNumber, new TransporterChief(this, color));
                 break;
             default:
                 return false;
@@ -201,11 +208,13 @@ public class DataGame implements Constants{
     
     public boolean selectCrewMemberColor(int crewNumber, int crewMemberColor){
         //Exception ColorException = null;
-        if(crewMemberColor < 0 || crewMemberColor > 11)
+        if(crewMemberColor < 0 || crewMemberColor >= 12)
             return false;
             //throw ColorException;
-        
-        getPlayer().getCrewMember(crewNumber).setColor(crewMemberColor);
+        CrewMember cm = getPlayer().getCrewMember(crewNumber-1);
+        if(cm == null)
+            return false;
+        cm.setColor(crewMemberColor-1);
         return true;
     }
     
@@ -230,5 +239,21 @@ public class DataGame implements Constants{
         //s += "Die 1: [" + getDieValue(0)+ "] Die 2: [" + getDieValue(1) + "] Die 3: [" + getDieValue(2) + "]" + System.lineSeparator(); 
         
         return s;
+    }
+    
+    public boolean crewClassNotRepeated(){
+        for(int i=0; i<player.getCrew().length-1; i++){
+            if(player.getCrewMember(i).getName().equals(player.getCrewMember(i+1).getName()))
+                return false;
+        }
+        return true;
+    }
+    
+    public boolean crewColorNotRepeated(){
+        for(int i=0; i<player.getCrew().length-1; i++){
+            if(player.getCrewMember(i).getColor() == player.getCrewMember(i+1).getColor())
+                return false;
+        }
+        return true;
     }
 }

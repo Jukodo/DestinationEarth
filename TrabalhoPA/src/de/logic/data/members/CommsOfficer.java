@@ -12,4 +12,8 @@ public class CommsOfficer extends CrewMember {
         super(dataGame, 1, 1, color);
     }
 
+    @Override
+    public String getName() {
+        return "CommsOfficer";
+    }
 }

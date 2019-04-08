@@ -11,5 +11,9 @@ public class ShuttlePilot extends CrewMember{
     public ShuttlePilot(DataGame dataGame, int color) {
         super(dataGame, 1, 1, color);
     }
-    
+
+    @Override
+    public String getName() {
+        return "ShuttlePilot";
+    }
 }

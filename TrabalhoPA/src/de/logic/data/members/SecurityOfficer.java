@@ -11,5 +11,9 @@ public class SecurityOfficer extends CrewMember {
     public SecurityOfficer(DataGame dataGame, int color) {
         super(dataGame, 1, 2, color);
     }
-    
+
+    @Override
+    public String getName() {
+        return "SecurityOfficer";
+    }
 }

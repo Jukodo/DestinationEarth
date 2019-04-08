@@ -11,6 +11,10 @@ public class MoralOfficer extends CrewMember{
     public MoralOfficer(DataGame dataGame, int color) {
         super(dataGame, 1, 1, color);
     }
-    
+
+    @Override
+    public String getName() {
+        return "MoralOfficer";
+    }
 }
 

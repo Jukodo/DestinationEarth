@@ -11,4 +11,9 @@ public class Doctor extends CrewMember {
     public Doctor(DataGame dataGame, int color) {
         super(dataGame, 1, 1, color);
     }
+
+    @Override
+    public String getName() {
+        return "Doctor";
+    }
 }

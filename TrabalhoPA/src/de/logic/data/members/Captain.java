@@ -11,5 +11,9 @@ public class Captain extends CrewMember{
     public Captain(DataGame dataGame, int color) {
         super(dataGame, 1, 1, color);
     }
-    
+
+    @Override
+    public String getName() {
+        return "Captain";
+    }
 }

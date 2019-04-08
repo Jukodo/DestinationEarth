@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.logic.data;
 
 import de.logic.data.members.CrewMember;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Tiago
- */
 public class Room {
     private static int totalRooms = 0;
     private final int id;
@@ -83,10 +74,15 @@ public class Room {
     }
 
     public void setMembersInside(List<CrewMember> membersInside) {
+        for(CrewMember cm:membersInside){
+            cm.setRoom(this);
+            cm.setInside(true);
+        }
         this.membersInside = membersInside;
     }
     
     public void setMemberInside(CrewMember memberInside){
+        memberInside.setRoom(this);
         memberInside.setInside(true);
         this.membersInside.add(memberInside);
     }

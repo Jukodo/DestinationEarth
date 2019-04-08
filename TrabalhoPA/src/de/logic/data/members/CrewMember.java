@@ -1,6 +1,7 @@
 package de.logic.data.members;
 
 import de.logic.data.DataGame;
+import de.logic.data.Room;
 
 public abstract class CrewMember {
     
@@ -9,7 +10,7 @@ public abstract class CrewMember {
     int color;
     boolean inside;
     private DataGame dataGame;
-    
+    private Room room;
     
     //Doesn't recieve color
     public CrewMember(DataGame dataGame, int movement, int attack){
@@ -24,10 +25,14 @@ public abstract class CrewMember {
         this.dataGame = dataGame;
         this.movement = movement;
         this.attack = attack;
+        if(color < 0 || color > 11)
+            color = 0;
         this.color = color;
         this.inside = false;
     }
 
+    abstract public String getName();
+    
     /**Getters and Setters**/
     public int getMovement() {
         return movement;
@@ -67,6 +72,14 @@ public abstract class CrewMember {
 
     public void setDataGame(DataGame dataGame) {
         this.dataGame = dataGame;
+    }
+    
+    public Room getRoom(){
+        return room;
+    }
+    
+    public void setRoom(Room room){
+        this.room = room;
     }
   
 }

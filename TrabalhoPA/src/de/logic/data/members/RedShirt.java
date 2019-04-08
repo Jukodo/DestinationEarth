@@ -11,5 +11,9 @@ public class RedShirt extends CrewMember{
     public RedShirt(DataGame dataGame, int color) {
         super(dataGame, 1, 1, color);
     }
-     
+
+    @Override
+    public String getName() {
+        return "RedShirt";
+    }
 }

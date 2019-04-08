@@ -11,5 +11,9 @@ public class Commander extends CrewMember {
     public Commander(DataGame dataGame, int color) {
         super(dataGame, 1, 1, color);
     }
-    
+
+    @Override
+    public String getName() {
+        return "Commander";
+    }
 }

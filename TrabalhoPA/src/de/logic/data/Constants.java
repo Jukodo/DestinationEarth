@@ -1,18 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.logic.data;
 
-/**
- *
- * @author Tiago
- */
 public interface Constants {
     public static final int NUM_TURNS = 13;
     public static final int NUM_ROOMS = 12;
     public static final int NUM_CREW_MEMBERS = 2;
+    
+    public static final int MAX_COLOR = 12;
+    public static final String[] COLOR = {"White", "Blue", "Cyan", "Dark Gray", "Gray", "Green", "Yellow", "Magenta", "Orange", "Pink", "Red", "Black"};
     
     public static final int MAX_DICES = 3;
     

@@ -11,5 +11,9 @@ public class Engineer extends CrewMember{
     public Engineer(DataGame dataGame, int color) {
         super(dataGame, 1, 1, color);
     }
-    
+
+    @Override
+    public String getName() {
+        return "Engineer";
+    }
 }
