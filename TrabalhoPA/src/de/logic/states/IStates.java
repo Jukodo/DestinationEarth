@@ -15,11 +15,8 @@ public interface IStates extends Serializable {
     
     
     //Beginning
-    IStates start();
-    
-    //
-    IStates setPlayerName(String name);
-    
+    IStates start(String playerName);
+ 
     //CrewSelection
     IStates selectCrewMember(int crewNumber, int crewType);
     IStates selectCrewMemberColor(int crewNumber, int crewMemberColor);
@@ -45,8 +42,9 @@ public interface IStates extends Serializable {
     
     //General
     IStates swapCrewMember();
-    IStates rollDice(IStates previousState, int quantityOfDice);
-    IStates setDieRoll(IStates previousState, int dieToRoll, int value);
+    IStates rollDice();
+    IStates setDieRoll(int dieToRoll, int value);
+    int getQuantityOfDiceToRoll();
     
     
     IStates saveGame();

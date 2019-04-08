@@ -18,12 +18,7 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public IStates start() {
-        return this;
-    }
-
-    @Override
-    public IStates setPlayerName(String name) {
+    public IStates start(String playerName) {
         return this;
     }
 
@@ -78,13 +73,18 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public IStates rollDice(IStates previousState, int quantityOfDice) {
+    public IStates rollDice() {
         return this;
     }
 
     @Override
-    public IStates setDieRoll(IStates previousState, int dieToRoll, int value) {
+    public IStates setDieRoll(int dieToRoll, int value) {
         return this;
+    }
+    
+    @Override
+    public int getQuantityOfDiceToRoll(){
+        return 0;
     }
 
     @Override

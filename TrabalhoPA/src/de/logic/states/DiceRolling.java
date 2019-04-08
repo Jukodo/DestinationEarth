@@ -13,23 +13,37 @@ import de.logic.data.DataGame;
  */
 public class DiceRolling extends StateAdapter{
     
-    private IStates previousState;
+    private IStates returnState;
+    private int quantityOfDice;
     
-    public DiceRolling(DataGame game, IStates previousState) {
+    public DiceRolling(DataGame game, IStates returnState, int quantityOfDice) {
         super(game);
-        this.previousState = previousState;
+        
+        if(quantityOfDice < 1 || quantityOfDice > MAX_DICES)
+            quantityOfDice = 2;
+        
+        this.returnState = returnState;
+        this.quantityOfDice = quantityOfDice;
+    }
+    
+    
+    @Override
+    public int getQuantityOfDiceToRoll() {
+        return quantityOfDice;
     }
     
     @Override
-    public IStates rollDice(IStates previousState, int quantityOfDice){
+    public IStates rollDice(){
         this.getGame().rollDice(quantityOfDice);
-        return previousState;
+        return returnState;
     }
     
     @Override
-    public IStates setDieRoll(IStates previousState, int dieToRoll, int value){
+    public IStates setDieRoll(int dieToRoll, int value){
         this.getGame().rollDie(dieToRoll, value);
-        return previousState;
+        return returnState;
     }
+
+    
     
 }

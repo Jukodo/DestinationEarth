@@ -14,6 +14,7 @@ public class DataGame implements Constants{
     private int numTrapsParticle;
     private int currentTurn;
     private int dices[];
+    private int quantityOfDiceToRoll;
 
     public DataGame() {
         aliensList = new ArrayList <> ();
@@ -28,6 +29,7 @@ public class DataGame implements Constants{
         for(int i = 0; i < dices.length; i++){
             dices[i] = 0;
         }
+
     }
 
     /**Getters and Setters**/
@@ -139,7 +141,7 @@ public class DataGame implements Constants{
             return;
         }
         
-        for(int i = 0; i < dices.length; i++){
+        for(int i = 0; i < quantityOfDice; i++){
             rollDie(i);
         }
     }
@@ -147,7 +149,7 @@ public class DataGame implements Constants{
     public int getDieValue(int dieId){
         
         if(dieId < 0 || dieId >= MAX_DICES){
-            return dices[0];
+            return -1;
         }
         
         return dices[dieId];
@@ -207,16 +209,23 @@ public class DataGame implements Constants{
         return true;
     }
     
+    public String diceToString(){
+        String s = "";
+        for(int i = 0; i < dices.length; i++){
+           s += "Die "+(i+1)+": [" + getDieValue(i)+ "] ";
+        }
+        
+       return s;
+    }
+    
     @Override
     public String toString()
     {
         String s;
         
-        s = "Destination Earth" + System.lineSeparator();
-        s += "Turn: " + getCurrentTurn() + System.lineSeparator();
-        for(int i = 0; i < dices.length; i++){
-            s += "Die "+(i+1)+": [" + getDieValue(i)+ "] ";
-        }
+        //s = "Destination Earth, playing as " + this.getPlayer().getName() + System.lineSeparator();
+        s = "Turn: " + getCurrentTurn() + System.lineSeparator();
+        s+= diceToString();
         s+= System.lineSeparator();
         //s += "Die 1: [" + getDieValue(0)+ "] Die 2: [" + getDieValue(1) + "] Die 3: [" + getDieValue(2) + "]" + System.lineSeparator(); 
         

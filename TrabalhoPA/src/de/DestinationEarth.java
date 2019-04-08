@@ -45,6 +45,10 @@ public class DestinationEarth {
         return dataGame.getLogs();
     }
     
+    public String diceToString(){
+        return dataGame.diceToString();
+    }
+    
     @Override
     public String toString()
     {   
@@ -54,15 +58,10 @@ public class DestinationEarth {
     /**State machine methods**/
     
     //Beginning
-    public void start(){
-        setState(getState().start());
+    public void start(String playerName){
+        setState(getState().start(playerName));
     }
-    
-    //
-    public void setPlayerName(String name){
-        setState(getState().setPlayerName(name));
-    }
-    
+     
     //CrewSelection
     public void selectCrewMember(int crewNumber, int crewType){
         setState(getState().selectCrewMember(crewNumber, crewType));
@@ -111,12 +110,16 @@ public class DestinationEarth {
         setState(getState().swapCrewMember());
     }
     
-    public void rollDice(IStates currentState, int quantityOfDice){
-        setState(getState().rollDice(currentState, quantityOfDice));
+    public void rollDice(){
+        setState(getState().rollDice());
     }
     
-    public void setRollValue(IStates currentState, int dieToRoll, int value){
-        setState(getState().setDieRoll(currentState, dieToRoll, value));
+    public void setRollValue(int dieToRoll, int value){
+        setState(getState().setDieRoll(dieToRoll, value));
+    }
+    
+    public int getQuantityOfDiceToRoll(){
+        return getState().getQuantityOfDiceToRoll();
     }
     
     public void saveGame(){
