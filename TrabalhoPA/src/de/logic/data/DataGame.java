@@ -229,6 +229,25 @@ public class DataGame implements Constants{
         return true;
     }
    
+    public boolean placeCrewMember(int crewNumber, int roomNumber){
+        crewNumber--; //ARRAY INDEX = -1 of its number
+        
+        if(roomNumber < 1 || roomNumber > 12)
+            return false;
+        
+        CrewMember cm = getPlayer().getCrewMember(crewNumber);
+        Room room = getShip().getRoom(roomNumber);
+        
+        if(cm == null)
+            return false;
+        
+        if(room == null)
+            return false;
+        
+        room.setMemberInside(cm);
+        return true;
+    }
+    
     public boolean crewClassNotRepeated(){
         for(int i=0; i<player.getCrew().length-1; i++){
             if(player.getCrewMember(i).getName().equals(player.getCrewMember(i+1).getName()))
