@@ -10,16 +10,19 @@ public class CrewPlacement extends StateAdapter{
     }
     
     @Override
+    public IStates rollDice(){
+        return new DiceRolling(this.getGame(), this,2);
+    }
+    
+    @Override
     public IStates placeCrewMember(int crewNumber, int roomNumber){
         
-        if(roomNumber < 1 || roomNumber > 12)
-            return this;
-        
-        this.getGame().getShip().getRoom(roomNumber).setMemberInside(this.getGame().getPlayer().getCrewMember(crewNumber));
+        if(!this.getGame().placeCrewMember(crewNumber, roomNumber))
+            return this;//Couldnt place crewMember
         
         if(this.getGame().getPlayer().hasAllMembersOnBoard())
             return new JourneyPhase(this.getGame());
         else
-            return this;
+            return this;//Add Log - Missing crew member(s) location(s)
     }
 }

@@ -143,6 +143,14 @@ public class TextUI {
         
         CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
         
+        //REMOVE LATER
+        if(inDebug){
+            game.getDataGame().selectCrewMember(1, 1);
+            game.getDataGame().selectCrewMemberColor(1, 2);
+            game.getDataGame().selectCrewMember(2, 2);
+            game.getDataGame().selectCrewMemberColor(2, 3);
+        }
+        
         do{
             System.out.println("Crew Selection:");
             
@@ -150,9 +158,9 @@ public class TextUI {
                 System.out.print("\tMember #" + (i+1) + ": ");
                 if(cm[i] != null){
                     if(cm[i].getColor() != 0){
-                        System.out.print(cm[i].getName() + "(" + COLOR[cm[i].getColor()] + ")");
+                        System.out.print(cm[i].getName() + " (" + COLOR[cm[i].getColor()] + ")");
                     }else{
-                        System.out.print(cm[i].getName() + "(Color not selected!)");
+                        System.out.print(cm[i].getName() + " (Color not selected!)");
                     }
                 }else{
                     System.out.print("Class not selected!");
@@ -233,7 +241,7 @@ public class TextUI {
                     
                 }while(crewType < 1 || crewType > 12);
                 
-                game.getState().selectCrewMember(crewNumber, crewType);
+                game.selectCrewMember(crewNumber, crewType);
                 break;
                 
             case 2:
@@ -284,16 +292,92 @@ public class TextUI {
                     
                 }while(crewColor < 1 || crewColor > 12);
                 
-                game.getState().selectCrewMemberColor(crewNumber, crewColor);
+                game.selectCrewMemberColor(crewNumber, crewColor);
                 break;
                 
             case 3:
+                game.initializeCrewMembers();
+                return;
+        }
+    }
+    
+    public void uiCrewPlacement(){
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
+        
+        do{
+            System.out.println("Crew Placement:");
+            
+            for(int i=0; i < NUM_CREW_MEMBERS; i++){
+                System.out.print("\tMember #" + (i+1) + ": ");
+                if(cm[i].isInside()){
+                    System.out.print(cm[i].getName() + ", is at Room #" + cm[i].getRoom().getId() + " - " + cm[i].getRoom().getName());
+                }else{
+                    System.out.print(cm[i].getName() + ", isn't at any Room, please select one!");
+                }
+            }
+            
+            System.out.println();
+            System.out.println("0 - Quit");
+            System.out.println("1 - Select Room");
+            System.out.println("2 - Display Ship Structure");
+            System.out.println("3 - Lock In Placement");
+            
+            System.out.println();
+            System.out.print("~>: ");
+            
+            input = sc.next();
+            
+            if(input.length() >= 1)
+                op = Integer.parseInt(input);
+            else
+                op = -1;
+            
+        }while(op < 0 || op > 3);
+        
+        int crewNumber, roomNumber;
+        switch(op){
+            
+            case 0:
+                quit = true;
+                return;
                 
-                if(game.getDataGame().crewClassNotRepeated() && game.getDataGame().crewColorNotRepeated())
-                    game.getState().initializeCrewMembers();
-                else
-                    System.out.println("Crew Class or Color is repeated!");
+            
+            case 1:
+                do{
+                    System.out.println();
+                    System.out.println("What member would you like to change (#): ");
+                    
+                    System.out.println();
+                    System.out.print("~>: ");
+                    
+                    input = sc.next();
+                    
+                    if(input.length() >= 1)
+                        op = Integer.parseInt(input);
+                    else
+                        op = -1;
+                    
+                }while(op < 1 || op > NUM_CREW_MEMBERS);
                 
+                crewNumber = op;
+                
+                game.rollDice();
+                
+                roomNumber = game.getDataGame().getDieValue(0);
+                roomNumber += game.getDataGame().getDieValue(1);
+                
+                System.out.println("CN = " + crewNumber + " RN = " + roomNumber);
+                
+                game.placeCrewMember(crewNumber, roomNumber);
+                
+                break;
+            case 2:
+                System.out.println(game.getDataGame().getShip().toString());
                 break;
         }
     }
@@ -310,6 +394,9 @@ public class TextUI {
             } 
             else if (state instanceof CrewSelection) {
                 uiCrewSelection();
+            }
+            else if (state instanceof CrewPlacement) {
+                uiCrewPlacement();
             }
             else if (state instanceof DiceRolling){
                 uiDiceRolling();

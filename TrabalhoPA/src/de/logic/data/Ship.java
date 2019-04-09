@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.logic.data;
 
+import de.logic.data.members.CrewMember;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- *
- * @author Tiago
- */
 public class Ship implements Constants{
     private HashMap<Integer, Room> rooms;
     private int hullTracker;
@@ -127,5 +119,29 @@ public class Ship implements Constants{
     }
     
     
-    
+    @Override
+    public String toString(){
+        
+        StringBuilder sb = new StringBuilder("Ship structure:");
+        List<CrewMember> cm;
+        
+        for(int i=1; i<=rooms.size(); i++){
+            sb.append("\nRoom #" + i + " - " + rooms.get(i).getName());
+            cm = rooms.get(i).getMembersInside();
+            if(cm.size() > 0){
+                sb.append(", Crew Member(s) inside: ");
+                for(int j = 0; j < cm.size(); j++){
+                    if(j == 0)
+                        sb.append(cm.get(j).getName());
+                    else
+                        sb.append(", " + cm.get(j).getName());
+                }
+            }
+            sb.append("\n\tClosest Rooms:");
+            for(Room closest:rooms.get(i).getClosestRooms()){
+                sb.append("\n\tRoom #" + closest.getId() + " - " + closest.getName());
+            }
+        }
+        return sb.toString();
+    }
 }

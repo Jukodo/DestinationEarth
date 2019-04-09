@@ -34,10 +34,15 @@ public class CrewSelection extends StateAdapter{
     
     @Override
     public IStates initializeCrewMembers(){
-        if(this.getGame().getPlayer().hasAllMembers())
+        if(!this.getGame().getPlayer().hasAllMembers()){
+            return this;//Add Log - Missing crew elements
+        }else if(!this.getGame().crewClassNotRepeated()){
+            return this;//Add Log - Crew class not unique
+        }else if(!this.getGame().crewColorNotRepeated()){
+            return this;//Add Log - Crew color not unique
+        }else{
             return new CrewPlacement(this.getGame());
-        else
-            return this;//Add Log
+        }
     }
    //1 - Choose 2 crew members
    //2 - Choose color for each crew member
