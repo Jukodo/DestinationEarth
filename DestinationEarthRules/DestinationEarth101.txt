@@ -1,0 +1,85 @@
+Components:
+
+1 Ship (game board)
+1 Player board
+12 Crew Cards
+1 Upgrade Card
+
+2 Six-sided dice
+34 Tokens:
+	 - 1 Inspiration Tracker Token (Yellow)
+	 - 4 Organic DetonatorTrap Tokens (Orange)
+	 - 2 Particle DisperserTrap Tokens (Black)
+	 - 15 Alien Tokens (Green)
+	 - 6 Sealed Room tokens (White)
+	 - 3 Track Tokens (Journey, Health & Hull)
+	 - 3 Identical coloured tokens per Crew Member to show who's who on the Starship game board
+
+
+Setup:
+	
+	1 - Place the Starship Gameboardand the Player Board side-by-side
+	2 - Place the Alien, Organic Detonator, Particle Disperser and Sealed Room tokens onto the PlayerBoard in their relevant areas
+	3 - Choose two Crew Members either by choosing the ones you wish to use, or choosing them randomly and place them in the ‘Crew 	    	    member #1’ and ‘Crew member #2’ slots on the Player board
+	4 - Choose threeidentical tokens to represent a crew member. Two tokens stay on the Crew Card, one on the Movement Track and one 	    on the Attack Track on the relevant highlighted area.Place the other token in any room you wish or roll 2D6 and place itin the
+	5 - Place a token on the ‘0’ on the Inspiration Trackeron the Player Board.
+	6 - Place a token on the '8' on the Hull Trackeron the Starship Gameboard (unless otherwise stated).
+	7 - Place a token on the '8' on the Health Trackeron the Player Board(unless otherwise stated).
+	8 - Place a token on the 'S' on the Journey Tracker on the Starship Gameboard
+
+Gameplay:
+
+13 turns (win condition)
+
+1.JOURNEYPHASE
+	- Move journey tracker token. 1 square = 1 turn
+
+2.SCANNING PHASE
+	- See what the square does. If R go to 3 else go to 4
+
+3.RESTPHASE
+	 - Spend inspiration points. (Squares with R)
+
+4. CREW PHASE:
+	
+	5 points per turn (doesnt stack)
+
+	Move(1AP)- You may move one crew member their allowed movementto anyadjacent room(s) that have an open 			doorway between them
+
+	Attack(1AP)-Roll the Crew Member's attack die number(1D6 / 2D6 / 3D6). Aroll of FIVE(5)or higher (unless 		otherwise stated) will kill one alien per die.The crew member must be in the same room as the alien he / she 	is attacking.For each alien killed you receive 1 Inspiration Point.If an Alien is killed, remove it from 		play and place it back in the Alien pile.
+
+	Heal one Health [Doctor Only] (1AP)-The Doctor may heal Health by 1 for each Action point spent.
+
+	Fix one Hull [Engineer Only] (1AP) -The Engineer may fix one Hull by 1 for each Action Point spent
+
+	Setting Trap(1AP)-A Crew member may set a trap in a room. There are two different types of trap (see Traps)
+
+	Detonate Particle Disperser(1AP)-You may set off 1 Particle Dispersertrap for 1Action Point(see Traps)
+
+	Seal Room (1AP)-You may seal oneroom for 1 Action Point (see Sealing a Room)
+
+5.ALIEN PHASE
+
+	Each alien will move one room towards the closest crew memberthrough any open doorways.Aliens cannot move 	through solid walls.
+
+	If an alien ends its move in a room with anOrganic Detonatorit isimmediatelydestroyed (along with the 	Detonator).Place both back in their relevant piles.
+
+	If an alien(s)is in a room with no crew members then each alien will automatically damage the Hullby 1.  	Remove one from the Hull strength (Hull Tracker).
+
+	If there is analien in the same roomas a crew member, each alien will attack by rolling one die. One a roll 	of FIVE(5)or more the alien hits and one is removed from the crew's health(Health Tracker)
+
+Trackers
+
+HEALTH TRACKER
+
+Health is shared by both crew members. If one takes a hit the other takes the hit too. < 1 = game over
+
+HULL TRACKER
+Takes 1 hit when an alien is in a room without a crew member
+
+JOURNEY TRACKER
+S - Start
+nA - number of aliens that will spawn
+nA* - number of aliens that will spawn, at the end of the turn ALL aliens are removed from board
+R - Rest phase
+E - end
