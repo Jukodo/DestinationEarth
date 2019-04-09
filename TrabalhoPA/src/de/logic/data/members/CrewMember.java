@@ -11,6 +11,7 @@ public abstract class CrewMember {
     boolean inside;
     private DataGame dataGame;
     private Room room;
+    private int movementsBeforeFree;
     
     //Doesn't recieve color
     public CrewMember(DataGame dataGame, int movement, int attack){
@@ -18,6 +19,7 @@ public abstract class CrewMember {
         this.movement = movement;
         this.attack = attack;
         this.inside = false;
+        this.movementsBeforeFree = 0;
     }
     
     //Recieve color
@@ -81,5 +83,15 @@ public abstract class CrewMember {
     public void setRoom(Room room){
         this.room = room;
     }
+
+    public int getMovementsBeforeFree() {
+        return movementsBeforeFree;
+    }
+
+    public void setMovementsBeforeFree(int movementsBeforeFree) {
+        this.movementsBeforeFree = movementsBeforeFree;
+    }
+    
+    
   
 }

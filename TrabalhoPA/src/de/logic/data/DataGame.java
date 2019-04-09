@@ -14,7 +14,7 @@ public class DataGame implements Constants{
     private int numTrapsParticle;
     private int currentTurn;
     private int dices[];
-    private int quantityOfDiceToRoll;
+    private CrewMember activeCrewMember;
 
     public DataGame() {
         aliensList = new ArrayList <> ();
@@ -111,6 +111,7 @@ public class DataGame implements Constants{
         setCurrentTurn(getCurrentTurn() + 1);
     }
     
+    /**Dice methods**/
     public int rollDie(int dieId){
         
         int random = 0;
@@ -154,7 +155,17 @@ public class DataGame implements Constants{
         
         return dices[dieId];
     }
+    
+    public String diceToString(){
+        String s = "";
+        for(int i = 0; i < dices.length; i++){
+           s += "Die "+(i+1)+": [" + getDieValue(i)+ "] ";
+        }
         
+       return s;
+    }
+        
+    /**Crew members methods**/
     public boolean selectCrewMember(int crewNumber, int crewType){
         crewNumber--; //ARRAY INDEX = -1 of its number
         
@@ -217,30 +228,7 @@ public class DataGame implements Constants{
         cm.setColor(crewMemberColor-1);
         return true;
     }
-    
-    public String diceToString(){
-        String s = "";
-        for(int i = 0; i < dices.length; i++){
-           s += "Die "+(i+1)+": [" + getDieValue(i)+ "] ";
-        }
-        
-       return s;
-    }
-    
-    @Override
-    public String toString()
-    {
-        String s;
-        
-        //s = "Destination Earth, playing as " + this.getPlayer().getName() + System.lineSeparator();
-        s = "Turn: " + getCurrentTurn() + System.lineSeparator();
-        s+= diceToString();
-        s+= System.lineSeparator();
-        //s += "Die 1: [" + getDieValue(0)+ "] Die 2: [" + getDieValue(1) + "] Die 3: [" + getDieValue(2) + "]" + System.lineSeparator(); 
-        
-        return s;
-    }
-    
+   
     public boolean crewClassNotRepeated(){
         for(int i=0; i<player.getCrew().length-1; i++){
             if(player.getCrewMember(i).getName().equals(player.getCrewMember(i+1).getName()))
@@ -255,5 +243,178 @@ public class DataGame implements Constants{
                 return false;
         }
         return true;
+    }
+    
+    /**Action points methods**/
+    public int getActionPoints(){
+        return player.getActionPoints();
+    }
+    
+    public boolean addActionPoints(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        player.setActionPoints(getActionPoints() + quantity);
+        return true;
+    }
+    
+    public boolean removeActionPoints(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        int total = getActionPoints() - quantity;
+        
+        if(total < 0)
+            total = 0;
+        
+        player.setActionPoints(total);
+     
+        return true;
+    }
+    
+    /**Health Tracker methods**/
+    public int getHealthTracker(){
+        return player.getHealthTracker();
+    }
+    
+    public boolean addHealthToPlayer(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        player.setHealthTracker(getHealthTracker() + quantity);
+        return true;
+    }
+    
+    public boolean removeHealthFromPlayer(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        int total = getHealthTracker() - quantity;
+        
+        if(total < 0)
+            total = 0;
+        
+        player.setHealthTracker(total);
+     
+        return true;
+    }
+    
+    /**Hull Tracker methods**/
+    public int getHullTracker(){
+        return ship.getHullTracker();
+    }
+    
+    public boolean addHealthToHull(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        ship.setHullTracker(getHullTracker() + quantity);
+        return true;
+    }
+    
+    public boolean removeHealthFromHull(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        int total = getHullTracker() - quantity;
+        
+        if(total < 0)
+            total = 0;
+        
+        ship.setHullTracker(total);
+     
+        return true;
+    }
+    
+    /**Actions methods**/
+    //Usar este metodo no UI para mostrar o custo do movimento
+    public int getMovementCost(){
+       
+        int freeMoves = activeCrewMember.getMovement() - DEF_COST_MOVE;
+        
+        if(freeMoves <= 0){
+            return DEF_COST_MOVE;
+        }else if(activeCrewMember.getMovementsBeforeFree() > 0 && activeCrewMember.getMovementsBeforeFree() <= freeMoves){
+            return 0; //Quando o Navigation Officer move-se 1 vez pode mover-se mais 1 vez de graça.
+        }
+        
+        return DEF_COST_MOVE;
+    }
+    
+    public boolean moveActiveCrewMember(int roomId){
+        
+        if(getActionPoints() < DEF_COST_MOVE || roomId < 1 || roomId > NUM_ROOMS)
+            return false;
+        
+        Room roomToMove = null;
+        
+        if(activeCrewMember instanceof TransporterChief){
+            roomToMove = ship.getRoom(roomId);
+        }else{
+            for(Room room : activeCrewMember.getRoom().getClosestRooms()){
+                if(room.getId() == roomId){
+                    roomToMove = room;
+                }
+            }
+        }
+        
+        if(roomToMove == null || roomToMove.isSealed())
+            return false;
+        
+        int freeMoves = activeCrewMember.getMovement() - DEF_COST_MOVE;
+        
+        removeActionPoints(getMovementCost());
+        
+        activeCrewMember.setMovementsBeforeFree(activeCrewMember.getMovementsBeforeFree() + 1);
+        
+        if(activeCrewMember.getMovementsBeforeFree() > freeMoves){
+            activeCrewMember.setMovementsBeforeFree(0);
+        }
+        
+        roomToMove.setMemberInside(activeCrewMember);
+        
+        return true;
+    }
+    
+    public boolean healPlayer(){
+        
+        if(getActionPoints() < DEF_COST_HEAL)
+            return false;
+        
+        if(activeCrewMember instanceof Doctor){
+           removeActionPoints(DEF_COST_HEAL);
+           addHealthToPlayer(1);
+           return true;
+        }
+        
+        return false;
+    }
+    
+    public boolean fixHullTracker(){
+        
+        if(getActionPoints() < DEF_COST_FIX_HULL)
+            return false;
+        
+        if(activeCrewMember instanceof Engineer){
+           removeActionPoints(DEF_COST_FIX_HULL);
+           addHealthToHull(1);
+           return true;
+        }
+        
+        return false;
+    }
+    
+    /**Object methods**/
+    @Override
+    public String toString()
+    {
+        String s;
+        
+        s = "Destination Earth, playing as " + this.getPlayer().getName() + System.lineSeparator();
+        s = "Turn: " + getCurrentTurn() + System.lineSeparator();
+        s+= diceToString();
+        s+= System.lineSeparator(); 
+        
+        return s;
     }
 }

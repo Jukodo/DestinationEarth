@@ -9,13 +9,13 @@ public class Player {
     private CrewMember[] crew;
     int healthTracker;
     int inspirationPoints;
-    int abilityPoints;
+    int actionPoints;
 
-    public Player(String name, int healthTracker, int inspirationPoints, int abilityPoints) {
+    public Player(String name, int healthTracker, int inspirationPoints, int actionPoints) {
         this.name = name;
         this.healthTracker = healthTracker;
         this.inspirationPoints = inspirationPoints;
-        this.abilityPoints = abilityPoints;
+        this.actionPoints = actionPoints;
         
        crew = new CrewMember[NUM_CREW_MEMBERS];
     }
@@ -77,12 +77,12 @@ public class Player {
         this.inspirationPoints = inspirationPoints;
     }
 
-    public int getAbilityPoints() {
-        return abilityPoints;
+    public int getActionPoints() {
+        return actionPoints;
     }
 
-    public void setAbilityPoints(int abilityPoints) {
-        this.abilityPoints = abilityPoints;
+    public void setActionPoints(int actionPoints) {
+        this.actionPoints = actionPoints;
     }
     
     
