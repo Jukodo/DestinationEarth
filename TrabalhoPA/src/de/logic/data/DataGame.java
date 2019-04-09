@@ -363,7 +363,8 @@ public class DataGame implements Constants{
         
         int freeMoves = activeCrewMember.getMovement() - DEF_COST_MOVE;
         
-        removeActionPoints(getMovementCost());
+        if(getMovementCost() > 0)
+            removeActionPoints(getMovementCost());
         
         activeCrewMember.setMovementsBeforeFree(activeCrewMember.getMovementsBeforeFree() + 1);
         
