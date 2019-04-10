@@ -466,7 +466,7 @@ public class DataGame implements Constants{
         if(room == null)
             return false;
         
-        if(room.getTrapInside() == null)
+        if(room.getTrapInside() != null)
             return false;
         
         if(!activeCrewMember.getRoom().equals(room))
