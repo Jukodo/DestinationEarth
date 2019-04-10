@@ -10,8 +10,6 @@ public class DataGame implements Constants{
     private List <Alien> aliensList;
     private List<String> logs;
     private String [] journeyTracker;
-    private int numTrapsOrganic;
-    private int numTrapsParticle;
     private int currentTurn;
     private int dices[];
     private CrewMember activeCrewMember;
@@ -20,8 +18,7 @@ public class DataGame implements Constants{
         aliensList = new ArrayList <> ();
         logs = new ArrayList <> ();
         journeyTracker = new String[NUM_TURNS];
-        numTrapsOrganic = MAX_TRAPS_ORGANIC;
-        numTrapsParticle = MAX_TRAPS_PARTICLE;
+       
         currentTurn = 0;
         ship = new Ship();
         dices = new int[MAX_DICES];
@@ -72,23 +69,7 @@ public class DataGame implements Constants{
     public void setJourneyTracker(String[] journeyTracker) {
         this.journeyTracker = journeyTracker;
     }
-
-    public int getNumTrapsOrganic() {
-        return numTrapsOrganic;
-    }
-
-    public void setNumTrapsOrganic(int numTrapsOrganic) {
-        this.numTrapsOrganic = numTrapsOrganic;
-    }
-
-    public int getNumTrapsParticle() {
-        return numTrapsParticle;
-    }
-
-    public void setNumTrapsParticle(int numTrapsParticle) {
-        this.numTrapsParticle = numTrapsParticle;
-    }
-
+    
     public int getCurrentTurn() {
         return currentTurn;
     }
@@ -104,7 +85,6 @@ public class DataGame implements Constants{
     public void setDices(int[] dices) {
         this.dices = dices;
     }
-    
   
     /**Methods**/
     public void nextTurn(){
@@ -345,6 +325,59 @@ public class DataGame implements Constants{
         return true;
     }
     
+    /**Tokens methods**/
+    public int getOrganicTrapTokens(){
+        return player.getOrganicTrapTokens();
+    }
+    
+    public int getParticleTrapTokens(){
+        return player.getParticleTrapTokens();
+    }
+    
+    public boolean addOrganicTrapTokens(int quantity){
+       if(quantity < 1)
+           return false;
+
+       player.setOrganicTrapTokens(getOrganicTrapTokens() + quantity);
+       return true;
+   }
+
+   public boolean removeOrganicTrapTokens(int quantity){
+       if(quantity < 1)
+           return false;
+
+       int total = getOrganicTrapTokens() - quantity;
+
+       if(total < 0)
+           total = 0;
+
+       player.setOrganicTrapTokens(total);
+
+       return true;
+   }
+   
+   public boolean addParticleTrapTokens(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        player.setParticleTrapTokens(getParticleTrapTokens() + quantity);
+        return true;
+    }
+    
+    public boolean removeParticleTrapTokens(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        int total = getParticleTrapTokens() - quantity;
+        
+        if(total < 0)
+            total = 0;
+        
+        player.setParticleTrapTokens(total);
+     
+        return true;
+    }
+    
     /**Actions methods**/
     //Usar este metodo no UI para mostrar o custo do movimento
     public int getMovementCost(){
@@ -360,18 +393,18 @@ public class DataGame implements Constants{
         return DEF_COST_MOVE;
     }
     
-    public boolean moveActiveCrewMember(int roomId){
+    public boolean moveActiveCrewMember(int roomNumber){
         
-        if(getActionPoints() < DEF_COST_MOVE || roomId < 1 || roomId > NUM_ROOMS)
+        if(getActionPoints() < DEF_COST_MOVE || roomNumber < 1 || roomNumber > NUM_ROOMS)
             return false;
         
         Room roomToMove = null;
         
         if(activeCrewMember instanceof TransporterChief){
-            roomToMove = ship.getRoom(roomId);
+            roomToMove = ship.getRoom(roomNumber);
         }else{
             for(Room room : activeCrewMember.getRoom().getClosestRooms()){
-                if(room.getId() == roomId){
+                if(room.getId() == roomNumber){
                     roomToMove = room;
                 }
             }
@@ -422,6 +455,51 @@ public class DataGame implements Constants{
         }
         
         return false;
+    }
+    
+    public boolean placeTrap(int roomNumber, Trap trap){
+        
+        if(getActionPoints() < DEF_COST_TRAP_ORGANIC)
+            return false;
+        
+        Room room = ship.getRoom(roomNumber);
+        if(room == null)
+            return false;
+        
+        if(room.getTrapInside() == null)
+            return false;
+        
+        if(!activeCrewMember.getRoom().equals(room))
+            return false;
+        
+        if(trap instanceof OrganicDetonator && getOrganicTrapTokens() > 0){
+            room.setTrapInside(new OrganicDetonator(this));
+            removeOrganicTrapTokens(1);
+        }
+        else if (trap instanceof ParticleDispenser && getParticleTrapTokens() > 0){
+            room.setTrapInside(new ParticleDispenser(this));
+            removeParticleTrapTokens(1);
+        }
+        else
+            return false;
+       
+        removeActionPoints(DEF_COST_TRAP_ORGANIC);
+        
+        return true;
+    }
+    
+    public boolean sealRoom(int roomNumber){
+        
+        if(getActionPoints() < DEF_COST_SEAL_ROOM)
+            return false;
+        
+        Room room = ship.getRoom(roomNumber);
+        if(room == null || !room.canBeSealed() || room.isSealed())
+            return false;
+        
+        room.setSealed(true);
+       
+        return true;
     }
     
     /**Inspiration points methods**/
@@ -477,16 +555,11 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean buildOrganicDetonator(int roomNumber){
+    public boolean buildOrganicDetonator(){
         if(player.getInspirationPoints() < DEF_COST_I_BUILD_TRAP_ORGANIC)
             return false;
         
-        Room room = ship.getRoom(roomNumber);
-        if(room == null)
-            return false;
-        
-        room.setTrapInside(new OrganicDetonator(this));
-        
+        addOrganicTrapTokens(1);
         removeInspirationPoints(DEF_COST_I_BUILD_TRAP_ORGANIC);
         
         return true;
@@ -511,15 +584,11 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean buildParticleDesperser(int roomNumber){
+    public boolean buildParticleDesperser(){
         if(player.getInspirationPoints() < DEF_COST_I_BUILD_TRAP_PARTICLE)
             return false;
         
-        Room room = ship.getRoom(roomNumber);
-        if(room == null)
-            return false;
-        
-        room.setTrapInside(new OrganicDetonator(this));
+        addParticleTrapTokens(1);
         
         removeInspirationPoints(DEF_COST_I_BUILD_TRAP_PARTICLE);
         

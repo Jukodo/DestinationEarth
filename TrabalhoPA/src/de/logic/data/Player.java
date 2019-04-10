@@ -7,10 +7,12 @@ import java.util.List;
 public class Player {
     private String name;
     private CrewMember[] crew;
-    int healthTracker;
-    int inspirationPoints;
-    int actionPoints;
-    int roomSealTokens;
+    private int healthTracker;
+    private int inspirationPoints;
+    private int actionPoints;
+    private int roomSealTokens;
+    private int organicTrapTokens;
+    private int particleTrapTokens;
 
     public Player(String name, int healthTracker, int inspirationPoints, int actionPoints) {
         this.name = name;
@@ -18,6 +20,8 @@ public class Player {
         this.inspirationPoints = inspirationPoints;
         this.actionPoints = actionPoints;
         this.roomSealTokens = 0;
+        this.organicTrapTokens = MAX_TRAPS_ORGANIC;
+        this.particleTrapTokens = MAX_TRAPS_PARTICLE;
         
        crew = new CrewMember[NUM_CREW_MEMBERS];
     }
@@ -46,23 +50,7 @@ public class Player {
     public void setCrewMember(int index, CrewMember crewMember) {
         this.crew[index] = crewMember;
     }
-    
-    public boolean hasAllMembers(){
-        for(int i = 0; i < NUM_CREW_MEMBERS; i++){
-            if(this.crew[i] == null)
-                return false;
-        }
-        return true;
-    }
-    
-    public boolean hasAllMembersOnBoard(){
-        for(int i = 0; i < NUM_CREW_MEMBERS; i++){
-            if(!this.crew[i].isInside())
-                return false;
-        }
-        return true;
-    }
-
+  
     public int getHealthTracker() {
         return healthTracker;
     }
@@ -99,4 +87,38 @@ public class Player {
     public void setRoomSealTokens(int roomSealTokens) {
         this.roomSealTokens = roomSealTokens;
     }
+
+    public int getOrganicTrapTokens() {
+        return organicTrapTokens;
+    }
+
+    public void setOrganicTrapTokens(int organicTrapTokens) {
+        this.organicTrapTokens = organicTrapTokens;
+    }
+
+    public int getParticleTrapTokens() {
+        return particleTrapTokens;
+    }
+
+    public void setParticleTrapTokens(int particleTrapTokens) {
+        this.particleTrapTokens = particleTrapTokens;
+    }
+    
+    /**Methods**/
+    public boolean hasAllMembers(){
+        for(int i = 0; i < NUM_CREW_MEMBERS; i++){
+            if(this.crew[i] == null)
+                return false;
+        }
+        return true;
+    }
+    
+    public boolean hasAllMembersOnBoard(){
+        for(int i = 0; i < NUM_CREW_MEMBERS; i++){
+            if(!this.crew[i].isInside())
+                return false;
+        }
+        return true;
+    }
+    
 }
