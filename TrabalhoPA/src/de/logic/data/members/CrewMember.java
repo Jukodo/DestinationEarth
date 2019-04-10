@@ -1,5 +1,6 @@
 package de.logic.data.members;
 
+import static de.logic.data.Constants.*;
 import de.logic.data.DataGame;
 import de.logic.data.Room;
 
@@ -40,16 +41,22 @@ public abstract class CrewMember {
         return movement;
     }
 
-    public void setMovement(int movement) {
+    public boolean setMovement(int movement) {
+        if(movement > MAX_MOVEMENT)
+            return false;
         this.movement = movement;
+        return true;
     }
 
     public int getAttack() {
         return attack;
     }
 
-    public void setAttack(int attack) {
+    public boolean setAttack(int attack) {
+        if(attack > MAX_ATTACK)
+            return false;
         this.attack = attack;
+        return true;
     }
     
     public int getColor() {

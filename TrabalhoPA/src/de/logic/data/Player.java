@@ -10,12 +10,14 @@ public class Player {
     int healthTracker;
     int inspirationPoints;
     int actionPoints;
+    int roomSealTokens;
 
     public Player(String name, int healthTracker, int inspirationPoints, int actionPoints) {
         this.name = name;
         this.healthTracker = healthTracker;
         this.inspirationPoints = inspirationPoints;
         this.actionPoints = actionPoints;
+        this.roomSealTokens = 0;
         
        crew = new CrewMember[NUM_CREW_MEMBERS];
     }
@@ -65,8 +67,13 @@ public class Player {
         return healthTracker;
     }
 
-    public void setHealthTracker(int healthTracker) {
+    public boolean setHealthTracker(int healthTracker) {
+        if(this.healthTracker == MAX_HEALTH)//Already has maxed out HP
+            return false;
+        if(healthTracker > MAX_HEALTH)
+            healthTracker = MAX_HEALTH;
         this.healthTracker = healthTracker;
+        return true;
     }
 
     public int getInspirationPoints() {
@@ -84,7 +91,12 @@ public class Player {
     public void setActionPoints(int actionPoints) {
         this.actionPoints = actionPoints;
     }
-    
-    
-    
+
+    public int getRoomSealTokens() {
+        return roomSealTokens;
+    }
+
+    public void setRoomSealTokens(int roomSealTokens) {
+        this.roomSealTokens = roomSealTokens;
+    }
 }

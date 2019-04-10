@@ -424,6 +424,155 @@ public class DataGame implements Constants{
         return false;
     }
     
+    /**Inspiration points methods**/
+    public int getInspirationPoints(){
+        return player.getInspirationPoints();
+    }
+    
+    public boolean addInspirationPoints(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        player.setInspirationPoints(getInspirationPoints() + quantity);
+        
+        return true;
+    }
+    
+    public boolean removeInspirationPoints(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        int total = getInspirationPoints() - quantity;
+        
+        if(total < 0)
+            total = 0;
+        
+        player.setInspirationPoints(total);
+     
+        return true;
+    }
+    
+    /**Inspiration methods**/
+    public boolean addHealthPoint(int quantity){
+        if(player.getInspirationPoints() < DEF_COST_I_ADD_HEALTH)
+            return false;
+        
+        if(!addHealthToPlayer(quantity))
+            return false;
+        
+        removeInspirationPoints(DEF_COST_I_ADD_HEALTH);
+        
+        return true;
+    }
+    
+    public boolean repairHull(int quantity){
+        if(player.getInspirationPoints() < DEF_COST_I_REPAIR_HULL)
+            return false;
+        
+        if(!addHealthToHull(quantity))
+            return false;
+        
+        removeInspirationPoints(DEF_COST_I_REPAIR_HULL);
+        
+        return true;
+    }
+    
+    public boolean buildOrganicDetonator(int roomNumber){
+        if(player.getInspirationPoints() < DEF_COST_I_BUILD_TRAP_ORGANIC)
+            return false;
+        
+        Room room = ship.getRoom(roomNumber);
+        if(room == null)
+            return false;
+        
+        room.setTrapInside(new OrganicDetonator(this));
+        
+        removeInspirationPoints(DEF_COST_I_BUILD_TRAP_ORGANIC);
+        
+        return true;
+    }
+    
+    public boolean addMovement(int quantity, int crewNumber){
+        if(quantity < 1)
+            return false;
+        
+        if(player.getInspirationPoints() < DEF_COST_I_ADD_MOVEMENT)
+            return false;
+        
+        CrewMember cm = player.getCrewMember(crewNumber);
+        if(cm == null)
+            return false;
+        
+        if(!cm.setMovement(cm.getMovement() + quantity))
+            return false;
+        
+        removeInspirationPoints(DEF_COST_I_ADD_MOVEMENT);
+        
+        return true;
+    }
+    
+    public boolean buildParticleDesperser(int roomNumber){
+        if(player.getInspirationPoints() < DEF_COST_I_BUILD_TRAP_PARTICLE)
+            return false;
+        
+        Room room = ship.getRoom(roomNumber);
+        if(room == null)
+            return false;
+        
+        room.setTrapInside(new OrganicDetonator(this));
+        
+        removeInspirationPoints(DEF_COST_I_BUILD_TRAP_PARTICLE);
+        
+        return true;
+    }
+    
+    public boolean addSealedRoomToken(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        if(player.getInspirationPoints() < DEF_COST_I_ADD_SEALED_TOKEN)
+            return false;
+        
+        player.setRoomSealTokens(player.getRoomSealTokens() + quantity);
+        
+        removeInspirationPoints(DEF_COST_I_ADD_SEALED_TOKEN);
+        
+        return true;
+    }
+    
+    public boolean addAttackDie(int quantity, int crewNumber){
+        if(quantity < 1)
+            return false;
+        
+        if(player.getInspirationPoints() < DEF_COST_I_ADD_ATTACK_DIE)
+            return false;
+        
+        CrewMember cm = player.getCrewMember(crewNumber);
+        if(cm == null)
+            return false;
+        
+        if(!cm.setAttack(cm.getAttack() + quantity))
+            return false;
+        
+        removeInspirationPoints(DEF_COST_I_ADD_ATTACK_DIE);
+        
+        return true;
+    }
+    
+    public boolean addValueToAttackDie(int quantity){
+        if(quantity < 1)
+            return false;
+        
+        if(player.getInspirationPoints() < DEF_COST_I_ADD_VALUE_ATTACK_DIE)
+            return false;
+        
+        //???//
+        
+        removeInspirationPoints(DEF_COST_I_ADD_VALUE_ATTACK_DIE);
+        
+        return true;
+    }
+    
     /**Object methods**/
     @Override
     public String toString()

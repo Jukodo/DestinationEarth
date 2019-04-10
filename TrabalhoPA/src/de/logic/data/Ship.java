@@ -114,8 +114,13 @@ public class Ship implements Constants{
         return hullTracker;
     }
 
-    public void setHullTracker(int hullTracker) {
+    public boolean setHullTracker(int hullTracker) {
+        if(this.hullTracker == MAX_HULL)
+            return false;
+        if(hullTracker > MAX_HULL)
+            hullTracker = MAX_HULL;
         this.hullTracker = hullTracker;
+        return true;
     }
     
     

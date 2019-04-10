@@ -15,7 +15,10 @@ public interface Constants {
     public static final int MAX_TRAPS_ORGANIC = 4;
     public static final int MAX_TRAPS_PARTICLE = 2;
     
-    
+    public static final int MAX_HEALTH = 12;
+    public static final int MAX_HULL = 12;
+    public static final int MAX_MOVEMENT = 3;
+    public static final int MAX_ATTACK = 3;
     
     public static final int DEF_HULL_TRACKER = 8;
     public static final int DEF_HEALTH_TRACKER = 8;
@@ -30,5 +33,14 @@ public interface Constants {
     public static final int DEF_COST_FIX_HULL = 1;
     public static final int DEF_COST_DETONATE_TRAP_PARTICLE = 1;
     public static final int DEF_COST_SEAL_ROOM = 1;
+    
+    public static final int DEF_COST_I_ADD_HEALTH = 1;
+    public static final int DEF_COST_I_REPAIR_HULL = 1;
+    public static final int DEF_COST_I_BUILD_TRAP_ORGANIC = 2;
+    public static final int DEF_COST_I_BUILD_TRAP_PARTICLE = 5;
+    public static final int DEF_COST_I_ADD_MOVEMENT = 4;
+    public static final int DEF_COST_I_ADD_SEALED_TOKEN = 5;
+    public static final int DEF_COST_I_ADD_ATTACK_DIE = 6;
+    public static final int DEF_COST_I_ADD_VALUE_ATTACK_DIE = 6;
     
 }
