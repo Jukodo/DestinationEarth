@@ -403,7 +403,7 @@ public class DataGame implements Constants{
         if(activeCrewMember instanceof TransporterChief){
             roomToMove = ship.getRoom(roomNumber);
         }else{
-            for(Room room : activeCrewMember.getRoom().getClosestRooms()){
+            for(Room room : ship.getRoom(activeCrewMember.getRoom().getId()).getClosestRooms()){
                 if(room.getId() == roomNumber){
                     roomToMove = room;
                 }
@@ -429,6 +429,44 @@ public class DataGame implements Constants{
         return true;
     }
     
+
+    public int attackAliens(int roomNumber){
+        
+        if(getActionPoints() < DEF_COST_ATTACK || roomNumber > NUM_ROOMS)
+            return 0;
+        
+        Room roomToAttack = null;
+        
+        if(activeCrewMember instanceof ScienceOfficer){
+            for(Room room : ship.getRoom(activeCrewMember.getRoom().getId()).getClosestRooms()){
+                if(room.getId() == roomNumber && !room.isSealed()){
+                    roomToAttack = room;
+                }
+            }
+        }else{
+            roomToAttack = ship.getRoom(activeCrewMember.getRoom().getId());
+        }
+        
+        if(roomToAttack == null)
+            return 0;
+        
+        int totalKills = 0;
+        
+        removeActionPoints(1);
+        
+        for(int i = 0; i < activeCrewMember.getMovement(); i++){
+            //Se o roll for 5+ ou se for capitao e o roll for 3+
+            if((dices[i] >= MIN_ROLL_ATTACK) || ((activeCrewMember instanceof Captain) && (dices[i] >= 3))){
+                if(roomToAttack.removeRandomAlienFromRoom()){
+                    totalKills++;
+                    addInspirationPoints(1);
+                }
+            }
+        }
+        
+        return totalKills;
+    }
+    
     public boolean healPlayer(){
         
         if(getActionPoints() < DEF_COST_HEAL)
@@ -444,14 +482,19 @@ public class DataGame implements Constants{
     }
     
     public boolean fixHullTracker(){
-        
-        if(getActionPoints() < DEF_COST_FIX_HULL)
-            return false;
-        
+
         if(activeCrewMember instanceof Engineer){
-           removeActionPoints(DEF_COST_FIX_HULL);
-           addHealthToHull(1);
-           return true;
+            if(activeCrewMember.getRoom().getName().equalsIgnoreCase("Engineering") && !((Engineer)activeCrewMember).hasFixedForFree()){
+                addHealthToHull(1);
+                ((Engineer)activeCrewMember).setHasFixedForFree(false);
+                return true;
+            }else{
+                if(getActionPoints() < DEF_COST_FIX_HULL)
+                    return false;
+                removeActionPoints(DEF_COST_FIX_HULL);
+                addHealthToHull(1);
+                return true;
+            }
         }
         
         return false;
@@ -486,6 +529,33 @@ public class DataGame implements Constants{
         removeActionPoints(DEF_COST_TRAP_ORGANIC);
         
         return true;
+    }
+    
+    public boolean detonateParticleDispenser(int roomNumber){
+        
+        if(getActionPoints() < DEF_COST_DETONATE_TRAP_PARTICLE || roomNumber < 1 || roomNumber > NUM_ROOMS)
+            return false;
+        
+        Room roomToBoom = null;
+        
+        if(ship.getRoom(roomNumber).getTrapInside() instanceof ParticleDispenser){
+            roomToBoom = ship.getRoom(roomNumber);
+        }
+        
+        if(roomToBoom == null)
+            return false;
+        
+        roomToBoom.removeAllAliens();
+        
+        if(roomToBoom.getMembersInside().size() > 0){
+            
+            removeHealthFromPlayer(player.getHealthTracker());
+        }
+        
+        
+        return true;
+       
+        
     }
     
     public boolean sealRoom(int roomNumber){

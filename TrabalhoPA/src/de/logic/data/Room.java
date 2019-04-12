@@ -102,4 +102,21 @@ public class Room {
     public void setName(String name) {
         this.name = name;
     }
+    
+    /**Methods**/
+    public boolean removeRandomAlienFromRoom(){
+        
+        if(aliensInside.size() > 0){
+            for(Alien alien : aliensInside){
+                aliensInside.remove(alien);
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public void removeAllAliens(){
+        aliensInside.clear();
+    }
 }

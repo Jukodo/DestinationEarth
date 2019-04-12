@@ -20,6 +20,8 @@ public interface Constants {
     public static final int MAX_MOVEMENT = 3;
     public static final int MAX_ATTACK = 3;
     
+    public static final int MIN_ROLL_ATTACK = 5;
+    
     public static final int DEF_HULL_TRACKER = 8;
     public static final int DEF_HEALTH_TRACKER = 8;
     public static final int DEF_INSPIRATION_POINTS = 1;
