@@ -486,7 +486,7 @@ public class DataGame implements Constants{
         if(activeCrewMember instanceof Engineer){
             if(activeCrewMember.getRoom().getName().equalsIgnoreCase("Engineering") && !((Engineer)activeCrewMember).hasFixedForFree()){
                 addHealthToHull(1);
-                ((Engineer)activeCrewMember).setHasFixedForFree(false);
+                ((Engineer)activeCrewMember).setHasFixedForFree(true); //TODO: inicio do turno colocar a false
                 return true;
             }else{
                 if(getActionPoints() < DEF_COST_FIX_HULL)
