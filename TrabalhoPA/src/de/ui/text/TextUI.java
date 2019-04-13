@@ -155,7 +155,12 @@ public class TextUI {
             System.out.println("Crew Selection:");
             
             for(int i=0; i < NUM_CREW_MEMBERS; i++){
-                System.out.print("\tMember #" + (i+1) + ": ");
+                System.out.print("\t");
+                if(i+1 == game.getDataGame().getActiveCrewMember())
+                    System.out.print("[X] ");
+                else
+                    System.out.print("[ ] ");
+                System.out.print("Member #" + (i+1) + ": ");
                 if(cm[i] != null){
                     if(cm[i].getColor() != 0){
                         System.out.print(cm[i].getName() + " (" + COLOR[cm[i].getColor()] + ")");
@@ -169,9 +174,10 @@ public class TextUI {
             
             System.out.println();
             System.out.println("0 - Quit");
-            System.out.println("1 - Select Class");
-            System.out.println("2 - Select Color");
-            System.out.println("3 - Lock In Selection");
+            System.out.println("1 - Swap Selected Member");
+            System.out.println("2 - Select Class");
+            System.out.println("3 - Select Color");
+            System.out.println("4 - Lock In Selection");
             
             System.out.println();
             System.out.print("~>: ");
@@ -183,10 +189,10 @@ public class TextUI {
             else
                 op = -1;
             
-        }while(op < 0 || op > 3);
+        }while(op < 0 || op > 4);
 
 
-        int crewNumber, crewType, crewColor;
+        int crewType, crewColor;
         switch(op){
             
             case 0:
@@ -194,29 +200,14 @@ public class TextUI {
                 return;
                 
             case 1:
+                game.getDataGame().swapActiveCrewMember();
+                break;
                 
-                do{
-                    System.out.println();
-                    System.out.println("What member would you like to change (#): ");
-                    
-                    System.out.println();
-                    System.out.print("~>: ");
-                    
-                    input = sc.next();
-                    
-                    if(input.length() >= 1)
-                        op = Integer.parseInt(input);
-                    else
-                        op = -1;
-                    
-                }while(op < 1 || op > NUM_CREW_MEMBERS);
-                
-                crewNumber = op;
-                
+            case 2:
                 do{
                     crewType = 0;
                     System.out.println();
-                    System.out.println("Pick the class for Member #" + crewNumber + ": ");
+                    System.out.println("Pick the class for Member #" + game.getDataGame().getActiveCrewMember() + ": ");
 
                     System.out.println("1  - Captain");
                     System.out.println("2  - Commander");
@@ -241,33 +232,15 @@ public class TextUI {
                     
                 }while(crewType < 1 || crewType > 12);
                 
-                game.selectCrewMember(crewNumber, crewType);
+                game.selectCrewMember(game.getDataGame().getActiveCrewMember(), crewType);
                 break;
                 
-            case 2:
-                do{
-                    System.out.println();
-                    System.out.println("What member would you like to change (#): ");
-                    
-                    System.out.println();
-                    System.out.print("~>: ");
-                    
-                    input = sc.next();
-                    
-                    if(input.length() >= 1)
-                        op = Integer.parseInt(input);
-                    else
-                        op = -1;
-                    
-                }while(op < 1 || op > NUM_CREW_MEMBERS);
-                
-                crewNumber = op;
-                
+            case 3:
                 do{
                     crewColor = 0;
 
                     System.out.println();
-                    System.out.println("Pick the color for Member #" + crewNumber + ": ");
+                    System.out.println("Pick the color for Member #" + game.getDataGame().getActiveCrewMember() + ": ");
 
                     System.out.println("1  - White (Unselect)");
                     System.out.println("2  - Blue");
@@ -292,16 +265,25 @@ public class TextUI {
                     
                 }while(crewColor < 1 || crewColor > 12);
                 
-                game.selectCrewMemberColor(crewNumber, crewColor);
+                game.selectCrewMemberColor(game.getDataGame().getActiveCrewMember(), crewColor);
                 break;
                 
-            case 3:
-                game.initializeCrewMembers();
-                return;
+            case 4:
+                game.initializeCrewMemberSelection();
         }
     }
     
     public void uiCrewPlacement(){
+        int dicesValue = 0;
+                
+        for(int i=0; i<2; i++)
+            dicesValue += game.getDataGame().getDieValue(i);
+        
+        if(dicesValue > 0 && dicesValue <= NUM_ROOMS){
+            game.placeCrewMember(game.getDataGame().getActiveCrewMember(), dicesValue);
+            game.getDataGame().resetDices();
+        }
+        
         int op;
         String input;
         
@@ -313,7 +295,12 @@ public class TextUI {
             System.out.println("Crew Placement:");
             
             for(int i=0; i < NUM_CREW_MEMBERS; i++){
-                System.out.print("\tMember #" + (i+1) + ": ");
+                System.out.print("\t");
+                if(i+1 == game.getDataGame().getActiveCrewMember())
+                    System.out.print("[X] ");
+                else
+                    System.out.print("[ ] ");
+                System.out.print("Member #" + (i+1) + ": ");
                 if(cm[i].isInside()){
                     System.out.print(cm[i].getName() + ", is at Room #" + cm[i].getRoom().getId() + " - " + cm[i].getRoom().getName());
                 }else{
@@ -323,9 +310,10 @@ public class TextUI {
             
             System.out.println();
             System.out.println("0 - Quit");
-            System.out.println("1 - Select Room");
-            System.out.println("2 - Display Ship Structure");
-            System.out.println("3 - Lock In Placement");
+            System.out.println("1 - Swap Selected Member");
+            System.out.println("2 - Select Room");
+            System.out.println("3 - Display Ship Structure");
+            System.out.println("4 - Lock In Placement");
             
             System.out.println();
             System.out.print("~>: ");
@@ -337,48 +325,26 @@ public class TextUI {
             else
                 op = -1;
             
-        }while(op < 0 || op > 3);
+        }while(op < 0 || op > 4);
         
-        int crewNumber, roomNumber;
         switch(op){
             
             case 0:
                 quit = true;
                 return;
                 
-            
             case 1:
-                do{
-                    System.out.println();
-                    System.out.println("What member would you like to change (#): ");
-                    
-                    System.out.println();
-                    System.out.print("~>: ");
-                    
-                    input = sc.next();
-                    
-                    if(input.length() >= 1)
-                        op = Integer.parseInt(input);
-                    else
-                        op = -1;
-                    
-                }while(op < 1 || op > NUM_CREW_MEMBERS);
-                
-                crewNumber = op;
-                
-                game.rollDice();
-                
-                roomNumber = game.getDataGame().getDieValue(0);
-                roomNumber += game.getDataGame().getDieValue(1);
-                
-                System.out.println("CN = " + crewNumber + " RN = " + roomNumber);
-                
-                game.placeCrewMember(crewNumber, roomNumber);
-                
+                game.getDataGame().swapActiveCrewMember();
                 break;
+            
             case 2:
+                game.rollDice();
+                break;
+            case 3:
                 System.out.println(game.getDataGame().getShip().toString());
                 break;
+            case 4:
+                game.initializeCrewMemberPlacement();
         }
     }
 

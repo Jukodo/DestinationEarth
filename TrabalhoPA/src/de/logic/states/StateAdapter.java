@@ -33,12 +33,17 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public IStates initializeCrewMembers() {
+    public IStates initializeCrewMemberSelection() {
         return this;
     }
     
     @Override
     public IStates placeCrewMember(int crewNumber, int roomNumber){
+        return this;
+    }
+    
+    @Override
+    public IStates initializeCrewMemberPlacement() {
         return this;
     }
 

@@ -12,7 +12,7 @@ public class DataGame implements Constants{
     private String [] journeyTracker;
     private int currentTurn;
     private int dices[];
-    private CrewMember activeCrewMember;
+    private int activeCrewMember;
 
     public DataGame() {
         aliensList = new ArrayList <> ();
@@ -22,6 +22,8 @@ public class DataGame implements Constants{
         currentTurn = 0;
         ship = new Ship();
         dices = new int[MAX_DICES];
+        
+        activeCrewMember = 1;
         
         for(int i = 0; i < dices.length; i++){
             dices[i] = 0;
@@ -85,6 +87,10 @@ public class DataGame implements Constants{
     public void setDices(int[] dices) {
         this.dices = dices;
     }
+    
+    public int getActiveCrewMember(){
+        return activeCrewMember;
+    }
   
     /**Methods**/
     public void nextTurn(){
@@ -143,6 +149,11 @@ public class DataGame implements Constants{
         }
         
        return s;
+    }
+    
+    public void resetDices(){
+        for(int i=0; i < MAX_DICES; i++)
+            dices[i] = 0;
     }
         
     /**Crew members methods**/
@@ -212,7 +223,7 @@ public class DataGame implements Constants{
     public boolean placeCrewMember(int crewNumber, int roomNumber){
         crewNumber--; //ARRAY INDEX = -1 of its number
         
-        if(roomNumber < 1 || roomNumber > 12)
+        if(roomNumber < 1 || roomNumber > NUM_ROOMS)
             return false;
         
         CrewMember cm = getPlayer().getCrewMember(crewNumber);
@@ -242,6 +253,11 @@ public class DataGame implements Constants{
                 return false;
         }
         return true;
+    }
+    
+    public void swapActiveCrewMember(){
+        if(++activeCrewMember > NUM_CREW_MEMBERS)
+            activeCrewMember = 1;
     }
     
     /**Action points methods**/
@@ -381,12 +397,13 @@ public class DataGame implements Constants{
     /**Actions methods**/
     //Usar este metodo no UI para mostrar o custo do movimento
     public int getMovementCost(){
-       
-        int freeMoves = activeCrewMember.getMovement() - DEF_COST_MOVE;
+        CrewMember cm = player.getCrewMember(activeCrewMember);
+        
+        int freeMoves = cm.getMovement() - DEF_COST_MOVE;
         
         if(freeMoves <= 0){
             return DEF_COST_MOVE;
-        }else if(activeCrewMember.getMovementsBeforeFree() > 0 && activeCrewMember.getMovementsBeforeFree() <= freeMoves){
+        }else if(cm.getMovementsBeforeFree() > 0 && cm.getMovementsBeforeFree() <= freeMoves){
             return 0; //Quando o Navigation Officer move-se 1 vez pode mover-se mais 1 vez de graça.
         }
         
@@ -394,16 +411,17 @@ public class DataGame implements Constants{
     }
     
     public boolean moveActiveCrewMember(int roomNumber){
+        CrewMember cm = player.getCrewMember(activeCrewMember);
         
         if(getActionPoints() < DEF_COST_MOVE || roomNumber < 1 || roomNumber > NUM_ROOMS)
             return false;
         
         Room roomToMove = null;
         
-        if(activeCrewMember instanceof TransporterChief){
+        if(cm instanceof TransporterChief){
             roomToMove = ship.getRoom(roomNumber);
         }else{
-            for(Room room : ship.getRoom(activeCrewMember.getRoom().getId()).getClosestRooms()){
+            for(Room room : ship.getRoom(cm.getRoom().getId()).getClosestRooms()){
                 if(room.getId() == roomNumber){
                     roomToMove = room;
                 }
@@ -413,38 +431,39 @@ public class DataGame implements Constants{
         if(roomToMove == null || roomToMove.isSealed())
             return false;
         
-        int freeMoves = activeCrewMember.getMovement() - DEF_COST_MOVE;
+        int freeMoves = cm.getMovement() - DEF_COST_MOVE;
         
         if(getMovementCost() > 0)
             removeActionPoints(getMovementCost());
         
-        activeCrewMember.setMovementsBeforeFree(activeCrewMember.getMovementsBeforeFree() + 1);
+        cm.setMovementsBeforeFree(cm.getMovementsBeforeFree() + 1);
         
-        if(activeCrewMember.getMovementsBeforeFree() > freeMoves){
-            activeCrewMember.setMovementsBeforeFree(0);
+        if(cm.getMovementsBeforeFree() > freeMoves){
+            cm.setMovementsBeforeFree(0);
         }
         
-        roomToMove.setMemberInside(activeCrewMember);
+        roomToMove.setMemberInside(cm);
         
         return true;
     }
     
 
     public int attackAliens(int roomNumber){
+        CrewMember cm = player.getCrewMember(activeCrewMember);
         
         if(getActionPoints() < DEF_COST_ATTACK || roomNumber > NUM_ROOMS)
             return 0;
         
         Room roomToAttack = null;
         
-        if(activeCrewMember instanceof ScienceOfficer){
-            for(Room room : ship.getRoom(activeCrewMember.getRoom().getId()).getClosestRooms()){
+        if(cm instanceof ScienceOfficer){
+            for(Room room : ship.getRoom(cm.getRoom().getId()).getClosestRooms()){
                 if(room.getId() == roomNumber && !room.isSealed()){
                     roomToAttack = room;
                 }
             }
         }else{
-            roomToAttack = ship.getRoom(activeCrewMember.getRoom().getId());
+            roomToAttack = ship.getRoom(cm.getRoom().getId());
         }
         
         if(roomToAttack == null)
@@ -454,9 +473,9 @@ public class DataGame implements Constants{
         
         removeActionPoints(1);
         
-        for(int i = 0; i < activeCrewMember.getMovement(); i++){
+        for(int i = 0; i < cm.getMovement(); i++){
             //Se o roll for 5+ ou se for capitao e o roll for 3+
-            if((dices[i] >= MIN_ROLL_ATTACK) || ((activeCrewMember instanceof Captain) && (dices[i] >= 3))){
+            if((dices[i] >= MIN_ROLL_ATTACK) || ((cm instanceof Captain) && (dices[i] >= 3))){
                 if(roomToAttack.removeRandomAlienFromRoom()){
                     totalKills++;
                     addInspirationPoints(1);
@@ -468,11 +487,12 @@ public class DataGame implements Constants{
     }
     
     public boolean healPlayer(){
+        CrewMember cm = player.getCrewMember(activeCrewMember);
         
         if(getActionPoints() < DEF_COST_HEAL)
             return false;
         
-        if(activeCrewMember instanceof Doctor){
+        if(cm instanceof Doctor){
            removeActionPoints(DEF_COST_HEAL);
            addHealthToPlayer(1);
            return true;
@@ -482,11 +502,12 @@ public class DataGame implements Constants{
     }
     
     public boolean fixHullTracker(){
+        CrewMember cm = player.getCrewMember(activeCrewMember);
 
-        if(activeCrewMember instanceof Engineer){
-            if(activeCrewMember.getRoom().getName().equalsIgnoreCase("Engineering") && !((Engineer)activeCrewMember).hasFixedForFree()){
+        if(cm instanceof Engineer){
+            if(cm.getRoom().getName().equalsIgnoreCase("Engineering") && !((Engineer)cm).hasFixedForFree()){
                 addHealthToHull(1);
-                ((Engineer)activeCrewMember).setHasFixedForFree(true); //TODO: inicio do turno colocar a false
+                ((Engineer)cm).setHasFixedForFree(true); //TODO: inicio do turno colocar a false
                 return true;
             }else{
                 if(getActionPoints() < DEF_COST_FIX_HULL)
@@ -501,6 +522,7 @@ public class DataGame implements Constants{
     }
     
     public boolean placeTrap(int roomNumber, Trap trap){
+        CrewMember cm = player.getCrewMember(activeCrewMember);
         
         if(getActionPoints() < DEF_COST_TRAP_ORGANIC)
             return false;
@@ -512,7 +534,7 @@ public class DataGame implements Constants{
         if(room.getTrapInside() != null)
             return false;
         
-        if(!activeCrewMember.getRoom().equals(room))
+        if(!cm.getRoom().equals(room))
             return false;
         
         if(trap instanceof OrganicDetonator && getOrganicTrapTokens() > 0){

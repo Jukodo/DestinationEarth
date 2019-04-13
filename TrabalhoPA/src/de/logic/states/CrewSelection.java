@@ -1,7 +1,6 @@
 package de.logic.states;
 
 import de.logic.data.DataGame;
-import de.logic.data.members.*;
 
 public class CrewSelection extends StateAdapter{
     
@@ -33,7 +32,7 @@ public class CrewSelection extends StateAdapter{
     }
     
     @Override
-    public IStates initializeCrewMembers(){
+    public IStates initializeCrewMemberSelection(){
         if(!this.getGame().getPlayer().hasAllMembers()){
             return this;//Add Log - Missing crew elements
         }else if(!this.getGame().crewClassNotRepeated()){

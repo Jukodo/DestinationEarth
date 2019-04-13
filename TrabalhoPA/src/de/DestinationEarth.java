@@ -71,13 +71,17 @@ public class DestinationEarth {
         setState(getState().selectCrewMemberColor(crewNumber, crewMemberColor));
     }
     
-    public void initializeCrewMembers(){
-        setState(getState().initializeCrewMembers());
+    public void initializeCrewMemberSelection(){
+        setState(getState().initializeCrewMemberSelection());
     }
     
     //CrewPlacement
     public void placeCrewMember(int crewNumber, int roomNumber){
         setState(getState().placeCrewMember(crewNumber, roomNumber));
+    }
+    
+    public void initializeCrewMemberPlacement(){
+        setState(getState().initializeCrewMemberPlacement());
     }
     
     //JourneyPhase
