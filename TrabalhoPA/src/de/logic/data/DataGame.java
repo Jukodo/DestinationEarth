@@ -155,6 +155,15 @@ public class DataGame implements Constants{
         for(int i=0; i < MAX_DICES; i++)
             dices[i] = 0;
     }
+    
+    public int getDiceValue(){
+        int dicesValue = 0;
+                
+        for(int i=0; i<2; i++)
+            dicesValue += dices[i];
+        
+        return dicesValue;
+    }
         
     /**Crew members methods**/
     public boolean selectCrewMember(int crewNumber, int crewType){

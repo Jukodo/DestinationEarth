@@ -274,15 +274,8 @@ public class TextUI {
     }
     
     public void uiCrewPlacement(){
-        int dicesValue = 0;
-                
-        for(int i=0; i<2; i++)
-            dicesValue += game.getDataGame().getDieValue(i);
-        
-        if(dicesValue > 0 && dicesValue <= NUM_ROOMS){
-            game.placeCrewMember(game.getDataGame().getActiveCrewMember(), dicesValue);
-            game.getDataGame().resetDices();
-        }
+        if(game.getDataGame().getDiceValue() > 0)
+            game.placeCrewMember(game.getDataGame().getActiveCrewMember(), game.getDataGame().getDiceValue());
         
         int op;
         String input;
