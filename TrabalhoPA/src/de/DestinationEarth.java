@@ -71,8 +71,8 @@ public class DestinationEarth {
         setState(getState().selectCrewMemberColor(crewNumber, crewMemberColor));
     }
     
-    public void initializeCrewMemberSelection(){
-        setState(getState().initializeCrewMemberSelection());
+    public void confirmCrewMemberSelection(){
+        setState(getState().confirmCrewMemberSelection());
     }
     
     //CrewPlacement
@@ -80,8 +80,25 @@ public class DestinationEarth {
         setState(getState().placeCrewMember(crewNumber, roomNumber));
     }
     
-    public void initializeCrewMemberPlacement(){
-        setState(getState().initializeCrewMemberPlacement());
+    public void confirmCrewMemberPlacement(){
+        setState(getState().confirmCrewMemberPlacement());
+    }
+    
+    //JourneySelection
+    public void generateJourney_ByChoice(int turn, String choice){
+        setState(getState().generateJourney_ByChoice(turn, choice));
+    }
+    
+    public void generateJourney_ByRandom(){
+        setState(getState().generateJourney_ByRandom());
+    }
+    
+    public void generateJourney_ByDefault(){
+        setState(getState().generateJourney_ByDefault());
+    }
+    
+    public void confirmJourneySelection(){
+        setState(getState().confirmJourneySelection());
     }
     
     //JourneyPhase

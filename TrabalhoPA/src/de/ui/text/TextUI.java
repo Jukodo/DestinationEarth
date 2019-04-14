@@ -149,6 +149,8 @@ public class TextUI {
             game.getDataGame().selectCrewMemberColor(1, 2);
             game.getDataGame().selectCrewMember(2, 2);
             game.getDataGame().selectCrewMemberColor(2, 3);
+            game.getDataGame().placeCrewMember(1, 1);
+            game.getDataGame().placeCrewMember(2, 2);
         }
         
         do{
@@ -242,7 +244,7 @@ public class TextUI {
                     System.out.println();
                     System.out.println("Pick the color for Member #" + game.getDataGame().getActiveCrewMember() + ": ");
 
-                    System.out.println("1  - White (Unselect)");
+                    System.out.println("1  - White");
                     System.out.println("2  - Blue");
                     System.out.println("3  - Cyan");
                     System.out.println("4  - Dark Gray");
@@ -269,7 +271,7 @@ public class TextUI {
                 break;
                 
             case 4:
-                game.initializeCrewMemberSelection();
+                game.confirmCrewMemberSelection();
         }
     }
     
@@ -337,15 +339,123 @@ public class TextUI {
                 System.out.println(game.getDataGame().getShip().toString());
                 break;
             case 4:
-                game.initializeCrewMemberPlacement();
+                game.confirmCrewMemberPlacement();
+        }
+    }
+    
+    public void uiJourneySelection(){
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        do{
+            System.out.println("Journey Selection:");
+            
+            System.out.print("\tCurrent Journey: ");
+            for(int i = 1; i <= NUM_TURNS; i++){
+                System.out.print(game.getDataGame().getJourneyTrackerTurn(i));
+                if(i != NUM_TURNS)
+                    System.out.print(" -> ");
+            }
+            
+            System.out.println();
+            System.out.println("0 - Quit");
+            System.out.println("1 - Load Default Journey");
+            System.out.println("2 - Randomize Journey");
+            System.out.println("3 - Edit Journey");
+            System.out.println("4 - Lock In Journey");
+            
+            System.out.println();
+            System.out.print("~>: ");
+            
+            input = sc.next();
+            
+            if(input.length() >= 1)
+                op = Integer.parseInt(input);
+            else
+                op = -1;
+            
+        }while(op < 0 || op > 4);
+        
+        switch(op){
+            
+            case 0:
+                quit = true;
+                return;
+                
+            case 1:
+                System.out.println("You will lose your current Journey. Continue? (Y/N): ");
+                
+                System.out.println();
+                System.out.print("~>: ");
+                
+                input = sc.next();
+                
+                if(input.trim().compareToIgnoreCase("Y") == 0){
+                    System.out.println("Changing to default");//REMOVE LATER
+                    game.generateJourney_ByDefault();
+                }
+                
+                break;
+                
+            case 2:
+                System.out.println("You will lose your current Journey. Continue? (Y/N): ");
+                
+                System.out.println();
+                System.out.print("~>: ");
+                
+                input = sc.next();
+                
+                if(input.trim().compareToIgnoreCase("Y") == 0){
+                    System.out.println("Changing to random");//REMOVE LATER
+                    game.generateJourney_ByRandom();
+                }
+                
+                break;
+                
+            case 3:
+                //Get turn to change
+                System.out.println();
+                System.out.println("Turn being changed: ");
+
+                System.out.println();
+                System.out.print("~>: ");
+
+                input = sc.next();
+
+                if(input.length() >= 1)
+                    op = Integer.parseInt(input);
+                else
+                    op = -1;
+                
+                if(op < 1 || op > NUM_TURNS)
+                    break;
+                
+                //Get new event
+                System.out.println();
+                System.out.println("Current event: " + game.getDataGame().getJourneyTrackerTurn(op));
+                System.out.println("Accepted events: R, [NUM]A, [NUM]A*");
+                System.out.println("Min: " + MIN_SPAWN_ALIENS_TURN[op-1] + " Max: " + MAX_SPAWN_ALIENS_TURN[op-1]);
+
+                System.out.println();
+                System.out.print("~>: ");
+
+                input = sc.next();
+                
+                if(game.getDataGame().isValid_JourneyTurn(op-1, input))
+                    game.generateJourney_ByChoice(op, input.toUpperCase());
+                break;
+                
+            case 4:
+                game.confirmJourneySelection();
+                break;
         }
     }
 
-    public void run() throws IOException, ClassNotFoundException 
-    {
-
+    public void run() throws IOException, ClassNotFoundException{
+        
         while (!quit) {
-            
             IStates state = game.getState();
            
             if (state instanceof Beginning) {
@@ -357,11 +467,12 @@ public class TextUI {
             else if (state instanceof CrewPlacement) {
                 uiCrewPlacement();
             }
+            else if (state instanceof JourneySelection) {
+                uiJourneySelection();
+            }
             else if (state instanceof DiceRolling){
                 uiDiceRolling();
             }
-            
         }
-
     }
 }

@@ -32,7 +32,7 @@ public class CrewSelection extends StateAdapter{
     }
     
     @Override
-    public IStates initializeCrewMemberSelection(){
+    public IStates confirmCrewMemberSelection(){
         if(!this.getGame().getPlayer().hasAllMembers()){
             return this;//Add Log - Missing crew elements
         }else if(!this.getGame().crewClassNotRepeated()){

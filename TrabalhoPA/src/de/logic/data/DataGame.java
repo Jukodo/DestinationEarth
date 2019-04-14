@@ -3,6 +3,8 @@ package de.logic.data;
 import de.logic.data.members.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DataGame implements Constants{
     private Player player;
@@ -24,6 +26,8 @@ public class DataGame implements Constants{
         dices = new int[MAX_DICES];
         
         activeCrewMember = 1;
+        
+        journeyTracker = DEF_JOURNEY;
         
         for(int i = 0; i < dices.length; i++){
             dices[i] = 0;
@@ -70,6 +74,16 @@ public class DataGame implements Constants{
 
     public void setJourneyTracker(String[] journeyTracker) {
         this.journeyTracker = journeyTracker;
+    }
+    
+    public String getJourneyTrackerTurn(int turn) {
+        turn--; //ARRAY INDEX = -1 of its number
+        return journeyTracker[turn];
+    }
+    
+    public void setJourneyTrackerTurn(int turn, String choice) {
+        turn--; //ARRAY INDEX = -1 of its number
+        this.journeyTracker[turn] = choice;
     }
     
     public int getCurrentTurn() {
@@ -267,6 +281,49 @@ public class DataGame implements Constants{
     public void swapActiveCrewMember(){
         if(++activeCrewMember > NUM_CREW_MEMBERS)
             activeCrewMember = 1;
+    }
+    
+    /**Journey Generation methods**/
+    public boolean isValid_JourneyTurn(int turn, String event){
+        if(event.trim().compareToIgnoreCase("R") == 0)//Event is 'R'
+            return true;
+        if(event.trim().matches("[1-9]+A[*]?")){//Event is an Alien Spawn - Has valid format
+            Pattern p = Pattern.compile("[1-9]+");
+            Matcher m = p.matcher(event.trim());
+            if(m.find()){
+                int numAliens = Integer.parseInt(m.group(0));
+                if(numAliens >= MIN_SPAWN_ALIENS_TURN[turn] && numAliens <= MAX_SPAWN_ALIENS_TURN[turn])//Number of aliens to spawn is accepted
+                    return true;
+            }
+        }
+        return false;
+    }
+    public boolean isValid_JourneyTracker(){
+        for(int i = 0; i < NUM_TURNS; i++){
+            if(!isValid_JourneyTurn(i, journeyTracker[i]))
+                return false;
+        }
+        return true;
+    }
+    
+    public boolean editJourney_Choice(int turn, String choice){
+        
+        setJourneyTrackerTurn(turn, choice);
+        
+        return true;
+    }
+    
+    public void editJourney_Random(){
+        
+        for(int i = 0; i < NUM_TURNS; i++){
+            //ToDo
+        }
+        
+    }
+    
+    public void resetJourneyToDefault(){
+        journeyTracker = new String[NUM_TURNS];
+        journeyTracker = DEF_JOURNEY;
     }
     
     /**Action points methods**/

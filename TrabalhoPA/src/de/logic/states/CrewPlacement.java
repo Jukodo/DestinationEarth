@@ -21,9 +21,9 @@ public class CrewPlacement extends StateAdapter{
     }
     
     @Override
-    public IStates initializeCrewMemberPlacement(){
+    public IStates confirmCrewMemberPlacement(){
         if(this.getGame().getPlayer().hasAllMembersOnBoard())
-            return new JourneyPhase(this.getGame());
+            return new JourneySelection(this.getGame());
         else
             return this;//Add Log - Missing crew member(s) location(s)
     }

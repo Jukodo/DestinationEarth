@@ -33,7 +33,7 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public IStates initializeCrewMemberSelection() {
+    public IStates confirmCrewMemberSelection() {
         return this;
     }
     
@@ -43,10 +43,31 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
     
     @Override
-    public IStates initializeCrewMemberPlacement() {
+    public IStates confirmCrewMemberPlacement() {
         return this;
     }
-
+    
+    @Override
+    public IStates generateJourney_ByChoice(int turn, String choice){
+        return this;
+    }
+    
+    @Override
+    public IStates generateJourney_ByRandom(){
+        return this;
+    }
+    
+    @Override
+    public IStates generateJourney_ByDefault(){
+        return this;
+    }
+    
+    @Override
+    public IStates confirmJourneySelection() {
+        return this;
+    }
+    
+    
     @Override
     public IStates nextTurn() {
         return this;
