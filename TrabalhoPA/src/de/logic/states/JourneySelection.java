@@ -29,7 +29,7 @@ public class JourneySelection extends StateAdapter{
     @Override
     public IStates generateJourney_ByDefault(){
         
-        this.getGame().setJourneyTracker(DEF_JOURNEY);
+        this.getGame().resetJourneyTracker();
         
         return this;
     }

@@ -27,8 +27,6 @@ public class DataGame implements Constants{
         
         activeCrewMember = 1;
         
-        journeyTracker = DEF_JOURNEY;
-        
         for(int i = 0; i < dices.length; i++){
             dices[i] = 0;
         }
@@ -321,9 +319,10 @@ public class DataGame implements Constants{
         
     }
     
-    public void resetJourneyToDefault(){
-        journeyTracker = new String[NUM_TURNS];
-        journeyTracker = DEF_JOURNEY;
+    public void resetJourneyTracker(){
+        for(int i=0; i<NUM_TURNS; i++){
+            journeyTracker[i] = DEF_JOURNEY[i];
+        }
     }
     
     /**Action points methods**/
