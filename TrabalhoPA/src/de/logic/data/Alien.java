@@ -1,14 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.logic.data;
 
-/**
- *
- * @author Tiago
- */
-public class Alien {
+public class Alien{
+    
     private Room room;
+
+    public Alien() {
+        
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+    
+    public void leaveRoom(){
+        this.room.removeAlienFromRoom(this);
+        this.room = null;
+    }
+    
+    public void enterRoom(Room room){
+        
+        if(isInside())
+            leaveRoom();
+        
+        this.room = room;
+        room.setAlienInside(this);
+    }
+    
+    public boolean isInside(){
+        return this.room != null;
+    }
 }

@@ -68,6 +68,10 @@ public class Room {
     public void setAliensInside(List<Alien> aliensInside) {
         this.aliensInside = aliensInside;
     }
+    
+    public void setAlienInside(Alien alienInside){
+        this.aliensInside.add(alienInside);
+    }
 
     public List<CrewMember> getMembersInside() {
         return membersInside;
@@ -114,6 +118,10 @@ public class Room {
         }
         
         return false;
+    }
+    
+    public boolean removeAlienFromRoom(Alien alien){
+        return aliensInside.remove(alien);
     }
     
     public void removeAllAliens(){

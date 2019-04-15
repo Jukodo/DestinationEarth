@@ -1,10 +1,13 @@
 package de.ui.text;
 
 import de.DestinationEarth;
+import de.logic.data.Alien;
 import static de.logic.data.Constants.*;
 import de.logic.data.members.CrewMember;
 import de.logic.states.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TextUI {
@@ -276,8 +279,8 @@ public class TextUI {
     }
     
     public void uiCrewPlacement(){
-        if(game.getDataGame().getDiceValue() > 0)
-            game.placeCrewMember(game.getDataGame().getActiveCrewMember(), game.getDataGame().getDiceValue());
+        if(game.getDataGame().getDiceValue(2) > 0)
+            game.placeCrewMember(game.getDataGame().getActiveCrewMember(), game.getDataGame().getDiceValue(2));
         
         int op;
         String input;
@@ -452,6 +455,125 @@ public class TextUI {
                 break;
         }
     }
+    
+    public void uiJourneyPhase(){
+        game.nextTurn();
+    }
+    
+    public void uiScanningPhase(){
+        if(game.getDataGame().getNewAliens().isEmpty()){
+            game.scanTurn();
+            return;
+        }
+        
+        if(game.getDataGame().getDiceValue(2) > 0)
+            game.placeNewAlien(game.getDataGame().getActiveNewAlien(), game.getDataGame().getDiceValue(2));
+        
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        do{
+            System.out.println("Scanning Phase:");
+            
+            System.out.print("\t");
+            
+            int i = 0;
+            
+            for(Alien alien:game.getDataGame().getNewAliens()){
+                System.out.print("\t");
+                if(i+1 == game.getDataGame().getActiveNewAlien())
+                    System.out.print("[X] ");
+                else
+                    System.out.print("[ ] ");
+                System.out.print("Alien #" + (i+1) + " ");
+                if(alien.isInside()){
+                    System.out.print(", is at Room #" + alien.getRoom().getId() + " - " + alien.getRoom().getName());
+                }else{
+                    System.out.print(", isn't at any Room, please select one!");
+                }
+                
+                i++;
+            }
+            
+            System.out.println();
+            System.out.println("0 - Quit");
+            System.out.println("1 - Swap Active New Alien");
+            System.out.println("2 - Select Room");
+            System.out.println("3 - Display Ship Structure");
+            System.out.println("4 - Lock In New Aliens Placement");
+            
+            System.out.println();
+            System.out.print("~>: ");
+            
+            input = sc.next();
+            
+            if(input.length() >= 1)
+                op = Integer.parseInt(input);
+            else
+                op = -1;
+            
+        }while(op < 0 || op > 4);
+        
+        switch(op){
+            
+            case 0:
+                quit = true;
+                return;
+            
+            case 1:
+                game.getDataGame().swapActiveNewAlien();
+                break;
+            
+            case 2:
+                game.rollDice();
+                break;
+                
+            case 3:
+                System.out.println(game.getDataGame().getShip().toString());
+                break;
+                
+            case 4:
+                game.confirmNewAliensPlacement();
+        }
+    }
+    
+    public void uiRestPhase(){
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        do{
+            System.out.println("Rest Phase:");
+            
+            System.out.print("\t");
+            
+            int i = 0;
+            
+            
+            System.out.println();
+            System.out.println("0 - Quit");
+            
+            System.out.println();
+            System.out.print("~>: ");
+            
+            input = sc.next();
+            
+            if(input.length() >= 1)
+                op = Integer.parseInt(input);
+            else
+                op = -1;
+            
+        }while(op < 0 || op > 0);
+        
+        switch(op){
+            case 0:
+                quit = true;
+                return;
+        }
+    }
 
     public void run() throws IOException, ClassNotFoundException{
         
@@ -469,6 +591,15 @@ public class TextUI {
             }
             else if (state instanceof JourneySelection) {
                 uiJourneySelection();
+            }
+            else if (state instanceof JourneyPhase) {
+                uiJourneyPhase();
+            }
+            else if (state instanceof ScanningPhase) {
+                uiScanningPhase();
+            }
+            else if (state instanceof RestPhase) {
+                uiRestPhase();
             }
             else if (state instanceof DiceRolling){
                 uiDiceRolling();

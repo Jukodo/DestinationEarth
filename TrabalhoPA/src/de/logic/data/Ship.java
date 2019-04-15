@@ -129,9 +129,12 @@ public class Ship implements Constants{
         
         StringBuilder sb = new StringBuilder("Ship structure:");
         List<CrewMember> cm;
+        List<Alien> aliens;
         
         for(int i=1; i<=rooms.size(); i++){
             sb.append("\nRoom #" + i + " - " + rooms.get(i).getName());
+            
+            //CrewMembers Inside
             cm = rooms.get(i).getMembersInside();
             if(cm.size() > 0){
                 sb.append(", Crew Member(s) inside: ");
@@ -142,6 +145,13 @@ public class Ship implements Constants{
                         sb.append(", " + cm.get(j).getName());
                 }
             }
+            
+            //AliensInside
+            aliens = rooms.get(i).getAliensInside();
+            if(aliens.size() > 0){
+                sb.append(", Alien(s) inside: " + aliens.size());
+            }
+            
             sb.append("\n\tClosest Rooms:");
             for(Room closest:rooms.get(i).getClosestRooms()){
                 sb.append("\n\tRoom #" + closest.getId() + " - " + closest.getName());

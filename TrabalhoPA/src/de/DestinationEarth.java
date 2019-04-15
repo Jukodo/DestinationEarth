@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de;
 
 import de.logic.data.DataGame;
 import de.logic.states.*;
 import java.util.List;
 
-/**
- *
- * @author Tiago
- */
 public class DestinationEarth {
     private DataGame dataGame;
     private IStates state;
@@ -109,6 +100,14 @@ public class DestinationEarth {
     //ScanningPhase
     public void scanTurn(){
         setState(getState().scanTurn());
+    }
+    
+    public void placeNewAlien(int alienNumber, int roomNumber){
+        setState(getState().placeNewAlien(alienNumber, roomNumber));
+    }
+    
+    public void confirmNewAliensPlacement(){
+        setState(getState().confirmNewAliensPlacement());
     }
     
     //RestPhase

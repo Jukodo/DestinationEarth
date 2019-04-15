@@ -37,6 +37,8 @@ public interface IStates extends Serializable {
     
     //ScanningPhase
     IStates scanTurn();
+    IStates placeNewAlien(int alienNumber, int roomNumber);
+    IStates confirmNewAliensPlacement();
     
     //RestPhase
     IStates spendInspirationPoints();
