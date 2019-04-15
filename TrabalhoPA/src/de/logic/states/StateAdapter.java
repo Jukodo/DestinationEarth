@@ -77,6 +77,16 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     public IStates scanTurn() {
         return this;
     }
+    
+    @Override
+    public IStates placeNewAlien(int alienNumber, int roomNumber){
+        return this;
+    }
+    
+    @Override
+    public IStates confirmNewAliensPlacement(){
+        return this;
+    }
 
     @Override
     public IStates spendInspirationPoints() {

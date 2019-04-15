@@ -9,15 +9,17 @@ import java.util.regex.Pattern;
 public class DataGame implements Constants{
     private Player player;
     private Ship ship;
-    private List <Alien> aliensList;
+    private int aliensCount;
     private List<String> logs;
     private String [] journeyTracker;
     private int currentTurn;
     private int dices[];
     private int activeCrewMember;
+    
+    private List<Alien> newAliens;
+    private int activeNewAlien;
 
     public DataGame() {
-        aliensList = new ArrayList <> ();
         logs = new ArrayList <> ();
         journeyTracker = new String[NUM_TURNS];
        
@@ -26,6 +28,9 @@ public class DataGame implements Constants{
         dices = new int[MAX_DICES];
         
         activeCrewMember = 1;
+        activeNewAlien = 1;
+        
+        newAliens = new ArrayList<>();
         
         for(int i = 0; i < dices.length; i++){
             dices[i] = 0;
@@ -50,12 +55,12 @@ public class DataGame implements Constants{
         this.ship = ship;
     }
 
-    public List<Alien> getAliensList() {
-        return aliensList;
+    public int getAliensCount() {
+        return aliensCount;
     }
 
-    public void setAliensList(List<Alien> aliensList) {
-        this.aliensList = aliensList;
+    public void setAliensCount(int aliensCount) {
+        this.aliensCount = aliensCount;
     }
 
     public List<String> getLogs() {
@@ -102,6 +107,14 @@ public class DataGame implements Constants{
     
     public int getActiveCrewMember(){
         return activeCrewMember;
+    }
+    
+    public int getActiveNewAlien() {
+        return activeNewAlien;
+    }
+
+    public List<Alien> getNewAliens() {
+        return newAliens;
     }
   
     /**Methods**/
@@ -168,10 +181,14 @@ public class DataGame implements Constants{
             dices[i] = 0;
     }
     
-    public int getDiceValue(){
+    public int getDiceValue(int numDices){
+        
+        if(numDices > MAX_DICES)
+            return 0;
+        
         int dicesValue = 0;
                 
-        for(int i=0; i<2; i++)
+        for(int i=0; i<numDices; i++)
             dicesValue += dices[i];
         
         return dicesValue;
@@ -281,19 +298,47 @@ public class DataGame implements Constants{
             activeCrewMember = 1;
     }
     
+    public void swapActiveNewAlien(){
+        if(++activeNewAlien > newAliens.size())
+            activeNewAlien = 1;
+    }
+    
     /**Journey Generation methods**/
-    public boolean isValid_JourneyTurn(int turn, String event){
+    public int getAlienSpawnNumber(String event){
+        Pattern p = Pattern.compile("[1-9]+");
+        Matcher m = p.matcher(event.trim());
+        if(m.find())
+            return Integer.parseInt(m.group(0));
+        return 0;
+    }
+    
+    public boolean eventIsAlienSpawnSpecial(String event){
+        return event.contains("*");
+    }
+    
+    public boolean eventIsRest(String event){
         if(event.trim().compareToIgnoreCase("R") == 0)//Event is 'R'
             return true;
+        return false;
+    }
+    
+    public boolean eventIsAlienSpawn(int turn, String event){
         if(event.trim().matches("[1-9]+A[*]?")){//Event is an Alien Spawn - Has valid format
-            Pattern p = Pattern.compile("[1-9]+");
-            Matcher m = p.matcher(event.trim());
-            if(m.find()){
-                int numAliens = Integer.parseInt(m.group(0));
-                if(numAliens >= MIN_SPAWN_ALIENS_TURN[turn] && numAliens <= MAX_SPAWN_ALIENS_TURN[turn])//Number of aliens to spawn is accepted
-                    return true;
-            }
+            int numAliens = getAlienSpawnNumber(event);
+            if(numAliens >= MIN_SPAWN_ALIENS_TURN[turn] && numAliens <= MAX_SPAWN_ALIENS_TURN[turn])//Number of aliens to spawn is accepted
+                return true;
         }
+        return false;
+    }
+    
+    public boolean isValid_JourneyTurn(int turn, String event){
+        
+        if(eventIsRest(event))
+            return true;
+        
+        if(eventIsAlienSpawn(turn, event))
+            return true;
+        
         return false;
     }
     public boolean isValid_JourneyTracker(){
@@ -323,6 +368,52 @@ public class DataGame implements Constants{
         for(int i=0; i<NUM_TURNS; i++){
             journeyTracker[i] = DEF_JOURNEY[i];
         }
+    }
+    
+    /**Scanning phase methods**/
+    public boolean spawnAlien(Room room){
+        
+        if(room == null)
+            return false;
+        
+        Alien alien = new Alien();
+        alien.enterRoom(room);
+        
+        newAliens.add(alien);
+        
+        return true;
+    }
+    
+    public boolean spawnAliens(int numAliens){
+        
+        for(int i = 0; i < numAliens; i++){
+            rollDice(2);
+            if(!spawnAlien(ship.getRoom(getDiceValue(2))))
+                return false;
+            resetDices();
+        }
+        
+        return true;
+    }
+    
+    public boolean placeNewAlien(int alienNumber, int roomNumber){
+        alienNumber--; //ARRAY INDEX = -1 of its number
+        
+        if(roomNumber < 1 || roomNumber > NUM_ROOMS)
+            return false;
+        
+        Alien alien = newAliens.get(alienNumber);
+        Room room = getShip().getRoom(roomNumber);
+        
+        if(alien == null)
+            return false;
+        
+        if(room == null)
+            return false;
+        
+        alien.enterRoom(room);
+        
+        return true;
     }
     
     /**Action points methods**/
