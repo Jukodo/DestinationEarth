@@ -25,7 +25,6 @@ public class ScanningPhase extends StateAdapter{
             //Add Log - Event is invalid
         }
         
-        System.out.println("AlienSpawn");
         this.getGame().spawnAliens(this.getGame().getAlienSpawnNumber(this.getGame().getJourneyTrackerTurn(this.getGame().getCurrentTurn())));
         
         return this;

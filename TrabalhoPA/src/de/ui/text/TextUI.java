@@ -160,6 +160,8 @@ public class TextUI {
             System.out.println("Crew Selection:");
             
             for(int i=0; i < NUM_CREW_MEMBERS; i++){
+                if(i>0)
+                    System.out.println();
                 System.out.print("\t");
                 if(i+1 == game.getDataGame().getActiveCrewMember())
                     System.out.print("[X] ");
@@ -293,6 +295,8 @@ public class TextUI {
             System.out.println("Crew Placement:");
             
             for(int i=0; i < NUM_CREW_MEMBERS; i++){
+                if(i>0)
+                    System.out.println();
                 System.out.print("\t");
                 if(i+1 == game.getDataGame().getActiveCrewMember())
                     System.out.print("[X] ");
@@ -477,11 +481,11 @@ public class TextUI {
         do{
             System.out.println("Scanning Phase:");
             
-            System.out.print("\t");
-            
             int i = 0;
             
             for(Alien alien:game.getDataGame().getNewAliens()){
+                if(i>0)
+                    System.out.println();
                 System.out.print("\t");
                 if(i+1 == game.getDataGame().getActiveNewAlien())
                     System.out.print("[X] ");
