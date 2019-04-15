@@ -78,16 +78,10 @@ public class Room {
     }
 
     public void setMembersInside(List<CrewMember> membersInside) {
-        for(CrewMember cm:membersInside){
-            cm.setRoom(this);
-            cm.setInside(true);
-        }
         this.membersInside = membersInside;
     }
     
     public void setMemberInside(CrewMember memberInside){
-        memberInside.setRoom(this);
-        memberInside.setInside(true);
         this.membersInside.add(memberInside);
     }
 
@@ -122,6 +116,10 @@ public class Room {
     
     public boolean removeAlienFromRoom(Alien alien){
         return aliensInside.remove(alien);
+    }
+    
+    public boolean removeMemberFromRoom(CrewMember member){
+        return membersInside.remove(member);
     }
     
     public void removeAllAliens(){
