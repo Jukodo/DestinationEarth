@@ -11,20 +11,16 @@ import de.logic.data.DataGame;
  *
  * @author Tiago
  */
-public class CrewPhase extends StateAdapter{
- 
-    public CrewPhase(DataGame game) {
+public class MoveCrewMember extends StateAdapter{
+        
+    public MoveCrewMember(DataGame game) {
         super(game);
     }
-    
+ 
     @Override
-    public IStates executeAction(int action){
-    
-        if(action == 2){
-            return new MoveCrewMember(this.getGame());
-        }
-        
-        return this;
+    public IStates spendAbilityPoints(int roomToMove){
+        this.getGame().moveActiveCrewMember(roomToMove);
+        return new CrewPhase(this.getGame());
     }
-  
+    
 }

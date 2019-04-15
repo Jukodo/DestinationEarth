@@ -87,6 +87,11 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     public IStates confirmNewAliensPlacement(){
         return this;
     }
+    
+    @Override
+    public IStates executeAction(int action){
+        return this;
+    }
 
     @Override
     public IStates spendInspirationPoints() {
@@ -95,6 +100,11 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
 
     @Override
     public IStates spendAbilityPoints() {
+        return this;
+    }
+    
+    @Override
+    public IStates spendAbilityPoints(int value) {
         return this;
     }
 

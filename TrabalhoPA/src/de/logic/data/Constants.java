@@ -4,7 +4,7 @@ public interface Constants {
     public static final int NUM_TURNS = 13;
     public static final int NUM_ROOMS = 12;
     public static final int NUM_CREW_MEMBERS = 2;
-    
+   
     public static final String[] DEF_JOURNEY = {"2A", "3A", "4A", "5A*", "R", "4A", "5A", "6A*", "R", "6A", "7A*", "R", "8A"};
     public static final int[] MAX_SPAWN_ALIENS_TURN = {2, 3, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9};
     public static final int[] MIN_SPAWN_ALIENS_TURN = {1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7};
@@ -31,6 +31,7 @@ public interface Constants {
     public static final int DEF_INSPIRATION_POINTS = 1;
     public static final int DEF_ABILITY_POINTS = 1;
     
+    public static final String[] DEF_ACTIONS = {"Move", "Attack", "Place Trap", "Detonate Particle Dispenser", "Seal Room"};
     public static final int DEF_COST_TRAP_ORGANIC = 1;
     public static final int DEF_COST_TRAP_PARTICLE = 1;
     public static final int DEF_COST_MOVE = 1;
@@ -39,6 +40,7 @@ public interface Constants {
     public static final int DEF_COST_FIX_HULL = 1;
     public static final int DEF_COST_DETONATE_TRAP_PARTICLE = 1;
     public static final int DEF_COST_SEAL_ROOM = 1;
+    public static final int[] DEF_ACTIONS_COST = {DEF_COST_MOVE, DEF_COST_ATTACK, DEF_COST_TRAP_ORGANIC, DEF_COST_DETONATE_TRAP_PARTICLE, DEF_COST_SEAL_ROOM};
     
     public static final int DEF_COST_I_ADD_HEALTH = 1;
     public static final int DEF_COST_I_REPAIR_HULL = 1;

@@ -40,6 +40,10 @@ public class DestinationEarth {
         return dataGame.diceToString();
     }
     
+    public String getAvailableActions(){
+        return dataGame.getAvailableActions();
+    }
+    
     @Override
     public String toString()
     {   
@@ -116,8 +120,17 @@ public class DestinationEarth {
     }
     
     //CrewPhase
+    public void executeAction(int action){
+        setState(getState().executeAction(action));
+    }
+    
+    //Action states
     public void spendAbilityPoints(){
         setState(getState().spendAbilityPoints());
+    }
+    
+    public void spendAbilityPoints(int value){
+        setState(getState().spendAbilityPoints(value));
     }
     
     //AlienPhase

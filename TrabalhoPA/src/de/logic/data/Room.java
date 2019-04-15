@@ -125,4 +125,11 @@ public class Room {
     public void removeAllAliens(){
         aliensInside.clear();
     }
+
+    @Override
+    public String toString() {
+        return "Room #" + getId() + " - " + getName();
+    }
+    
+    
 }

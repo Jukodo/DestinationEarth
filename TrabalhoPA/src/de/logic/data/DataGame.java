@@ -18,7 +18,7 @@ public class DataGame implements Constants{
     
     private List<Alien> newAliens;
     private int activeNewAlien;
-
+   
     public DataGame() {
         logs = new ArrayList <> ();
         journeyTracker = new String[NUM_TURNS];
@@ -443,6 +443,37 @@ public class DataGame implements Constants{
         return true;
     }
     
+    public String getAvailableActions(){
+        
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
+        
+        String s = "";
+        int i;
+        
+        for(i = 0; i < DEF_ACTIONS.length; i++){
+            
+            s+= (i+2) + " - " + DEF_ACTIONS[i] + "(";
+            if(i == 0)
+                s+= this.getMovementCost();
+            else
+                s+= DEF_ACTIONS_COST[i];
+            
+            s+= " AP)" + System.lineSeparator();
+            
+        }
+                
+        if(cm instanceof Doctor){
+            i++;
+            s+= (i+1) + " - Heal One Health (" + this.getHealCost() + " AP)" + System.lineSeparator();
+        }
+        else if(cm instanceof Engineer){
+            i++;
+            s+= (i+1) + " - Fix One Hull (" + this.getFixHullCost() + " AP)" + System.lineSeparator();
+        }
+        
+        return s;
+    }
+    
     /**Health Tracker methods**/
     public int getHealthTracker(){
         return player.getHealthTracker();
@@ -469,6 +500,8 @@ public class DataGame implements Constants{
      
         return true;
     }
+    
+    
     
     /**Hull Tracker methods**/
     public int getHullTracker(){
@@ -553,7 +586,7 @@ public class DataGame implements Constants{
     /**Actions methods**/
     //Usar este metodo no UI para mostrar o custo do movimento
     public int getMovementCost(){
-        CrewMember cm = player.getCrewMember(activeCrewMember);
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
         int freeMoves = cm.getMovement() - DEF_COST_MOVE;
         
@@ -566,8 +599,28 @@ public class DataGame implements Constants{
         return DEF_COST_MOVE;
     }
     
+    public int getHealCost(){
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
+        
+        if(cm instanceof Doctor && cm.getRoom().getName().equalsIgnoreCase("SickBay") && !((Doctor)cm).hasHealedForFree()){
+            return 0;
+        }
+        
+        return DEF_COST_HEAL;
+    }
+    
+    public int getFixHullCost(){
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
+        
+        if(cm instanceof Engineer && cm.getRoom().getName().equalsIgnoreCase("Engineering") && !((Engineer)cm).hasFixedForFree()){
+            return 0;
+        }
+        
+        return DEF_COST_FIX_HULL;
+    }
+    
     public boolean moveActiveCrewMember(int roomNumber){
-        CrewMember cm = player.getCrewMember(activeCrewMember);
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
         if(getActionPoints() < DEF_COST_MOVE || roomNumber < 1 || roomNumber > NUM_ROOMS)
             return false;
@@ -589,6 +642,7 @@ public class DataGame implements Constants{
         
         int freeMoves = cm.getMovement() - DEF_COST_MOVE;
         
+        
         if(getMovementCost() > 0)
             removeActionPoints(getMovementCost());
         
@@ -598,14 +652,14 @@ public class DataGame implements Constants{
             cm.setMovementsBeforeFree(0);
         }
         
-        roomToMove.setMemberInside(cm);
+        cm.enterRoom(roomToMove);
         
         return true;
     }
     
 
     public int attackAliens(int roomNumber){
-        CrewMember cm = player.getCrewMember(activeCrewMember);
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
         if(getActionPoints() < DEF_COST_ATTACK || roomNumber > NUM_ROOMS)
             return 0;
@@ -643,7 +697,7 @@ public class DataGame implements Constants{
     }
     
     public boolean healPlayer(){
-        CrewMember cm = player.getCrewMember(activeCrewMember);
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
         if(getActionPoints() < DEF_COST_HEAL)
             return false;
@@ -658,7 +712,7 @@ public class DataGame implements Constants{
     }
     
     public boolean fixHullTracker(){
-        CrewMember cm = player.getCrewMember(activeCrewMember);
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
 
         if(cm instanceof Engineer){
             if(cm.getRoom().getName().equalsIgnoreCase("Engineering") && !((Engineer)cm).hasFixedForFree()){
@@ -678,7 +732,7 @@ public class DataGame implements Constants{
     }
     
     public boolean placeTrap(int roomNumber, Trap trap){
-        CrewMember cm = player.getCrewMember(activeCrewMember);
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
         if(getActionPoints() < DEF_COST_TRAP_ORGANIC)
             return false;
@@ -820,7 +874,7 @@ public class DataGame implements Constants{
         if(player.getInspirationPoints() < DEF_COST_I_ADD_MOVEMENT)
             return false;
         
-        CrewMember cm = player.getCrewMember(crewNumber);
+        CrewMember cm = player.getCrewMember(crewNumber-1);
         if(cm == null)
             return false;
         
@@ -864,7 +918,7 @@ public class DataGame implements Constants{
         if(player.getInspirationPoints() < DEF_COST_I_ADD_ATTACK_DIE)
             return false;
         
-        CrewMember cm = player.getCrewMember(crewNumber);
+        CrewMember cm = player.getCrewMember(crewNumber-1);
         if(cm == null)
             return false;
         

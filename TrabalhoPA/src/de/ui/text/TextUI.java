@@ -3,6 +3,7 @@ package de.ui.text;
 import de.DestinationEarth;
 import de.logic.data.Alien;
 import static de.logic.data.Constants.*;
+import de.logic.data.Room;
 import de.logic.data.members.CrewMember;
 import de.logic.states.*;
 import java.io.IOException;
@@ -147,14 +148,26 @@ public class TextUI {
         CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
         
         //REMOVE LATER
-        if(inDebug){
-            game.getDataGame().selectCrewMember(1, 1);
+        /*if(inDebug){
+            game.getDataGame().selectCrewMember(1, 4);
             game.getDataGame().selectCrewMemberColor(1, 2);
-            game.getDataGame().selectCrewMember(2, 2);
+            game.getDataGame().selectCrewMember(2, 5);
             game.getDataGame().selectCrewMemberColor(2, 3);
             game.getDataGame().placeCrewMember(1, 1);
             game.getDataGame().placeCrewMember(2, 2);
+        }*/
+        
+         
+        //REMOVE LATER
+        if(inDebug){
+            if(!game.getDataGame().getPlayer().hasAllMembers()){
+                game.selectCrewMember(1, 1);
+                game.selectCrewMemberColor(1, 2);
+                game.selectCrewMember(2, 2);
+                game.selectCrewMemberColor(2, 3);
+            }
         }
+        
         
         do{
             System.out.println("Crew Selection:");
@@ -578,6 +591,127 @@ public class TextUI {
                 return;
         }
     }
+    
+    public void uiCrewPhase(){
+        
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
+        
+        do{
+            System.out.println("Crew Phase:");
+            
+             for(int i=0; i < NUM_CREW_MEMBERS; i++){
+                if(i>0)
+                    System.out.println();
+                System.out.print("\t");
+                if(i+1 == game.getDataGame().getActiveCrewMember())
+                    System.out.print("[X] ");
+                else
+                    System.out.print("[ ] ");
+                System.out.print("Member #" + (i+1) + ": ");
+                if(cm[i].isInside()){
+                    System.out.print(cm[i].getName() + ", is at Room #" + cm[i].getRoom().getId() + " - " + cm[i].getRoom().getName());
+                }else{
+                    System.out.print(cm[i].getName() + ", isn't at any Room, please select one!");
+                }
+            }
+            
+            System.out.print("\t");
+            
+            int i = 0;
+            
+            
+            System.out.println();
+            System.out.println("0 - Quit");
+            System.out.println();
+            
+            System.out.println("1 - Swap Selected Member");
+            System.out.println(game.getAvailableActions());
+            
+            System.out.println();
+            System.out.print("~>: ");
+            
+            input = sc.next();
+            
+            if(input.length() >= 1)
+                op = Integer.parseInt(input);
+            else
+                op = -1;
+            
+        }while(op < 0 || op > 7);
+        
+        switch(op){
+            case 0:
+                quit = true;
+                return;
+                
+            case 1:
+                game.getDataGame().swapActiveCrewMember();
+                break;
+                
+            case 2:
+                game.executeAction(2);
+                return;
+        }
+    }
+    
+    public void uiMoveCrewMember(){
+        
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
+        
+        do{
+            System.out.println("Move Crew Member:");
+            
+            System.out.print(cm[game.getDataGame().getActiveCrewMember()-1].getName());
+                
+ 
+            System.out.println();
+            System.out.println("0 - Quit");
+            System.out.println("1 - Select a room to move");
+            System.out.print("~>: ");
+            
+            input = sc.next();
+            
+            if(input.length() >= 1)
+                op = Integer.parseInt(input);
+            else
+                op = -1;
+            
+        }while(op < 0 || op > 3);
+        
+        switch(op){
+            case 0:
+                quit = true;
+                return;
+                
+            case 1:
+                int opRoom = 0;
+                do{
+                    System.out.println(game.getDataGame().getShip().toString());
+                    System.out.print("Room: ");
+
+                    input = sc.next();
+
+                    if(input.length() >= 1)
+                        opRoom = Integer.parseInt(input);
+                    else
+                        opRoom = -1;
+                }while(opRoom < 0 || opRoom > 12);
+                
+                game.spendAbilityPoints(opRoom);
+                
+                break;
+        }
+    }
 
     public void run() throws IOException, ClassNotFoundException{
         
@@ -604,6 +738,12 @@ public class TextUI {
             }
             else if (state instanceof RestPhase) {
                 uiRestPhase();
+            }
+            else if(state instanceof CrewPhase){
+                uiCrewPhase();
+            }
+            else if (state instanceof MoveCrewMember){
+                uiMoveCrewMember();
             }
             else if (state instanceof DiceRolling){
                 uiDiceRolling();
