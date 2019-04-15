@@ -140,24 +140,6 @@ public class TextUI {
     }
     
     public void uiCrewSelection() throws IOException, ClassNotFoundException{
-        int op;
-        String input;
-        
-        Scanner sc = new Scanner(System.in);
-        
-        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
-        
-        //REMOVE LATER
-        /*if(inDebug){
-            game.getDataGame().selectCrewMember(1, 4);
-            game.getDataGame().selectCrewMemberColor(1, 2);
-            game.getDataGame().selectCrewMember(2, 5);
-            game.getDataGame().selectCrewMemberColor(2, 3);
-            game.getDataGame().placeCrewMember(1, 1);
-            game.getDataGame().placeCrewMember(2, 2);
-        }*/
-        
-         
         //REMOVE LATER
         if(inDebug){
             if(!game.getDataGame().getPlayer().hasAllMembers()){
@@ -168,6 +150,12 @@ public class TextUI {
             }
         }
         
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
         
         do{
             System.out.println("Crew Selection:");
@@ -296,6 +284,14 @@ public class TextUI {
     public void uiCrewPlacement(){
         if(game.getDataGame().getDiceValue(2) > 0)
             game.placeCrewMember(game.getDataGame().getActiveCrewMember(), game.getDataGame().getDiceValue(2));
+        
+        //REMOVE LATER
+        if(inDebug){
+            if(!game.getDataGame().getPlayer().hasAllMembersOnBoard()){
+                game.placeCrewMember(1, 1);
+                game.placeCrewMember(2, 2);
+            }
+        }
         
         int op;
         String input;

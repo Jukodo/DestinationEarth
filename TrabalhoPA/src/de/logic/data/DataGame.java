@@ -358,10 +358,30 @@ public class DataGame implements Constants{
     
     public void editJourney_Random(){
         
+        //1st - Clear the tracker
         for(int i = 0; i < NUM_TURNS; i++){
-            //ToDo
+            journeyTracker[i] = null;
         }
         
+        //2nd - Set 2 Rest Phases (Wont allow R on first or last turn, nor 2 R next to eachother)
+        journeyTracker[(int) (Math.random() * (6 - 2)) + 2] = "R";
+        journeyTracker[(int) (Math.random() * (12 - 8)) + 8] = "R";
+        
+        StringBuilder sb;
+        
+        //3rd - For each empty turn, randomize an event
+        for(int i = 0; i < NUM_TURNS; i++){
+            sb = new StringBuilder();
+            if(journeyTracker[i] == null){
+                //Randomize number of aliens to spawn, in between the range of MIN and MAX
+                sb.append((int) (Math.random() * (MAX_SPAWN_ALIENS_TURN[i] - MIN_SPAWN_ALIENS_TURN[i])) + MIN_SPAWN_ALIENS_TURN[i]);
+                sb.append("A");
+                //IF NOT LAST && NEXT NOT NULL && NEXT IS R -> ADD SPECIAL
+                if(i < NUM_TURNS-1 && journeyTracker[i+1] != null && journeyTracker[i+1].compareToIgnoreCase("R") == 0)
+                    sb.append("*");
+                journeyTracker[i] = sb.toString();
+            }
+        }
     }
     
     public void resetJourneyTracker(){
