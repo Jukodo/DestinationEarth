@@ -9,7 +9,6 @@ public abstract class CrewMember {
     private int movement;
     private int attack;
     int color;
-    boolean inside;
     private DataGame dataGame;
     private Room room;
     private int movementsBeforeFree;
@@ -19,7 +18,6 @@ public abstract class CrewMember {
         this.dataGame = dataGame;
         this.movement = movement;
         this.attack = attack;
-        this.inside = false;
         this.movementsBeforeFree = 0;
     }
     
@@ -31,7 +29,6 @@ public abstract class CrewMember {
         if(color < 0 || color > 11)
             color = 0;
         this.color = color;
-        this.inside = false;
     }
 
     abstract public String getName();
@@ -66,14 +63,6 @@ public abstract class CrewMember {
     public void setColor(int color) {
         this.color = color;
     }
-    
-    public boolean isInside() {
-        return inside;
-    }
-
-    public void setInside(boolean inside) {
-        this.inside = inside;
-    }
 
     public DataGame getDataGame() {
         return dataGame;
@@ -89,6 +78,24 @@ public abstract class CrewMember {
     
     public void setRoom(Room room){
         this.room = room;
+    }
+    
+    public void leaveRoom(){
+        this.room.removeMemberFromRoom(this);
+        this.room = null;
+    }
+    
+    public void enterRoom(Room room){
+        
+        if(isInside())
+            leaveRoom();
+        
+        this.room = room;
+        room.setMemberInside(this);
+    }
+    
+    public boolean isInside() {
+        return room != null;
     }
 
     public int getMovementsBeforeFree() {

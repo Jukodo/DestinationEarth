@@ -273,7 +273,7 @@ public class DataGame implements Constants{
         if(room == null)
             return false;
         
-        room.setMemberInside(cm);
+        cm.enterRoom(room);
         return true;
     }
     
