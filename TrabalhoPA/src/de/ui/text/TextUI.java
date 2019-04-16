@@ -143,9 +143,9 @@ public class TextUI {
         //REMOVE LATER
         if(inDebug){
             if(!game.getDataGame().getPlayer().hasAllMembers()){
-                game.selectCrewMember(1, 1);
+                game.selectCrewMember(1, 4);
                 game.selectCrewMemberColor(1, 2);
-                game.selectCrewMember(2, 2);
+                game.selectCrewMember(2, 5);
                 game.selectCrewMemberColor(2, 3);
             }
         }
@@ -598,7 +598,9 @@ public class TextUI {
         CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
         
         do{
-            System.out.println("Crew Phase:");
+            System.out.println("Crew Phase");
+            System.out.println(game.toString());
+            System.out.println("Crew Members:");
             
              for(int i=0; i < NUM_CREW_MEMBERS; i++){
                 if(i>0)
@@ -616,7 +618,7 @@ public class TextUI {
                 }
             }
             
-            System.out.print("\t");
+            System.out.println("\t");
             
             int i = 0;
             
@@ -640,19 +642,22 @@ public class TextUI {
             
         }while(op < 0 || op > 7);
         
-        switch(op){
-            case 0:
-                quit = true;
-                return;
-                
-            case 1:
-                game.getDataGame().swapActiveCrewMember();
-                break;
-                
-            case 2:
-                game.executeAction(2);
-                return;
+        if(op == 0){
+            quit = true;
+            return;
         }
+        else if(op == 1){
+            game.swapCrewMember();
+            return;
+        }
+        else if(op > 1 && op < 8){
+            game.executeAction(op);
+            return;
+        }
+        else{
+            return;
+        }
+            
     }
     
     public void uiMoveCrewMember(){
@@ -665,14 +670,68 @@ public class TextUI {
         CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
         
         do{
-            System.out.println("Move Crew Member:");
+            System.out.println("Move Crew Member");
             
-            System.out.print(cm[game.getDataGame().getActiveCrewMember()-1].getName());
+            System.out.println("Active Member: " + cm[game.getDataGame().getActiveCrewMember()-1].getName()+ ", " + cm[game.getDataGame().getActiveCrewMember()-1].getRoom());
                 
  
             System.out.println();
             System.out.println("0 - Quit");
             System.out.println("1 - Select a room to move");
+            System.out.print("~>: ");
+            
+            input = sc.next();
+            
+            if(input.length() >= 1)
+                op = Integer.parseInt(input);
+            else
+                op = -1;
+            
+        }while(op < 0 || op > 3);
+        
+        switch(op){
+            case 0:
+                quit = true;
+                return;
+                
+            case 1:
+                int opRoom = 0;
+                do{
+                    System.out.println(game.getDataGame().getShip().toString());
+                    System.out.print("Room: ");
+
+                    input = sc.next();
+
+                    if(input.length() >= 1)
+                        opRoom = Integer.parseInt(input);
+                    else
+                        opRoom = -1;
+                }while(opRoom < 0 || opRoom > 12);
+                
+                game.spendAbilityPoints(opRoom);
+                
+                break;
+        }
+    }
+    
+     public void uiSealRoom(){
+        
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
+        
+        do{
+            System.out.println("Seal a Room");
+            
+            System.out.println("Active Member: " + cm[game.getDataGame().getActiveCrewMember()-1].getName()+ ", " + cm[game.getDataGame().getActiveCrewMember()-1].getRoom());
+                
+ 
+            System.out.println();
+            System.out.println("0 - Quit");
+            System.out.println("1 - Select a room to seal");
             System.out.print("~>: ");
             
             input = sc.next();
@@ -740,6 +799,9 @@ public class TextUI {
             }
             else if (state instanceof MoveCrewMember){
                 uiMoveCrewMember();
+            }
+            else if (state instanceof SealRoom){
+                uiSealRoom();
             }
             else if (state instanceof DiceRolling){
                 uiDiceRolling();

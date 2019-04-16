@@ -22,6 +22,7 @@ public class Room {
        
        id = ++totalRooms;
        isSealed = false;
+       canBeSealed = false;
     }
 
      /**Getters and Setters**/
@@ -33,7 +34,7 @@ public class Room {
         return id;
     }
 
-    public boolean isSealed() {
+    public boolean getIsSealed() {
         return isSealed;
     }
 
@@ -41,8 +42,8 @@ public class Room {
         this.isSealed = isSealed;
     }
     
-    public boolean canBeSealed(){
-        return canBeSealed();
+    public boolean getCanBeSealed(){
+        return canBeSealed;
     }
     
     public void setCanBeSealed(boolean canBeSealed){

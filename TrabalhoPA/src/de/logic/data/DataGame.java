@@ -640,11 +640,17 @@ public class DataGame implements Constants{
     }
     
     public boolean moveActiveCrewMember(int roomNumber){
+        
+        int cost = getMovementCost();
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(getActionPoints() < DEF_COST_MOVE || roomNumber < 1 || roomNumber > NUM_ROOMS)
+        if(roomNumber < 1 || roomNumber > NUM_ROOMS)
             return false;
         
+        if(cost > 0 && getActionPoints() < DEF_COST_MOVE){
+            return false;
+        }
+   
         Room roomToMove = null;
         
         if(cm instanceof TransporterChief){
@@ -657,7 +663,7 @@ public class DataGame implements Constants{
             }
         }
         
-        if(roomToMove == null || roomToMove.isSealed())
+        if(roomToMove == null || roomToMove.getIsSealed())
             return false;
         
         int freeMoves = cm.getMovement() - DEF_COST_MOVE;
@@ -688,7 +694,7 @@ public class DataGame implements Constants{
         
         if(cm instanceof ScienceOfficer){
             for(Room room : ship.getRoom(cm.getRoom().getId()).getClosestRooms()){
-                if(room.getId() == roomNumber && !room.isSealed()){
+                if(room.getId() == roomNumber && !room.getIsSealed()){
                     roomToAttack = room;
                 }
             }
@@ -816,9 +822,10 @@ public class DataGame implements Constants{
             return false;
         
         Room room = ship.getRoom(roomNumber);
-        if(room == null || !room.canBeSealed() || room.isSealed())
+        if(room == null || !room.getCanBeSealed() || room.getIsSealed())
             return false;
         
+        removeActionPoints(DEF_COST_SEAL_ROOM);
         room.setSealed(true);
        
         return true;
@@ -970,10 +977,10 @@ public class DataGame implements Constants{
     {
         String s;
         
-        s = "Destination Earth, playing as " + this.getPlayer().getName() + System.lineSeparator();
-        s = "Turn: " + getCurrentTurn() + System.lineSeparator();
-        s+= diceToString();
-        s+= System.lineSeparator(); 
+        //s = "Destination Earth, playing as " + this.getPlayer().getName() + System.lineSeparator();
+        s= "Turn: " + getCurrentTurn() + ", Hull Tracker: " + getShip().getHullTracker() + System.lineSeparator();
+        s+= "IP: " + getPlayer().getInspirationPoints() + ", AP: " + getPlayer().getActionPoints() + ", Health: " + getPlayer().getHealthTracker() + System.lineSeparator();
+        //s+= diceToString();
         
         return s;
     }
