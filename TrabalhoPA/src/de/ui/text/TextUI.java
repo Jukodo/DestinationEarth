@@ -559,15 +559,39 @@ public class TextUI {
         Scanner sc = new Scanner(System.in);
         
         do{
-            System.out.println("Rest Phase:");
+            System.out.println("Rest Phase (" + game.getDataGame().getPlayer().getInspirationPoints() + "IP):");
             
-            System.out.print("\t");
             
-            int i = 0;
-            
+            for(int i=0; i < NUM_CREW_MEMBERS; i++){
+                if(i>0)
+                    System.out.println();
+                System.out.print("\t");
+                if(i+1 == game.getDataGame().getActiveCrewMember())
+                    System.out.print("[X] ");
+                else
+                    System.out.print("[ ] ");
+                System.out.print("Member #" + (i+1) + ": ");
+                if(game.getDataGame().getPlayer().getCrewMember(i).isInside()){
+                    System.out.print(game.getDataGame().getPlayer().getCrewMember(i).getName() + ", is at Room #" + 
+                            game.getDataGame().getPlayer().getCrewMember(i).getRoom().getId() + " - " + 
+                            game.getDataGame().getPlayer().getCrewMember(i).getRoom().getName());
+                }else{
+                    System.out.print(game.getDataGame().getPlayer().getCrewMember(i).getName() + ", isn't at any Room, please select one!");
+                }
+            }
             
             System.out.println();
             System.out.println("0 - Quit");
+            System.out.println("1 - Swap Active Member");
+            System.out.println("2 - Recover Health (1 IP)");
+            System.out.println("3 - Repair Hull (1 IP)");
+            System.out.println("4 - Build Organic Detonator (2 IP)");
+            System.out.println("5 - Increase Member Movement (4 IP)");
+            System.out.println("6 - Build Particle Desperser (5 IP)");
+            System.out.println("7 - Build Room Blocker (5 IP)");
+            System.out.println("8 - Increase Attack Dice (6 IP)");
+            System.out.println("9 - Increase Attack (6 IP)");
+            System.out.println("10 - Skip Rest");
             
             System.out.println();
             System.out.print("~>: ");
@@ -579,12 +603,53 @@ public class TextUI {
             else
                 op = -1;
             
-        }while(op < 0 || op > 0);
+        }while(op < 0 || op > 10);
         
         switch(op){
+            
             case 0:
                 quit = true;
                 return;
+                
+            case 1:
+                game.getDataGame().swapActiveCrewMember();
+                break;
+                
+            case 2:
+                game.getDataGame().IP_addHealthPoint(1);
+                break;
+                
+            case 3:
+                game.getDataGame().IP_repairHull(1);
+                break;
+                
+            case 4:
+                game.getDataGame().IP_buildOrganicDetonator();
+                break;
+                
+            case 5:
+                game.getDataGame().IP_addMovement(1, game.getDataGame().getActiveCrewMember());
+                break;
+                
+            case 6:
+                game.getDataGame().IP_buildParticleDesperser();
+                break;
+                
+            case 7:
+                game.getDataGame().IP_addSealedRoomToken(1);
+                break;
+                
+            case 8:
+                game.getDataGame().IP_addAttackDie(1, game.getDataGame().getActiveCrewMember());
+                break;
+                
+            case 9:
+                game.getDataGame().IP_addValueToAttackDie(1);
+                break;
+                
+            case 10:
+                game.leaveRest();
+                break;
         }
     }
     
@@ -673,7 +738,6 @@ public class TextUI {
             System.out.println("Move Crew Member");
             
             System.out.println("Active Member: " + cm[game.getDataGame().getActiveCrewMember()-1].getName()+ ", " + cm[game.getDataGame().getActiveCrewMember()-1].getRoom());
-                
  
             System.out.println();
             System.out.println("0 - Quit");

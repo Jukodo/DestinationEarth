@@ -115,8 +115,8 @@ public class DestinationEarth {
     }
     
     //RestPhase
-    public void spendInspirationPoints(){
-        setState(getState().spendInspirationPoints());
+    public void leaveRest(){
+        setState(getState().leaveRest());
     }
     
     //CrewPhase

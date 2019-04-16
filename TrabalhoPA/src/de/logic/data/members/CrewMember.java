@@ -39,9 +39,14 @@ public abstract class CrewMember {
     }
 
     public boolean setMovement(int movement) {
-        if(movement > MAX_MOVEMENT)
+        if(this.movement == MAX_MOVEMENT)//Already has maxed out movement
             return false;
+        
+        if(movement > MAX_MOVEMENT)
+            movement = MAX_MOVEMENT;
+        
         this.movement = movement;
+        
         return true;
     }
 

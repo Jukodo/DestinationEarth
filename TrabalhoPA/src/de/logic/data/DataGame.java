@@ -563,7 +563,9 @@ public class DataGame implements Constants{
        if(quantity < 1)
            return false;
 
-       player.setOrganicTrapTokens(getOrganicTrapTokens() + quantity);
+       if(!player.setOrganicTrapTokens(getOrganicTrapTokens() + quantity))
+           return false;
+       
        return true;
    }
 
@@ -860,7 +862,7 @@ public class DataGame implements Constants{
     }
     
     /**Inspiration methods**/
-    public boolean addHealthPoint(int quantity){
+    public boolean IP_addHealthPoint(int quantity){
         if(player.getInspirationPoints() < DEF_COST_I_ADD_HEALTH)
             return false;
         
@@ -872,7 +874,7 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean repairHull(int quantity){
+    public boolean IP_repairHull(int quantity){
         if(player.getInspirationPoints() < DEF_COST_I_REPAIR_HULL)
             return false;
         
@@ -884,7 +886,7 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean buildOrganicDetonator(){
+    public boolean IP_buildOrganicDetonator(){
         if(player.getInspirationPoints() < DEF_COST_I_BUILD_TRAP_ORGANIC)
             return false;
         
@@ -894,7 +896,7 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean addMovement(int quantity, int crewNumber){
+    public boolean IP_addMovement(int quantity, int crewNumber){
         if(quantity < 1)
             return false;
         
@@ -913,7 +915,7 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean buildParticleDesperser(){
+    public boolean IP_buildParticleDesperser(){
         if(player.getInspirationPoints() < DEF_COST_I_BUILD_TRAP_PARTICLE)
             return false;
         
@@ -924,7 +926,7 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean addSealedRoomToken(int quantity){
+    public boolean IP_addSealedRoomToken(int quantity){
         if(quantity < 1)
             return false;
         
@@ -938,7 +940,7 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean addAttackDie(int quantity, int crewNumber){
+    public boolean IP_addAttackDie(int quantity, int crewNumber){
         if(quantity < 1)
             return false;
         
@@ -957,14 +959,15 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean addValueToAttackDie(int quantity){
+    public boolean IP_addValueToAttackDie(int quantity){
         if(quantity < 1)
             return false;
         
         if(player.getInspirationPoints() < DEF_COST_I_ADD_VALUE_ATTACK_DIE)
             return false;
         
-        //???//
+        if(!player.setAttackBuff(player.getAttackBuff()+1))
+            return false;
         
         removeInspirationPoints(DEF_COST_I_ADD_VALUE_ATTACK_DIE);
         

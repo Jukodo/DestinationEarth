@@ -23,6 +23,7 @@ public interface Constants {
     public static final int MAX_HULL = 12;
     public static final int MAX_MOVEMENT = 3;
     public static final int MAX_ATTACK = 3;
+    public static final int MAX_ATTACK_BUFF = 4; //AT 0 -> TO ATTACK DICE NEEDS TO BE 5+, AT 4 -> TO ATTACK DICE NEEDS TO BE 1+ (5-4)
     
     public static final int MIN_ROLL_ATTACK = 5;
     

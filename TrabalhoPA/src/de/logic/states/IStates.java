@@ -41,7 +41,7 @@ public interface IStates extends Serializable {
     IStates confirmNewAliensPlacement();
     
     //RestPhase
-    IStates spendInspirationPoints();
+    IStates leaveRest();
     
     //CrewPhase
     IStates executeAction(int action);

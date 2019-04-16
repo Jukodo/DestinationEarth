@@ -13,6 +13,7 @@ public class Player {
     private int roomSealTokens;
     private int organicTrapTokens;
     private int particleTrapTokens;
+    private int attackBuff;
 
     public Player(String name, int healthTracker, int inspirationPoints, int actionPoints) {
         this.name = name;
@@ -92,17 +93,50 @@ public class Player {
         return organicTrapTokens;
     }
 
-    public void setOrganicTrapTokens(int organicTrapTokens) {
+    public boolean setOrganicTrapTokens(int organicTrapTokens) {
+        if(this.organicTrapTokens == MAX_TRAPS_ORGANIC)//Already has maxed allowed traps
+            return false;
+        
+        if(organicTrapTokens > MAX_TRAPS_ORGANIC)
+            organicTrapTokens = MAX_TRAPS_ORGANIC;
+        
         this.organicTrapTokens = organicTrapTokens;
+        
+        return true;
     }
 
     public int getParticleTrapTokens() {
         return particleTrapTokens;
     }
 
-    public void setParticleTrapTokens(int particleTrapTokens) {
+    public boolean setParticleTrapTokens(int particleTrapTokens) {
+        if(this.particleTrapTokens == MAX_TRAPS_PARTICLE)//Already has maxed allowed traps
+            return false;
+        
+        if(particleTrapTokens > MAX_TRAPS_PARTICLE)
+            particleTrapTokens = MAX_TRAPS_PARTICLE;
+        
         this.particleTrapTokens = particleTrapTokens;
+        
+        return true;
     }
+
+    public int getAttackBuff() {
+        return attackBuff;
+    }
+
+    public boolean setAttackBuff(int attackBuff) {
+        if(this.attackBuff == MAX_ATTACK_BUFF)//Already has maxed out HP
+            return false;
+        
+        if(attackBuff > MAX_ATTACK_BUFF)
+            attackBuff = MAX_ATTACK_BUFF;
+        
+        this.attackBuff = attackBuff;
+        
+        return true;
+    }
+    
     
     /**Methods**/
     public boolean hasAllMembers(){
