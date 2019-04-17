@@ -15,7 +15,7 @@ public class ScanningPhase extends StateAdapter{
     
     @Override
     public IStates scanTurn(){
-        if(this.getGame().getCurrentTurn() > NUM_TURNS){
+        if(this.getGame().getCurrentTurn() >= NUM_TURNS){
             return new GameOver(this.getGame());
         }
         else if(this.getGame().eventIsRest(this.getGame().getJourneyTrackerTurn(this.getGame().getCurrentTurn()))){
@@ -40,6 +40,9 @@ public class ScanningPhase extends StateAdapter{
     
     @Override
     public IStates confirmNewAliensPlacement(){
+        
+        this.getGame().clearNewAliens();
+        
         return new CrewPhase(this.getGame());
     }
 }

@@ -39,9 +39,10 @@ public interface IStates extends Serializable {
     IStates scanTurn();
     IStates placeNewAlien(int alienNumber, int roomNumber);
     IStates confirmNewAliensPlacement();
+    IStates leaveCrewPhase();
     
     //RestPhase
-    IStates leaveRest();
+    IStates leaveRestPhase();
     
     //CrewPhase
     IStates executeAction(int action);
@@ -51,7 +52,7 @@ public interface IStates extends Serializable {
     IStates spendAbilityPoints(int value);
     
     //AlienPhase
-    IStates moveAllAliens();
+    IStates moveAliens();
     
     //General
     IStates swapCrewMember();

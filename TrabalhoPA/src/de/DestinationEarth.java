@@ -114,9 +114,13 @@ public class DestinationEarth {
         setState(getState().confirmNewAliensPlacement());
     }
     
+    public void leaveCrewPhase(){
+        setState(getState().leaveCrewPhase());
+    }
+    
     //RestPhase
-    public void leaveRest(){
-        setState(getState().leaveRest());
+    public void leaveRestPhase(){
+        setState(getState().leaveRestPhase());
     }
     
     //CrewPhase
@@ -134,8 +138,8 @@ public class DestinationEarth {
     }
     
     //AlienPhase
-    public void moveAllAliens(){
-        setState(getState().moveAllAliens());
+    public void moveAliens(){
+        setState(getState().moveAliens());
     }
     
     //General

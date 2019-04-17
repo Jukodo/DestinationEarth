@@ -92,9 +92,14 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     public IStates executeAction(int action){
         return this;
     }
+    
+    @Override
+    public IStates leaveCrewPhase() {
+        return this;
+    }
 
     @Override
-    public IStates leaveRest() {
+    public IStates leaveRestPhase() {
         return this;
     }
 
@@ -109,7 +114,7 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public IStates moveAllAliens() {
+    public IStates moveAliens() {
         return this;
     }
 

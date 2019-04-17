@@ -1,14 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.logic.states;
 
-/**
- *
- * @author Tiago
- */
-public class AlienPhase {
-    //1 - moveAlien
+import de.logic.data.DataGame;
+
+public class AlienPhase extends StateAdapter{
+    
+    public AlienPhase(DataGame game) {
+        super(game);
+    }
+    
+    @Override
+    public IStates moveAliens(){
+        if(!this.getGame().moveAliens())
+            return this;
+        
+        return new JourneyPhase(this.getGame());
+    }
 }

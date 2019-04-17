@@ -9,7 +9,7 @@ public class RestPhase extends StateAdapter{
     }
     
     @Override
-    public IStates leaveRest(){
+    public IStates leaveRestPhase(){
         return new CrewPhase(this.getGame());
     }
 }

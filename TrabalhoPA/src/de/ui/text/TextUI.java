@@ -648,7 +648,7 @@ public class TextUI {
                 break;
                 
             case 10:
-                game.leaveRest();
+                game.leaveRestPhase();
                 break;
         }
     }
@@ -694,6 +694,7 @@ public class TextUI {
             
             System.out.println("1 - Swap Selected Member");
             System.out.println(game.getAvailableActions());
+            System.out.println(game.getDataGame().getAvailableActions_Quant()+2 + " - Leave Crew Phase");
             
             System.out.println();
             System.out.print("~>: ");
@@ -705,7 +706,7 @@ public class TextUI {
             else
                 op = -1;
             
-        }while(op < 0 || op > 7);
+        }while(op < 0 || op > game.getDataGame().getAvailableActions_Quant() +2);
         
         if(op == 0){
             quit = true;
@@ -715,9 +716,12 @@ public class TextUI {
             game.swapCrewMember();
             return;
         }
-        else if(op > 1 && op < 8){
+        else if(op > 1 && op < (game.getDataGame().getAvailableActions_Quant() + 1)){
             game.executeAction(op);
             return;
+        }
+        else if(op == game.getDataGame().getAvailableActions_Quant() +2){
+            game.leaveCrewPhase();
         }
         else{
             return;
@@ -831,6 +835,10 @@ public class TextUI {
                 break;
         }
     }
+     
+    public void uiAlienPhase(){
+        game.moveAliens();
+    }
 
     public void run() throws IOException, ClassNotFoundException{
         
@@ -866,6 +874,9 @@ public class TextUI {
             }
             else if (state instanceof SealRoom){
                 uiSealRoom();
+            }
+            else if (state instanceof AlienPhase){
+                uiAlienPhase();
             }
             else if (state instanceof DiceRolling){
                 uiDiceRolling();

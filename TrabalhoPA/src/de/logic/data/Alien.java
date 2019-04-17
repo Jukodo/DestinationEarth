@@ -23,6 +23,9 @@ public class Alien{
     
     public void enterRoom(Room room){
         
+        if(room == null)
+            return;
+        
         if(isInside())
             leaveRoom();
         

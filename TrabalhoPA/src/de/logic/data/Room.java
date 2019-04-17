@@ -126,6 +126,23 @@ public class Room {
     public void removeAllAliens(){
         aliensInside.clear();
     }
+    
+    public Room chooseClosestRoom_Priority(){
+        
+        Room goTo = null;
+        
+        for(Room room:closestRooms){
+            if(!room.getMembersInside().isEmpty() && !room.getIsSealed()){
+                goTo = room;
+            }
+            if(goTo == null){
+                if(!room.getIsSealed())
+                    goTo = room;
+            }
+        }
+        
+        return goTo;
+    }
 
     @Override
     public String toString() {

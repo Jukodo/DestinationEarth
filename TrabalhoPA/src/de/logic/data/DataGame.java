@@ -436,6 +436,10 @@ public class DataGame implements Constants{
         return true;
     }
     
+    public void clearNewAliens(){
+        newAliens.clear();
+    }
+    
     /**Action points methods**/
     public int getActionPoints(){
         return player.getActionPoints();
@@ -461,6 +465,19 @@ public class DataGame implements Constants{
         player.setActionPoints(total);
      
         return true;
+    }
+    
+    public int getAvailableActions_Quant(){
+        int i = DEF_ACTIONS.length;
+        
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
+        
+        if(cm instanceof Doctor)
+            i++;
+        else if(cm instanceof Engineer)
+            i++;
+        
+        return i;
     }
     
     public String getAvailableActions(){
@@ -970,6 +987,38 @@ public class DataGame implements Constants{
             return false;
         
         removeInspirationPoints(DEF_COST_I_ADD_VALUE_ATTACK_DIE);
+        
+        return true;
+    }
+    
+    /**Inspiration methods**/
+    public boolean moveAliens(){
+               
+        Room room;
+        for(Alien alien:ship.getAllAliens()){
+            
+            room = alien.getRoom().chooseClosestRoom_Priority();
+            
+            //MOVE ALIEN
+            if(room != null)
+                alien.enterRoom(room);
+            
+            //CHECK FOR TRAPS
+            if(alien.getRoom().getTrapInside() != null && alien.getRoom().getTrapInside() instanceof OrganicDetonator)
+                alien.getRoom().getTrapInside().activate();
+            //CHECK FOR CREW MEMBERS
+            else if(!alien.getRoom().getMembersInside().isEmpty()){
+                if(rollDie(1) >= 5)
+                    removeHealthFromPlayer(1);
+                resetDices();
+            }
+            //CHECK FOR EMPTY ROOM
+            else if(alien.getRoom().getMembersInside().isEmpty()){
+                if(rollDie(1) >= 5)
+                    removeHealthFromHull(1);
+                resetDices();
+            }
+        }
         
         return true;
     }

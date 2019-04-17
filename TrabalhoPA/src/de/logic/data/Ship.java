@@ -1,6 +1,7 @@
 package de.logic.data;
 
 import de.logic.data.members.CrewMember;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -123,6 +124,18 @@ public class Ship implements Constants{
         return true;
     }
     
+    public List<Alien> getAllAliens(){
+        
+        List<Alien> allAliens = new ArrayList<>();
+        
+        for(int i = 1; i <= rooms.size(); i++){
+            for(Alien alien:rooms.get(i).getAliensInside()){
+                allAliens.add(alien);
+            }
+        }
+        
+        return allAliens;
+    }
     
     @Override
     public String toString(){
