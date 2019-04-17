@@ -11,15 +11,14 @@ import de.logic.data.DataGame;
  *
  * @author Tiago
  */
-public class SealRoom extends StateAdapter{
+public class AttackAliens extends StateAdapter{
     
-    public SealRoom(DataGame game) {
+    public AttackAliens(DataGame game) {
         super(game);
     }
     
-    @Override
-    public IStates sealRoom(int roomToSeal){
-        this.getGame().sealRoom(roomToSeal);
+    public IStates attackAliens(int room){
+        this.getGame().attackAliens(room);
         return new CrewPhase(this.getGame());
     }
     

@@ -8,6 +8,7 @@ import de.logic.data.ParticleDispenser;
 import de.logic.data.Room;
 import de.logic.data.Trap;
 import de.logic.data.members.CrewMember;
+import de.logic.data.members.ScienceOfficer;
 import de.logic.states.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -779,10 +780,69 @@ public class TextUI {
                         opRoom = -1;
                 }while(opRoom < 0 || opRoom > 12);
                 
-                game.spendAbilityPoints(opRoom);
+                game.moveCrewMember(opRoom);
                 
                 break;
         }
+    }
+    
+    public void uiAttackAliens(){
+        
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
+        
+        if(cm[game.getDataGame().getActiveCrewMember()-1] instanceof ScienceOfficer){
+             do{
+                System.out.println("Attack aliens");
+
+                System.out.println("Active Member: " + cm[game.getDataGame().getActiveCrewMember()-1].getName()+ ", " + cm[game.getDataGame().getActiveCrewMember()-1].getRoom());
+
+                System.out.println();
+                System.out.println("0 - Quit");
+                System.out.println("1 - Select a room ith aliens");
+                System.out.print("~>: ");
+
+                input = sc.next();
+
+                if(input.length() >= 1)
+                    op = Integer.parseInt(input);
+                else
+                    op = -1;
+            
+            }while(op < 0 || op > 3);
+             
+             switch(op){
+                case 0:
+                    quit = true;
+                    return;
+
+                case 1:
+                    int opRoom = 0;
+                    do{
+                        System.out.println(game.getDataGame().getShip().toString());
+                        System.out.print("Room: ");
+
+                        input = sc.next();
+
+                        if(input.length() >= 1)
+                            opRoom = Integer.parseInt(input);
+                        else
+                            opRoom = -1;
+                    }while(opRoom < 0 || opRoom > 12);
+
+                    game.attackAliens(opRoom);
+
+                    break;
+            }
+        }
+        else{
+            game.attackAliens(0); //Quarto atual
+        }
+ 
     }
     
     public void uiPlaceTrap(){
@@ -963,7 +1023,7 @@ public class TextUI {
                         opRoom = -1;
                 }while(opRoom < 0 || opRoom > 12);
                 
-                game.spendAbilityPoints(opRoom);
+                game.sealRoom(opRoom);
                 
                 break;
         }
@@ -1004,6 +1064,9 @@ public class TextUI {
             }
             else if (state instanceof MoveCrewMember){
                 uiMoveCrewMember();
+            }
+            else if(state instanceof AttackAliens){
+                uiAttackAliens();
             }
             else if (state instanceof PlaceTrap){
                 uiPlaceTrap();

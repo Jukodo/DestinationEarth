@@ -138,22 +138,26 @@ public class DestinationEarth {
     }
     
     //Action states
-    public void spendAbilityPoints(){
-        setState(getState().spendAbilityPoints());
+    public void moveCrewMember(int room){
+        setState(getState().moveCrewMember(room));
     }
     
-    public void spendAbilityPoints(int value){
-        setState(getState().spendAbilityPoints(value));
+    public void attackAliens(int room){
+        setState(getState().attackAliens(room));
     }
     
     public void placeTrap(int room, Trap trap){
         setState(getState().placeTrap(room, trap));
     }
     
-     public void detonateParticleDispenser(int room){
+    public void detonateParticleDispenser(int room){
         setState(getState().detonateParticleDispenser(room));
     }
     
+    public void sealRoom(int room){
+        setState(getState().sealRoom(room));
+    }
+ 
     //AlienPhase
     public void moveAliens(){
         setState(getState().moveAliens());

@@ -18,7 +18,7 @@ public class MoveCrewMember extends StateAdapter{
     }
  
     @Override
-    public IStates spendAbilityPoints(int roomToMove){
+    public IStates moveCrewMember(int roomToMove){
         this.getGame().moveActiveCrewMember(roomToMove);
         return new CrewPhase(this.getGame());
     }

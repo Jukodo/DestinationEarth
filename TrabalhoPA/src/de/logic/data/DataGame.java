@@ -727,7 +727,7 @@ public class DataGame implements Constants{
             roomToAttack = ship.getRoom(cm.getRoom().getId());
         }
         
-        if(roomToAttack == null)
+        if(roomToAttack == null || roomToAttack.getAliensInside().size() < 1)
             return 0;
         
         int totalKills = 0;
@@ -1040,7 +1040,7 @@ public class DataGame implements Constants{
         //s = "Destination Earth, playing as " + this.getPlayer().getName() + System.lineSeparator();
         s= "Turn: " + getCurrentTurn() + ", Hull Tracker: " + getShip().getHullTracker() + System.lineSeparator();
         s+= "IP: " + getPlayer().getInspirationPoints() + ", AP: " + getPlayer().getActionPoints() + ", Health: " + getPlayer().getHealthTracker() + System.lineSeparator();
-        //s+= diceToString();
+        s+= diceToString() + System.lineSeparator();
         
         return s;
     }

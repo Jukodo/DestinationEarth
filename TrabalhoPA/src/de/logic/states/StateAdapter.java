@@ -105,15 +105,15 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public IStates spendAbilityPoints() {
+    public IStates moveCrewMember(int room) {
         return this;
     }
     
-    @Override
-    public IStates spendAbilityPoints(int value) {
+     @Override
+    public IStates attackAliens(int room){
         return this;
     }
-    
+ 
     @Override
     public IStates placeTrap(int room, Trap trap){
         return this;
@@ -123,6 +123,13 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     public IStates detonateParticleDispenser(int room){
         return this;
     }
+    
+    @Override
+    public IStates sealRoom(int room) {
+        return this;
+    }
+    
+   
 
     @Override
     public IStates moveAliens() {

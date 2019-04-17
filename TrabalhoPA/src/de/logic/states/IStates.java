@@ -49,10 +49,12 @@ public interface IStates extends Serializable {
     IStates executeAction(int action);
     
     //Action states
-    IStates spendAbilityPoints();
-    IStates spendAbilityPoints(int value);
+    IStates moveCrewMember(int room);
+    IStates attackAliens(int room);
     IStates placeTrap(int room, Trap trap);
     IStates detonateParticleDispenser(int room);
+    IStates sealRoom(int room);
+    
     
     //AlienPhase
     IStates moveAliens();

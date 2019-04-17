@@ -3,6 +3,7 @@ package de.logic.states;
 import de.logic.data.DataGame;
 import de.logic.data.members.Doctor;
 import de.logic.data.members.Engineer;
+import de.logic.data.members.ScienceOfficer;
 
 public class CrewPhase extends StateAdapter{
  
@@ -24,6 +25,9 @@ public class CrewPhase extends StateAdapter{
         }
         else if (action == 4){
             return new PlaceTrap(this.getGame());
+        }
+        else if(action == 3){
+            return new DiceRolling(this.getGame(), new AttackAliens(this.getGame()), this.getGame().getPlayer().getCrewMember(this.getGame().getActiveCrewMember()-1).getAttack());
         }
         else if(action == 5){
             return new DetonateParticleDispenser(this.getGame());
