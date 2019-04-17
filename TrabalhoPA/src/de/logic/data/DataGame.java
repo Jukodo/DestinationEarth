@@ -579,8 +579,11 @@ public class DataGame implements Constants{
     public boolean addOrganicTrapTokens(int quantity){
        if(quantity < 1)
            return false;
+       
+       if(getOrganicTrapTokens() == MAX_TRAPS_ORGANIC)
+            return false;
 
-       if(!player.setOrganicTrapTokens(getOrganicTrapTokens() + quantity))
+       if(player.setOrganicTrapTokens(getOrganicTrapTokens() + quantity))
            return false;
        
        return true;
@@ -602,6 +605,9 @@ public class DataGame implements Constants{
    
    public boolean addParticleTrapTokens(int quantity){
         if(quantity < 1)
+            return false;
+        
+        if(this.getParticleTrapTokens() == MAX_TRAPS_PARTICLE)//Already has maxed allowed traps
             return false;
         
         player.setParticleTrapTokens(getParticleTrapTokens() + quantity);
@@ -829,6 +835,8 @@ public class DataGame implements Constants{
             removeHealthFromPlayer(player.getHealthTracker());
         }
         
+        removeActionPoints(DEF_COST_DETONATE_TRAP_PARTICLE);
+        roomToBoom.removeTrap();
         
         return true;
        

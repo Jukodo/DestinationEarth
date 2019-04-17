@@ -5,6 +5,7 @@
  */
 package de.logic.states;
 
+import de.logic.data.Trap;
 import java.io.Serializable;
 
 /**
@@ -50,6 +51,8 @@ public interface IStates extends Serializable {
     //Action states
     IStates spendAbilityPoints();
     IStates spendAbilityPoints(int value);
+    IStates placeTrap(int room, Trap trap);
+    IStates detonateParticleDispenser(int room);
     
     //AlienPhase
     IStates moveAliens();

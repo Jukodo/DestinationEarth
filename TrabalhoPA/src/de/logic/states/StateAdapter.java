@@ -1,6 +1,7 @@
 package de.logic.states;
 
 import de.logic.data.DataGame;
+import de.logic.data.Trap;
 
 public class StateAdapter implements IStates, de.logic.data.Constants{
     private DataGame game;
@@ -110,6 +111,16 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     
     @Override
     public IStates spendAbilityPoints(int value) {
+        return this;
+    }
+    
+    @Override
+    public IStates placeTrap(int room, Trap trap){
+        return this;
+    }
+    
+    @Override
+    public IStates detonateParticleDispenser(int room){
         return this;
     }
 

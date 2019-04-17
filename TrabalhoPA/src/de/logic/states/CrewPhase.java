@@ -22,6 +22,12 @@ public class CrewPhase extends StateAdapter{
         if(action == 2){
             return new MoveCrewMember(this.getGame());
         }
+        else if (action == 4){
+            return new PlaceTrap(this.getGame());
+        }
+        else if(action == 5){
+            return new DetonateParticleDispenser(this.getGame());
+        }
         else if(action == 6){
             return new SealRoom(this.getGame());
         }

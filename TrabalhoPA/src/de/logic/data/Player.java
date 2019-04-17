@@ -94,8 +94,6 @@ public class Player {
     }
 
     public boolean setOrganicTrapTokens(int organicTrapTokens) {
-        if(this.organicTrapTokens == MAX_TRAPS_ORGANIC)//Already has maxed allowed traps
-            return false;
         
         if(organicTrapTokens > MAX_TRAPS_ORGANIC)
             organicTrapTokens = MAX_TRAPS_ORGANIC;
@@ -110,8 +108,6 @@ public class Player {
     }
 
     public boolean setParticleTrapTokens(int particleTrapTokens) {
-        if(this.particleTrapTokens == MAX_TRAPS_PARTICLE)//Already has maxed allowed traps
-            return false;
         
         if(particleTrapTokens > MAX_TRAPS_PARTICLE)
             particleTrapTokens = MAX_TRAPS_PARTICLE;

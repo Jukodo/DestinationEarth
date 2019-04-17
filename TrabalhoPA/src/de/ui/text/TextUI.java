@@ -3,7 +3,10 @@ package de.ui.text;
 import de.DestinationEarth;
 import de.logic.data.Alien;
 import static de.logic.data.Constants.*;
+import de.logic.data.OrganicDetonator;
+import de.logic.data.ParticleDispenser;
 import de.logic.data.Room;
+import de.logic.data.Trap;
 import de.logic.data.members.CrewMember;
 import de.logic.states.*;
 import java.io.IOException;
@@ -716,7 +719,7 @@ public class TextUI {
             game.swapCrewMember();
             return;
         }
-        else if(op > 1 && op < (game.getDataGame().getAvailableActions_Quant() + 1)){
+        else if(op > 1 && op < (game.getDataGame().getAvailableActions_Quant() + 2)){
             game.executeAction(op);
             return;
         }
@@ -782,7 +785,137 @@ public class TextUI {
         }
     }
     
-     public void uiSealRoom(){
+    public void uiPlaceTrap(){
+        
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
+        
+        do{
+            System.out.println("Place a Trap");
+            
+            System.out.println("Active Member: " + cm[game.getDataGame().getActiveCrewMember()-1].getName()+ ", " + cm[game.getDataGame().getActiveCrewMember()-1].getRoom());
+            System.out.println("Organic Traps: " + game.getOrganicTrapTokens() + " Particle Dispensers: " + game.getParticleTrapTokens());
+                
+ 
+            System.out.println();
+            System.out.println("0 - Quit");
+            System.out.println("1 - Select a room to place a trap");
+            System.out.print("~>: ");
+            
+            input = sc.next();
+            
+            if(input.length() >= 1)
+                op = Integer.parseInt(input);
+            else
+                op = -1;
+            
+        }while(op < 0 || op > 1);
+        
+        switch(op){
+            case 0:
+                quit = true;
+                return;
+                
+            case 1:
+                int opRoom = 0;
+                do{
+                    System.out.println(game.getDataGame().getShip().toString());
+                    System.out.print("Room: ");
+
+                    input = sc.next();
+
+                    if(input.length() >= 1)
+                        opRoom = Integer.parseInt(input);
+                    else
+                        opRoom = -1;
+                }while(opRoom < 0 || opRoom > 12);
+                
+                do{
+                    System.out.println("Select the type of trap to place: ");
+                    System.out.println("1 - Organic Detonator");
+                    System.out.println("2 - Particle Dispenser");
+                    System.out.print("~>: ");
+
+                    input = sc.next();
+
+                    if(input.length() >= 1)
+                        op = Integer.parseInt(input);
+                    else
+                        op = -1;
+                }while(op < 0 || op > 2);
+                
+                Trap trap;
+                
+                if(op == 1)
+                    game.placeTrap(opRoom, new OrganicDetonator(game.getDataGame()));
+                else if(op == 2)
+                    game.placeTrap(opRoom, new ParticleDispenser(game.getDataGame()));
+                
+                
+                
+                break;
+        }
+    }
+    
+    public void uiDetonateParticleDispenser(){
+        
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
+        
+        do{
+            System.out.println("Detonate a particle dispenser");
+            
+            System.out.println("Active Member: " + cm[game.getDataGame().getActiveCrewMember()-1].getName()+ ", " + cm[game.getDataGame().getActiveCrewMember()-1].getRoom());
+                
+ 
+            System.out.println();
+            System.out.println("0 - Quit");
+            System.out.println("1 - Select a room with a particle dispenser");
+            System.out.print("~>: ");
+            
+            input = sc.next();
+            
+            if(input.length() >= 1)
+                op = Integer.parseInt(input);
+            else
+                op = -1;
+            
+        }while(op < 0 || op > 3);
+        
+        switch(op){
+            case 0:
+                quit = true;
+                return;
+                
+            case 1:
+                int opRoom = 0;
+                do{
+                    System.out.println(game.getDataGame().getShip().toString());
+                    System.out.print("Room: ");
+
+                    input = sc.next();
+
+                    if(input.length() >= 1)
+                        opRoom = Integer.parseInt(input);
+                    else
+                        opRoom = -1;
+                }while(opRoom < 0 || opRoom > 12);
+                
+                game.detonateParticleDispenser(opRoom);
+                
+                break;
+        }
+    }
+    
+    public void uiSealRoom(){
         
         int op;
         String input;
@@ -871,6 +1004,12 @@ public class TextUI {
             }
             else if (state instanceof MoveCrewMember){
                 uiMoveCrewMember();
+            }
+            else if (state instanceof PlaceTrap){
+                uiPlaceTrap();
+            }
+            else if(state instanceof DetonateParticleDispenser){
+                uiDetonateParticleDispenser();
             }
             else if (state instanceof SealRoom){
                 uiSealRoom();

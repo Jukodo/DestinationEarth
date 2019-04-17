@@ -30,7 +30,7 @@ public interface Constants {
     public static final int DEF_HULL_TRACKER = 8;
     public static final int DEF_HEALTH_TRACKER = 8;
     public static final int DEF_INSPIRATION_POINTS = 1;
-    public static final int DEF_ABILITY_POINTS = 1;
+    public static final int DEF_ABILITY_POINTS = 2;
     
     public static final String[] DEF_ACTIONS = {"Move", "Attack", "Place Trap", "Detonate Particle Dispenser", "Seal Room"};
     public static final int DEF_COST_TRAP_ORGANIC = 1;

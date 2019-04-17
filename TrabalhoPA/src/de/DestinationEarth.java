@@ -1,6 +1,7 @@
 package de;
 
 import de.logic.data.DataGame;
+import de.logic.data.Trap;
 import de.logic.states.*;
 import java.util.List;
 
@@ -42,6 +43,14 @@ public class DestinationEarth {
     
     public String getAvailableActions(){
         return dataGame.getAvailableActions();
+    }
+    
+    public int getOrganicTrapTokens(){
+        return dataGame.getOrganicTrapTokens();
+    }
+    
+    public int getParticleTrapTokens(){
+        return dataGame.getParticleTrapTokens();
     }
     
     @Override
@@ -135,6 +144,14 @@ public class DestinationEarth {
     
     public void spendAbilityPoints(int value){
         setState(getState().spendAbilityPoints(value));
+    }
+    
+    public void placeTrap(int room, Trap trap){
+        setState(getState().placeTrap(room, trap));
+    }
+    
+     public void detonateParticleDispenser(int room){
+        setState(getState().detonateParticleDispenser(room));
     }
     
     //AlienPhase

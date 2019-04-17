@@ -127,6 +127,10 @@ public class Room {
         aliensInside.clear();
     }
     
+    public void removeTrap(){
+        trapInside = null;
+    }
+    
     public Room chooseClosestRoom_Priority(){
         
         Room goTo = null;

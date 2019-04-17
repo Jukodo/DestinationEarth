@@ -143,6 +143,7 @@ public class Ship implements Constants{
         StringBuilder sb = new StringBuilder("Ship structure:");
         List<CrewMember> cm;
         List<Alien> aliens;
+        Trap trap;
         
         for(int i=1; i<=rooms.size(); i++){
             sb.append("\nRoom #" + i + " - " + rooms.get(i).getName());
@@ -158,13 +159,21 @@ public class Ship implements Constants{
                         sb.append(", " + cm.get(j).getName());
                 }
             }
-            
+       
             //AliensInside
             aliens = rooms.get(i).getAliensInside();
             if(aliens.size() > 0){
                 sb.append(", Alien(s) inside: " + aliens.size());
             }
             
+            //Trap inside
+            trap = rooms.get(i).getTrapInside();
+            if(trap != null){
+                sb.append(", Trap inside: 1 ");
+                sb.append(trap.toString());
+            }
+            
+            //Closest rooms
             sb.append("\n\tClosest Rooms:");
             for(Room closest:rooms.get(i).getClosestRooms()){
                 sb.append("\n\tRoom #" + closest.getId() + " - " + closest.getName());
