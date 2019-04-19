@@ -10,6 +10,7 @@ public class JourneyPhase extends StateAdapter{
     
     @Override
     public IStates nextTurn(){
+        this.getGame().resetActionPoints();
         this.getGame().nextTurn();
         return new ScanningPhase(this.getGame());
     }

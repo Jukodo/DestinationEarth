@@ -117,10 +117,11 @@ public class DataGame implements Constants{
         return newAliens;
     }
   
-    /**Methods**/
+    /**Methods**/    
     public void nextTurn(){
         setCurrentTurn(getCurrentTurn() + 1);
     }
+    
     
     /**Dice methods**/
     public int rollDie(int dieId){
@@ -511,6 +512,18 @@ public class DataGame implements Constants{
         return s;
     }
     
+    public void resetActionPoints(){
+        
+        getPlayer().setActionPoints(DEF_ACTION_POINTS);
+        
+        for (CrewMember cm : this.getPlayer().getCrew()) {
+            if(cm instanceof Commander){
+                addActionPoints(6-getActionPoints());
+                break;
+            }
+        }   
+    }
+    
     /**Health Tracker methods**/
     public int getHealthTracker(){
         return player.getHealthTracker();
@@ -886,6 +899,18 @@ public class DataGame implements Constants{
         return true;
     }
     
+    public void startUpInspirationPoints(){
+        
+        getPlayer().setInspirationPoints(DEF_INSPIRATION_POINTS);
+        
+        for (CrewMember cm : this.getPlayer().getCrew()) {
+            if(cm instanceof MoralOfficer){
+                addActionPoints(5-getInspirationPoints());
+                break;
+            }
+        }  
+    }
+    
     /**Inspiration methods**/
     public boolean IP_addHealthPoint(int quantity){
         if(player.getInspirationPoints() < DEF_COST_I_ADD_HEALTH)
@@ -903,9 +928,18 @@ public class DataGame implements Constants{
         if(player.getInspirationPoints() < DEF_COST_I_REPAIR_HULL)
             return false;
         
-        if(!addHealthToHull(quantity))
-            return false;
+        CrewMember cm = player.getCrewMember(this.getActiveCrewMember()-1);
         
+        //Egineer can add 2 health for 1 IP if in rest phase
+        if(cm instanceof Engineer){
+            if(!addHealthToHull(2))
+                if(!addHealthToHull(1))
+                    return false;
+            
+        }else{
+            if(!addHealthToHull(quantity))
+                return false;
+        }
         removeInspirationPoints(DEF_COST_I_REPAIR_HULL);
         
         return true;
