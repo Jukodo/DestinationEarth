@@ -38,6 +38,20 @@ public class DataGame implements Constants{
 
     }
 
+    /**Log methods**/
+    public void clearLogs() {
+        logs.clear();
+    }
+    
+    public void addLog(String msg) {
+        logs.add(msg);
+    }
+    
+    public List<String> getLogs() {
+        return logs;
+    }
+    
+    
     /**Getters and Setters**/
     public Player getPlayer() {
         return player;
@@ -61,14 +75,6 @@ public class DataGame implements Constants{
 
     public void setAliensCount(int aliensCount) {
         this.aliensCount = aliensCount;
-    }
-
-    public List<String> getLogs() {
-        return logs;
-    }
-
-    public void setLogs(List<String> logs) {
-        this.logs = logs;
     }
 
     public String[] getJourneyTracker() {
@@ -242,19 +248,24 @@ public class DataGame implements Constants{
                 getPlayer().setCrewMember(crewNumber, new TransporterChief(this, color));
                 break;
             default:
+                addLog("Crew Member class is invalid!");
                 return false;
         }
         return true;
     }
     
     public boolean selectCrewMemberColor(int crewNumber, int crewMemberColor){
-        //Exception ColorException = null;
-        if(crewMemberColor < 0 || crewMemberColor >= 12)
+        if(crewMemberColor < 0 || crewMemberColor >= 12){
+            addLog("Crew Member color is invalid!");
             return false;
-            //throw ColorException;
+        }
+
         CrewMember cm = getPlayer().getCrewMember(crewNumber-1);
-        if(cm == null)
+        if(cm == null){
+            addLog("Crew Member selected doesn't exist!");
             return false;
+        }
+        
         cm.setColor(crewMemberColor-1);
         return true;
     }
@@ -262,17 +273,23 @@ public class DataGame implements Constants{
     public boolean placeCrewMember(int crewNumber, int roomNumber){
         crewNumber--; //ARRAY INDEX = -1 of its number
         
-        if(roomNumber < 1 || roomNumber > NUM_ROOMS)
+        if(roomNumber < 1 || roomNumber > NUM_ROOMS){
+            addLog("Room selected doesn't exist!");
             return false;
+        }
         
         CrewMember cm = getPlayer().getCrewMember(crewNumber);
         Room room = getShip().getRoom(roomNumber);
         
-        if(cm == null)
+        if(cm == null){
+            addLog("Crew Member selected doesn't exist!");
             return false;
+        }
         
-        if(room == null)
+        if(room == null){
+            addLog("Room selected doesn't exist!");
             return false;
+        }
         
         cm.enterRoom(room);
         return true;
@@ -280,16 +297,20 @@ public class DataGame implements Constants{
     
     public boolean crewClassNotRepeated(){
         for(int i=0; i<player.getCrew().length-1; i++){
-            if(player.getCrewMember(i).getName().equals(player.getCrewMember(i+1).getName()))
+            if(player.getCrewMember(i).getName().equals(player.getCrewMember(i+1).getName())){
+                addLog("Crew cannot have same class!");
                 return false;
+            }
         }
         return true;
     }
     
     public boolean crewColorNotRepeated(){
         for(int i=0; i<player.getCrew().length-1; i++){
-            if(player.getCrewMember(i).getColor() == player.getCrewMember(i+1).getColor())
+            if(player.getCrewMember(i).getColor() == player.getCrewMember(i+1).getColor()){
+                addLog("Crew cannot have same color!");
                 return false;
+            }
         }
         return true;
     }
@@ -340,6 +361,7 @@ public class DataGame implements Constants{
         if(eventIsAlienSpawn(turn, event))
             return true;
         
+        addLog("Journey selected is invalid! Please check accepted formats...");
         return false;
     }
     public boolean isValid_JourneyTracker(){
@@ -394,8 +416,10 @@ public class DataGame implements Constants{
     /**Scanning phase methods**/
     public boolean spawnAlien(Room room){
         
-        if(room == null)
+        if(room == null){
+            addLog("Room selected doesn't exist!");
             return false;
+        }
         
         Alien alien = new Alien();
         alien.enterRoom(room);
@@ -409,8 +433,10 @@ public class DataGame implements Constants{
         
         for(int i = 0; i < numAliens; i++){
             rollDice(2);
-            if(!spawnAlien(ship.getRoom(getDiceValue(2))))
+            if(!spawnAlien(ship.getRoom(getDiceValue(2)))){
+                addLog("Error spawning alien!");
                 return false;
+            }
             resetDices();
         }
         
@@ -420,17 +446,23 @@ public class DataGame implements Constants{
     public boolean placeNewAlien(int alienNumber, int roomNumber){
         alienNumber--; //ARRAY INDEX = -1 of its number
         
-        if(roomNumber < 1 || roomNumber > NUM_ROOMS)
+        if(roomNumber < 1 || roomNumber > NUM_ROOMS){
+            addLog("Room selected doesn't exist!");
             return false;
+        }
         
         Alien alien = newAliens.get(alienNumber);
         Room room = getShip().getRoom(roomNumber);
         
-        if(alien == null)
+        if(alien == null){
+            addLog("Alien selected doesn't exist!");
             return false;
+        }
         
-        if(room == null)
+        if(room == null){
+            addLog("Room selected doesn't exist!");
             return false;
+        }
         
         alien.enterRoom(room);
         
@@ -447,16 +479,20 @@ public class DataGame implements Constants{
     }
     
     public boolean addActionPoints(int quantity){
-        if(quantity < 1)
+        if(quantity < 1){
+            addLog("Invalid quantity!");
             return false;
+        }
         
         player.setActionPoints(getActionPoints() + quantity);
         return true;
     }
     
     public boolean removeActionPoints(int quantity){
-        if(quantity < 1)
+        if(quantity < 1){
+            addLog("Invalid quantity!");
             return false;
+        }
         
         int total = getActionPoints() - quantity;
         
@@ -530,16 +566,20 @@ public class DataGame implements Constants{
     }
     
     public boolean addHealthToPlayer(int quantity){
-        if(quantity < 1)
+        if(quantity < 1){
+            addLog("Invalid quantity!");
             return false;
+        }
         
         player.setHealthTracker(getHealthTracker() + quantity);
         return true;
     }
     
     public boolean removeHealthFromPlayer(int quantity){
-        if(quantity < 1)
+        if(quantity < 1){
+            addLog("Invalid quantity!");
             return false;
+        }
         
         int total = getHealthTracker() - quantity;
         
@@ -559,16 +599,20 @@ public class DataGame implements Constants{
     }
     
     public boolean addHealthToHull(int quantity){
-        if(quantity < 1)
+        if(quantity < 1){
+            addLog("Invalid quantity!");
             return false;
+        }
         
         ship.setHullTracker(getHullTracker() + quantity);
         return true;
     }
     
     public boolean removeHealthFromHull(int quantity){
-        if(quantity < 1)
+        if(quantity < 1){
+            addLog("Invalid quantity!");
             return false;
+        }
         
         int total = getHullTracker() - quantity;
         
@@ -590,21 +634,25 @@ public class DataGame implements Constants{
     }
     
     public boolean addOrganicTrapTokens(int quantity){
-       if(quantity < 1)
-           return false;
-       
-       if(getOrganicTrapTokens() == MAX_TRAPS_ORGANIC)
+       if(quantity < 1){
+            addLog("Invalid quantity!");
             return false;
-
-       if(player.setOrganicTrapTokens(getOrganicTrapTokens() + quantity))
-           return false;
+        }
        
+       if(getOrganicTrapTokens() == MAX_TRAPS_ORGANIC){
+            addLog("Cannot own more organic traps, max reached!");
+            return false;
+        }
+
+       player.setOrganicTrapTokens(getOrganicTrapTokens() + quantity);
        return true;
    }
 
    public boolean removeOrganicTrapTokens(int quantity){
-       if(quantity < 1)
-           return false;
+       if(quantity < 1){
+            addLog("Invalid quantity!");
+            return false;
+        }
 
        int total = getOrganicTrapTokens() - quantity;
 
@@ -617,19 +665,25 @@ public class DataGame implements Constants{
    }
    
    public boolean addParticleTrapTokens(int quantity){
-        if(quantity < 1)
+        if(quantity < 1){
+            addLog("Invalid quantity!");
             return false;
+        }
         
-        if(this.getParticleTrapTokens() == MAX_TRAPS_PARTICLE)//Already has maxed allowed traps
+        if(this.getParticleTrapTokens() == MAX_TRAPS_PARTICLE){//Already has maxed allowed traps
+            addLog("Cannot own more particle traps, max reached!");
             return false;
+        }
         
         player.setParticleTrapTokens(getParticleTrapTokens() + quantity);
         return true;
     }
     
     public boolean removeParticleTrapTokens(int quantity){
-        if(quantity < 1)
+        if(quantity < 1){
+            addLog("Invalid quantity!");
             return false;
+        }
         
         int total = getParticleTrapTokens() - quantity;
         
@@ -682,10 +736,13 @@ public class DataGame implements Constants{
         int cost = getMovementCost();
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(roomNumber < 1 || roomNumber > NUM_ROOMS)
+        if(roomNumber < 1 || roomNumber > NUM_ROOMS){
+            addLog("Room selected doesn't exist!");
             return false;
+        }
         
         if(cost > 0 && getActionPoints() < DEF_COST_MOVE){
+            addLog("Not enough AP (Action Points)!");
             return false;
         }
    
@@ -701,8 +758,10 @@ public class DataGame implements Constants{
             }
         }
         
-        if(roomToMove == null || roomToMove.getIsSealed())
+        if(roomToMove == null || roomToMove.getIsSealed()){
+            addLog("Cannot move to selected Room! Please check if sealed or too far...");
             return false;
+        }
         
         int freeMoves = cm.getMovement() - DEF_COST_MOVE;
         
@@ -763,8 +822,10 @@ public class DataGame implements Constants{
     public boolean healPlayer(){
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(getActionPoints() < DEF_COST_HEAL)
+        if(getActionPoints() < DEF_COST_HEAL){
+            addLog("Not enough AP (Action Points)!");
             return false;
+        }
         
         if(cm instanceof Doctor){
            removeActionPoints(DEF_COST_HEAL);
@@ -772,6 +833,7 @@ public class DataGame implements Constants{
            return true;
         }
         
+        addLog("Selected crew member cannot execute this action!");
         return false;
     }
     
@@ -784,32 +846,43 @@ public class DataGame implements Constants{
                 ((Engineer)cm).setHasFixedForFree(true); //TODO: inicio do turno colocar a false
                 return true;
             }else{
-                if(getActionPoints() < DEF_COST_FIX_HULL)
+                if(getActionPoints() < DEF_COST_FIX_HULL){
+                    addLog("Not enough AP (Action Points)!");
                     return false;
+                }
                 removeActionPoints(DEF_COST_FIX_HULL);
                 addHealthToHull(1);
                 return true;
             }
         }
         
+        addLog("Selected crew member cannot execute this action!");
         return false;
     }
     
     public boolean placeTrap(int roomNumber, Trap trap){
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(getActionPoints() < DEF_COST_TRAP_ORGANIC)
+        if(getActionPoints() < DEF_COST_TRAP_ORGANIC){
+            addLog("Not enough AP (Action Points)!");
             return false;
+        }
         
         Room room = ship.getRoom(roomNumber);
-        if(room == null)
+        if(room == null){
+            addLog("Selected room doesn't exist!");
             return false;
+        }
         
-        if(room.getTrapInside() != null)
+        if(room.getTrapInside() != null){
+            addLog("Selected room already has a trap!");
             return false;
+        }
         
-        if(!cm.getRoom().equals(room))
+        if(!cm.getRoom().equals(room)){
+            addLog("Selected crw member isn't inside the selected room!");
             return false;
+        }
         
         if(trap instanceof OrganicDetonator && getOrganicTrapTokens() > 0){
             room.setTrapInside(new OrganicDetonator(this));
@@ -819,8 +892,10 @@ public class DataGame implements Constants{
             room.setTrapInside(new ParticleDispenser(this));
             removeParticleTrapTokens(1);
         }
-        else
+        else{
+            addLog("Invalid trap!");
             return false;
+        }
        
         removeActionPoints(DEF_COST_TRAP_ORGANIC);
         
@@ -828,9 +903,16 @@ public class DataGame implements Constants{
     }
     
     public boolean detonateParticleDispenser(int roomNumber){
-        
-        if(getActionPoints() < DEF_COST_DETONATE_TRAP_PARTICLE || roomNumber < 1 || roomNumber > NUM_ROOMS)
+
+        if(roomNumber < 1 || roomNumber > NUM_ROOMS){
+            addLog("Selected room doesn't exist!");
             return false;
+        }
+        
+        if(getActionPoints() < DEF_COST_DETONATE_TRAP_PARTICLE){
+            addLog("Not enough AP (Action Points)!");
+            return false;
+        }
         
         Room roomToBoom = null;
         
@@ -838,8 +920,10 @@ public class DataGame implements Constants{
             roomToBoom = ship.getRoom(roomNumber);
         }
         
-        if(roomToBoom == null)
+        if(roomToBoom == null){
+            addLog("Selected room doesn't exist!");
             return false;
+        }
         
         roomToBoom.removeAllAliens();
         
@@ -852,18 +936,31 @@ public class DataGame implements Constants{
         roomToBoom.removeTrap();
         
         return true;
-       
-        
     }
     
     public boolean sealRoom(int roomNumber){
-        
-        if(getActionPoints() < DEF_COST_SEAL_ROOM)
+
+        if(roomNumber < 1 || roomNumber > NUM_ROOMS){
+            addLog("Selected room doesn't exist!");
             return false;
+        }
+        
+        if(getActionPoints() < DEF_COST_SEAL_ROOM){
+            addLog("Not enough AP (Action Points)!");
+            return false;
+        }
         
         Room room = ship.getRoom(roomNumber);
-        if(room == null || !room.getCanBeSealed() || room.getIsSealed())
+        if(room == null){
+            addLog("Selected room doesn't exist!");
             return false;
+        }else if(!room.getCanBeSealed()){
+            addLog("Selected room cannot be sealed!");
+            return false;
+        }else if(room.getIsSealed()){
+            addLog("Selected room is already sealed!");
+            return false;
+        }
         
         removeActionPoints(DEF_COST_SEAL_ROOM);
         room.setSealed(true);
@@ -877,8 +974,10 @@ public class DataGame implements Constants{
     }
     
     public boolean addInspirationPoints(int quantity){
-        if(quantity < 1)
+        if(quantity < 1){
+            addLog("Invalid quantity!");
             return false;
+        }
         
         player.setInspirationPoints(getInspirationPoints() + quantity);
         
@@ -886,8 +985,10 @@ public class DataGame implements Constants{
     }
     
     public boolean removeInspirationPoints(int quantity){
-        if(quantity < 1)
+        if(quantity < 1){
+            addLog("Invalid quantity!");
             return false;
+        }
         
         int total = getInspirationPoints() - quantity;
         
@@ -913,11 +1014,16 @@ public class DataGame implements Constants{
     
     /**Inspiration methods**/
     public boolean IP_addHealthPoint(){
-        if(player.getInspirationPoints() < DEF_COST_I_ADD_HEALTH)
-            return false;
         
-        if(!addHealthToPlayer(1))
+        if(player.getInspirationPoints() < DEF_COST_I_ADD_HEALTH){
+            addLog("Not enough IP (Inspiration Points)!");
             return false;
+        }
+        
+        if(!addHealthToPlayer(1)){
+            addLog("Error adding health to player!");
+            return false;
+        }
         
         removeInspirationPoints(DEF_COST_I_ADD_HEALTH);
         
@@ -925,20 +1031,26 @@ public class DataGame implements Constants{
     }
     
     public boolean IP_repairHull(){
-        if(player.getInspirationPoints() < DEF_COST_I_REPAIR_HULL)
+        if(player.getInspirationPoints() < DEF_COST_I_REPAIR_HULL){
+            addLog("Not enough IP (Inspiration Points)!");
             return false;
+        }
         
         CrewMember cm = player.getCrewMember(this.getActiveCrewMember()-1);
         
         //Egineer can add 2 health for 1 IP if in rest phase
         if(cm instanceof Engineer){
             if(!addHealthToHull(2))
-                if(!addHealthToHull(1))
+                if(!addHealthToHull(1)){
+                    addLog("Error adding health to hull!");
                     return false;
+                }
             
         }else{
-            if(!addHealthToHull(1))
+            if(!addHealthToHull(1)){
+                addLog("Error adding health to hull!");
                 return false;
+            }
         }
         removeInspirationPoints(DEF_COST_I_REPAIR_HULL);
         
@@ -946,8 +1058,10 @@ public class DataGame implements Constants{
     }
     
     public boolean IP_buildOrganicDetonator(){
-        if(player.getInspirationPoints() < DEF_COST_I_BUILD_TRAP_ORGANIC)
+        if(player.getInspirationPoints() < DEF_COST_I_BUILD_TRAP_ORGANIC){
+            addLog("Not enough IP (Inspiration Points)!");
             return false;
+        }
         
         addOrganicTrapTokens(1);
         removeInspirationPoints(DEF_COST_I_BUILD_TRAP_ORGANIC);
@@ -956,15 +1070,21 @@ public class DataGame implements Constants{
     }
     
     public boolean IP_addMovement(int crewNumber){
-        if(player.getInspirationPoints() < DEF_COST_I_ADD_MOVEMENT)
+        if(player.getInspirationPoints() < DEF_COST_I_ADD_MOVEMENT){
+            addLog("Not enough IP (Inspiration Points)!");
             return false;
+        }
         
         CrewMember cm = player.getCrewMember(crewNumber-1);
-        if(cm == null)
+        if(cm == null){
+            addLog("Selected crew member doesn't exist!");
             return false;
+        }
         
-        if(!cm.setMovement(cm.getMovement() + 1))
+        if(!cm.setMovement(cm.getMovement() + 1)){
+            addLog("Selected crew member movement is already maxed!");
             return false;
+        }
         
         removeInspirationPoints(DEF_COST_I_ADD_MOVEMENT);
         
@@ -972,10 +1092,15 @@ public class DataGame implements Constants{
     }
     
     public boolean IP_buildParticleDesperser(){
-        if(player.getInspirationPoints() < DEF_COST_I_BUILD_TRAP_PARTICLE)
+        if(player.getInspirationPoints() < DEF_COST_I_BUILD_TRAP_PARTICLE){
+            addLog("Not enough IP (Inspiration Points)!");
             return false;
+        }
         
-        addParticleTrapTokens(1);
+        if(!addParticleTrapTokens(1)){
+            //Already has logs inside addParticleTrapTokens method
+            return false;
+        }
         
         removeInspirationPoints(DEF_COST_I_BUILD_TRAP_PARTICLE);
         
@@ -983,8 +1108,10 @@ public class DataGame implements Constants{
     }
     
     public boolean IP_addSealedRoomToken(){
-        if(player.getInspirationPoints() < DEF_COST_I_ADD_SEALED_TOKEN)
+        if(player.getInspirationPoints() < DEF_COST_I_ADD_SEALED_TOKEN){
+            addLog("Not enough IP (Inspiration Points)!");
             return false;
+        }
         
         player.setRoomSealTokens(player.getRoomSealTokens() + 1);
         
@@ -994,15 +1121,21 @@ public class DataGame implements Constants{
     }
     
     public boolean IP_addAttackDie(int crewNumber){
-        if(player.getInspirationPoints() < DEF_COST_I_ADD_ATTACK_DIE)
+        if(player.getInspirationPoints() < DEF_COST_I_ADD_ATTACK_DIE){
+            addLog("Not enough IP (Inspiration Points)!");
             return false;
+        }
         
         CrewMember cm = player.getCrewMember(crewNumber-1);
-        if(cm == null)
+        if(cm == null){
+            addLog("Selected crew member doesn't exist!");
             return false;
+        }
         
-        if(!cm.setAttack(cm.getAttack() + 1))
+        if(!cm.setAttack(cm.getAttack() + 1)){
+            addLog("Selected crew member attack is already maxed!");
             return false;
+        }
         
         removeInspirationPoints(DEF_COST_I_ADD_ATTACK_DIE);
         
@@ -1010,11 +1143,15 @@ public class DataGame implements Constants{
     }
     
     public boolean IP_addValueToAttackDie(){
-       if(player.getInspirationPoints() < DEF_COST_I_ADD_VALUE_ATTACK_DIE)
+       if(player.getInspirationPoints() < DEF_COST_I_ADD_VALUE_ATTACK_DIE){
+            addLog("Not enough IP (Inspiration Points)!");
             return false;
+        }
         
-        if(!player.setAttackBuff(player.getAttackBuff()+1))
+        if(!player.setAttackBuff(player.getAttackBuff()+1)){
+            addLog("Attack buff is already maxed!");
             return false;
+        }
         
         removeInspirationPoints(DEF_COST_I_ADD_VALUE_ATTACK_DIE);
         

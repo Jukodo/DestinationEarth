@@ -281,6 +281,7 @@ public class TextUI {
                 break;
                 
             case 4:
+                System.out.println("Confirming");
                 game.confirmCrewMemberSelection();
         }
     }
@@ -1032,12 +1033,21 @@ public class TextUI {
     public void uiAlienPhase(){
         game.moveAliens();
     }
+    
+    public void writeLogs(){
+        for(String log:game.getLogs()){
+            System.out.println(log);
+        }
+        game.getDataGame().clearLogs();
+    }
 
     public void run() throws IOException, ClassNotFoundException{
         
         while (!quit) {
             IStates state = game.getState();
            
+            writeLogs();
+            
             if (state instanceof Beginning) {
                 uiBeginning();
             } 
