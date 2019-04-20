@@ -912,11 +912,11 @@ public class DataGame implements Constants{
     }
     
     /**Inspiration methods**/
-    public boolean IP_addHealthPoint(int quantity){
+    public boolean IP_addHealthPoint(){
         if(player.getInspirationPoints() < DEF_COST_I_ADD_HEALTH)
             return false;
         
-        if(!addHealthToPlayer(quantity))
+        if(!addHealthToPlayer(1))
             return false;
         
         removeInspirationPoints(DEF_COST_I_ADD_HEALTH);
@@ -924,7 +924,7 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean IP_repairHull(int quantity){
+    public boolean IP_repairHull(){
         if(player.getInspirationPoints() < DEF_COST_I_REPAIR_HULL)
             return false;
         
@@ -937,7 +937,7 @@ public class DataGame implements Constants{
                     return false;
             
         }else{
-            if(!addHealthToHull(quantity))
+            if(!addHealthToHull(1))
                 return false;
         }
         removeInspirationPoints(DEF_COST_I_REPAIR_HULL);
@@ -955,10 +955,7 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean IP_addMovement(int quantity, int crewNumber){
-        if(quantity < 1)
-            return false;
-        
+    public boolean IP_addMovement(int crewNumber){
         if(player.getInspirationPoints() < DEF_COST_I_ADD_MOVEMENT)
             return false;
         
@@ -966,7 +963,7 @@ public class DataGame implements Constants{
         if(cm == null)
             return false;
         
-        if(!cm.setMovement(cm.getMovement() + quantity))
+        if(!cm.setMovement(cm.getMovement() + 1))
             return false;
         
         removeInspirationPoints(DEF_COST_I_ADD_MOVEMENT);
@@ -985,24 +982,18 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean IP_addSealedRoomToken(int quantity){
-        if(quantity < 1)
-            return false;
-        
+    public boolean IP_addSealedRoomToken(){
         if(player.getInspirationPoints() < DEF_COST_I_ADD_SEALED_TOKEN)
             return false;
         
-        player.setRoomSealTokens(player.getRoomSealTokens() + quantity);
+        player.setRoomSealTokens(player.getRoomSealTokens() + 1);
         
         removeInspirationPoints(DEF_COST_I_ADD_SEALED_TOKEN);
         
         return true;
     }
     
-    public boolean IP_addAttackDie(int quantity, int crewNumber){
-        if(quantity < 1)
-            return false;
-        
+    public boolean IP_addAttackDie(int crewNumber){
         if(player.getInspirationPoints() < DEF_COST_I_ADD_ATTACK_DIE)
             return false;
         
@@ -1010,7 +1001,7 @@ public class DataGame implements Constants{
         if(cm == null)
             return false;
         
-        if(!cm.setAttack(cm.getAttack() + quantity))
+        if(!cm.setAttack(cm.getAttack() + 1))
             return false;
         
         removeInspirationPoints(DEF_COST_I_ADD_ATTACK_DIE);
@@ -1018,11 +1009,8 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public boolean IP_addValueToAttackDie(int quantity){
-        if(quantity < 1)
-            return false;
-        
-        if(player.getInspirationPoints() < DEF_COST_I_ADD_VALUE_ATTACK_DIE)
+    public boolean IP_addValueToAttackDie(){
+       if(player.getInspirationPoints() < DEF_COST_I_ADD_VALUE_ATTACK_DIE)
             return false;
         
         if(!player.setAttackBuff(player.getAttackBuff()+1))
@@ -1033,7 +1021,6 @@ public class DataGame implements Constants{
         return true;
     }
     
-    /**Inspiration methods**/
     public boolean moveAliens(){
                
         Room room;

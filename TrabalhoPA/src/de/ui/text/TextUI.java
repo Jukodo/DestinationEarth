@@ -620,11 +620,11 @@ public class TextUI {
                 break;
                 
             case 2:
-                game.getDataGame().IP_addHealthPoint(1);
+                game.getDataGame().IP_addHealthPoint();
                 break;
                 
             case 3:
-                game.getDataGame().IP_repairHull(1);
+                game.getDataGame().IP_repairHull();
                 break;
                 
             case 4:
@@ -632,7 +632,7 @@ public class TextUI {
                 break;
                 
             case 5:
-                game.getDataGame().IP_addMovement(1, game.getDataGame().getActiveCrewMember());
+                game.getDataGame().IP_addMovement(game.getDataGame().getActiveCrewMember());
                 break;
                 
             case 6:
@@ -640,15 +640,15 @@ public class TextUI {
                 break;
                 
             case 7:
-                game.getDataGame().IP_addSealedRoomToken(1);
+                game.getDataGame().IP_addSealedRoomToken();
                 break;
                 
             case 8:
-                game.getDataGame().IP_addAttackDie(1, game.getDataGame().getActiveCrewMember());
+                game.getDataGame().IP_addAttackDie(game.getDataGame().getActiveCrewMember());
                 break;
                 
             case 9:
-                game.getDataGame().IP_addValueToAttackDie(1);
+                game.getDataGame().IP_addValueToAttackDie();
                 break;
                 
             case 10:
