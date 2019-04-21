@@ -15,12 +15,8 @@ Methods changes:
 
 
 Functionalities:
-
-	Save
-Load
-
 	Game over when 0 health
 	
 Sum missed details?
 	Settings (?)
-	Game stats on every UI phase (?) Also unify menu templates
+	Game stats on every UI phase (?) Also unify templates

@@ -10,7 +10,12 @@ import de.logic.data.Trap;
 import de.logic.data.members.CrewMember;
 import de.logic.data.members.ScienceOfficer;
 import de.logic.states.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,21 +24,17 @@ public class TextUI {
     
     private DestinationEarth game;
     private boolean quit = false;
-    private boolean inDebug = true;
+    private final boolean inDebug = true;
 
     public TextUI(DestinationEarth game) 
     {
         this.game = game;
     }
     
-    public void uiBeginning() throws IOException, ClassNotFoundException 
-    {
-        
+    public void uiBeginning() throws IOException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
         String input;
-        char c;
-        
-        //while(true){
+        int op;
             
         System.out.println("Welcome to Destination Earth, please select an option");
         
@@ -47,22 +48,17 @@ public class TextUI {
             System.out.println();
             System.out.print("~>: ");
 
-            input = sc.next();
+            op = sc.nextInt();
 
-            if(input.length() >= 1)
-                c = input.charAt(0);
-            else
-                c = ' ';
+        }while(op < 0 || op > 3);
 
-        }while(c < '0' || c > '3');
+        switch(op){
 
-        switch(c){
-
-            case '0':
+            case 0:
                 quit = true;
                 return;
 
-            case '1':
+            case 1:
 
                 System.out.println();
                 System.out.print("Please insert your player name: ");
@@ -74,6 +70,10 @@ public class TextUI {
                 }
 
                 return;
+                
+            case 2:
+                game = loadGame();
+                break;
                 
             default:
                 return;
@@ -474,8 +474,46 @@ public class TextUI {
         }
     }
     
-    public void uiJourneyPhase(){
-        game.nextTurn();
+    public void uiJourneyPhase() throws IOException{
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        do{
+            System.out.println("Destination Earth:");
+            
+            System.out.println();
+            System.out.println("0 - Quit");
+            System.out.println("1 - Next Turn");
+            System.out.println("2 - Save Game");
+            
+            System.out.println();
+            System.out.print("~>: ");
+            
+            input = sc.next();
+            
+            if(input.length() >= 1)
+                op = Integer.parseInt(input);
+            else
+                op = -1;
+            
+        }while(op < 0 || op > 2);
+        
+        switch(op){
+            
+            case 0:
+                quit = true;
+                return;
+            
+            case 1:
+                game.nextTurn();
+                break;
+            
+            case 2:
+                saveGame();
+                break;
+        }
     }
     
     public void uiScanningPhase(){
@@ -1063,6 +1101,24 @@ public class TextUI {
             else if (state instanceof DiceRolling){
                 uiDiceRolling();
             }
+        }
+    }
+    
+    public void saveGame() throws FileNotFoundException, IOException{
+        try(ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream("SaveFile"))) { 
+            save.writeUnshared(game);
+            game.getDataGame().addLog("Game saved!");
+        }
+    }
+    
+    public DestinationEarth loadGame() throws FileNotFoundException, IOException, ClassNotFoundException{
+        try(ObjectInputStream load = new ObjectInputStream(new FileInputStream("SaveFile"))) { 
+            DestinationEarth loadedGame = (DestinationEarth) load.readUnshared();
+            if(loadedGame != null)
+                loadedGame.getDataGame().addLog("Game loaded!");
+            else
+                loadedGame.getDataGame().addLog("Game loading failed!");
+            return loadedGame;
         }
     }
 }
