@@ -146,8 +146,8 @@ public class DestinationEarth {
         setState(getState().attackAliens(room));
     }
     
-    public void placeTrap(int room, Trap trap){
-        setState(getState().placeTrap(room, trap));
+    public void placeTrap(Trap trap){
+        setState(getState().placeTrap(trap));
     }
     
     public void detonateParticleDispenser(int room){

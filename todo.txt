@@ -1,9 +1,17 @@
 Specials:
 Comm's Officer
 Red shirt
-Engineer - Fix 2 Hull for 1 IP in rest phase
-Moral officer
 Shuttle Pilot
 
 Methods changes:
-Os métodos de IP não devem de aceitar uma quantidade. Os upgrades dizem especificamente "Repair ONE Hull" "Add ONE to Health", etc
+
+trap.activate(): 
+	remove method and do the logic in moveAlien; 
+	OR do trap.active() and change AP_detonateParticleDispenser;
+
+
+Functionalities:
+Save
+Load
+Game over when 0 health
+Sum missed details?

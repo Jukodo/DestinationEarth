@@ -777,6 +777,8 @@ public class DataGame implements Constants{
         
         cm.enterRoom(roomToMove);
         
+        addLog(cm.getName() + " moved to " + roomToMove.toString());
+        
         return true;
     }
     
@@ -799,8 +801,15 @@ public class DataGame implements Constants{
             roomToAttack = ship.getRoom(cm.getRoom().getId());
         }
         
-        if(roomToAttack == null || roomToAttack.getAliensInside().size() < 1)
+        if(roomToAttack == null){
+            addLog("Cannot attack selected Room! Please check if sealed or too far...");
             return 0;
+        }
+        
+        if(roomToAttack.getAliensInside().size() < 1){
+            addLog("There aren't any aliens in the room to attack!");
+        }
+            
         
         int totalKills = 0;
         
@@ -816,21 +825,30 @@ public class DataGame implements Constants{
             }
         }
         
+        addLog(cm.getName() + " killed " + totalKills + " alien(s). You earned " + totalKills + " IP (Inspiration Points).");
+        
         return totalKills;
     }
     
     public boolean healPlayer(){
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(getActionPoints() < DEF_COST_HEAL){
-            addLog("Not enough AP (Action Points)!");
-            return false;
-        }
-        
         if(cm instanceof Doctor){
-           removeActionPoints(DEF_COST_HEAL);
-           addHealthToPlayer(1);
-           return true;
+            if(cm.getRoom().getName().equalsIgnoreCase("SickBay") && !((Doctor)cm).hasHealedForFree()){
+                addHealthToPlayer(1);
+                ((Doctor)cm).setHasHealedForFree(true); //TODO: inicio do turno colocar a false
+                addLog("Player was healed by 1 health!");
+                return true;
+            }else{
+                if(getActionPoints() < DEF_COST_HEAL){
+                    addLog("Not enough AP (Action Points)!");
+                    return false;
+                }
+                removeActionPoints(DEF_COST_HEAL);
+                addHealthToPlayer(1);
+                addLog("Player was healed by 1 health!");
+                return true;
+            }
         }
         
         addLog("Selected crew member cannot execute this action!");
@@ -844,6 +862,7 @@ public class DataGame implements Constants{
             if(cm.getRoom().getName().equalsIgnoreCase("Engineering") && !((Engineer)cm).hasFixedForFree()){
                 addHealthToHull(1);
                 ((Engineer)cm).setHasFixedForFree(true); //TODO: inicio do turno colocar a false
+                addLog("Ship's hull was fixed by 1 health!");
                 return true;
             }else{
                 if(getActionPoints() < DEF_COST_FIX_HULL){
@@ -852,6 +871,7 @@ public class DataGame implements Constants{
                 }
                 removeActionPoints(DEF_COST_FIX_HULL);
                 addHealthToHull(1);
+                addLog("Ship's hull was fixed by 1 health!");
                 return true;
             }
         }
@@ -860,7 +880,7 @@ public class DataGame implements Constants{
         return false;
     }
     
-    public boolean placeTrap(int roomNumber, Trap trap){
+    public boolean placeTrap(Trap trap){
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
         if(getActionPoints() < DEF_COST_TRAP_ORGANIC){
@@ -868,7 +888,7 @@ public class DataGame implements Constants{
             return false;
         }
         
-        Room room = ship.getRoom(roomNumber);
+        Room room = ship.getRoom(cm.getRoom().getId());
         if(room == null){
             addLog("Selected room doesn't exist!");
             return false;
@@ -880,17 +900,19 @@ public class DataGame implements Constants{
         }
         
         if(!cm.getRoom().equals(room)){
-            addLog("Selected crw member isn't inside the selected room!");
+            addLog("Selected crew member isn't inside the selected room!");
             return false;
         }
         
         if(trap instanceof OrganicDetonator && getOrganicTrapTokens() > 0){
             room.setTrapInside(new OrganicDetonator(this));
             removeOrganicTrapTokens(1);
+            addLog("Organic Detonator was planted in " + room.toString());
         }
         else if (trap instanceof ParticleDispenser && getParticleTrapTokens() > 0){
             room.setTrapInside(new ParticleDispenser(this));
             removeParticleTrapTokens(1);
+            addLog("Particle Dispenser was planted in " + room.toString());
         }
         else{
             addLog("Invalid trap!");
@@ -921,19 +943,21 @@ public class DataGame implements Constants{
         }
         
         if(roomToBoom == null){
-            addLog("Selected room doesn't exist!");
+            addLog("Selected room doesn't have a Particle Dispenser");
             return false;
         }
         
+        int nAliens = roomToBoom.getAliensInside().size();
         roomToBoom.removeAllAliens();
         
         if(roomToBoom.getMembersInside().size() > 0){
-            
             removeHealthFromPlayer(player.getHealthTracker());
         }
         
         removeActionPoints(DEF_COST_DETONATE_TRAP_PARTICLE);
         roomToBoom.removeTrap();
+        
+        addLog("Particle Dispenser detonated with success!" + " You killed " + nAliens + " aliens");
         
         return true;
     }
@@ -961,6 +985,16 @@ public class DataGame implements Constants{
             addLog("Selected room is already sealed!");
             return false;
         }
+        else if(room.getAliensInside().size() > 0){
+            addLog("Selected room cannot be sealed: There are aliens inside!");
+            return false;
+        }
+        else if(room.getMembersInside().size() > 0){
+            addLog("Selected room cannot be sealed: There are crew members inside!");
+            return false;
+        }
+        
+        addLog(room.toString() + " was sealed with success!");
         
         removeActionPoints(DEF_COST_SEAL_ROOM);
         room.setSealed(true);
@@ -1015,22 +1049,44 @@ public class DataGame implements Constants{
     /**Inspiration methods**/
     public boolean IP_addHealthPoint(){
         
-        if(player.getInspirationPoints() < DEF_COST_I_ADD_HEALTH){
+        int quant = 1;
+        
+         if(player.getInspirationPoints() < DEF_COST_I_ADD_HEALTH){
             addLog("Not enough IP (Inspiration Points)!");
             return false;
         }
         
-        if(!addHealthToPlayer(1)){
-            addLog("Error adding health to player!");
-            return false;
+        CrewMember cm = player.getCrewMember(this.getActiveCrewMember()-1);
+        
+        //Doctor can add 2 health for 1 IP if in rest phase
+        if(cm instanceof Doctor){
+            quant = 2;
+            if(!addHealthToPlayer(quant)){
+                quant = 1;
+                if(!addHealthToPlayer(quant)){
+                    addLog("Error adding health to player!");
+                    return false;
+                }
+            }
+                
+            
+        }else{
+            if(!addHealthToHull(quant)){
+                addLog("Error adding health to player!");
+                return false;
+            }
         }
         
-        removeInspirationPoints(DEF_COST_I_ADD_HEALTH);
+        addLog("Player was healed by " + quant + " health!");
+        removeInspirationPoints(DEF_COST_I_REPAIR_HULL);
         
         return true;
     }
     
     public boolean IP_repairHull(){
+        
+        int quant = 1;
+        
         if(player.getInspirationPoints() < DEF_COST_I_REPAIR_HULL){
             addLog("Not enough IP (Inspiration Points)!");
             return false;
@@ -1040,19 +1096,23 @@ public class DataGame implements Constants{
         
         //Egineer can add 2 health for 1 IP if in rest phase
         if(cm instanceof Engineer){
-            if(!addHealthToHull(2))
-                if(!addHealthToHull(1)){
+            quant = 2;
+            if(!addHealthToHull(quant)){
+                quant = 1;
+                if(!addHealthToHull(quant)){
                     addLog("Error adding health to hull!");
                     return false;
                 }
-            
+            } 
         }else{
-            if(!addHealthToHull(1)){
+            if(!addHealthToHull(quant)){
                 addLog("Error adding health to hull!");
                 return false;
             }
         }
+       
         removeInspirationPoints(DEF_COST_I_REPAIR_HULL);
+        addLog("Ship's hull was fixed by " + quant + " health!");
         
         return true;
     }
@@ -1065,6 +1125,7 @@ public class DataGame implements Constants{
         
         addOrganicTrapTokens(1);
         removeInspirationPoints(DEF_COST_I_BUILD_TRAP_ORGANIC);
+        addLog("1 'Organic Detonator' Token was added to your inventory!");
         
         return true;
     }
@@ -1086,7 +1147,9 @@ public class DataGame implements Constants{
             return false;
         }
         
+        
         removeInspirationPoints(DEF_COST_I_ADD_MOVEMENT);
+        addLog(cm.getName() + " has now " + cm.getMovement() + " movement!");
         
         return true;
     }
@@ -1103,6 +1166,7 @@ public class DataGame implements Constants{
         }
         
         removeInspirationPoints(DEF_COST_I_BUILD_TRAP_PARTICLE);
+        addLog("1 'Particle Dispenser' Token was added to your inventory!");
         
         return true;
     }
@@ -1116,6 +1180,7 @@ public class DataGame implements Constants{
         player.setRoomSealTokens(player.getRoomSealTokens() + 1);
         
         removeInspirationPoints(DEF_COST_I_ADD_SEALED_TOKEN);
+        addLog("1 'Seal Room' Token was added to your inventory!");
         
         return true;
     }
@@ -1138,6 +1203,7 @@ public class DataGame implements Constants{
         }
         
         removeInspirationPoints(DEF_COST_I_ADD_ATTACK_DIE);
+        addLog(cm.getName() + " has now " + cm.getAttack() + " attack!");
         
         return true;
     }
@@ -1154,6 +1220,7 @@ public class DataGame implements Constants{
         }
         
         removeInspirationPoints(DEF_COST_I_ADD_VALUE_ATTACK_DIE);
+        addLog("Minimum roll to attack an alien is now " + player.getAttackBuff() + "+");
         
         return true;
     }
@@ -1166,22 +1233,31 @@ public class DataGame implements Constants{
             room = alien.getRoom().chooseClosestRoom_Priority();
             
             //MOVE ALIEN
-            if(room != null)
+            if(room != null){
                 alien.enterRoom(room);
+                addLog("An alien has moved to " + room.toString());
+            }
+                
             
             //CHECK FOR TRAPS
             if(alien.getRoom().getTrapInside() != null && alien.getRoom().getTrapInside() instanceof OrganicDetonator)
                 alien.getRoom().getTrapInside().activate();
             //CHECK FOR CREW MEMBERS
             else if(!alien.getRoom().getMembersInside().isEmpty()){
-                if(rollDie(1) >= 5)
+                if(rollDie(1) >= 5){
                     removeHealthFromPlayer(1);
+                    addLog("An alien attacked you! You lost 1 health!");
+                }
+                    
                 resetDices();
             }
             //CHECK FOR EMPTY ROOM
             else if(alien.getRoom().getMembersInside().isEmpty()){
-                if(rollDie(1) >= 5)
+                if(rollDie(1) >= 5){
                     removeHealthFromHull(1);
+                    addLog("An alien attacked the ship! Ship's hull lost 1 health!");
+                }
+                    
                 resetDices();
             }
         }

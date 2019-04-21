@@ -19,8 +19,8 @@ public class PlaceTrap extends StateAdapter{
     }
     
     @Override
-    public IStates placeTrap(int room, Trap trap){
-        this.getGame().placeTrap(room, trap);
+    public IStates placeTrap(Trap trap){
+        this.getGame().placeTrap(trap);
         return new CrewPhase(this.getGame());
     }
     

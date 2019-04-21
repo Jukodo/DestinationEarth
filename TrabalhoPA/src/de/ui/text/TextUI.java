@@ -804,7 +804,7 @@ public class TextUI {
 
                 System.out.println();
                 System.out.println("0 - Quit");
-                System.out.println("1 - Select a room ith aliens");
+                System.out.println("1 - Select a room with aliens");
                 System.out.print("~>: ");
 
                 input = sc.next();
@@ -864,7 +864,8 @@ public class TextUI {
  
             System.out.println();
             System.out.println("0 - Quit");
-            System.out.println("1 - Select a room to place a trap");
+            System.out.println("1 - Place an Organic Detonator");
+            System.out.println("2 - Place a Particle Dispenser");
             System.out.print("~>: ");
             
             input = sc.next();
@@ -874,7 +875,7 @@ public class TextUI {
             else
                 op = -1;
             
-        }while(op < 0 || op > 1);
+        }while(op < 0 || op > 2);
         
         switch(op){
             case 0:
@@ -882,43 +883,12 @@ public class TextUI {
                 return;
                 
             case 1:
-                int opRoom = 0;
-                do{
-                    System.out.println(game.getDataGame().getShip().toString());
-                    System.out.print("Room: ");
-
-                    input = sc.next();
-
-                    if(input.length() >= 1)
-                        opRoom = Integer.parseInt(input);
-                    else
-                        opRoom = -1;
-                }while(opRoom < 0 || opRoom > 12);
-                
-                do{
-                    System.out.println("Select the type of trap to place: ");
-                    System.out.println("1 - Organic Detonator");
-                    System.out.println("2 - Particle Dispenser");
-                    System.out.print("~>: ");
-
-                    input = sc.next();
-
-                    if(input.length() >= 1)
-                        op = Integer.parseInt(input);
-                    else
-                        op = -1;
-                }while(op < 0 || op > 2);
-                
-                Trap trap;
-                
-                if(op == 1)
-                    game.placeTrap(opRoom, new OrganicDetonator(game.getDataGame()));
-                else if(op == 2)
-                    game.placeTrap(opRoom, new ParticleDispenser(game.getDataGame()));
-                
-                
-                
-                break;
+               game.placeTrap(new OrganicDetonator(game.getDataGame()));
+               return;
+               
+            case 2:
+                game.placeTrap(new ParticleDispenser(game.getDataGame()));
+                return;
         }
     }
     
