@@ -1040,8 +1040,7 @@ public class DataGame implements Constants{
         
         for (CrewMember cm : this.getPlayer().getCrew()) {
             if(cm instanceof MoralOfficer){
-                addActionPoints(5-getInspirationPoints());
-                break;
+                addInspirationPoints(5-getInspirationPoints());
             }
             else if(cm instanceof ShuttlePilot){
                 int extraHealth = 4;
