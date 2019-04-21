@@ -1,16 +1,26 @@
 Specials:
-Comm's Officer
-Red shirt
+
+	Comm's Officer
+
+	Red shirt
+
+
 
 Methods changes:
 
-trap.activate(): 
-	remove method and do the logic in moveAlien; 
-	OR do trap.active() and change AP_detonateParticleDispenser;
+
+	trap.activate(): remove method and do the logic in moveAlien; OR do trap.active() and change AP_detonateParticleDispenser;
+
+
 
 
 Functionalities:
-Save
+
+	Save
 Load
-Game over when 0 health
+
+	Game over when 0 health
+	
 Sum missed details?
+	Settings (?)
+	Game stats on every UI phase (?) Also unify menu templates
