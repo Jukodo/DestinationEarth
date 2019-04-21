@@ -1,7 +1,6 @@
 Specials:
 Comm's Officer
 Red shirt
-Shuttle Pilot
 
 Methods changes:
 

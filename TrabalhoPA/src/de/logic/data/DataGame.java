@@ -1034,7 +1034,7 @@ public class DataGame implements Constants{
         return true;
     }
     
-    public void startUpInspirationPoints(){
+    public void startupSpecials(){
         
         getPlayer().setInspirationPoints(DEF_INSPIRATION_POINTS);
         
@@ -1042,6 +1042,14 @@ public class DataGame implements Constants{
             if(cm instanceof MoralOfficer){
                 addActionPoints(5-getInspirationPoints());
                 break;
+            }
+            else if(cm instanceof ShuttlePilot){
+                int extraHealth = 4;
+                do{
+                    addHealthToPlayer(1);
+                    extraHealth--;
+                    
+                }while(extraHealth > 0);
             }
         }  
     }

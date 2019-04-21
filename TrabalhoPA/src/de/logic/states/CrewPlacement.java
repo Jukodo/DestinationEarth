@@ -23,7 +23,7 @@ public class CrewPlacement extends StateAdapter{
     @Override
     public IStates confirmCrewMemberPlacement(){
         if(this.getGame().getPlayer().hasAllMembersOnBoard()){
-            this.getGame().startUpInspirationPoints();
+            this.getGame().startupSpecials();
             return new JourneySelection(this.getGame());
         }
         else
