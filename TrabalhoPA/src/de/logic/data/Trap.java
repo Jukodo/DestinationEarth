@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.logic.data;
 
-/**
- *
- * @author Tiago
- */
-public abstract class Trap {
+import java.io.Serializable;
+
+public abstract class Trap implements Serializable{
     
     private DataGame dataGame;
     private int cost;

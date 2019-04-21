@@ -1,11 +1,12 @@
 package de.logic.data;
 
 import de.logic.data.members.CrewMember;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Ship implements Constants{
+public class Ship implements Constants, Serializable{
     private HashMap<Integer, Room> rooms;
     private int hullTracker;
 

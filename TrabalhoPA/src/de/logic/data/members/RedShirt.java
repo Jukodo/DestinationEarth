@@ -1,8 +1,9 @@
 package de.logic.data.members;
 
 import de.logic.data.DataGame;
+import java.io.Serializable;
 
-public class RedShirt extends CrewMember{
+public class RedShirt extends CrewMember implements Serializable{
 
     public RedShirt(DataGame dataGame) {
         super(dataGame, 1, 1);

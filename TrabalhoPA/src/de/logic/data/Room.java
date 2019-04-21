@@ -1,10 +1,11 @@
 package de.logic.data;
 
 import de.logic.data.members.CrewMember;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room {
+public class Room implements Serializable{
     private static int totalRooms = 0;
     private final int id;
     private boolean isSealed;

@@ -1,8 +1,9 @@
 package de.logic.data.members;
 
 import de.logic.data.DataGame;
+import java.io.Serializable;
 
-public class Engineer extends CrewMember{
+public class Engineer extends CrewMember implements Serializable{
     
     private boolean hasFixedForFree;
     

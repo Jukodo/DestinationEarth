@@ -3,9 +3,10 @@ package de;
 import de.logic.data.DataGame;
 import de.logic.data.Trap;
 import de.logic.states.*;
+import java.io.Serializable;
 import java.util.List;
 
-public class DestinationEarth {
+public class DestinationEarth implements Serializable{
     private DataGame dataGame;
     private IStates state;
     

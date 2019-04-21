@@ -1,12 +1,13 @@
 package de.logic.data;
 
 import de.logic.data.members.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DataGame implements Constants{
+public class DataGame implements Constants, Serializable{
     private Player player;
     private Ship ship;
     private int aliensCount;
@@ -1235,14 +1236,20 @@ public class DataGame implements Constants{
     public boolean moveAliens(){
                
         Room room;
+        
+        int[] movedAliensCount = new int[NUM_ROOMS];
+        int playerHealthLoss=0;
+        int hullIntegrityLoss=0;
+        
         for(Alien alien:ship.getAllAliens()){
             
             room = alien.getRoom().chooseClosestRoom_Priority();
             
             //MOVE ALIEN
+            
             if(room != null){
                 alien.enterRoom(room);
-                addLog("An alien has moved to " + room.toString());
+                movedAliensCount[room.getId()]++;
             }
                 
             
@@ -1253,7 +1260,7 @@ public class DataGame implements Constants{
             else if(!alien.getRoom().getMembersInside().isEmpty()){
                 if(rollDie(1) >= 5){
                     removeHealthFromPlayer(1);
-                    addLog("An alien attacked you! You lost 1 health!");
+                    playerHealthLoss++;
                 }
                     
                 resetDices();
@@ -1262,11 +1269,33 @@ public class DataGame implements Constants{
             else if(alien.getRoom().getMembersInside().isEmpty()){
                 if(rollDie(1) >= 5){
                     removeHealthFromHull(1);
-                    addLog("An alien attacked the ship! Ship's hull lost 1 health!");
+                    hullIntegrityLoss++;
                 }
                     
                 resetDices();
             }
+        }
+        
+        //Add Log for Moved Alien Count
+        for(int i = 0; i < NUM_ROOMS; i++){
+            if(movedAliensCount[i] > 0){
+                if(movedAliensCount[i] == 1)
+                    addLog("An alien has moved to " + ship.getRoom(i+1));
+                else
+                    addLog(movedAliensCount[i] + " aliens have moved to " + ship.getRoom(i+1));  
+            }
+        }
+        if(playerHealthLoss > 0){
+            if(playerHealthLoss == 1)
+                addLog("An alien attacked you! You lost 1 health!");
+            else
+                addLog(playerHealthLoss + " aliens attacked you! You lost " + playerHealthLoss + " health!");
+        }
+        if(hullIntegrityLoss > 0){
+            if(hullIntegrityLoss == 1)
+                addLog("An alien attacked the ship! Ship's hull lost 1 health!");
+            else
+                addLog(hullIntegrityLoss + " aliens attacked the ship! Ship's hull lost " + hullIntegrityLoss + " health!");
         }
         
         return true;
@@ -1279,7 +1308,7 @@ public class DataGame implements Constants{
         String s;
         
         //s = "Destination Earth, playing as " + this.getPlayer().getName() + System.lineSeparator();
-        s= "Turn: " + getCurrentTurn() + ", Hull Tracker: " + getShip().getHullTracker() + System.lineSeparator();
+        s= "Turn: " + getCurrentTurn() + ", Hull Integrity: " + getShip().getHullTracker() + System.lineSeparator();
         s+= "IP: " + getPlayer().getInspirationPoints() + ", AP: " + getPlayer().getActionPoints() + ", Health: " + getPlayer().getHealthTracker() + System.lineSeparator();
         s+= diceToString() + System.lineSeparator();
         

@@ -1,10 +1,11 @@
 package de.logic.data;
 import static de.logic.data.Constants.*;
 import de.logic.data.members.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Serializable{
     private String name;
     private CrewMember[] crew;
     private int healthTracker;

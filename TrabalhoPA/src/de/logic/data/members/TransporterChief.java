@@ -1,8 +1,9 @@
 package de.logic.data.members;
 
 import de.logic.data.DataGame;
+import java.io.Serializable;
 
-public class TransporterChief extends CrewMember {
+public class TransporterChief extends CrewMember implements Serializable{
     
     public TransporterChief(DataGame dataGame) {
         super(dataGame, 0, 1);

@@ -1,6 +1,8 @@
 package de.logic.data;
 
-public class Alien{
+import java.io.Serializable;
+
+public class Alien implements Serializable{
     
     private Room room;
 

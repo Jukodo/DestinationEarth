@@ -3,8 +3,9 @@ package de.logic.data.members;
 import static de.logic.data.Constants.*;
 import de.logic.data.DataGame;
 import de.logic.data.Room;
+import java.io.Serializable;
 
-public abstract class CrewMember {
+public abstract class CrewMember implements Serializable{
     
     private int movement;
     private int attack;
