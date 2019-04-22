@@ -15,7 +15,7 @@ Methods changes:
 
 
 Functionalities:
-	Game over when 0 health
+	Full var reset on replay
 	
 Sum missed details?
 	Settings (?)
