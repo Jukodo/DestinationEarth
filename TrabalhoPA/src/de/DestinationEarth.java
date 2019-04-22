@@ -164,6 +164,11 @@ public class DestinationEarth implements Serializable{
         setState(getState().moveAliens());
     }
     
+    //AlienPhase
+    public void playAgain(){
+        setState(getState().playAgain());
+    }   
+    
     //General
     public void swapCrewMember(){
         setState(getState().swapCrewMember());

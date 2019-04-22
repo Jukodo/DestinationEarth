@@ -129,10 +129,13 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
         return this;
     }
     
-   
-
     @Override
     public IStates moveAliens() {
+        return this;
+    }
+    
+    @Override
+    public IStates playAgain(){
         return this;
     }
 

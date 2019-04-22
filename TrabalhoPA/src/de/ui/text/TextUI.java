@@ -1042,6 +1042,41 @@ public class TextUI {
         game.moveAliens();
     }
     
+    public void uiGameOver(){
+        
+        int op;
+        String input;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        do{
+            System.out.println("Game Over!");
+            
+            System.out.println();
+            System.out.println("0 - Quit");
+            System.out.println("1 - Replay");
+            System.out.print("~>: ");
+            
+            input = sc.next();
+            
+            if(input.length() >= 1)
+                op = Integer.parseInt(input);
+            else
+                op = -1;
+            
+        }while(op < 0 || op > 1);
+        
+        switch(op){
+            case 0:
+                quit = true;
+                return;
+                
+            case 1:
+                game.playAgain();
+                break;
+        }
+    }
+    
     public void writeLogs(){
         for(String log:game.getLogs()){
             System.out.println(log);
@@ -1097,6 +1132,9 @@ public class TextUI {
             }
             else if (state instanceof AlienPhase){
                 uiAlienPhase();
+            }
+            else if (state instanceof GameOver){
+                uiGameOver();
             }
             else if (state instanceof DiceRolling){
                 uiDiceRolling();

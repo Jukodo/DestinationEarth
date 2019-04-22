@@ -46,9 +46,11 @@ public interface IStates extends Serializable {
     IStates detonateParticleDispenser(int room);
     IStates sealRoom(int room);
     
-    
     //AlienPhase
     IStates moveAliens();
+    
+    //GameOver
+    IStates playAgain();
     
     //General
     IStates swapCrewMember();

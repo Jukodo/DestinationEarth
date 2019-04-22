@@ -69,7 +69,7 @@ public class DataGame implements Constants, Serializable{
     public void setShip(Ship ship) {
         this.ship = ship;
     }
-
+    
     public int getAliensCount() {
         return aliensCount;
     }
@@ -415,6 +415,23 @@ public class DataGame implements Constants, Serializable{
     }
     
     /**Scanning phase methods**/
+    public boolean gameOverConditions(){
+        if(currentTurn >= NUM_TURNS){
+            addLog("The ship has reached earth! You survived!");
+            return true;
+        }
+        if(player.getHealthTracker() <= 0){
+            addLog("Your health has reached 0... You lost!");
+            return true;
+        }
+        if(ship.getHullTracker() <= 0){
+            addLog("Your ship integrity has reached 0... You lost!");
+            return true;
+        }
+        
+        return false;
+    }
+    
     public boolean spawnAlien(Room room){
         
         if(room == null){
