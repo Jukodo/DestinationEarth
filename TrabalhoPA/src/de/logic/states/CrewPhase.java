@@ -19,6 +19,10 @@ public class CrewPhase extends StateAdapter{
     
     @Override
     public IStates executeAction(int action){
+        
+        if(this.getGame().gameOverConditions()){
+            return new GameOver(this.getGame());
+        }
     
         if(action == 2){
             return new MoveCrewMember(this.getGame());
@@ -49,6 +53,11 @@ public class CrewPhase extends StateAdapter{
     
     @Override
     public IStates leaveCrewPhase(){
+        
+        if(this.getGame().gameOverConditions()){
+            return new GameOver(this.getGame());
+        }
+        
         return new AlienPhase(this.getGame());
     }
   

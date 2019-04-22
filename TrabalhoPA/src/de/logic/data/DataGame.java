@@ -1255,42 +1255,62 @@ public class DataGame implements Constants, Serializable{
         Room room;
         
         int[] movedAliensCount = new int[NUM_ROOMS];
+        int[] killedAliensCount = new int[NUM_ROOMS];
         int playerHealthLoss=0;
         int hullIntegrityLoss=0;
+        int inspirationPointsEarned = 0;
         
         for(Alien alien:ship.getAllAliens()){
             
-            room = alien.getRoom().chooseClosestRoom_Priority();
+            //CHECK ORGANIC TRAP IN ROOM
+            room = alien.getRoom();
             
-            //MOVE ALIEN
-            
-            if(room != null){
-                alien.enterRoom(room);
-                movedAliensCount[room.getId()]++;
+            if(room.getTrapInside() != null && room.getTrapInside() instanceof OrganicDetonator){
+                room.removeAlienFromRoom(alien);
+                room.removeTrap();
+                ship.getAllAliens().remove(alien);
+                addInspirationPoints(1);
+                killedAliensCount[room.getId()-1]++;
+                inspirationPointsEarned++;
             }
-                
+            else{
+                 room = alien.getRoom().chooseClosestRoom_Priority();
             
-            //CHECK FOR TRAPS
-            if(alien.getRoom().getTrapInside() != null && alien.getRoom().getTrapInside() instanceof OrganicDetonator)
-                alien.getRoom().getTrapInside().activate();
-            //CHECK FOR CREW MEMBERS
-            else if(!alien.getRoom().getMembersInside().isEmpty()){
-                if(rollDie(1) >= 5){
-                    removeHealthFromPlayer(1);
-                    playerHealthLoss++;
+                //MOVE ALIEN
+
+                if(room != null){
+                    alien.enterRoom(room);
+                    movedAliensCount[room.getId()-1]++;
                 }
-                    
-                resetDices();
-            }
-            //CHECK FOR EMPTY ROOM
-            else if(alien.getRoom().getMembersInside().isEmpty()){
-                if(rollDie(1) >= 5){
-                    removeHealthFromHull(1);
-                    hullIntegrityLoss++;
+
+
+                //CHECK FOR TRAPS
+                if(alien.getRoom().getTrapInside() != null && alien.getRoom().getTrapInside() instanceof OrganicDetonator){
+                    alien.getRoom().removeAlienFromRoom(alien);
+                    alien.getRoom().removeTrap();
+                    addInspirationPoints(1);
+                    killedAliensCount[alien.getRoom().getId()-1]++;
+                    inspirationPointsEarned++;
                 }
-                    
-                resetDices();
-            }
+                //CHECK FOR CREW MEMBERS
+                else if(!alien.getRoom().getMembersInside().isEmpty()){
+                    if(rollDie(1) >= 5){
+                        removeHealthFromPlayer(1);
+                        playerHealthLoss++;
+                    }
+
+                    resetDices();
+                }
+                //CHECK FOR EMPTY ROOM
+                else if(alien.getRoom().getMembersInside().isEmpty()){
+                    if(rollDie(1) >= 5){
+                        removeHealthFromHull(1);
+                        hullIntegrityLoss++;
+                    }
+
+                    resetDices();
+                }
+            } 
         }
         
         //Add Log for Moved Alien Count
@@ -1300,6 +1320,12 @@ public class DataGame implements Constants, Serializable{
                     addLog("An alien has moved to " + ship.getRoom(i+1));
                 else
                     addLog(movedAliensCount[i] + " aliens have moved to " + ship.getRoom(i+1));  
+            }
+            if(killedAliensCount[i] > 0){
+                if(killedAliensCount[i] == 1)
+                    addLog("An alien has BOOMED in " + ship.getRoom(i+1) + ", due to an organic detonator!");
+                else
+                    addLog(killedAliensCount[i] + " aliens have BOOMED in" + ship.getRoom(i+1) + ", due to an organic detonator!");
             }
         }
         if(playerHealthLoss > 0){
@@ -1313,6 +1339,12 @@ public class DataGame implements Constants, Serializable{
                 addLog("An alien attacked the ship! Ship's hull lost 1 health!");
             else
                 addLog(hullIntegrityLoss + " aliens attacked the ship! Ship's hull lost " + hullIntegrityLoss + " health!");
+        }
+        if(inspirationPointsEarned > 0){
+            if(inspirationPointsEarned == 1)
+                addLog("You earned 1 Inspiration Point (IP)!");
+            else
+                addLog("You earned " + inspirationPointsEarned + "Inspiration Points (IPs)!");
         }
         
         return true;
