@@ -1382,6 +1382,87 @@ public class DataGame implements Constants, Serializable{
         return true;
     }
     
+    public String crewMemberInfoToString(){
+        String s = "\tCrew Members:" + System.lineSeparator();
+        
+        for(int i=0; i < NUM_CREW_MEMBERS; i++){
+            if(i>0)
+                s += System.lineSeparator();
+            s += "\t";
+            if(i+1 == getActiveCrewMember())
+                s += "[X] ";
+            else
+                s += "[ ] ";
+            s += "Member #" + (i+1) + ": ";
+            if(player.getCrewMember(i).isInside()){
+                s += player.getCrewMember(i).getName() + ", is at Room #"
+                   + player.getCrewMember(i).getRoom().getId() + " - "
+                   + player.getCrewMember(i).getRoom().getName();
+            }else{
+                s += player.getCrewMember(i).getName() + ", isn't at any Room, please select one!";
+            }
+        }
+        
+        return s;
+    }
+    
+    public String newAliensInfoToString(){
+        String s = "\tNew Aliens:" + System.lineSeparator();
+        
+        int i = 0;
+        for(Alien alien:getNewAliens()){
+            if(i>0)
+                s += System.lineSeparator();
+            s += "\t";
+            if(i+1 == getActiveNewAlien())
+                s += "[X] ";
+            else
+                s += "[ ] ";
+            s += "Alien #" + (i+1) + " ";
+            if(alien.isInside()){
+                s += ", is at Room #" + alien.getRoom().getId() + " - " + alien.getRoom().getName();
+            }else{
+                s += ", isn't at any Room, please select one!";
+            }
+
+            i++;
+        }
+        
+        return s;
+    }
+    
+    public String currentJourneyToString(){
+        String s;
+        
+        s = "\tCurrent Journey: ";
+            for(int i = 1; i <= NUM_TURNS; i++){
+                s += getJourneyTrackerTurn(i);
+                if(i != NUM_TURNS)
+                    s += " -> ";
+            }
+            
+        return s;
+    }
+    
+    public String activeCrewMemberInfoToString(){
+        String s;
+        
+        s = "Active Member: " 
+                + player.getCrewMember(getActiveCrewMember()-1).getName()+ ", " 
+                + player.getCrewMember(getActiveCrewMember()-1).getRoom();
+        
+        return s;
+    }
+    
+    public String trapTokensToString(){
+        String s;
+        
+        s = "Organic Traps: " + getOrganicTrapTokens() 
+          + " Particle Dispensers: " + getParticleTrapTokens();
+        
+        return s;
+    }
+    
     /**Object methods**/
     @Override
     public String toString()
@@ -1389,8 +1470,18 @@ public class DataGame implements Constants, Serializable{
         String s;
         
         //s = "Destination Earth, playing as " + this.getPlayer().getName() + System.lineSeparator();
-        s= "Turn: " + getCurrentTurn() + ", Hull Integrity: " + getShip().getHullTracker() + System.lineSeparator();
-        s+= "IP: " + getPlayer().getInspirationPoints() + ", AP: " + getPlayer().getActionPoints() + ", Health: " + getPlayer().getHealthTracker() + System.lineSeparator();
+        
+        if(getCurrentTurn() == 0)
+            s = "Turn: START";
+        else
+            s = "Turn: " + getCurrentTurn() ;
+        
+        s += ", Hull Integrity: " + getShip().getHullTracker() 
+                + System.lineSeparator();
+        s+= "IP: " + getPlayer().getInspirationPoints() 
+                + ", AP: " + getPlayer().getActionPoints() 
+                + ", Health: " + getPlayer().getHealthTracker() 
+                + System.lineSeparator();
         s+= diceToString() + System.lineSeparator();
         
         return s;

@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Tiago/Desktop/DestinationEarth/TrabalhoPA/src/de/logic/data/Room.java</file>
-            <file>file:/C:/Users/Tiago/Desktop/DestinationEarth/TrabalhoPA/src/de/logic/states/CrewPhase.java</file>
-            <file>file:/C:/Users/Tiago/Desktop/DestinationEarth/TrabalhoPA/src/de/logic/data/DataGame.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/text/TextUI.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/logic/states/IStates.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/logic/data/DataGame.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/logic/states/GameOver.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/logic/states/StateAdapter.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/logic/states/ScanningPhase.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/DestinationEarth.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/logic/states/Beginning.java</file>
         </group>
     </open-files>
 </project-private>

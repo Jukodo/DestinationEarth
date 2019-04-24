@@ -56,6 +56,8 @@ public class TextUI {
                 
                 input = sc.next();
 
+                System.out.println();
+                
                 if(input.length() > 0){
                     game.start(input);
                 }
@@ -81,7 +83,10 @@ public class TextUI {
         int op;
 
         System.out.println();
+        
+        //Dice Info
         System.out.println(game.diceToString());
+        
         System.out.println("Select a way to roll your die(s): ");
 
         do {
@@ -154,7 +159,7 @@ public class TextUI {
     public void uiCrewSelection() throws IOException, ClassNotFoundException{
         //REMOVE LATER
         if(inDebug){
-            if(!game.getDataGame().getPlayer().hasAllMembers()){
+            if(!game.getPlayer().hasAllMembers()){
                 game.selectCrewMember(1, 4);
                 game.selectCrewMemberColor(1, 2);
                 game.selectCrewMember(2, 5);
@@ -167,36 +172,19 @@ public class TextUI {
         
         Scanner sc = new Scanner(System.in);
         
-        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
-        
         do{
             System.out.println("Crew Selection:");
             
-            for(int i=0; i < NUM_CREW_MEMBERS; i++){
-                if(i>0)
-                    System.out.println();
-                System.out.print("\t");
-                if(i+1 == game.getDataGame().getActiveCrewMember())
-                    System.out.print("[X] ");
-                else
-                    System.out.print("[ ] ");
-                System.out.print("Member #" + (i+1) + ": ");
-                if(cm[i] != null){
-                    if(cm[i].getColor() != 0){
-                        System.out.print(cm[i].getName() + " (" + COLOR[cm[i].getColor()] + ")");
-                    }else{
-                        System.out.print(cm[i].getName() + " (Color not selected!)");
-                    }
-                }else{
-                    System.out.print("Class not selected!");
-                }
-            }
+            //Crew Member Info
+            System.out.println(game.crewMemberInfoToString());
             
             System.out.println();
             System.out.println("0 - Quit");
+            System.out.println();
             System.out.println("1 - Swap Selected Member");
             System.out.println("2 - Select Class");
             System.out.println("3 - Select Color");
+            System.out.println();
             System.out.println("4 - Lock In Selection");
             
             System.out.println();
@@ -228,15 +216,15 @@ public class TextUI {
                 return;
                 
             case 1:
-                game.getDataGame().swapActiveCrewMember();
+                game.swapActiveCrewMember();
                 break;
                 
             case 2:
                 do{
                     crewType = 0;
                     System.out.println();
-                    System.out.println("Pick the class for Member #" + game.getDataGame().getActiveCrewMember() + ": ");
-
+                    System.out.println(game.activeCrewMemberInfoToString());
+                    System.out.println();
                     System.out.println("1  - Captain");
                     System.out.println("2  - Commander");
                     System.out.println("3  - CommsOfficer");
@@ -260,7 +248,7 @@ public class TextUI {
                     
                 }while(crewType < 1 || crewType > 12);
                 
-                game.selectCrewMember(game.getDataGame().getActiveCrewMember(), crewType);
+                game.selectCrewMember(game.getActiveCrewMember(), crewType);
                 break;
                 
             case 3:
@@ -268,8 +256,8 @@ public class TextUI {
                     crewColor = 0;
 
                     System.out.println();
-                    System.out.println("Pick the color for Member #" + game.getDataGame().getActiveCrewMember() + ": ");
-
+                    System.out.println(game.activeCrewMemberInfoToString());
+                    System.out.println();
                     System.out.println("1  - White");
                     System.out.println("2  - Blue");
                     System.out.println("3  - Cyan");
@@ -293,22 +281,21 @@ public class TextUI {
                     
                 }while(crewColor < 1 || crewColor > 12);
                 
-                game.selectCrewMemberColor(game.getDataGame().getActiveCrewMember(), crewColor);
+                game.selectCrewMemberColor(game.getActiveCrewMember(), crewColor);
                 break;
                 
             case 4:
-                System.out.println("Confirming");
                 game.confirmCrewMemberSelection();
         }
     }
     
     public void uiCrewPlacement(){
-        if(game.getDataGame().getDiceValue(2) > 0)
-            game.placeCrewMember(game.getDataGame().getActiveCrewMember(), game.getDataGame().getDiceValue(2));
+        if(game.getDiceValue(2) > 0)
+            game.placeCrewMember(game.getActiveCrewMember(), game.getDiceValue(2));
         
         //REMOVE LATER
         if(inDebug){
-            if(!game.getDataGame().getPlayer().hasAllMembersOnBoard()){
+            if(!game.getPlayer().hasAllMembersOnBoard()){
                 game.placeCrewMember(1, 1);
                 game.placeCrewMember(2, 2);
             }
@@ -319,32 +306,19 @@ public class TextUI {
         
         Scanner sc = new Scanner(System.in);
         
-        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
-        
         do{
             System.out.println("Crew Placement:");
             
-            for(int i=0; i < NUM_CREW_MEMBERS; i++){
-                if(i>0)
-                    System.out.println();
-                System.out.print("\t");
-                if(i+1 == game.getDataGame().getActiveCrewMember())
-                    System.out.print("[X] ");
-                else
-                    System.out.print("[ ] ");
-                System.out.print("Member #" + (i+1) + ": ");
-                if(cm[i].isInside()){
-                    System.out.print(cm[i].getName() + ", is at Room #" + cm[i].getRoom().getId() + " - " + cm[i].getRoom().getName());
-                }else{
-                    System.out.print(cm[i].getName() + ", isn't at any Room, please select one!");
-                }
-            }
+            //Crew Member Info
+            System.out.println(game.crewMemberInfoToString());
             
             System.out.println();
             System.out.println("0 - Quit");
+            System.out.println();
             System.out.println("1 - Swap Selected Member");
             System.out.println("2 - Select Room");
             System.out.println("3 - Display Ship Structure");
+            System.out.println();
             System.out.println("4 - Lock In Placement");
             
             System.out.println();
@@ -366,14 +340,14 @@ public class TextUI {
                 return;
                 
             case 1:
-                game.getDataGame().swapActiveCrewMember();
+                game.swapActiveCrewMember();
                 break;
             
             case 2:
                 game.rollDice();
                 break;
             case 3:
-                System.out.println(game.getDataGame().getShip().toString());
+                System.out.println(game.getShip().toString());
                 break;
             case 4:
                 game.confirmCrewMemberPlacement();
@@ -389,18 +363,16 @@ public class TextUI {
         do{
             System.out.println("Journey Selection:");
             
-            System.out.print("\tCurrent Journey: ");
-            for(int i = 1; i <= NUM_TURNS; i++){
-                System.out.print(game.getDataGame().getJourneyTrackerTurn(i));
-                if(i != NUM_TURNS)
-                    System.out.print(" -> ");
-            }
+            //Current Journey Info
+            System.out.println(game.currentJourneyToString());
             
             System.out.println();
             System.out.println("0 - Quit");
+            System.out.println();
             System.out.println("1 - Load Default Journey");
             System.out.println("2 - Randomize Journey");
             System.out.println("3 - Edit Journey");
+            System.out.println();
             System.out.println("4 - Lock In Journey");
             
             System.out.println();
@@ -471,7 +443,7 @@ public class TextUI {
                 
                 //Get new event
                 System.out.println();
-                System.out.println("Current event: " + game.getDataGame().getJourneyTrackerTurn(op));
+                System.out.println("Current event: " + game.getJourneyTrackerTurn(op));
                 System.out.println("Accepted events: R, [NUM]A, [NUM]A*");
                 System.out.println("Min: " + MIN_SPAWN_ALIENS_TURN[op-1] + " Max: " + MAX_SPAWN_ALIENS_TURN[op-1]);
 
@@ -480,7 +452,7 @@ public class TextUI {
 
                 input = sc.next();
                 
-                if(game.getDataGame().isValid_JourneyTurn(op-1, input))
+                if(game.isValid_JourneyTurn(op-1, input))
                     game.generateJourney_ByChoice(op, input.toUpperCase());
                 break;
                 
@@ -499,8 +471,11 @@ public class TextUI {
         do{
             System.out.println("Destination Earth:");
             
-            System.out.println();
+            //Game Stats
+            System.out.println(game.toString());
+            
             System.out.println("0 - Quit");
+            System.out.println();
             System.out.println("1 - Next Turn");
             System.out.println("2 - Save Game");
             
@@ -533,13 +508,13 @@ public class TextUI {
     }
     
     public void uiScanningPhase(){
-        if(game.getDataGame().getNewAliens().isEmpty()){
+        if(game.getNewAliens().isEmpty()){
             game.scanTurn();
             return;
         }
         
-        if(game.getDataGame().getDiceValue(2) > 0)
-            game.placeNewAlien(game.getDataGame().getActiveNewAlien(), game.getDataGame().getDiceValue(2));
+        if(game.getDiceValue(2) > 0)
+            game.placeNewAlien(game.getActiveNewAlien(), game.getDiceValue(2));
         
         int op;
         String input;
@@ -549,31 +524,19 @@ public class TextUI {
         do{
             System.out.println("Scanning Phase:");
             
-            int i = 0;
+            //Game Stats
+            System.out.println(game.toString());
             
-            for(Alien alien:game.getDataGame().getNewAliens()){
-                if(i>0)
-                    System.out.println();
-                System.out.print("\t");
-                if(i+1 == game.getDataGame().getActiveNewAlien())
-                    System.out.print("[X] ");
-                else
-                    System.out.print("[ ] ");
-                System.out.print("Alien #" + (i+1) + " ");
-                if(alien.isInside()){
-                    System.out.print(", is at Room #" + alien.getRoom().getId() + " - " + alien.getRoom().getName());
-                }else{
-                    System.out.print(", isn't at any Room, please select one!");
-                }
-                
-                i++;
-            }
+            //New Aliens Info
+            System.out.println(game.newAliensInfoToString());
             
             System.out.println();
             System.out.println("0 - Quit");
+            System.out.println();
             System.out.println("1 - Swap Active New Alien");
             System.out.println("2 - Select Room");
             System.out.println("3 - Display Ship Structure");
+            System.out.println();
             System.out.println("4 - Lock In New Aliens Placement");
             
             System.out.println();
@@ -595,7 +558,7 @@ public class TextUI {
                 return;
             
             case 1:
-                game.getDataGame().swapActiveNewAlien();
+                game.swapActiveNewAlien();
                 break;
             
             case 2:
@@ -603,7 +566,7 @@ public class TextUI {
                 break;
                 
             case 3:
-                System.out.println(game.getDataGame().getShip().toString());
+                System.out.println(game.getShip().toString());
                 break;
                 
             case 4:
@@ -618,29 +581,17 @@ public class TextUI {
         Scanner sc = new Scanner(System.in);
         
         do{
-            System.out.println("Rest Phase (" + game.getDataGame().getPlayer().getInspirationPoints() + "IP):");
+            System.out.println("Rest Phase:");
             
+            //Game Stats
+            System.out.println(game.toString());
             
-            for(int i=0; i < NUM_CREW_MEMBERS; i++){
-                if(i>0)
-                    System.out.println();
-                System.out.print("\t");
-                if(i+1 == game.getDataGame().getActiveCrewMember())
-                    System.out.print("[X] ");
-                else
-                    System.out.print("[ ] ");
-                System.out.print("Member #" + (i+1) + ": ");
-                if(game.getDataGame().getPlayer().getCrewMember(i).isInside()){
-                    System.out.print(game.getDataGame().getPlayer().getCrewMember(i).getName() + ", is at Room #" + 
-                            game.getDataGame().getPlayer().getCrewMember(i).getRoom().getId() + " - " + 
-                            game.getDataGame().getPlayer().getCrewMember(i).getRoom().getName());
-                }else{
-                    System.out.print(game.getDataGame().getPlayer().getCrewMember(i).getName() + ", isn't at any Room, please select one!");
-                }
-            }
+            //Crew Members Info
+            System.out.println(game.crewMemberInfoToString());
             
             System.out.println();
             System.out.println("0 - Quit");
+            System.out.println();
             System.out.println("1 - Swap Active Member");
             System.out.println("2 - Recover Health (1 IP)");
             System.out.println("3 - Repair Hull (1 IP)");
@@ -650,6 +601,7 @@ public class TextUI {
             System.out.println("7 - Build Room Blocker (5 IP)");
             System.out.println("8 - Increase Attack Dice (6 IP)");
             System.out.println("9 - Increase Attack (6 IP)");
+            System.out.println();
             System.out.println("10 - Skip Rest");
             
             System.out.println();
@@ -671,39 +623,39 @@ public class TextUI {
                 return;
                 
             case 1:
-                game.getDataGame().swapActiveCrewMember();
+                game.swapActiveCrewMember();
                 break;
                 
             case 2:
-                game.getDataGame().IP_addHealthPoint();
+                game.IP_addHealthPoint();
                 break;
                 
             case 3:
-                game.getDataGame().IP_repairHull();
+                game.IP_repairHull();
                 break;
                 
             case 4:
-                game.getDataGame().IP_buildOrganicDetonator();
+                game.IP_buildOrganicDetonator();
                 break;
                 
             case 5:
-                game.getDataGame().IP_addMovement(game.getDataGame().getActiveCrewMember());
+                game.IP_addMovement(game.getActiveCrewMember());
                 break;
                 
             case 6:
-                game.getDataGame().IP_buildParticleDesperser();
+                game.IP_buildParticleDesperser();
                 break;
                 
             case 7:
-                game.getDataGame().IP_addSealedRoomToken();
+                game.IP_addSealedRoomToken();
                 break;
                 
             case 8:
-                game.getDataGame().IP_addAttackDie(game.getDataGame().getActiveCrewMember());
+                game.IP_addAttackDie(game.getActiveCrewMember());
                 break;
                 
             case 9:
-                game.getDataGame().IP_addValueToAttackDie();
+                game.IP_addValueToAttackDie();
                 break;
                 
             case 10:
@@ -719,33 +671,14 @@ public class TextUI {
         
         Scanner sc = new Scanner(System.in);
         
-        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
-        
         do{
             System.out.println("Crew Phase");
+            
+            //Game Stats
             System.out.println(game.toString());
-            System.out.println("Crew Members:");
             
-             for(int i=0; i < NUM_CREW_MEMBERS; i++){
-                if(i>0)
-                    System.out.println();
-                System.out.print("\t");
-                if(i+1 == game.getDataGame().getActiveCrewMember())
-                    System.out.print("[X] ");
-                else
-                    System.out.print("[ ] ");
-                System.out.print("Member #" + (i+1) + ": ");
-                if(cm[i].isInside()){
-                    System.out.print(cm[i].getName() + ", is at Room #" + cm[i].getRoom().getId() + " - " + cm[i].getRoom().getName());
-                }else{
-                    System.out.print(cm[i].getName() + " (resting in peace)");
-                }
-            }
-            
-            System.out.println("\t");
-            
-            int i = 0;
-            
+            //Crew Members Info
+            System.out.println(game.crewMemberInfoToString());
             
             System.out.println();
             System.out.println("0 - Quit");
@@ -753,7 +686,7 @@ public class TextUI {
             
             System.out.println("1 - Swap Selected Member");
             System.out.println(game.getAvailableActions());
-            System.out.println(game.getDataGame().getAvailableActions_Quant()+2 + " - Leave Crew Phase");
+            System.out.println(game.getAvailableActions_Quant()+2 + " - Leave Crew Phase");
             
             System.out.println();
             System.out.print("~>: ");
@@ -765,7 +698,7 @@ public class TextUI {
             else
                 op = -1;
             
-        }while(op < 0 || op > game.getDataGame().getAvailableActions_Quant() +2);
+        }while(op < 0 || op > game.getAvailableActions_Quant() +2);
         
         if(op == 0){
             quit = true;
@@ -775,11 +708,11 @@ public class TextUI {
             game.swapCrewMember();
             return;
         }
-        else if(op > 1 && op < (game.getDataGame().getAvailableActions_Quant() + 2)){
+        else if(op > 1 && op < (game.getAvailableActions_Quant() + 2)){
             game.executeAction(op);
             return;
         }
-        else if(op == game.getDataGame().getAvailableActions_Quant() +2){
+        else if(op == game.getAvailableActions_Quant() +2){
             game.leaveCrewPhase();
         }
         else{
@@ -795,13 +728,12 @@ public class TextUI {
         
         Scanner sc = new Scanner(System.in);
         
-        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
-        
         do{
             System.out.println("Move Crew Member");
             
-            System.out.println("Active Member: " + cm[game.getDataGame().getActiveCrewMember()-1].getName()+ ", " + cm[game.getDataGame().getActiveCrewMember()-1].getRoom());
- 
+            //Active Crew Member Info
+            System.out.println(game.activeCrewMemberInfoToString());
+            
             System.out.println();
             System.out.println("0 - Quit");
             System.out.println("1 - Select a room to move");
@@ -824,7 +756,7 @@ public class TextUI {
             case 1:
                 int opRoom = 0;
                 do{
-                    System.out.println(game.getDataGame().getShip().toString());
+                    System.out.println(game.getShip().toString());
                     System.out.print("Room: ");
 
                     input = sc.next();
@@ -848,13 +780,10 @@ public class TextUI {
         
         Scanner sc = new Scanner(System.in);
         
-        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
         
-        if(cm[game.getDataGame().getActiveCrewMember()-1] instanceof ScienceOfficer){
+        if(game.getPlayer().getCrewMember(game.getActiveCrewMember()-1) instanceof ScienceOfficer){
              do{
                 System.out.println("Attack aliens");
-
-                System.out.println("Active Member: " + cm[game.getDataGame().getActiveCrewMember()-1].getName()+ ", " + cm[game.getDataGame().getActiveCrewMember()-1].getRoom());
 
                 System.out.println();
                 System.out.println("0 - Quit");
@@ -878,7 +807,7 @@ public class TextUI {
                 case 1:
                     int opRoom = 0;
                     do{
-                        System.out.println(game.getDataGame().getShip().toString());
+                        System.out.println(game.getShip().toString());
                         System.out.print("Room: ");
 
                         input = sc.next();
@@ -907,17 +836,19 @@ public class TextUI {
         
         Scanner sc = new Scanner(System.in);
         
-        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
-        
         do{
             System.out.println("Place a Trap");
             
-            System.out.println("Active Member: " + cm[game.getDataGame().getActiveCrewMember()-1].getName()+ ", " + cm[game.getDataGame().getActiveCrewMember()-1].getRoom());
-            System.out.println("Organic Traps: " + game.getOrganicTrapTokens() + " Particle Dispensers: " + game.getParticleTrapTokens());
+            //Active Crew Member Info
+            System.out.println(game.activeCrewMemberInfoToString());
+            
+            //Trap Tokens Info
+            System.out.println(game.trapTokensToString());
                 
  
             System.out.println();
             System.out.println("0 - Quit");
+            System.out.println();
             System.out.println("1 - Place an Organic Detonator");
             System.out.println("2 - Place a Particle Dispenser");
             System.out.print("~>: ");
@@ -953,16 +884,15 @@ public class TextUI {
         
         Scanner sc = new Scanner(System.in);
         
-        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
-        
         do{
             System.out.println("Detonate a particle dispenser");
             
-            System.out.println("Active Member: " + cm[game.getDataGame().getActiveCrewMember()-1].getName()+ ", " + cm[game.getDataGame().getActiveCrewMember()-1].getRoom());
-                
+            //Active Crew Member Info
+            System.out.println(game.activeCrewMemberInfoToString());
  
             System.out.println();
             System.out.println("0 - Quit");
+            System.out.println();
             System.out.println("1 - Select a room with a particle dispenser");
             System.out.print("~>: ");
             
@@ -983,7 +913,7 @@ public class TextUI {
             case 1:
                 int opRoom = 0;
                 do{
-                    System.out.println(game.getDataGame().getShip().toString());
+                    System.out.println(game.getShip().toString());
                     System.out.print("Room: ");
 
                     input = sc.next();
@@ -1007,13 +937,11 @@ public class TextUI {
         
         Scanner sc = new Scanner(System.in);
         
-        CrewMember[] cm = game.getDataGame().getPlayer().getCrew();
-        
         do{
             System.out.println("Seal a Room");
             
-            System.out.println("Active Member: " + cm[game.getDataGame().getActiveCrewMember()-1].getName()+ ", " + cm[game.getDataGame().getActiveCrewMember()-1].getRoom());
-                
+            //Active Crew Member Info
+            System.out.println(game.activeCrewMemberInfoToString());
  
             System.out.println();
             System.out.println("0 - Quit");
@@ -1037,7 +965,7 @@ public class TextUI {
             case 1:
                 int opRoom = 0;
                 do{
-                    System.out.println(game.getDataGame().getShip().toString());
+                    System.out.println(game.getShip().toString());
                     System.out.print("Room: ");
 
                     input = sc.next();
@@ -1097,7 +1025,7 @@ public class TextUI {
         for(String log:game.getLogs()){
             System.out.println(log);
         }
-        game.getDataGame().clearLogs();
+        game.clearLogs();
     }
 
     public void run() throws IOException, ClassNotFoundException{

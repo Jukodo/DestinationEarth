@@ -1,6 +1,9 @@
 package de;
 
+import de.logic.data.Alien;
 import de.logic.data.DataGame;
+import de.logic.data.Player;
+import de.logic.data.Ship;
 import de.logic.data.Trap;
 import de.logic.states.*;
 import java.io.FileInputStream;
@@ -38,18 +41,10 @@ public class DestinationEarth implements Serializable{
         this.state = state;
     }
     
-    /**Data game methods**/
+    /**Data game methods - Gets**/
     
     public List<String> getLogs(){
         return dataGame.getLogs();
-    }
-    
-    public String diceToString(){
-        return dataGame.diceToString();
-    }
-    
-    public String getAvailableActions(){
-        return dataGame.getAvailableActions();
     }
     
     public int getOrganicTrapTokens(){
@@ -58,6 +53,116 @@ public class DestinationEarth implements Serializable{
     
     public int getParticleTrapTokens(){
         return dataGame.getParticleTrapTokens();
+    }
+    
+    public Player getPlayer(){
+        return dataGame.getPlayer();
+    }
+    
+    public Ship getShip(){
+        return dataGame.getShip();
+    }
+    
+    public List<Alien> getNewAliens(){
+        return dataGame.getNewAliens();
+    }
+    
+    public int getActiveCrewMember(){
+        return dataGame.getActiveCrewMember();
+    }
+    
+    public int getAvailableActions_Quant(){
+        return dataGame.getAvailableActions_Quant();
+    }
+    
+    public int getDiceValue(int numDices){
+        return dataGame.getDiceValue(numDices);
+    }
+    
+    public int getActiveNewAlien(){
+        return dataGame.getActiveNewAlien();
+    }
+    
+    public String getJourneyTrackerTurn(int turn){
+        return dataGame.getJourneyTrackerTurn(turn);
+    }
+    
+    /**Data game methods - Functions**/
+    public void swapActiveCrewMember(){
+        dataGame.swapActiveCrewMember();
+    }
+    
+    public void swapActiveNewAlien(){
+        dataGame.swapActiveNewAlien();
+    }
+    
+    public void IP_addHealthPoint(){
+        dataGame.IP_addHealthPoint();
+    }
+    
+    public void IP_repairHull(){
+        dataGame.IP_repairHull();
+    }
+    
+    public void IP_buildOrganicDetonator(){
+        dataGame.IP_buildOrganicDetonator();
+    }
+    
+    public void IP_addMovement(int activeCrewMember){
+        dataGame.IP_addMovement(activeCrewMember);
+    }
+    
+    public void IP_buildParticleDesperser(){
+        dataGame.IP_buildParticleDesperser();
+    }
+    
+    public void IP_addSealedRoomToken(){
+        dataGame.IP_addSealedRoomToken();
+    }
+    
+    public void IP_addAttackDie(int activeCrewMember){
+        dataGame.IP_addAttackDie(activeCrewMember);
+    }
+    
+    public void IP_addValueToAttackDie(){
+        dataGame.IP_addValueToAttackDie();
+    }
+    
+    public void clearLogs(){
+        dataGame.clearLogs();
+    }
+    
+    public boolean isValid_JourneyTurn(int turn, String event){
+        return dataGame.isValid_JourneyTurn(turn, event);
+    }
+    
+    /**Data game methods - To Strings**/
+    public String crewMemberInfoToString(){
+        return dataGame.crewMemberInfoToString();
+    }
+    
+    public String newAliensInfoToString(){
+        return dataGame.newAliensInfoToString();
+    }
+    
+    public String currentJourneyToString(){
+        return dataGame.currentJourneyToString();
+    }
+    
+    public String activeCrewMemberInfoToString(){
+        return dataGame.activeCrewMemberInfoToString();
+    }
+    
+    public String trapTokensToString(){
+        return dataGame.trapTokensToString();
+    }
+    
+    public String diceToString(){
+        return dataGame.diceToString();
+    }
+    
+    public String getAvailableActions(){
+        return dataGame.getAvailableActions();
     }
     
     @Override
@@ -195,14 +300,6 @@ public class DestinationEarth implements Serializable{
     public int getQuantityOfDiceToRoll(){
         return getState().getQuantityOfDiceToRoll();
     }
-    
-    /*public void saveGame(){
-        setState(getState().saveGame());
-    }
-    
-    public void loadGame(){
-        setState(getState().loadGame());
-    }*/
     
     public void quit(){
         setState(getState().quit());
