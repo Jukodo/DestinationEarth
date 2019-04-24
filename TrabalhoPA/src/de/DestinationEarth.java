@@ -3,6 +3,12 @@ package de;
 import de.logic.data.DataGame;
 import de.logic.data.Trap;
 import de.logic.states.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -182,19 +188,43 @@ public class DestinationEarth implements Serializable{
         setState(getState().setDieRoll(dieToRoll, value));
     }
     
+    public void confirmRoll(){
+        setState(getState().confirmRoll());
+    }
+    
     public int getQuantityOfDiceToRoll(){
         return getState().getQuantityOfDiceToRoll();
     }
     
-    public void saveGame(){
+    /*public void saveGame(){
         setState(getState().saveGame());
     }
     
     public void loadGame(){
         setState(getState().loadGame());
-    }
+    }*/
     
     public void quit(){
         setState(getState().quit());
+    }
+    
+    /**Save and Load**/
+    
+     public void saveGame() throws FileNotFoundException, IOException{
+        try(ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream("SaveFile"))) { 
+            save.writeUnshared(this);
+            this.getDataGame().addLog("Game saved!");
+        }
+    }
+    
+    public DestinationEarth loadGame() throws FileNotFoundException, IOException, ClassNotFoundException{
+        try(ObjectInputStream load = new ObjectInputStream(new FileInputStream("SaveFile"))) { 
+            DestinationEarth loadedGame = (DestinationEarth) load.readUnshared();
+            if(loadedGame != null)
+                loadedGame.getDataGame().addLog("Game loaded!");
+            else
+                loadedGame.getDataGame().addLog("Game loading failed!");
+            return loadedGame;
+        }
     }
 }

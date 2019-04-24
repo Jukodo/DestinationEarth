@@ -3,6 +3,7 @@ package de.logic.states;
 import de.logic.data.DataGame;
 import de.logic.data.members.Doctor;
 import de.logic.data.members.Engineer;
+import de.logic.data.members.RedShirt;
 import de.logic.data.members.ScienceOfficer;
 
 public class CrewPhase extends StateAdapter{
@@ -45,6 +46,9 @@ public class CrewPhase extends StateAdapter{
             }
             else if(this.getGame().getPlayer().getCrewMember(this.getGame().getActiveCrewMember()-1) instanceof Engineer){
                 this.getGame().fixHullTracker();
+            }
+            else if(this.getGame().getPlayer().getCrewMember(this.getGame().getActiveCrewMember()-1) instanceof RedShirt){
+                this.getGame().sacrificeCrewMember();
             }
         }
         

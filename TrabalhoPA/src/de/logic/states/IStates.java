@@ -56,11 +56,12 @@ public interface IStates extends Serializable {
     IStates swapCrewMember();
     IStates rollDice();
     IStates setDieRoll(int dieToRoll, int value);
+    IStates confirmRoll();
     int getQuantityOfDiceToRoll();
     
     
-    IStates saveGame();
-    IStates loadGame();
+    //IStates saveGame();
+    //IStates loadGame();
     
     IStates quit();
 }

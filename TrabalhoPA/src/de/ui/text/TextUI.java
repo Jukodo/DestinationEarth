@@ -5,19 +5,11 @@ import de.logic.data.Alien;
 import static de.logic.data.Constants.*;
 import de.logic.data.OrganicDetonator;
 import de.logic.data.ParticleDispenser;
-import de.logic.data.Room;
-import de.logic.data.Trap;
 import de.logic.data.members.CrewMember;
 import de.logic.data.members.ScienceOfficer;
 import de.logic.states.*;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class TextUI {
@@ -31,7 +23,7 @@ public class TextUI {
         this.game = game;
     }
     
-    public void uiBeginning() throws IOException, ClassNotFoundException {
+    public void uiBeginning() throws IOException, FileNotFoundException, ClassNotFoundException{
         Scanner sc = new Scanner(System.in);
         String input;
         int op;
@@ -44,7 +36,6 @@ public class TextUI {
             System.out.println();
             System.out.println("1 - New game");
             System.out.println("2 - Load game");
-            System.out.println("3 - Settings");
             System.out.println();
             System.out.print("~>: ");
 
@@ -72,8 +63,8 @@ public class TextUI {
                 return;
                 
             case 2:
-                game = loadGame();
-                break;
+                game = game.loadGame();
+                return;
                 
             default:
                 return;
@@ -87,7 +78,7 @@ public class TextUI {
         
         Scanner sc = new Scanner(System.in);
         String input;
-        char c;
+        int op;
 
         System.out.println();
         System.out.println(game.diceToString());
@@ -99,46 +90,63 @@ public class TextUI {
             System.out.println("0 - Quit");
             System.out.println();
             System.out.println("1 - Roll randomly");
-            if(inDebug)
-                System.out.println("2 - Set roll value");
+            if(inDebug){
+                for(int i = 0; i < game.getQuantityOfDiceToRoll(); i++){
+                    System.out.println((i+2) + " - Set value for die " + (i+1));        
+                }
+            }
+            System.out.println(game.getQuantityOfDiceToRoll()+2 + " - Continue");
             System.out.println();
             System.out.print("~>: ");
 
             input = sc.next();
 
-            if(input.length() >= 1)
-                c = input.charAt(0);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                 }
+                 catch (NumberFormatException e)
+                 {
+                    op = -1;
+                 }
+            }
+                
             else
-                c = ' ';
+                op = -1;
 
-        }while(c < '0' || c > '2');
+        }while(op < 0 || op > game.getQuantityOfDiceToRoll()+2);
+       
+
+        if(op == 0){
+            quit = true;
+            return;
+        }
+        else if(op == 1){
+            game.rollDice(); 
+            return;
+
+        }
+        else if(op > 1 && op < game.getQuantityOfDiceToRoll()+2){ 
+            System.out.print("Insert the value for die " + (op-1) + ": ");
+
+            int value = 0;
+
+            input = sc.next();
             
-        switch(c){
+            if(input.length() >= 1){
+                try {
+                    value = Integer.parseInt(input);
+                 }
+                 catch (NumberFormatException e)
+                 {
+                    value = 0;
+                 }
+            }
 
-            case '0':
-                quit = true;
-                return;
-
-            case '1':
-
-                if(input.length() > 0){
-                    game.rollDice(); 
-                }
-
-            case '2':
-                if(inDebug){
-                    System.out.println();
-                    for(int i = 0; i < game.getQuantityOfDiceToRoll(); i++){
-                        System.out.println("Set value for die " + (i+1) + ": ");
-                        
-                    }
-                }
-
-                return;
-
-            default:
-                return;
-
+          game.setRollValue(op-2, value);
+        }
+        else{
+            game.confirmRoll();
         }
 
     }
@@ -196,8 +204,16 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                 }
+                 catch (NumberFormatException e)
+                 {
+                    op = -1;
+                 }
+            }
+                
             else
                 op = -1;
             
@@ -511,7 +527,7 @@ public class TextUI {
                 break;
             
             case 2:
-                saveGame();
+                game.saveGame();
                 break;
         }
     }
@@ -722,7 +738,7 @@ public class TextUI {
                 if(cm[i].isInside()){
                     System.out.print(cm[i].getName() + ", is at Room #" + cm[i].getRoom().getId() + " - " + cm[i].getRoom().getName());
                 }else{
-                    System.out.print(cm[i].getName() + ", isn't at any Room, please select one!");
+                    System.out.print(cm[i].getName() + " (resting in peace)");
                 }
             }
             
@@ -1139,24 +1155,6 @@ public class TextUI {
             else if (state instanceof DiceRolling){
                 uiDiceRolling();
             }
-        }
-    }
-    
-    public void saveGame() throws FileNotFoundException, IOException{
-        try(ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream("SaveFile"))) { 
-            save.writeUnshared(game);
-            game.getDataGame().addLog("Game saved!");
-        }
-    }
-    
-    public DestinationEarth loadGame() throws FileNotFoundException, IOException, ClassNotFoundException{
-        try(ObjectInputStream load = new ObjectInputStream(new FileInputStream("SaveFile"))) { 
-            DestinationEarth loadedGame = (DestinationEarth) load.readUnshared();
-            if(loadedGame != null)
-                loadedGame.getDataGame().addLog("Game loaded!");
-            else
-                loadedGame.getDataGame().addLog("Game loading failed!");
-            return loadedGame;
         }
     }
 }

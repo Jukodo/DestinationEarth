@@ -319,7 +319,33 @@ public class DataGame implements Constants, Serializable{
     public void swapActiveCrewMember(){
         if(++activeCrewMember > NUM_CREW_MEMBERS)
             activeCrewMember = 1;
+        
+        CrewMember cm = this.getPlayer().getCrewMember(activeCrewMember-1);
+        
+        if(cm instanceof RedShirt && !((RedShirt)cm).isAlive() ){
+            swapActiveCrewMember();
+        }
     }
+    
+    public boolean sacrificeCrewMember(){
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
+        if(cm instanceof RedShirt && ((RedShirt)cm).isAlive()){
+            
+            if(cm.isInside()){
+                cm.leaveRoom();
+            }
+            
+            ((RedShirt)cm).setAlive(false);
+            addHealthToPlayer(5);
+            swapActiveCrewMember();
+            addLog("You sacrificed Red Shirt and earned 5 health! Good journey comrade Red Shirt!");
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**Aliens methods**/
     
     public void swapActiveNewAlien(){
         if(++activeNewAlien > newAliens.size())
@@ -531,6 +557,8 @@ public class DataGame implements Constants, Serializable{
             i++;
         else if(cm instanceof Engineer)
             i++;
+        else if(cm instanceof RedShirt && ((RedShirt)cm).isAlive())
+            i++;
         
         return i;
     }
@@ -561,6 +589,10 @@ public class DataGame implements Constants, Serializable{
         else if(cm instanceof Engineer){
             i++;
             s+= (i+1) + " - Fix One Hull (" + this.getFixHullCost() + " AP)" + System.lineSeparator();
+        }
+        else if(cm instanceof RedShirt && ((RedShirt)cm).isAlive() == true){
+            i++;
+            s+= (i+1) + " - Sacrifice for 5 health (" + this.getFixHullCost() + " AP)" + System.lineSeparator();
         }
         
         return s;
@@ -1019,7 +1051,7 @@ public class DataGame implements Constants, Serializable{
        
         return true;
     }
-    
+
     /**Inspiration points methods**/
     public int getInspirationPoints(){
         return player.getInspirationPoints();

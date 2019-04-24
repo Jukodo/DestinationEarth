@@ -41,6 +41,11 @@ public class DiceRolling extends StateAdapter{
     @Override
     public IStates setDieRoll(int dieToRoll, int value){
         this.getGame().rollDie(dieToRoll, value);
+        return new DiceRolling(this.getGame(), returnState, quantityOfDice);
+    }
+    
+    @Override
+    public IStates confirmRoll(){
         return returnState;
     }
 

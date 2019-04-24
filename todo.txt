@@ -2,14 +2,11 @@ Specials:
 
 	Comm's Officer
 
-	Red shirt
-
+	Red shirt in inspiration points
 
 
 Methods changes:
 
-
-	trap.activate(): remove method and do the logic in moveAlien; OR do trap.active() and change AP_detonateParticleDispenser;
 
 
 
@@ -18,5 +15,4 @@ Functionalities:
 	Full var reset on replay
 	
 Sum missed details?
-	Settings (?)
 	Game stats on every UI phase (?) Also unify templates

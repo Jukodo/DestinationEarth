@@ -155,10 +155,16 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
     
     @Override
+    public IStates confirmRoll() {
+        return this;
+    }
+    
+    @Override
     public int getQuantityOfDiceToRoll(){
         return 0;
     }
 
+    /*
     @Override
     public IStates saveGame() {
         return this;
@@ -167,7 +173,7 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     @Override
     public IStates loadGame() {
         return this;
-    }
+    }*/
 
     @Override
     public IStates quit() {

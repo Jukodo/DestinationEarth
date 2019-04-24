@@ -23,11 +23,11 @@ public class TrabalhoPA {
         TextUI textUI = new TextUI(new DestinationEarth());
         try { 
             textUI.run();
-        } catch (IOException ex) {
-          //...
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
           //...
         }
+        //...
+        
        
     }
     
