@@ -146,7 +146,8 @@ public class DataGame implements Constants, Serializable{
     
     public int rollDie(int dieId, int value){
                
-        if((dieId < 0 || dieId >= MAX_DICES) && (value < 1 || value > 6)){
+        if((dieId < 0 || dieId >= MAX_DICES) || (value < 1 || value > 6)){
+            dices[dieId] = 0;
             return 0;
         }
         
@@ -592,7 +593,7 @@ public class DataGame implements Constants, Serializable{
         }
         else if(cm instanceof RedShirt && ((RedShirt)cm).isAlive() == true){
             i++;
-            s+= (i+1) + " - Sacrifice for 5 health (" + this.getFixHullCost() + " AP)" + System.lineSeparator();
+            s+= (i+1) + " - Sacrifice for 5 health (0 AP)" + System.lineSeparator();
         }
         
         return s;
