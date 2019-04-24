@@ -147,7 +147,6 @@ public class DataGame implements Constants, Serializable{
     public int rollDie(int dieId, int value){
                
         if((dieId < 0 || dieId >= MAX_DICES) || (value < 1 || value > 6)){
-            dices[dieId] = 0;
             return 0;
         }
         
