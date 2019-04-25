@@ -111,7 +111,5 @@ public abstract class CrewMember implements Serializable{
     public void setMovementsBeforeFree(int movementsBeforeFree) {
         this.movementsBeforeFree = movementsBeforeFree;
     }
-    
-    
-  
+
 }

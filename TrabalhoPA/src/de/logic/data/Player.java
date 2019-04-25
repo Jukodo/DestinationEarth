@@ -58,8 +58,6 @@ public class Player implements Serializable{
     }
 
     public boolean setHealthTracker(int healthTracker) {
-        if(this.healthTracker == MAX_HEALTH)//Already has maxed out HP
-            return false;
         if(healthTracker > MAX_HEALTH)
             healthTracker = MAX_HEALTH;
         this.healthTracker = healthTracker;

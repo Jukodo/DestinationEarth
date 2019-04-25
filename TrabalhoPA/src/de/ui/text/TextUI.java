@@ -39,7 +39,15 @@ public class TextUI {
             System.out.println();
             System.out.print("~>: ");
 
-            op = sc.nextInt();
+            input = sc.next();
+            
+            try {
+                op = Integer.parseInt(input);
+            }
+            catch (NumberFormatException e)
+            {
+               op = -1;
+            }
 
         }while(op < 0 || op > 3);
 
@@ -243,8 +251,15 @@ public class TextUI {
                     
                     input = sc.next();
                     
-                    if(input.length() >= 1)
-                        crewType = Integer.parseInt(input);
+                    if(input.length() >= 1){
+                        try {
+                            crewType = Integer.parseInt(input);
+                        }
+                        catch (NumberFormatException e)
+                        {
+                           crewType = -1;
+                        }
+                    }
                     
                 }while(crewType < 1 || crewType > 12);
                 
@@ -276,8 +291,15 @@ public class TextUI {
                     
                     input = sc.next();
                     
-                    if(input.length() >= 1)
-                        crewColor = Integer.parseInt(input);
+                    if(input.length() >= 1){
+                        try {
+                            crewColor = Integer.parseInt(input);
+                        }
+                        catch (NumberFormatException e)
+                        {
+                           crewColor = -1;
+                        }                        
+                    }
                     
                 }while(crewColor < 1 || crewColor > 12);
                 
@@ -326,8 +348,15 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                 }
+                 catch (NumberFormatException e)
+                 {
+                    op = -1;
+                 }
+            }
             else
                 op = -1;
             
@@ -380,8 +409,15 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                 }
+                 catch (NumberFormatException e)
+                 {
+                    op = -1;
+                 }
+            }
             else
                 op = -1;
             
@@ -402,7 +438,7 @@ public class TextUI {
                 input = sc.next();
                 
                 if(input.trim().compareToIgnoreCase("Y") == 0){
-                    System.out.println("Changing to default");//REMOVE LATER
+                    System.out.println("Journey Tracker set to default!");
                     game.generateJourney_ByDefault();
                 }
                 
@@ -417,7 +453,7 @@ public class TextUI {
                 input = sc.next();
                 
                 if(input.trim().compareToIgnoreCase("Y") == 0){
-                    System.out.println("Changing to random");//REMOVE LATER
+                    System.out.println("Journey Tracker set randomly!");
                     game.generateJourney_ByRandom();
                 }
                 
@@ -433,8 +469,15 @@ public class TextUI {
 
                 input = sc.next();
 
-                if(input.length() >= 1)
-                    op = Integer.parseInt(input);
+                if(input.length() >= 1){
+                    try {
+                        op = Integer.parseInt(input);
+                    }
+                    catch (NumberFormatException e)
+                    {
+                       op = -1;
+                    }
+                }
                 else
                     op = -1;
                 
@@ -484,8 +527,15 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                 }
+                 catch (NumberFormatException e)
+                 {
+                    op = -1;
+                 }
+            }
             else
                 op = -1;
             
@@ -544,8 +594,15 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                 }
+                 catch (NumberFormatException e)
+                 {
+                    op = -1;
+                 }
+            }
             else
                 op = -1;
             
@@ -609,8 +666,15 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                 }
+                 catch (NumberFormatException e)
+                 {
+                    op = -1;
+                 }
+            }
             else
                 op = -1;
             
@@ -693,8 +757,15 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                 }
+                 catch (NumberFormatException e)
+                 {
+                    op = -1;
+                 }
+            }
             else
                 op = -1;
             
@@ -741,8 +812,15 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                 }
+                 catch (NumberFormatException e)
+                 {
+                    op = -1;
+                 }
+            }
             else
                 op = -1;
             
@@ -761,8 +839,15 @@ public class TextUI {
 
                     input = sc.next();
 
-                    if(input.length() >= 1)
-                        opRoom = Integer.parseInt(input);
+                    if(input.length() >= 1){
+                        try {
+                            opRoom = Integer.parseInt(input);
+                         }
+                         catch (NumberFormatException e)
+                         {
+                            opRoom = -1;
+                         }
+                    }
                     else
                         opRoom = -1;
                 }while(opRoom < 0 || opRoom > 12);
@@ -792,8 +877,15 @@ public class TextUI {
 
                 input = sc.next();
 
-                if(input.length() >= 1)
-                    op = Integer.parseInt(input);
+                if(input.length() >= 1){
+                    try {
+                        op = Integer.parseInt(input);
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        op = -1;
+                    }
+                }
                 else
                     op = -1;
             
@@ -812,8 +904,15 @@ public class TextUI {
 
                         input = sc.next();
 
-                        if(input.length() >= 1)
-                            opRoom = Integer.parseInt(input);
+                        if(input.length() >= 1){
+                            try {
+                                opRoom = Integer.parseInt(input);
+                            }
+                            catch (NumberFormatException e)
+                            {
+                                opRoom = -1;
+                            }
+                        }
                         else
                             opRoom = -1;
                     }while(opRoom < 0 || opRoom > 12);
@@ -855,8 +954,15 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                }
+                catch (NumberFormatException e)
+                {
+                    op = -1;
+                }
+            }
             else
                 op = -1;
             
@@ -898,8 +1004,15 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                }
+                catch (NumberFormatException e)
+                {
+                    op = -1;
+                }
+            }
             else
                 op = -1;
             
@@ -918,8 +1031,15 @@ public class TextUI {
 
                     input = sc.next();
 
-                    if(input.length() >= 1)
-                        opRoom = Integer.parseInt(input);
+                    if(input.length() >= 1){
+                        try {
+                            opRoom = Integer.parseInt(input);
+                        }
+                        catch (NumberFormatException e)
+                        {
+                            opRoom = -1;
+                        }
+                    }
                     else
                         opRoom = -1;
                 }while(opRoom < 0 || opRoom > 12);
@@ -950,8 +1070,15 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                }
+                catch (NumberFormatException e)
+                {
+                    op = -1;
+                }
+            }
             else
                 op = -1;
             
@@ -970,8 +1097,15 @@ public class TextUI {
 
                     input = sc.next();
 
-                    if(input.length() >= 1)
-                        opRoom = Integer.parseInt(input);
+                    if(input.length() >= 1){
+                        try {
+                            opRoom = Integer.parseInt(input);
+                        }
+                        catch (NumberFormatException e)
+                        {
+                            opRoom = -1;
+                        }
+                    }
                     else
                         opRoom = -1;
                 }while(opRoom < 0 || opRoom > 12);
@@ -1003,8 +1137,15 @@ public class TextUI {
             
             input = sc.next();
             
-            if(input.length() >= 1)
-                op = Integer.parseInt(input);
+            if(input.length() >= 1){
+                try {
+                    op = Integer.parseInt(input);
+                }
+                catch (NumberFormatException e)
+                {
+                    op = -1;
+                }
+            }
             else
                 op = -1;
             

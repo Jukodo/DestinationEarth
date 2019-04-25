@@ -14,6 +14,7 @@ public class Doctor extends CrewMember implements Serializable{
     
     public Doctor(DataGame dataGame, int color) {
         super(dataGame, 1, 1, color);
+        hasHealedForFree = false;
     }
 
     public boolean hasHealedForFree() {

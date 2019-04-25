@@ -14,6 +14,7 @@ public class Engineer extends CrewMember implements Serializable{
     
     public Engineer(DataGame dataGame, int color) {
         super(dataGame, 1, 1, color);
+        hasFixedForFree = false;
     }
     
     public boolean hasFixedForFree(){

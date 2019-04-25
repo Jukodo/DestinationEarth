@@ -256,7 +256,7 @@ public class DataGame implements Constants, Serializable{
     }
     
     public boolean selectCrewMemberColor(int crewNumber, int crewMemberColor){
-        if(crewMemberColor < 0 || crewMemberColor >= 12){
+        if(crewMemberColor < 0 || crewMemberColor > 12){
             addLog("Crew Member color is invalid!");
             return false;
         }
@@ -607,6 +607,12 @@ public class DataGame implements Constants, Serializable{
                 addActionPoints(6-getActionPoints());
                 break;
             }
+            else if(cm instanceof Doctor){
+                ((Doctor)cm).setHasHealedForFree(false);
+            }
+            else if(cm instanceof Engineer){
+                ((Engineer)cm).setHasFixedForFree(false);
+            }
         }   
     }
     
@@ -764,7 +770,7 @@ public class DataGame implements Constants, Serializable{
     public int getHealCost(){
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(cm instanceof Doctor && cm.getRoom().getName().equalsIgnoreCase("SickBay") && !((Doctor)cm).hasHealedForFree()){
+        if(cm instanceof Doctor && cm.getRoom().getName().equalsIgnoreCase("Sick Bay") && !((Doctor)cm).hasHealedForFree()){
             return 0;
         }
         
@@ -884,7 +890,7 @@ public class DataGame implements Constants, Serializable{
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
         if(cm instanceof Doctor){
-            if(cm.getRoom().getName().equalsIgnoreCase("SickBay") && !((Doctor)cm).hasHealedForFree()){
+            if(cm.getRoom().getName().equalsIgnoreCase("Sick Bay") && !((Doctor)cm).hasHealedForFree()){
                 addHealthToPlayer(1);
                 ((Doctor)cm).setHasHealedForFree(true); //TODO: inicio do turno colocar a false
                 addLog("Player was healed by 1 health!");
@@ -1382,6 +1388,14 @@ public class DataGame implements Constants, Serializable{
         return true;
     }
     
+    public String getColorToString(int color){
+        return COLOR[color];
+    }
+    
+    public String getCrewMemberColorToString(int crewMember){
+        return getColorToString(player.getCrewMember(crewMember).getColor());
+    }
+    
     public String crewMemberInfoToString(){
         String s = "\tCrew Members:" + System.lineSeparator();
         
@@ -1395,11 +1409,9 @@ public class DataGame implements Constants, Serializable{
                 s += "[ ] ";
             s += "Member #" + (i+1) + ": ";
             if(player.getCrewMember(i).isInside()){
-                s += player.getCrewMember(i).getName() + ", is at Room #"
-                   + player.getCrewMember(i).getRoom().getId() + " - "
-                   + player.getCrewMember(i).getRoom().getName();
+                s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), is at " + player.getCrewMember(i).getRoom();
             }else{
-                s += player.getCrewMember(i).getName() + ", isn't at any Room, please select one!";
+                s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), isn't at any Room, please select one!";
             }
         }
         
@@ -1448,8 +1460,13 @@ public class DataGame implements Constants, Serializable{
         String s;
         
         s = "Active Member: " 
-                + player.getCrewMember(getActiveCrewMember()-1).getName()+ ", " 
-                + player.getCrewMember(getActiveCrewMember()-1).getRoom();
+                + player.getCrewMember(getActiveCrewMember()-1).getName()+ " (" + getCrewMemberColorToString(getActiveCrewMember()-1) + "), ";
+        if(player.getCrewMember(getActiveCrewMember()-1).getRoom() == null){
+            s+= "isn't at any Room";
+        }
+        else{
+            s+= player.getCrewMember(getActiveCrewMember()-1).getRoom();
+        }
         
         return s;
     }
