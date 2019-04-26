@@ -1,8 +1,5 @@
 Specials:
 
-	Comm's Officer
-
-	Red shirt in inspiration points
 
 
 Methods changes:
@@ -15,4 +12,3 @@ Functionalities:
 	Full var reset on replay
 	
 Sum missed details?
-	Game stats on every UI phase (?) Also unify templates
