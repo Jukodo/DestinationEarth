@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class ParticleDispenser extends Trap implements Constants, Serializable{
 
     public ParticleDispenser(DataGame dataGame) {
-        super(dataGame, DEF_COST_TRAP_PARTICLE);
+        super(dataGame, DEF_COST_A_TRAP_PARTICLE);
     }
 
     @Override

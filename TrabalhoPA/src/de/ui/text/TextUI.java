@@ -1,11 +1,9 @@
 package de.ui.text;
 
 import de.DestinationEarth;
-import de.logic.data.Alien;
 import static de.logic.data.Constants.*;
 import de.logic.data.OrganicDetonator;
 import de.logic.data.ParticleDispenser;
-import de.logic.data.members.CrewMember;
 import de.logic.data.members.ScienceOfficer;
 import de.logic.states.*;
 import java.io.FileNotFoundException;
@@ -168,7 +166,7 @@ public class TextUI {
         //REMOVE LATER
         if(inDebug){
             if(!game.getPlayer().hasAllMembers()){
-                game.selectCrewMember(1, 4);
+                game.selectCrewMember(1, 8);
                 game.selectCrewMemberColor(1, 2);
                 game.selectCrewMember(2, 5);
                 game.selectCrewMemberColor(2, 3);
@@ -649,17 +647,8 @@ public class TextUI {
             System.out.println();
             System.out.println("0 - Quit");
             System.out.println();
-            System.out.println("1 - Swap Active Member");
-            System.out.println("2 - Recover Health (1 IP)");
-            System.out.println("3 - Repair Hull (1 IP)");
-            System.out.println("4 - Build Organic Detonator (2 IP)");
-            System.out.println("5 - Increase Member Movement (4 IP)");
-            System.out.println("6 - Build Particle Desperser (5 IP)");
-            System.out.println("7 - Build Room Blocker (5 IP)");
-            System.out.println("8 - Increase Attack Dice (6 IP)");
-            System.out.println("9 - Increase Attack (6 IP)");
-            System.out.println();
-            System.out.println("10 - Skip Rest");
+            System.out.println(game.getAvailableInspirations());
+            System.out.println(game.getAvailableInspirations_Quant()+2 + " - Leave Rest Phase");
             
             System.out.println();
             System.out.print("~>: ");
@@ -678,7 +667,7 @@ public class TextUI {
             else
                 op = -1;
             
-        }while(op < 0 || op > 10);
+        }while(op < 0 || op > (game.getAvailableInspirations_Quant()+2));
         
         switch(op){
             
@@ -723,6 +712,13 @@ public class TextUI {
                 break;
                 
             case 10:
+                if(game.getPlayer().haveAlive_RedShirt()){
+                    game.sacrificeCrewMember();
+                    break;
+                }
+                game.leaveRestPhase();
+                break;
+            case 11:
                 game.leaveRestPhase();
                 break;
         }

@@ -2,8 +2,6 @@ package de.logic.data;
 import static de.logic.data.Constants.*;
 import de.logic.data.members.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Player implements Serializable{
     private String name;
@@ -149,5 +147,12 @@ public class Player implements Serializable{
         }
         return true;
     }
-    
+    public boolean haveAlive_RedShirt(){
+        for(CrewMember cm:getCrew()){
+            if(cm instanceof RedShirt && ((RedShirt)cm).isAlive()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

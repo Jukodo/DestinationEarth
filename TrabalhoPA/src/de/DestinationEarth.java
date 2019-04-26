@@ -75,6 +75,10 @@ public class DestinationEarth implements Serializable{
         return dataGame.getAvailableActions_Quant();
     }
     
+    public int getAvailableInspirations_Quant(){
+        return dataGame.getAvailableInspirations_Quant();
+    }
+    
     public int getDiceValue(int numDices){
         return dataGame.getDiceValue(numDices);
     }
@@ -136,6 +140,10 @@ public class DestinationEarth implements Serializable{
         return dataGame.isValid_JourneyTurn(turn, event);
     }
     
+    public boolean sacrificeCrewMember(){
+        return dataGame.sacrificeCrewMember();
+    }
+    
     /**Data game methods - To Strings**/
     public String crewMemberInfoToString(){
         return dataGame.crewMemberInfoToString();
@@ -163,6 +171,10 @@ public class DestinationEarth implements Serializable{
     
     public String getAvailableActions(){
         return dataGame.getAvailableActions();
+    }
+    
+    public String getAvailableInspirations(){
+        return dataGame.getAvailableInspirations();
     }
     
     @Override

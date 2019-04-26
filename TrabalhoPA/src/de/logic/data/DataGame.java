@@ -320,26 +320,26 @@ public class DataGame implements Constants, Serializable{
         if(++activeCrewMember > NUM_CREW_MEMBERS)
             activeCrewMember = 1;
         
-        CrewMember cm = this.getPlayer().getCrewMember(activeCrewMember-1);
-        
-        if(cm instanceof RedShirt && !((RedShirt)cm).isAlive() ){
+        if(this.getPlayer().getCrewMember(activeCrewMember-1) instanceof RedShirt && 
+                !((RedShirt)this.getPlayer().getCrewMember(activeCrewMember-1)).isAlive() ){
             swapActiveCrewMember();
         }
     }
     
     public boolean sacrificeCrewMember(){
-        CrewMember cm = player.getCrewMember(activeCrewMember-1);
-        if(cm instanceof RedShirt && ((RedShirt)cm).isAlive()){
-            
-            if(cm.isInside()){
-                cm.leaveRoom();
+        for(CrewMember cm:player.getCrew()){
+            if(cm instanceof RedShirt && ((RedShirt)cm).isAlive()){
+
+                if(cm.isInside()){
+                    cm.leaveRoom();
+                }
+
+                ((RedShirt)cm).setAlive(false);
+                addHealthToPlayer(5);
+                swapActiveCrewMember();
+                addLog("You sacrificed Red Shirt and earned 5 health! Good journey comrade Red Shirt!");
+                return true;
             }
-            
-            ((RedShirt)cm).setAlive(false);
-            addHealthToPlayer(5);
-            swapActiveCrewMember();
-            addLog("You sacrificed Red Shirt and earned 5 health! Good journey comrade Red Shirt!");
-            return true;
         }
         
         return false;
@@ -590,7 +590,7 @@ public class DataGame implements Constants, Serializable{
             i++;
             s+= (i+1) + " - Fix One Hull (" + this.getFixHullCost() + " AP)" + System.lineSeparator();
         }
-        else if(cm instanceof RedShirt && ((RedShirt)cm).isAlive() == true){
+        else if(cm instanceof RedShirt && ((RedShirt)cm).isAlive()){
             i++;
             s+= (i+1) + " - Sacrifice for 5 health (0 AP)" + System.lineSeparator();
         }
@@ -756,15 +756,15 @@ public class DataGame implements Constants, Serializable{
     public int getMovementCost(){
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        int freeMoves = cm.getMovement() - DEF_COST_MOVE;
+        int freeMoves = cm.getMovement() - DEF_COST_A_MOVE;
         
         if(freeMoves <= 0){
-            return DEF_COST_MOVE;
+            return DEF_COST_A_MOVE;
         }else if(cm.getMovementsBeforeFree() > 0 && cm.getMovementsBeforeFree() <= freeMoves){
             return 0; //Quando o Navigation Officer move-se 1 vez pode mover-se mais 1 vez de graça.
         }
         
-        return DEF_COST_MOVE;
+        return DEF_COST_A_MOVE;
     }
     
     public int getHealCost(){
@@ -774,7 +774,7 @@ public class DataGame implements Constants, Serializable{
             return 0;
         }
         
-        return DEF_COST_HEAL;
+        return DEF_COST_A_HEAL;
     }
     
     public int getFixHullCost(){
@@ -784,7 +784,7 @@ public class DataGame implements Constants, Serializable{
             return 0;
         }
         
-        return DEF_COST_FIX_HULL;
+        return DEF_COST_A_FIX_HULL;
     }
     
     public boolean moveActiveCrewMember(int roomNumber){
@@ -797,7 +797,7 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
         
-        if(cost > 0 && getActionPoints() < DEF_COST_MOVE){
+        if(cost > 0 && getActionPoints() < DEF_COST_A_MOVE){
             addLog("Not enough AP (Action Points)!");
             return false;
         }
@@ -819,7 +819,7 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
         
-        int freeMoves = cm.getMovement() - DEF_COST_MOVE;
+        int freeMoves = cm.getMovement() - DEF_COST_A_MOVE;
         
         
         if(getMovementCost() > 0)
@@ -842,7 +842,7 @@ public class DataGame implements Constants, Serializable{
     public int attackAliens(int roomNumber){
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(getActionPoints() < DEF_COST_ATTACK || roomNumber > NUM_ROOMS)
+        if(getActionPoints() < DEF_COST_A_ATTACK || roomNumber > NUM_ROOMS)
             return 0;
         
         Room roomToAttack = null;
@@ -896,11 +896,11 @@ public class DataGame implements Constants, Serializable{
                 addLog("Player was healed by 1 health!");
                 return true;
             }else{
-                if(getActionPoints() < DEF_COST_HEAL){
+                if(getActionPoints() < DEF_COST_A_HEAL){
                     addLog("Not enough AP (Action Points)!");
                     return false;
                 }
-                removeActionPoints(DEF_COST_HEAL);
+                removeActionPoints(DEF_COST_A_HEAL);
                 addHealthToPlayer(1);
                 addLog("Player was healed by 1 health!");
                 return true;
@@ -921,11 +921,11 @@ public class DataGame implements Constants, Serializable{
                 addLog("Ship's hull was fixed by 1 health!");
                 return true;
             }else{
-                if(getActionPoints() < DEF_COST_FIX_HULL){
+                if(getActionPoints() < DEF_COST_A_FIX_HULL){
                     addLog("Not enough AP (Action Points)!");
                     return false;
                 }
-                removeActionPoints(DEF_COST_FIX_HULL);
+                removeActionPoints(DEF_COST_A_FIX_HULL);
                 addHealthToHull(1);
                 addLog("Ship's hull was fixed by 1 health!");
                 return true;
@@ -939,7 +939,7 @@ public class DataGame implements Constants, Serializable{
     public boolean placeTrap(Trap trap){
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(getActionPoints() < DEF_COST_TRAP_ORGANIC){
+        if(getActionPoints() < DEF_COST_A_TRAP_ORGANIC){
             addLog("Not enough AP (Action Points)!");
             return false;
         }
@@ -975,7 +975,7 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
        
-        removeActionPoints(DEF_COST_TRAP_ORGANIC);
+        removeActionPoints(DEF_COST_A_TRAP_ORGANIC);
         
         return true;
     }
@@ -987,7 +987,7 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
         
-        if(getActionPoints() < DEF_COST_DETONATE_TRAP_PARTICLE){
+        if(getActionPoints() < DEF_COST_A_DETONATE_TRAP_PARTICLE){
             addLog("Not enough AP (Action Points)!");
             return false;
         }
@@ -1010,7 +1010,7 @@ public class DataGame implements Constants, Serializable{
             removeHealthFromPlayer(player.getHealthTracker());
         }
         
-        removeActionPoints(DEF_COST_DETONATE_TRAP_PARTICLE);
+        removeActionPoints(DEF_COST_A_DETONATE_TRAP_PARTICLE);
         roomToBoom.removeTrap();
         
         addLog("Particle Dispenser detonated with success!" + " You killed " + nAliens + " aliens");
@@ -1025,7 +1025,7 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
         
-        if(getActionPoints() < DEF_COST_SEAL_ROOM){
+        if(getActionPoints() < DEF_COST_A_SEAL_ROOM){
             addLog("Not enough AP (Action Points)!");
             return false;
         }
@@ -1052,7 +1052,7 @@ public class DataGame implements Constants, Serializable{
         
         addLog(room.toString() + " was sealed with success!");
         
-        removeActionPoints(DEF_COST_SEAL_ROOM);
+        removeActionPoints(DEF_COST_A_SEAL_ROOM);
         room.setSealed(true);
        
         return true;
@@ -1088,6 +1088,38 @@ public class DataGame implements Constants, Serializable{
         player.setInspirationPoints(total);
      
         return true;
+    }
+    
+    
+    public int getAvailableInspirations_Quant(){
+        int i = DEF_INSPIRATIONS.length;
+        
+        for(CrewMember cm:player.getCrew()){
+            if(cm instanceof RedShirt && ((RedShirt)cm).isAlive())
+                i++;
+        }
+        return i;
+    }
+    
+    public String getAvailableInspirations(){
+        String s = "";
+        int i;
+        
+        for(i = 0; i < DEF_INSPIRATIONS.length; i++){
+            
+            s+= (i+1) + " - " + DEF_INSPIRATIONS[i] + "(";
+            s+= DEF_INSPIRATIONS_COST[i];
+            
+            s+= " IP)" + System.lineSeparator();
+            
+        }
+        
+        if(getPlayer().haveAlive_RedShirt()){
+            i++;
+            s += (i+1) + " - Sacrifice Red Shirt (0 IP)" + System.lineSeparator();
+        }
+        
+        return s;
     }
     
     public void startupSpecials(){
@@ -1408,10 +1440,14 @@ public class DataGame implements Constants, Serializable{
             else
                 s += "[ ] ";
             s += "Member #" + (i+1) + ": ";
-            if(player.getCrewMember(i).isInside()){
-                s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), is at " + player.getCrewMember(i).getRoom();
+            if(player.getCrewMember(i) instanceof RedShirt && !((RedShirt)player.getCrewMember(i)).isAlive()){
+                s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), was sacrificed...";
             }else{
-                s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), isn't at any Room, please select one!";
+                if(player.getCrewMember(i).isInside()){
+                    s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), is at " + player.getCrewMember(i).getRoom();
+                }else{
+                    s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), isn't at any Room, please select one!";
+                }
             }
         }
         
