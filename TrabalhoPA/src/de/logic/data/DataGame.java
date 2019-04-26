@@ -644,7 +644,17 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
         
-        player.setHealthTracker(getHealthTracker() + quantity);
+        int total = getHealthTracker() + quantity;
+        
+        if(total > MAX_HEALTH){
+            addLog("Player already has max health!");
+            return false;
+        }
+            
+        
+        if(!player.setHealthTracker(total)){
+            return false;
+        }
         return true;
     }
     
@@ -674,6 +684,12 @@ public class DataGame implements Constants, Serializable{
     public boolean addHealthToHull(int quantity){
         if(quantity < 1){
             addLog("Invalid quantity!");
+            return false;
+        }
+        int total = getHullTracker() + quantity;
+        
+        if(total > MAX_HULL){
+            addLog("Ship already has max hulls!");
             return false;
         }
         
@@ -908,7 +924,9 @@ public class DataGame implements Constants, Serializable{
         
         if(cm instanceof Doctor){
             if(cm.getRoom().getName().equalsIgnoreCase("Sick Bay") && !((Doctor)cm).hasHealedForFree()){
-                addHealthToPlayer(1);
+                if(!addHealthToPlayer(1))
+                    return false;
+                
                 ((Doctor)cm).setHasHealedForFree(true); //TODO: inicio do turno colocar a false
                 addLog("Player was healed by 1 health!");
                 return true;
@@ -917,8 +935,12 @@ public class DataGame implements Constants, Serializable{
                     addLog("Not enough AP (Action Points)!");
                     return false;
                 }
+                
+                if(!addHealthToPlayer(1))
+                    return false;
+
                 removeActionPoints(DEF_COST_A_HEAL);
-                addHealthToPlayer(1);
+                
                 addLog("Player was healed by 1 health!");
                 return true;
             }
@@ -933,7 +955,8 @@ public class DataGame implements Constants, Serializable{
 
         if(cm instanceof Engineer){
             if(cm.getRoom().getName().equalsIgnoreCase("Engineering") && !((Engineer)cm).hasFixedForFree()){
-                addHealthToHull(1);
+                if(!addHealthToHull(1))
+                    return false;
                 ((Engineer)cm).setHasFixedForFree(true); //TODO: inicio do turno colocar a false
                 addLog("Ship's hull was fixed by 1 health!");
                 return true;
@@ -942,8 +965,9 @@ public class DataGame implements Constants, Serializable{
                     addLog("Not enough AP (Action Points)!");
                     return false;
                 }
+                if(!addHealthToHull(1))
+                    return false;
                 removeActionPoints(DEF_COST_A_FIX_HULL);
-                addHealthToHull(1);
                 addLog("Ship's hull was fixed by 1 health!");
                 return true;
             }
