@@ -155,4 +155,13 @@ public class Player implements Serializable{
         }
         return false;
     }
+    
+    public boolean have_CommsOfficer(){
+        for(CrewMember cm:getCrew()){
+            if(cm instanceof CommsOfficer){
+                return true;
+            }
+        }
+        return false;
+    }
 }

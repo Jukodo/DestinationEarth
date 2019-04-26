@@ -168,7 +168,7 @@ public class TextUI {
             if(!game.getPlayer().hasAllMembers()){
                 game.selectCrewMember(1, 8);
                 game.selectCrewMemberColor(1, 2);
-                game.selectCrewMember(2, 5);
+                game.selectCrewMember(2, 3);
                 game.selectCrewMemberColor(2, 3);
             }
         }

@@ -19,6 +19,7 @@ public class DataGame implements Constants, Serializable{
     
     private List<Alien> newAliens;
     private int activeNewAlien;
+    private boolean specialSpawn;
    
     public DataGame() {
         logs = new ArrayList <> ();
@@ -32,6 +33,8 @@ public class DataGame implements Constants, Serializable{
         activeNewAlien = 1;
         
         newAliens = new ArrayList<>();
+        
+        specialSpawn = false;
         
         for(int i = 0; i < dices.length; i++){
             dices[i] = 0;
@@ -126,6 +129,8 @@ public class DataGame implements Constants, Serializable{
   
     /**Methods**/    
     public void nextTurn(){
+        if(specialSpawn)
+            despawnAliens();
         setCurrentTurn(getCurrentTurn() + 1);
     }
     
@@ -361,10 +366,6 @@ public class DataGame implements Constants, Serializable{
         return 0;
     }
     
-    public boolean eventIsAlienSpawnSpecial(String event){
-        return event.contains("*");
-    }
-    
     public boolean eventIsRest(String event){
         if(event.trim().compareToIgnoreCase("R") == 0)//Event is 'R'
             return true;
@@ -372,12 +373,19 @@ public class DataGame implements Constants, Serializable{
     }
     
     public boolean eventIsAlienSpawn(int turn, String event){
+        if(eventIsAlienSpawnSpecial(event))//Despawn aliens after turn ends
+            specialSpawn = true;
+        
         if(event.trim().matches("[1-9]+A[*]?")){//Event is an Alien Spawn - Has valid format
             int numAliens = getAlienSpawnNumber(event);
             if(numAliens >= MIN_SPAWN_ALIENS_TURN[turn] && numAliens <= MAX_SPAWN_ALIENS_TURN[turn])//Number of aliens to spawn is accepted
                 return true;
         }
         return false;
+    }
+    
+    public boolean eventIsAlienSpawnSpecial(String event){
+        return event.contains("*");
     }
     
     public boolean isValid_JourneyTurn(int turn, String event){
@@ -485,6 +493,15 @@ public class DataGame implements Constants, Serializable{
         }
         
         return true;
+    }
+    
+    public void despawnAliens(){
+        for(int i = 1; i <= NUM_ROOMS; i++){
+            if(!ship.getRoom(i).getAliensInside().isEmpty()){
+                ship.getRoom(i).getAliensInside().clear();
+            }
+        }
+        specialSpawn = false;
     }
     
     public boolean placeNewAlien(int alienNumber, int roomNumber){
@@ -1321,7 +1338,6 @@ public class DataGame implements Constants, Serializable{
     }
     
     public boolean moveAliens(){
-               
         Room room;
         
         int[] movedAliensCount = new int[NUM_ROOMS];
@@ -1365,8 +1381,17 @@ public class DataGame implements Constants, Serializable{
                 //CHECK FOR CREW MEMBERS
                 else if(!alien.getRoom().getMembersInside().isEmpty()){
                     if(rollDie(1) >= 5){
-                        removeHealthFromPlayer(1);
-                        playerHealthLoss++;
+                        if(player.have_CommsOfficer()){
+                            if(rollDie(1) > 2){
+                                removeHealthFromPlayer(1);
+                                playerHealthLoss++;
+                            }else{
+                                addLog("An Alien tried to attack a Comms Officer, but he dodged! No health loss...");
+                            }
+                        }else{
+                            removeHealthFromPlayer(1);
+                            playerHealthLoss++;
+                        }
                     }
 
                     resetDices();
