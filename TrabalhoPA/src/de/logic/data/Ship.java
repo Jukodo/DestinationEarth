@@ -149,6 +149,17 @@ public class Ship implements Constants, Serializable{
         for(int i=1; i<=rooms.size(); i++){
             sb.append("\nRoom #" + i + " - " + rooms.get(i).getName());
             
+            if(rooms.get(i).getIsSealed())
+                sb.append(" (is sealed)");
+            else{
+                if(rooms.get(i).getCanBeSealed())
+                    sb.append(" (can be sealed)");
+                else
+                    sb.append(" (can't be sealed)");
+            }
+            
+            
+            
             //CrewMembers Inside
             cm = rooms.get(i).getMembersInside();
             if(cm.size() > 0){
