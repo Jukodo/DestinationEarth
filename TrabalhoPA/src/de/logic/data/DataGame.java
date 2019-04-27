@@ -1194,7 +1194,7 @@ public class DataGame implements Constants, Serializable{
         
         for(i = 0; i < DEF_INSPIRATIONS.length; i++){
             
-            s+= (i+1) + " - " + DEF_INSPIRATIONS[i] + "(";
+            s+= (i+2) + " - " + DEF_INSPIRATIONS[i] + "(";
             s+= DEF_INSPIRATIONS_COST[i];
             
             s+= " IP)" + System.lineSeparator();
@@ -1202,8 +1202,7 @@ public class DataGame implements Constants, Serializable{
         }
         
         if(getPlayer().haveAlive_RedShirt()){
-            i++;
-            s += (i+1) + " - Sacrifice Red Shirt (0 IP)" + System.lineSeparator();
+            s += (i+2) + " - Sacrifice Red Shirt (0 IP)" + System.lineSeparator();
         }
         
         return s;

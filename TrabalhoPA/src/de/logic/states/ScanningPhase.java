@@ -15,10 +15,7 @@ public class ScanningPhase extends StateAdapter{
     
     @Override
     public IStates scanTurn(){
-        if(this.getGame().gameOverConditions()){
-            return new GameOver(this.getGame());
-        }
-        else if(this.getGame().eventIsRest(this.getGame().getJourneyTrackerTurn(this.getGame().getCurrentTurn()))){
+        if(this.getGame().eventIsRest(this.getGame().getJourneyTrackerTurn(this.getGame().getCurrentTurn()))){
             return new RestPhase(this.getGame());
         }
         else if(!this.getGame().eventIsAlienSpawn(this.getGame().getCurrentTurn(), this.getGame().getJourneyTrackerTurn(this.getGame().getCurrentTurn()))){

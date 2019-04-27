@@ -647,6 +647,7 @@ public class TextUI {
             System.out.println();
             System.out.println("0 - Quit");
             System.out.println();
+            System.out.println("1 - Swap Active New Alien");
             System.out.println(game.getAvailableInspirations());
             System.out.println(game.getAvailableInspirations_Quant()+2 + " - Leave Rest Phase");
             
