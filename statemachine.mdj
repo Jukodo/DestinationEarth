@@ -4807,9 +4807,9 @@
 										"$ref": "AAAAAAFqYBhjw8P4w3s="
 									},
 									"font": "Arial;13;0",
-									"left": 1082,
+									"left": 1081,
 									"top": 975,
-									"width": 165.69287109375,
+									"width": 167.1337890625,
 									"height": 13,
 									"alpha": -2.3784134468210394,
 									"distance": 63.655321851358195,
@@ -4817,7 +4817,7 @@
 										"$ref": "AAAAAAFqYBhjy8P5pXI="
 									},
 									"edgePosition": 1,
-									"text": "Place Trap AND Health BT 0"
+									"text": "Place Trap AND Health GT 0"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -5089,9 +5089,9 @@
 										"$ref": "AAAAAAFqYC9OqcRHECw="
 									},
 									"font": "Arial;13;0",
-									"left": 112,
+									"left": 111,
 									"top": 928,
-									"width": 407.7607421875,
+									"width": 409.20166015625,
 									"height": 13,
 									"alpha": -4.702998751184164,
 									"distance": 213.00938946440834,
@@ -5099,7 +5099,7 @@
 										"$ref": "AAAAAAFqYC9OqcRIJBY="
 									},
 									"edgePosition": 1,
-									"text": "Active crew member IS \"DOCTOR\" AND Heal Player AND Health BT 0"
+									"text": "Active crew member IS \"DOCTOR\" AND Heal Player AND Health GT 0"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -5183,9 +5183,9 @@
 										"$ref": "AAAAAAFqYDEyzsR4Y2o="
 									},
 									"font": "Arial;13;0",
-									"left": 127,
+									"left": 126,
 									"top": 973,
-									"width": 395.70654296875,
+									"width": 397.1474609375,
 									"height": 13,
 									"alpha": -4.717314215822439,
 									"distance": 203.00246303924493,
@@ -5193,7 +5193,7 @@
 										"$ref": "AAAAAAFqYDEyzsR53j8="
 									},
 									"edgePosition": 1,
-									"text": "Active crew member IS \"ENGINEER\" AND Fix Hull AND Health BT 0"
+									"text": "Active crew member IS \"ENGINEER\" AND Fix Hull AND Health GT 0"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -5277,9 +5277,9 @@
 										"$ref": "AAAAAAFqYDLpccSdvnY="
 									},
 									"font": "Arial;13;0",
-									"left": 52,
+									"left": 51,
 									"top": 1008,
-									"width": 472.76708984375,
+									"width": 474.2080078125,
 									"height": 13,
 									"alpha": -4.720755736247092,
 									"distance": 239.0083680543424,
@@ -5287,7 +5287,7 @@
 										"$ref": "AAAAAAFqYDLpccSexOU="
 									},
 									"edgePosition": 1,
-									"text": "Active crew member IS \"REDSHIRT\" AND isAlive AND Sacrifice AND Health BT 0"
+									"text": "Active crew member IS \"REDSHIRT\" AND isAlive AND Sacrifice AND Health GT 0"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -5528,9 +5528,9 @@
 										"$ref": "AAAAAAFqYErpjsT6k7I="
 									},
 									"font": "Arial;13;0",
-									"left": 344,
+									"left": 343,
 									"top": 1063,
-									"width": 217.45166015625,
+									"width": 218.892578125,
 									"height": 13,
 									"alpha": -0.5172874173812954,
 									"distance": 133.46160496562297,
@@ -5538,7 +5538,7 @@
 										"$ref": "AAAAAAFqYErpjsT7Jrw="
 									},
 									"edgePosition": 1,
-									"text": "Move crew member AND Health BT 0"
+									"text": "Move crew member AND Health GT 0"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -6061,9 +6061,9 @@
 										"$ref": "AAAAAAFqYFLAtMWptpw="
 									},
 									"font": "Arial;13;0",
-									"left": 608,
+									"left": 607,
 									"top": 1087,
-									"width": 173.4052734375,
+									"width": 174.84619140625,
 									"height": 13,
 									"alpha": -0.6881450196538417,
 									"distance": 116.51609330903607,
@@ -6071,7 +6071,7 @@
 										"$ref": "AAAAAAFqYFLAtMWqp1c="
 									},
 									"edgePosition": 1,
-									"text": "Seal a room AND Health BT 0"
+									"text": "Seal a room AND Health GT 0"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -6406,9 +6406,9 @@
 										"$ref": "AAAAAAFqYFTJkcYUxP8="
 									},
 									"font": "Arial;13;0",
-									"left": 807,
+									"left": 806,
 									"top": 1063,
-									"width": 261.57421875,
+									"width": 263.01513671875,
 									"height": 13,
 									"alpha": -1.257520187654904,
 									"distance": 149.26486525636233,
@@ -6416,7 +6416,7 @@
 										"$ref": "AAAAAAFqYFTJmcYV7LU="
 									},
 									"edgePosition": 1,
-									"text": "Detonate particle dispenser AND Health BT 0"
+									"text": "Detonate particle dispenser AND Health GT 0"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -7199,100 +7199,6 @@
 							},
 							"propertyLabel": {
 								"$ref": "AAAAAAFqYGNYD8ckpBA="
-							}
-						},
-						{
-							"_type": "UMLTransitionView",
-							"_id": "AAAAAAFqYGUGHsc56r4=",
-							"_parent": {
-								"$ref": "AAAAAAFqX79uYb0l96k="
-							},
-							"model": {
-								"$ref": "AAAAAAFqYGUGHsc47EE="
-							},
-							"subViews": [
-								{
-									"_type": "EdgeLabelView",
-									"_id": "AAAAAAFqYGUGHsc6rYE=",
-									"_parent": {
-										"$ref": "AAAAAAFqYGUGHsc56r4="
-									},
-									"model": {
-										"$ref": "AAAAAAFqYGUGHsc47EE="
-									},
-									"font": "Arial;13;0",
-									"left": 1172,
-									"top": 912,
-									"width": 208.8251953125,
-									"height": 13,
-									"alpha": -4.485849057274798,
-									"distance": 578.788389655494,
-									"hostEdge": {
-										"$ref": "AAAAAAFqYGUGHsc56r4="
-									},
-									"edgePosition": 1,
-									"text": "Leave crew phase AND Health BT 0"
-								},
-								{
-									"_type": "EdgeLabelView",
-									"_id": "AAAAAAFqYGUGHsc7MJ8=",
-									"_parent": {
-										"$ref": "AAAAAAFqYGUGHsc56r4="
-									},
-									"model": {
-										"$ref": "AAAAAAFqYGUGHsc47EE="
-									},
-									"visible": null,
-									"font": "Arial;13;0",
-									"left": 1810,
-									"top": 781,
-									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 30,
-									"hostEdge": {
-										"$ref": "AAAAAAFqYGUGHsc56r4="
-									},
-									"edgePosition": 1
-								},
-								{
-									"_type": "EdgeLabelView",
-									"_id": "AAAAAAFqYGUGHsc8Bok=",
-									"_parent": {
-										"$ref": "AAAAAAFqYGUGHsc56r4="
-									},
-									"model": {
-										"$ref": "AAAAAAFqYGUGHsc47EE="
-									},
-									"visible": false,
-									"font": "Arial;13;0",
-									"left": 1855,
-									"top": 782,
-									"height": 13,
-									"alpha": -1.5707963267948966,
-									"distance": 15,
-									"hostEdge": {
-										"$ref": "AAAAAAFqYGUGHsc56r4="
-									},
-									"edgePosition": 1
-								}
-							],
-							"font": "Arial;13;0",
-							"head": {
-								"$ref": "AAAAAAFqX94wC8GcaQA="
-							},
-							"tail": {
-								"$ref": "AAAAAAFqX+iuTMM0b24="
-							},
-							"points": "1024:928;1840:928;1840:648;1232:648",
-							"showVisibility": true,
-							"nameLabel": {
-								"$ref": "AAAAAAFqYGUGHsc6rYE="
-							},
-							"stereotypeLabel": {
-								"$ref": "AAAAAAFqYGUGHsc7MJ8="
-							},
-							"propertyLabel": {
-								"$ref": "AAAAAAFqYGUGHsc8Bok="
 							}
 						},
 						{
@@ -8574,6 +8480,445 @@
 							"propertyLabel": {
 								"$ref": "AAAAAAFqYHTKIcjrjz0="
 							}
+						},
+						{
+							"_type": "UMLStateView",
+							"_id": "AAAAAAFqYNM7I8kQvs8=",
+							"_parent": {
+								"$ref": "AAAAAAFqX79uYb0l96k="
+							},
+							"model": {
+								"$ref": "AAAAAAFqYNM7IskPqig="
+							},
+							"subViews": [
+								{
+									"_type": "UMLNameCompartmentView",
+									"_id": "AAAAAAFqYNM7I8kRBHo=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNM7I8kQvs8="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNM7IskPqig="
+									},
+									"subViews": [
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFqYNM7I8kSAnE=",
+											"_parent": {
+												"$ref": "AAAAAAFqYNM7I8kRBHo="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": -336,
+											"top": -112,
+											"height": 13
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFqYNM7I8kTyVw=",
+											"_parent": {
+												"$ref": "AAAAAAFqYNM7I8kRBHo="
+											},
+											"font": "Arial;13;1",
+											"left": 1565,
+											"top": 895,
+											"width": 70.08447265625,
+											"height": 13,
+											"text": "AlienPhase"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFqYNM7I8kUTQw=",
+											"_parent": {
+												"$ref": "AAAAAAFqYNM7I8kRBHo="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": -336,
+											"top": -112,
+											"width": 38.27001953125,
+											"height": 13,
+											"text": "(from )"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFqYNM7I8kV0zs=",
+											"_parent": {
+												"$ref": "AAAAAAFqYNM7I8kRBHo="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": -336,
+											"top": -112,
+											"height": 13,
+											"horizontalAlignment": 1
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 1560,
+									"top": 888,
+									"width": 80.08447265625,
+									"height": 25,
+									"stereotypeLabel": {
+										"$ref": "AAAAAAFqYNM7I8kSAnE="
+									},
+									"nameLabel": {
+										"$ref": "AAAAAAFqYNM7I8kTyVw="
+									},
+									"namespaceLabel": {
+										"$ref": "AAAAAAFqYNM7I8kUTQw="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAFqYNM7I8kV0zs="
+									}
+								},
+								{
+									"_type": "UMLInternalActivityCompartmentView",
+									"_id": "AAAAAAFqYNM7I8kWUwA=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNM7I8kQvs8="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNM7IskPqig="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": -168,
+									"top": -56,
+									"width": 10,
+									"height": 10
+								},
+								{
+									"_type": "UMLInternalTransitionCompartmentView",
+									"_id": "AAAAAAFqYNM7I8kXtI4=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNM7I8kQvs8="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNM7IskPqig="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": -168,
+									"top": -56,
+									"width": 10,
+									"height": 10
+								},
+								{
+									"_type": "UMLDecompositionCompartmentView",
+									"_id": "AAAAAAFqYNM7I8kYFZo=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNM7I8kQvs8="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNM7IskPqig="
+									},
+									"font": "Arial;13;0",
+									"left": 1560,
+									"top": 913,
+									"width": 80.08447265625
+								}
+							],
+							"font": "Arial;13;0",
+							"containerChangeable": true,
+							"left": 1560,
+							"top": 888,
+							"width": 80.08447265625,
+							"height": 40,
+							"nameCompartment": {
+								"$ref": "AAAAAAFqYNM7I8kRBHo="
+							},
+							"internalActivityCompartment": {
+								"$ref": "AAAAAAFqYNM7I8kWUwA="
+							},
+							"internalTransitionCompartment": {
+								"$ref": "AAAAAAFqYNM7I8kXtI4="
+							},
+							"decompositionCompartment": {
+								"$ref": "AAAAAAFqYNM7I8kYFZo="
+							}
+						},
+						{
+							"_type": "UMLTransitionView",
+							"_id": "AAAAAAFqYNUpxsk3Ahw=",
+							"_parent": {
+								"$ref": "AAAAAAFqX79uYb0l96k="
+							},
+							"model": {
+								"$ref": "AAAAAAFqYNUpxsk2/eI="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAFqYNUpxsk4Mz8=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNUpxsk3Ahw="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNUpxsk2/eI="
+									},
+									"font": "Arial;13;0",
+									"left": 1046,
+									"top": 920,
+									"width": 210.26611328125,
+									"height": 13,
+									"alpha": -3.0426262412010505,
+									"distance": 141.69333082400175,
+									"hostEdge": {
+										"$ref": "AAAAAAFqYNUpxsk3Ahw="
+									},
+									"edgePosition": 1,
+									"text": "Leave crew phase AND Health GT 0"
+								},
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAFqYNUpxsk5tYA=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNUpxsk3Ahw="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNUpxsk2/eI="
+									},
+									"visible": null,
+									"font": "Arial;13;0",
+									"left": 1292,
+									"top": 876,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 30,
+									"hostEdge": {
+										"$ref": "AAAAAAFqYNUpxsk3Ahw="
+									},
+									"edgePosition": 1
+								},
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAFqYNUpxsk6X/M=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNUpxsk3Ahw="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNUpxsk2/eI="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 1292,
+									"top": 921,
+									"height": 13,
+									"alpha": -1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAFqYNUpxsk3Ahw="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAFqYNM7I8kQvs8="
+							},
+							"tail": {
+								"$ref": "AAAAAAFqX+iuTMM0b24="
+							},
+							"points": "1024:912;1560:912",
+							"showVisibility": true,
+							"nameLabel": {
+								"$ref": "AAAAAAFqYNUpxsk4Mz8="
+							},
+							"stereotypeLabel": {
+								"$ref": "AAAAAAFqYNUpxsk5tYA="
+							},
+							"propertyLabel": {
+								"$ref": "AAAAAAFqYNUpxsk6X/M="
+							}
+						},
+						{
+							"_type": "UMLTransitionView",
+							"_id": "AAAAAAFqYNWxMclR8yc=",
+							"_parent": {
+								"$ref": "AAAAAAFqX79uYb0l96k="
+							},
+							"model": {
+								"$ref": "AAAAAAFqYNWxMclQk8A="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAFqYNWxMclS6bM=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNWxMclR8yc="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNWxMclQk8A="
+									},
+									"font": "Arial;13;0",
+									"left": 1638,
+									"top": 880,
+									"width": 70.08447265625,
+									"height": 13,
+									"alpha": -3.9808803782768707,
+									"distance": 170.66048165876012,
+									"hostEdge": {
+										"$ref": "AAAAAAFqYNWxMclR8yc="
+									},
+									"edgePosition": 1,
+									"text": "Health GT 0"
+								},
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAFqYNWxMclTQ7o=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNWxMclR8yc="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNWxMclQk8A="
+									},
+									"visible": null,
+									"font": "Arial;13;0",
+									"left": 1770,
+									"top": 765,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 30,
+									"hostEdge": {
+										"$ref": "AAAAAAFqYNWxMclR8yc="
+									},
+									"edgePosition": 1
+								},
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAFqYNWxMclUF+g=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNWxMclR8yc="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNWxMclQk8A="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 1815,
+									"top": 766,
+									"height": 13,
+									"alpha": -1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAFqYNWxMclR8yc="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAFqX94wC8GcaQA="
+							},
+							"tail": {
+								"$ref": "AAAAAAFqYNM7I8kQvs8="
+							},
+							"points": "1639:896;1800:896;1800:648;1232:648",
+							"showVisibility": true,
+							"nameLabel": {
+								"$ref": "AAAAAAFqYNWxMclS6bM="
+							},
+							"stereotypeLabel": {
+								"$ref": "AAAAAAFqYNWxMclTQ7o="
+							},
+							"propertyLabel": {
+								"$ref": "AAAAAAFqYNWxMclUF+g="
+							}
+						},
+						{
+							"_type": "UMLTransitionView",
+							"_id": "AAAAAAFqYNidnslsWoE=",
+							"_parent": {
+								"$ref": "AAAAAAFqX79uYb0l96k="
+							},
+							"model": {
+								"$ref": "AAAAAAFqYNidnslrO/0="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAFqYNidnsltTOM=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNidnslsWoE="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNidnslrO/0="
+									},
+									"font": "Arial;13;0",
+									"left": 1647,
+									"top": 920,
+									"width": 66.23779296875,
+									"height": 13,
+									"alpha": 1.1621283946901282,
+									"distance": 764.9967320191636,
+									"hostEdge": {
+										"$ref": "AAAAAAFqYNidnslsWoE="
+									},
+									"edgePosition": 1,
+									"text": "Health LT 1"
+								},
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAFqYNidnsluw6U=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNidnslsWoE="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNidnslrO/0="
+									},
+									"visible": null,
+									"font": "Arial;13;0",
+									"left": 1983,
+									"top": 248,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 30,
+									"hostEdge": {
+										"$ref": "AAAAAAFqYNidnslsWoE="
+									},
+									"edgePosition": 1
+								},
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAFqYNidnslvBdc=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNidnslsWoE="
+									},
+									"model": {
+										"$ref": "AAAAAAFqYNidnslrO/0="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 1984,
+									"top": 203,
+									"height": 13,
+									"alpha": -1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAFqYNidnslsWoE="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAFqYHSXmsjBDsQ="
+							},
+							"tail": {
+								"$ref": "AAAAAAFqYNM7I8kQvs8="
+							},
+							"points": "1639:912;1984:912;1984:224;101:224;101:816",
+							"showVisibility": true,
+							"nameLabel": {
+								"$ref": "AAAAAAFqYNidnsltTOM="
+							},
+							"stereotypeLabel": {
+								"$ref": "AAAAAAFqYNidnsluw6U="
+							},
+							"propertyLabel": {
+								"$ref": "AAAAAAFqYNidnslvBdc="
+							}
 						}
 					]
 				}
@@ -8748,6 +9093,14 @@
 								"$ref": "AAAAAAFqX79uYb0kbVA="
 							},
 							"name": "GameOver"
+						},
+						{
+							"_type": "UMLState",
+							"_id": "AAAAAAFqYNM7IskPqig=",
+							"_parent": {
+								"$ref": "AAAAAAFqX79uYb0kbVA="
+							},
+							"name": "AlienPhase"
 						}
 					],
 					"transitions": [
@@ -9578,7 +9931,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFqYBhjw8P4w3s="
 									},
-									"name": "Place Trap AND Health BT 0"
+									"name": "Place Trap AND Health GT 0"
 								}
 							]
 						},
@@ -9647,7 +10000,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFqYC9OqcRHECw="
 									},
-									"name": "Active crew member IS \"DOCTOR\" AND Heal Player AND Health BT 0"
+									"name": "Active crew member IS \"DOCTOR\" AND Heal Player AND Health GT 0"
 								}
 							]
 						},
@@ -9670,7 +10023,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFqYDEyzsR4Y2o="
 									},
-									"name": "Active crew member IS \"ENGINEER\" AND Fix Hull AND Health BT 0"
+									"name": "Active crew member IS \"ENGINEER\" AND Fix Hull AND Health GT 0"
 								}
 							]
 						},
@@ -9693,7 +10046,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFqYDLpccSdvnY="
 									},
-									"name": "Active crew member IS \"REDSHIRT\" AND isAlive AND Sacrifice AND Health BT 0"
+									"name": "Active crew member IS \"REDSHIRT\" AND isAlive AND Sacrifice AND Health GT 0"
 								}
 							]
 						},
@@ -9716,7 +10069,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFqYErpjsT6k7I="
 									},
-									"name": "Move crew member AND Health BT 0"
+									"name": "Move crew member AND Health GT 0"
 								}
 							]
 						},
@@ -9808,7 +10161,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFqYFLAtMWptpw="
 									},
-									"name": "Seal a room AND Health BT 0"
+									"name": "Seal a room AND Health GT 0"
 								}
 							]
 						},
@@ -9854,7 +10207,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFqYFTJkcYUxP8="
 									},
-									"name": "Detonate particle dispenser AND Health BT 0"
+									"name": "Detonate particle dispenser AND Health GT 0"
 								}
 							]
 						},
@@ -10315,6 +10668,75 @@
 										"$ref": "AAAAAAFqYHTKIcjn8OM="
 									},
 									"name": "Do any action AND Health LT 1"
+								}
+							]
+						},
+						{
+							"_type": "UMLTransition",
+							"_id": "AAAAAAFqYNUpxsk2/eI=",
+							"_parent": {
+								"$ref": "AAAAAAFqX79uYb0kbVA="
+							},
+							"source": {
+								"$ref": "AAAAAAFqX+iuTMMz6Ck="
+							},
+							"target": {
+								"$ref": "AAAAAAFqYNM7IskPqig="
+							},
+							"triggers": [
+								{
+									"_type": "UMLEvent",
+									"_id": "AAAAAAFqYNVWO8lMvOk=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNUpxsk2/eI="
+									},
+									"name": "Leave crew phase AND Health GT 0"
+								}
+							]
+						},
+						{
+							"_type": "UMLTransition",
+							"_id": "AAAAAAFqYNWxMclQk8A=",
+							"_parent": {
+								"$ref": "AAAAAAFqX79uYb0kbVA="
+							},
+							"source": {
+								"$ref": "AAAAAAFqYNM7IskPqig="
+							},
+							"target": {
+								"$ref": "AAAAAAFqX94v/8GbLXY="
+							},
+							"triggers": [
+								{
+									"_type": "UMLEvent",
+									"_id": "AAAAAAFqYNY47sloJ5s=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNWxMclQk8A="
+									},
+									"name": "Health GT 0"
+								}
+							]
+						},
+						{
+							"_type": "UMLTransition",
+							"_id": "AAAAAAFqYNidnslrO/0=",
+							"_parent": {
+								"$ref": "AAAAAAFqX79uYb0kbVA="
+							},
+							"source": {
+								"$ref": "AAAAAAFqYNM7IskPqig="
+							},
+							"target": {
+								"$ref": "AAAAAAFqYHSXmsjAzSU="
+							},
+							"triggers": [
+								{
+									"_type": "UMLEvent",
+									"_id": "AAAAAAFqYNmaTcmHAww=",
+									"_parent": {
+										"$ref": "AAAAAAFqYNidnslrO/0="
+									},
+									"name": "Health LT 1"
 								}
 							]
 						}
