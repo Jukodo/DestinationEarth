@@ -165,6 +165,10 @@ public class DestinationEarth implements Serializable{
         return dataGame.trapTokensToString();
     }
     
+    public String sealTokensToString(){
+        return dataGame.sealTokensToString();
+    }
+    
     public String diceToString(){
         return dataGame.diceToString();
     }

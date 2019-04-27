@@ -151,7 +151,7 @@ public class DataGame implements Constants, Serializable{
     
     public int rollDie(int dieId, int value){
                
-        if((dieId < 0 || dieId >= MAX_DICES) || (value < 1 || value > 6)){
+        if((dieId < 0 || dieId >= MAX_DICES) || (value < 0 || value > 6)){
             return 0;
         }
         
@@ -477,6 +477,7 @@ public class DataGame implements Constants, Serializable{
         alien.enterRoom(room);
         
         newAliens.add(alien);
+        aliensCount++;
         
         return true;
     }
@@ -498,6 +499,7 @@ public class DataGame implements Constants, Serializable{
     public void despawnAliens(){
         for(int i = 1; i <= NUM_ROOMS; i++){
             if(!ship.getRoom(i).getAliensInside().isEmpty()){
+                aliensCount = aliensCount - ship.getRoom(i).getAliensInside().size();
                 ship.getRoom(i).getAliensInside().clear();
             }
         }
@@ -784,6 +786,37 @@ public class DataGame implements Constants, Serializable{
         return true;
     }
     
+    public boolean addSealedRoomTokens(int quantity){
+       if(quantity < 1){
+            addLog("Invalid quantity!");
+            return false;
+        }
+       
+       if(player.getRoomSealTokens() == MAX_SEALED_ROOMS){
+            addLog("Cannot own more sealed rooms, max reached!");
+            return false;
+        }
+
+       player.setRoomSealTokens(player.getRoomSealTokens() + quantity);
+       return true;
+   }
+
+   public boolean removeSealedTokens(int quantity){
+       if(quantity < 1){
+            addLog("Invalid quantity!");
+            return false;
+        }
+
+       int total = player.getRoomSealTokens()- quantity;
+
+       if(total < 0)
+           total = 0;
+
+       player.setRoomSealTokens(total);
+
+       return true;
+   }
+    
     /**Actions methods**/
     //Usar este metodo no UI para mostrar o custo do movimento
     public int getMovementCost(){
@@ -897,6 +930,7 @@ public class DataGame implements Constants, Serializable{
         
         if(roomToAttack.getAliensInside().size() < 1){
             addLog("There aren't any aliens in the room to attack!");
+            return 0;
         }
             
         
@@ -904,10 +938,11 @@ public class DataGame implements Constants, Serializable{
         
         removeActionPoints(1);
         
-        for(int i = 0; i < cm.getMovement(); i++){
+        for(int i = 0; i < cm.getAttack(); i++){
             //Se o roll for 5+ ou se for capitao e o roll for 3+
-            if((dices[i] >= MIN_ROLL_ATTACK) || ((cm instanceof Captain) && (dices[i] >= 3))){
+            if((dices[i] >= MIN_ROLL_ATTACK - player.getAttackBuff()) || ((cm instanceof Captain) && (dices[i] >= 3))){
                 if(roomToAttack.removeRandomAlienFromRoom()){
+                    aliensCount--;
                     totalKills++;
                     addInspirationPoints(1);
                 }
@@ -1045,7 +1080,12 @@ public class DataGame implements Constants, Serializable{
         }
         
         int nAliens = roomToBoom.getAliensInside().size();
-        roomToBoom.removeAllAliens();
+        
+        if(nAliens > 0){
+            roomToBoom.removeAllAliens();
+            aliensCount = aliensCount - nAliens;
+        }
+        
         
         if(roomToBoom.getMembersInside().size() > 0){
             removeHealthFromPlayer(player.getHealthTracker());
@@ -1068,6 +1108,11 @@ public class DataGame implements Constants, Serializable{
         
         if(getActionPoints() < DEF_COST_A_SEAL_ROOM){
             addLog("Not enough AP (Action Points)!");
+            return false;
+        }
+        
+        if(player.getRoomSealTokens() < 1){
+            addLog("Not enough 'Seal Room' Tokens!");
             return false;
         }
         
@@ -1095,6 +1140,7 @@ public class DataGame implements Constants, Serializable{
         
         removeActionPoints(DEF_COST_A_SEAL_ROOM);
         room.setSealed(true);
+        removeSealedTokens(1);
        
         return true;
     }
@@ -1164,8 +1210,6 @@ public class DataGame implements Constants, Serializable{
     }
     
     public void startupSpecials(){
-        
-        getPlayer().setInspirationPoints(DEF_INSPIRATION_POINTS);
         
         for (CrewMember cm : this.getPlayer().getCrew()) {
             if(cm instanceof MoralOfficer){
@@ -1259,7 +1303,9 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
         
-        addOrganicTrapTokens(1);
+        if(!addOrganicTrapTokens(1))
+                return false;
+        
         removeInspirationPoints(DEF_COST_I_BUILD_TRAP_ORGANIC);
         addLog("1 'Organic Detonator' Token was added to your inventory!");
         
@@ -1313,7 +1359,9 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
         
-        player.setRoomSealTokens(player.getRoomSealTokens() + 1);
+        if(!addSealedRoomTokens(1))
+            return false;
+        //player.setRoomSealTokens(player.getRoomSealTokens() + 1);
         
         removeInspirationPoints(DEF_COST_I_ADD_SEALED_TOKEN);
         addLog("1 'Seal Room' Token was added to your inventory!");
@@ -1379,6 +1427,7 @@ public class DataGame implements Constants, Serializable{
                 room.removeAlienFromRoom(alien);
                 room.removeTrap();
                 ship.getAllAliens().remove(alien);
+                aliensCount--;
                 addInspirationPoints(1);
                 killedAliensCount[room.getId()-1]++;
                 inspirationPointsEarned++;
@@ -1398,6 +1447,7 @@ public class DataGame implements Constants, Serializable{
                 if(alien.getRoom().getTrapInside() != null && alien.getRoom().getTrapInside() instanceof OrganicDetonator){
                     alien.getRoom().removeAlienFromRoom(alien);
                     alien.getRoom().removeTrap();
+                    aliensCount--;
                     addInspirationPoints(1);
                     killedAliensCount[alien.getRoom().getId()-1]++;
                     inspirationPointsEarned++;
@@ -1565,26 +1615,38 @@ public class DataGame implements Constants, Serializable{
         return s;
     }
     
+    public String sealTokensToString(){
+        String s;
+        
+        s = "Seal Room Tokens: " + player.getRoomSealTokens();
+        
+        return s;
+    }
+    
     /**Object methods**/
     @Override
     public String toString()
     {
         String s;
-        
-        //s = "Destination Earth, playing as " + this.getPlayer().getName() + System.lineSeparator();
+  
+        s = "Player: " + getPlayer().getName();
         
         if(getCurrentTurn() == 0)
-            s = "Turn: START";
+            s += ", Turn: START";
         else
-            s = "Turn: " + getCurrentTurn() ;
+            s += ", Turn: " + getCurrentTurn() ;
         
         s += ", Hull Integrity: " + getShip().getHullTracker() 
+                + ", Total aliens inside: " + getAliensCount()
                 + System.lineSeparator();
+        
         s+= "IP: " + getPlayer().getInspirationPoints() 
                 + ", AP: " + getPlayer().getActionPoints() 
                 + ", Health: " + getPlayer().getHealthTracker() 
                 + System.lineSeparator();
         s+= diceToString() + System.lineSeparator();
+        
+        s += System.lineSeparator() + currentJourneyToString() + System.lineSeparator();
         
         return s;
     }

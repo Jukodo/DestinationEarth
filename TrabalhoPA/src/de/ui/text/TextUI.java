@@ -1055,9 +1055,11 @@ public class TextUI {
         
         do{
             System.out.println("Seal a Room");
-            
+
             //Active Crew Member Info
             System.out.println(game.activeCrewMemberInfoToString());
+            
+            System.out.println(game.sealTokensToString());
  
             System.out.println();
             System.out.println("0 - Quit");

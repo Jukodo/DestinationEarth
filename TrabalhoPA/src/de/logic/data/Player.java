@@ -19,9 +19,10 @@ public class Player implements Serializable{
         this.healthTracker = healthTracker;
         this.inspirationPoints = inspirationPoints;
         this.actionPoints = actionPoints;
-        this.roomSealTokens = 0;
+        this.roomSealTokens = MAX_SEALED_ROOMS;
         this.organicTrapTokens = MAX_TRAPS_ORGANIC;
         this.particleTrapTokens = MAX_TRAPS_PARTICLE;
+        this.attackBuff = 0;
         
        crew = new CrewMember[NUM_CREW_MEMBERS];
     }
