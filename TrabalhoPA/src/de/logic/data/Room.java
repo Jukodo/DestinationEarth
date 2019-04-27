@@ -103,6 +103,10 @@ public class Room implements Serializable{
         this.name = name;
     }
     
+    public void resetTotalRooms(){
+        totalRooms = 0;
+    }
+    
     /**Methods**/
     public boolean removeRandomAlienFromRoom(){
         

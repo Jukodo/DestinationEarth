@@ -10,11 +10,12 @@ public class AlienPhase extends StateAdapter{
     
     @Override
     public IStates moveAliens(){
+        if(!this.getGame().moveAliens())
+            return this;
+        
         if(this.getGame().gameOverConditions()){
             return new GameOver(this.getGame());
         }
-        if(!this.getGame().moveAliens())
-            return this;
         
         return new JourneyPhase(this.getGame());
     }

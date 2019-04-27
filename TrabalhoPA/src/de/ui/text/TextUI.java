@@ -556,15 +556,17 @@ public class TextUI {
     }
     
     public void uiScanningPhase(){
-        if(game.getNewAliens().isEmpty()){
+        if(!game.getTurnScanned()){
             game.scanTurn();
             return;
         }
         
-        if(game.getDiceValue(2) > 0)
+        if(game.getDiceValue(2) > 0){
             game.placeNewAlien(game.getActiveNewAlien(), game.getDiceValue(2));
+            return;
+        }
         
-        int op;
+        int op, op_max = 1;
         String input;
         
         Scanner sc = new Scanner(System.in);
@@ -581,11 +583,14 @@ public class TextUI {
             System.out.println();
             System.out.println("0 - Quit");
             System.out.println();
-            System.out.println("1 - Swap Active New Alien");
-            System.out.println("2 - Select Room");
-            System.out.println("3 - Display Ship Structure");
-            System.out.println();
-            System.out.println("4 - Lock In New Aliens Placement");
+            if(game.getNewAliens().size() > 0){
+                System.out.println("1 - Swap Active New Alien");
+                System.out.println("2 - Select Room");
+                System.out.println("3 - Display Ship Structure");
+                System.out.println();
+                op_max = 4;
+            }
+            System.out.println(op_max + " - Lock In New Aliens Placement");
             
             System.out.println();
             System.out.print("~>: ");
@@ -604,22 +609,26 @@ public class TextUI {
             else
                 op = -1;
             
-        }while(op < 0 || op > 4);
+        }while(op < 0 || op > op_max);
         
         switch(op){
             
             case 0:
                 quit = true;
                 return;
-            
+                
             case 1:
-                game.swapActiveNewAlien();
-                break;
-            
+                if(game.getNewAliens().size() > 0){
+                    game.swapActiveNewAlien();
+                    break;
+                }else{
+                    game.confirmNewAliensPlacement();
+                }
+
             case 2:
                 game.rollDice();
                 break;
-                
+
             case 3:
                 System.out.println(game.getShip().toString());
                 break;
@@ -1156,8 +1165,13 @@ public class TextUI {
                 return;
                 
             case 1:
+                //LOOK LATER
+                game.getShip().getRoom(1).resetTotalRooms();
+                game = new DestinationEarth();
+                
                 game.playAgain();
                 break;
+            
         }
     }
     

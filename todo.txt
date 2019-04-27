@@ -1,14 +1,9 @@
 Specials:
 
 
-
 Methods changes:
 
 
-
-
-
 Functionalities:
-	Full var reset on replay
 	
 Sum missed details?

@@ -91,6 +91,10 @@ public class DestinationEarth implements Serializable{
         return dataGame.getJourneyTrackerTurn(turn);
     }
     
+    public boolean getTurnScanned(){
+        return dataGame.getTurnScanned();
+    }
+    
     /**Data game methods - Functions**/
     public void swapActiveCrewMember(){
         dataGame.swapActiveCrewMember();

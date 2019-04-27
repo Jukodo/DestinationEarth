@@ -14,6 +14,7 @@ public class DataGame implements Constants, Serializable{
     private List<String> logs;
     private String [] journeyTracker;
     private int currentTurn;
+    private boolean turnScanned;
     private int dices[];
     private int activeCrewMember;
     
@@ -35,6 +36,8 @@ public class DataGame implements Constants, Serializable{
         newAliens = new ArrayList<>();
         
         specialSpawn = false;
+        
+        turnScanned = false;
         
         for(int i = 0; i < dices.length; i++){
             dices[i] = 0;
@@ -126,11 +129,16 @@ public class DataGame implements Constants, Serializable{
     public List<Alien> getNewAliens() {
         return newAliens;
     }
+    
+    public boolean getTurnScanned(){
+        return turnScanned;
+    }
   
     /**Methods**/    
     public void nextTurn(){
         if(specialSpawn)
             despawnAliens();
+        turnScanned = false;
         setCurrentTurn(getCurrentTurn() + 1);
     }
     
@@ -378,7 +386,7 @@ public class DataGame implements Constants, Serializable{
         
         if(event.trim().matches("[1-9]+A[*]?")){//Event is an Alien Spawn - Has valid format
             int numAliens = getAlienSpawnNumber(event);
-            if(numAliens >= MIN_SPAWN_ALIENS_TURN[turn] && numAliens <= MAX_SPAWN_ALIENS_TURN[turn])//Number of aliens to spawn is accepted
+            if(numAliens >= MIN_SPAWN_ALIENS_TURN[turn-1] && numAliens <= MAX_SPAWN_ALIENS_TURN[turn-1])//Number of aliens to spawn is accepted
                 return true;
         }
         return false;
@@ -401,7 +409,7 @@ public class DataGame implements Constants, Serializable{
     }
     public boolean isValid_JourneyTracker(){
         for(int i = 0; i < NUM_TURNS; i++){
-            if(!isValid_JourneyTurn(i, journeyTracker[i]))
+            if(!isValid_JourneyTurn(i+1, journeyTracker[i]))
                 return false;
         }
         return true;
@@ -473,6 +481,10 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
         
+        if(room.getIsSealed()){
+            return false;
+        }
+        
         Alien alien = new Alien();
         alien.enterRoom(room);
         
@@ -483,16 +495,37 @@ public class DataGame implements Constants, Serializable{
     }
     
     public boolean spawnAliens(int numAliens){
+        int[] spawnedAliensCount = new int[NUM_ROOMS];
+        int[] canceledAliensCount = new int[NUM_ROOMS];
         
         for(int i = 0; i < numAliens; i++){
             rollDice(2);
-            if(!spawnAlien(ship.getRoom(getDiceValue(2)))){
-                addLog("Error spawning alien!");
-                return false;
+            if(spawnAlien(ship.getRoom(getDiceValue(2)))){
+                spawnedAliensCount[getDiceValue(2)]++;
+            }else{
+                canceledAliensCount[getDiceValue(2)]++;
             }
             resetDices();
         }
         
+        for(int i = 0; i < NUM_ROOMS; i++){
+            //Spawned
+            if(spawnedAliensCount[i] > 0){
+                if(spawnedAliensCount[i] == 1)
+                    addLog("An alien has spawned at " + ship.getRoom(i+1));
+                else
+                    addLog(spawnedAliensCount[i] + " aliens have spawned at " + ship.getRoom(i+1));  
+            }
+            //Canceled
+            if(canceledAliensCount[i] > 0){
+                if(canceledAliensCount[i] == 1)
+                    addLog("An alien failed to spawn because " + ship.getRoom(i+1) + " is sealed");
+                else
+                    addLog(canceledAliensCount[i] + " aliens failed to spawn because " + ship.getRoom(i+1) + " is sealed");  
+            }
+        }
+        
+        turnScanned = true;
         return true;
     }
     
@@ -508,6 +541,7 @@ public class DataGame implements Constants, Serializable{
     
     public boolean placeNewAlien(int alienNumber, int roomNumber){
         alienNumber--; //ARRAY INDEX = -1 of its number
+        resetDices();
         
         if(roomNumber < 1 || roomNumber > NUM_ROOMS){
             addLog("Room selected doesn't exist!");
@@ -524,6 +558,11 @@ public class DataGame implements Constants, Serializable{
         
         if(room == null){
             addLog("Room selected doesn't exist!");
+            return false;
+        }
+        
+        if(room.getIsSealed()){
+            addLog("Room selected is sealed!");
             return false;
         }
         
