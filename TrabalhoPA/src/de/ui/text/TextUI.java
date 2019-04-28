@@ -47,7 +47,7 @@ public class TextUI {
                op = -1;
             }
 
-        }while(op < 0 || op > 3);
+        }while(op < 0 || op > 2);
 
         switch(op){
 
@@ -72,11 +72,6 @@ public class TextUI {
                 
             case 2:
                 game = game.loadGame();
-                return;
-                
-            default:
-                return;
-
         }
         
     }

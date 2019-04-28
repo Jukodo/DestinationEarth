@@ -6,6 +6,7 @@ import de.logic.data.Player;
 import de.logic.data.Ship;
 import de.logic.data.Trap;
 import de.logic.states.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -335,13 +336,23 @@ public class DestinationEarth implements Serializable{
     }
     
     public DestinationEarth loadGame() throws FileNotFoundException, IOException, ClassNotFoundException{
-        try(ObjectInputStream load = new ObjectInputStream(new FileInputStream("SaveFile"))) { 
+        
+        File saveFile = new File("saveFile");
+        
+        if(!saveFile.isFile() || !saveFile.canRead()){
+            this.getDataGame().addLog("Game loading failed! File not found...");
+            return this;
+        }
+        
+        try(ObjectInputStream load = new ObjectInputStream(new FileInputStream(saveFile))) { 
             DestinationEarth loadedGame = (DestinationEarth) load.readUnshared();
-            if(loadedGame != null)
+            if(loadedGame != null){
                 loadedGame.getDataGame().addLog("Game loaded!");
-            else
-                loadedGame.getDataGame().addLog("Game loading failed!");
-            return loadedGame;
+                return loadedGame;
+            }else{
+                this.getDataGame().addLog("Game loading failed!");
+                return this;
+            }
         }
     }
 }
