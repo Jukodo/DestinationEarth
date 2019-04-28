@@ -615,7 +615,7 @@ public class DataGame implements Constants, Serializable{
             i++;
         else if(cm instanceof Engineer)
             i++;
-        else if(player.haveAlive_RedShirt())
+        if(player.haveAlive_RedShirt())
             i++;
         
         return i;
@@ -648,7 +648,7 @@ public class DataGame implements Constants, Serializable{
             i++;
             s+= (i+1) + " - Fix One Hull (" + this.getFixHullCost() + " AP)" + System.lineSeparator();
         }
-        else if(player.haveAlive_RedShirt()){
+        if(player.haveAlive_RedShirt()){
             i++;
             s+= (i+1) + " - Sacrifice for 5 health (0 AP)" + System.lineSeparator();
         }

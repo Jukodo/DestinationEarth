@@ -50,6 +50,10 @@ public class CrewPhase extends StateAdapter{
             else if(this.getGame().getPlayer().haveAlive_RedShirt()){
                 this.getGame().sacrificeCrewMember();
             }
+        }else if(action == 8){
+            if(this.getGame().getPlayer().haveAlive_RedShirt()){
+                this.getGame().sacrificeCrewMember();
+            }
         }
         
         return this;
