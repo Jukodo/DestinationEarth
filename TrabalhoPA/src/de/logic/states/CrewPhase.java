@@ -47,7 +47,7 @@ public class CrewPhase extends StateAdapter{
             else if(this.getGame().getPlayer().getCrewMember(this.getGame().getActiveCrewMember()-1) instanceof Engineer){
                 this.getGame().fixHullTracker();
             }
-            else if(this.getGame().getPlayer().getCrewMember(this.getGame().getActiveCrewMember()-1) instanceof RedShirt){
+            else if(this.getGame().getPlayer().haveAlive_RedShirt()){
                 this.getGame().sacrificeCrewMember();
             }
         }
