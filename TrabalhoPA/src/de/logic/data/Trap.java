@@ -11,8 +11,6 @@ public abstract class Trap implements Serializable{
         this.dataGame = dataGame;
         this.cost = cost;
     }
-    
-    public abstract void activate();
 
     public DataGame getDataGame() {
         return dataGame;

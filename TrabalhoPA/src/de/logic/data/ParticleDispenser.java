@@ -9,11 +9,6 @@ public class ParticleDispenser extends Trap implements Constants, Serializable{
     }
 
     @Override
-    public void activate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public String toString() {
         return "Particle Dispenser";
     }
