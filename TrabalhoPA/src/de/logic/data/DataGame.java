@@ -348,9 +348,18 @@ public class DataGame implements Constants, Serializable{
                 }
 
                 ((RedShirt)cm).setAlive(false);
-                addHealthToPlayer(5);
+                
+                int i = 0;
+                
+                do{
+                    if(!addHealthToPlayer(1)){
+                      break;
+                    }
+                    i++;
+                }while(i < 5);
+                
                 swapActiveCrewMember();
-                addLog("You sacrificed Red Shirt and earned 5 health! Good journey comrade Red Shirt!");
+                addLog("You sacrificed Red Shirt and earned " + (i) + " health! Good journey comrade Red Shirt!");
                 return true;
             }
         }
