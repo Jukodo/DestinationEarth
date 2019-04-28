@@ -255,7 +255,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFqZVT6b+ufDC8="
 					},
-					"name": "IStates",
+					"name": "StateAdapter",
 					"isAbstract": true
 				},
 				{
@@ -1439,7 +1439,7 @@
 											"top": 103,
 											"width": 135,
 											"height": 13,
-											"text": "IStates"
+											"text": "StateAdapter"
 										},
 										{
 											"_type": "LabelView",
