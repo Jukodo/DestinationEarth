@@ -1,9 +1,5 @@
-Specials:
-
-
-Methods changes:
-
-
-Functionalities:
-	
-Sum missed details?
+Retirar estados automaticos
+Restphas methods
+crewohase methods
+polimorfismo
+movimento aliens
