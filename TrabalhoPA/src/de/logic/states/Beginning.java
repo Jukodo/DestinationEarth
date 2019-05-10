@@ -12,7 +12,7 @@ public class Beginning extends StateAdapter{
     @Override
     public IStates start(String playerName){
         
-        this.getGame().setPlayer(new Player(playerName, DEF_HEALTH_TRACKER, DEF_INSPIRATION_POINTS, DEF_ACTION_POINTS));
+        this.getGame().setPlayer(new Player(this.getGame(), playerName, DEF_HEALTH_TRACKER, DEF_INSPIRATION_POINTS, DEF_ACTION_POINTS));
         
         this.getGame().resetJourneyTracker();
         

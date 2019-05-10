@@ -3,8 +3,6 @@ package de.logic.states;
 import de.logic.data.DataGame;
 import de.logic.data.members.Doctor;
 import de.logic.data.members.Engineer;
-import de.logic.data.members.RedShirt;
-import de.logic.data.members.ScienceOfficer;
 
 public class CrewPhase extends StateAdapter{
  
@@ -61,12 +59,18 @@ public class CrewPhase extends StateAdapter{
     
     @Override
     public IStates leaveCrewPhase(){
+        if(this.getGame().gameOverConditions()){
+            return new GameOver(this.getGame());
+        }
+        
+        if(!this.getGame().moveAliens())
+            return this;
         
         if(this.getGame().gameOverConditions()){
             return new GameOver(this.getGame());
         }
         
-        return new AlienPhase(this.getGame());
+        return new JourneyPhase(this.getGame());
     }
   
 }

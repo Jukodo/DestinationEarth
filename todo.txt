@@ -1,5 +1,3 @@
-Retirar estados automaticos
-Restphas methods
-crewohase methods
-polimorfismo
-movimento aliens
+RestPhase and CrewPhase actions
+Polimorfismo
+Movimento Aliens (Pesquisa)

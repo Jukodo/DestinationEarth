@@ -312,7 +312,7 @@ public class DataGame implements Constants, Serializable{
     public boolean crewClassNotRepeated(){
         for(int i=0; i<player.getCrew().length-1; i++){
             if(player.getCrewMember(i).getName().equals(player.getCrewMember(i+1).getName())){
-                addLog("Crew cannot have same class!");
+                addLog("Your crew has two equal members! Please change one of them...");
                 return false;
             }
         }
@@ -322,7 +322,7 @@ public class DataGame implements Constants, Serializable{
     public boolean crewColorNotRepeated(){
         for(int i=0; i<player.getCrew().length-1; i++){
             if(player.getCrewMember(i).getColor() == player.getCrewMember(i+1).getColor()){
-                addLog("Crew cannot have same color!");
+                addLog("Your crew has two equal colors! Please change one of them...");
                 return false;
             }
         }
@@ -1586,14 +1586,18 @@ public class DataGame implements Constants, Serializable{
             else
                 s += "[ ] ";
             s += "Member #" + (i+1) + ": ";
-            if(player.getCrewMember(i) instanceof RedShirt && !((RedShirt)player.getCrewMember(i)).isAlive()){
-                s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), was sacrificed...";
-            }else{
-                if(player.getCrewMember(i).isInside()){
-                    s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), is at " + player.getCrewMember(i).getRoom();
+            if(player.getCrewMember(i) != null){
+                if(player.getCrewMember(i) instanceof RedShirt && !((RedShirt)player.getCrewMember(i)).isAlive()){
+                    s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), was sacrificed...";
                 }else{
-                    s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), isn't at any Room, please select one!";
+                    if(player.getCrewMember(i).isInside()){
+                        s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), is at " + player.getCrewMember(i).getRoom();
+                    }else{
+                        s += player.getCrewMember(i).getName() + " (" + getCrewMemberColorToString(i) + "), isn't at any Room, please select one!";
+                    }
                 }
+            }else{
+                s += " Not selected";
             }
         }
         
@@ -1641,13 +1645,17 @@ public class DataGame implements Constants, Serializable{
     public String activeCrewMemberInfoToString(){
         String s;
         
-        s = "Active Member: " 
-                + player.getCrewMember(getActiveCrewMember()-1).getName()+ " (" + getCrewMemberColorToString(getActiveCrewMember()-1) + "), ";
-        if(player.getCrewMember(getActiveCrewMember()-1).getRoom() == null){
-            s+= "isn't at any Room";
-        }
-        else{
-            s+= player.getCrewMember(getActiveCrewMember()-1).getRoom();
+        s = "Active Member: ";
+        if(player.getCrewMember(getActiveCrewMember()-1) != null){
+            s += player.getCrewMember(getActiveCrewMember()-1).getName()+ " (" + getCrewMemberColorToString(getActiveCrewMember()-1) + "), ";
+
+            if(player.getCrewMember(getActiveCrewMember()-1).getRoom() == null){
+                s+= "isn't at any Room";
+            }else{
+                s+= player.getCrewMember(getActiveCrewMember()-1).getRoom();
+            }
+        }else{
+            s += " Not selected";
         }
         
         return s;

@@ -4,6 +4,7 @@ import de.logic.data.members.*;
 import java.io.Serializable;
 
 public class Player implements Serializable{
+    private DataGame game;
     private String name;
     private CrewMember[] crew;
     private int healthTracker;
@@ -14,7 +15,8 @@ public class Player implements Serializable{
     private int particleTrapTokens;
     private int attackBuff;
 
-    public Player(String name, int healthTracker, int inspirationPoints, int actionPoints) {
+    public Player(DataGame game, String name, int healthTracker, int inspirationPoints, int actionPoints) {
+        this.game = game;
         this.name = name;
         this.healthTracker = healthTracker;
         this.inspirationPoints = inspirationPoints;
@@ -135,16 +137,20 @@ public class Player implements Serializable{
     /**Methods**/
     public boolean hasAllMembers(){
         for(int i = 0; i < NUM_CREW_MEMBERS; i++){
-            if(this.crew[i] == null)
+            if(this.crew[i] == null){
+                game.addLog("Your crew is not complete! Please fill your crew...");
                 return false;
+            }
         }
         return true;
     }
     
     public boolean hasAllMembersOnBoard(){
         for(int i = 0; i < NUM_CREW_MEMBERS; i++){
-            if(!this.crew[i].isInside())
+            if(!this.crew[i].isInside()){
+                game.addLog("Your crew members are not inside! Please select a room for each member...");
                 return false;
+            }
         }
         return true;
     }

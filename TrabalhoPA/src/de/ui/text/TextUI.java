@@ -553,8 +553,12 @@ public class TextUI {
     public void uiScanningPhase(){
         if(!game.getTurnScanned()){
             game.scanTurn();
+            if(!inDebug){
+                game.confirmNewAliensPlacement();
+            }
             return;
         }
+        
         
         if(game.getDiceValue(2) > 0){
             game.placeNewAlien(game.getActiveNewAlien(), game.getDiceValue(2));
@@ -1118,10 +1122,6 @@ public class TextUI {
                 break;
         }
     }
-     
-    public void uiAlienPhase(){
-        game.moveAliens();
-    }
     
     public void uiGameOver(){
         
@@ -1222,9 +1222,6 @@ public class TextUI {
             }
             else if (state instanceof SealRoom){
                 uiSealRoom();
-            }
-            else if (state instanceof AlienPhase){
-                uiAlienPhase();
             }
             else if (state instanceof GameOver){
                 uiGameOver();
