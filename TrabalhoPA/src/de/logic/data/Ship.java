@@ -117,10 +117,9 @@ public class Ship implements Constants, Serializable{
     }
 
     public boolean setHullTracker(int hullTracker) {
-        /*if(this.hullTracker == MAX_HULL)
-            return false;*/ //This bugs, se ja tiver o maximo e quiser tirar retorna false. Assim nunca perde vida se tiver a vida maxima.
         if(hullTracker > MAX_HULL)
             hullTracker = MAX_HULL;
+        
         this.hullTracker = hullTracker;
         return true;
     }

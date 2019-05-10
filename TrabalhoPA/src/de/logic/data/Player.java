@@ -171,4 +171,13 @@ public class Player implements Serializable{
         }
         return false;
     }
+    
+    public boolean have_Doctor(){
+        for(CrewMember cm:getCrew()){
+            if(cm instanceof Doctor){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -694,18 +694,18 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
         
-        int total = getHealthTracker() + quantity;
-        
-        if(total > MAX_HEALTH){
+        if(getHealthTracker() >= MAX_HEALTH){
             addLog("Player already has max health!");
             return false;
         }
+        
+        if(getHealthTracker() + quantity > MAX_HEALTH)//IF 10 + 4 > 12
+            quantity = MAX_HEALTH - getHealthTracker();//QUANT = 12 - 10 / QUANT = 2
+        
+        int total = getHealthTracker() + quantity;
             
         
-        if(!player.setHealthTracker(total)){
-            return false;
-        }
-        return true;
+        return player.setHealthTracker(total);
     }
     
     public boolean removeHealthFromPlayer(int quantity){
@@ -736,6 +736,15 @@ public class DataGame implements Constants, Serializable{
             addLog("Invalid quantity!");
             return false;
         }
+        
+        if(getHullTracker() >= MAX_HULL){
+            addLog("Ship already has max integrity!");
+            return false;
+        }
+        
+        if(getHullTracker() + quantity > MAX_HULL)//IF 10 + 4 > 12
+            quantity = MAX_HULL - getHullTracker();//QUANT = 12 - 10 / QUANT = 2
+        
         int total = getHullTracker() + quantity;
         
         if(total > MAX_HULL){
@@ -743,8 +752,7 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
         
-        ship.setHullTracker(getHullTracker() + quantity);
-        return true;
+        return ship.setHullTracker(getHullTracker() + quantity);
     }
     
     public boolean removeHealthFromHull(int quantity){
@@ -1283,23 +1291,17 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
         
-        CrewMember cm = player.getCrewMember(this.getActiveCrewMember()-1);
-        
         //Doctor can add 2 health for 1 IP if in rest phase
-        if(cm instanceof Doctor){
+        if(player.have_Doctor()){
             quant = 2;
             if(!addHealthToPlayer(quant)){
                 quant = 1;
                 if(!addHealthToPlayer(quant)){
-                    addLog("Error adding health to player!");
                     return false;
                 }
             }
-                
-            
         }else{
-            if(!addHealthToHull(quant)){
-                addLog("Error adding health to player!");
+            if(!addHealthToPlayer(quant)){
                 return false;
             }
         }

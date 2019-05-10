@@ -100,6 +100,46 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
+    public IStates IP_addHealthPoint(){
+        return this;
+    }
+    
+    @Override
+    public IStates IP_repairHull(){
+        return this;
+    }
+    
+    @Override
+    public IStates IP_buildOrganicDetonator(){
+        return this;
+    }
+    
+    @Override
+    public IStates IP_addMovement(int activeCrewMember){
+        return this;
+    }
+    
+    @Override
+    public IStates IP_buildParticleDesperser(){
+        return this;
+    }
+    
+    @Override
+    public IStates IP_addSealedRoomToken(){
+        return this;
+    }
+    
+    @Override
+    public IStates IP_addAttackDie(int activeCrewMember){
+        return this;
+    }
+    
+    @Override
+    public IStates IP_addValueToAttackDie(){
+        return this;
+    }
+    
+    @Override
     public IStates leaveRestPhase() {
         return this;
     }

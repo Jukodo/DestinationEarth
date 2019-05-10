@@ -105,38 +105,6 @@ public class DestinationEarth implements Serializable{
         dataGame.swapActiveNewAlien();
     }
     
-    public void IP_addHealthPoint(){
-        dataGame.IP_addHealthPoint();
-    }
-    
-    public void IP_repairHull(){
-        dataGame.IP_repairHull();
-    }
-    
-    public void IP_buildOrganicDetonator(){
-        dataGame.IP_buildOrganicDetonator();
-    }
-    
-    public void IP_addMovement(int activeCrewMember){
-        dataGame.IP_addMovement(activeCrewMember);
-    }
-    
-    public void IP_buildParticleDesperser(){
-        dataGame.IP_buildParticleDesperser();
-    }
-    
-    public void IP_addSealedRoomToken(){
-        dataGame.IP_addSealedRoomToken();
-    }
-    
-    public void IP_addAttackDie(int activeCrewMember){
-        dataGame.IP_addAttackDie(activeCrewMember);
-    }
-    
-    public void IP_addValueToAttackDie(){
-        dataGame.IP_addValueToAttackDie();
-    }
-    
     public void clearLogs(){
         dataGame.clearLogs();
     }
@@ -261,6 +229,38 @@ public class DestinationEarth implements Serializable{
     }
     
     //RestPhase
+    public void IP_addHealthPoint(){
+        setState(getState().IP_addHealthPoint());
+    }
+    
+    public void IP_repairHull(){
+        setState(getState().IP_repairHull());
+    }
+    
+    public void IP_buildOrganicDetonator(){
+        setState(getState().IP_buildOrganicDetonator());
+    }
+    
+    public void IP_addMovement(int activeCrewMember){
+        setState(getState().IP_addMovement(activeCrewMember));
+    }
+    
+    public void IP_buildParticleDesperser(){
+        setState(getState().IP_buildParticleDesperser());
+    }
+    
+    public void IP_addSealedRoomToken(){
+        setState(getState().IP_addSealedRoomToken());
+    }
+    
+    public void IP_addAttackDie(int activeCrewMember){
+        setState(getState().IP_addAttackDie(activeCrewMember));
+    }
+    
+    public void IP_addValueToAttackDie(){
+        setState(getState().IP_addValueToAttackDie());
+    }
+    
     public void leaveRestPhase(){
         setState(getState().leaveRestPhase());
     }
