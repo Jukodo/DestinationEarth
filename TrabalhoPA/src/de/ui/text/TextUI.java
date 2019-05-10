@@ -165,6 +165,7 @@ public class TextUI {
                 game.selectCrewMemberColor(1, 2);
                 game.selectCrewMember(2, 3);
                 game.selectCrewMemberColor(2, 3);
+                game.clearLogs();
             }
         }
         
@@ -313,6 +314,7 @@ public class TextUI {
             if(!game.getPlayer().hasAllMembersOnBoard()){
                 game.placeCrewMember(1, 1);
                 game.placeCrewMember(2, 2);
+                game.clearLogs();
             }
         }
         
@@ -488,7 +490,7 @@ public class TextUI {
 
                 input = sc.next();
                 
-                if(game.isValid_JourneyTurn(op-1, input))
+                if(game.isValid_JourneyTurn(op, input))
                     game.generateJourney_ByChoice(op, input.toUpperCase());
                 break;
                 
