@@ -1,6 +1,7 @@
 package de.logic.states;
 
 import de.logic.data.DataGame;
+import de.logic.data.Trap;
 import de.logic.data.members.Doctor;
 import de.logic.data.members.Engineer;
 
@@ -16,47 +17,61 @@ public class CrewPhase extends StateAdapter{
         return new CrewPhase(this.getGame());
     }
     
-    @Override
-    public IStates executeAction(int action){
-        
-        if(this.getGame().gameOverConditions()){
-            return new GameOver(this.getGame());
-        }
-    
-        if(action == 2){
-            return new MoveCrewMember(this.getGame());
-        }
-        else if (action == 4){
-            return new PlaceTrap(this.getGame());
-        }
-        else if(action == 3){
-            return new DiceRolling(this.getGame(), new AttackAliens(this.getGame()), this.getGame().getPlayer().getCrewMember(this.getGame().getActiveCrewMember()-1).getAttack());
-        }
-        else if(action == 5){
-            return new DetonateParticleDispenser(this.getGame());
-        }
-        else if(action == 6){
-            return new SealRoom(this.getGame());
-        }
-        else if(action == 7){
-            if(this.getGame().getPlayer().getCrewMember(this.getGame().getActiveCrewMember()-1) instanceof Doctor){
-                this.getGame().healPlayer();
-            }
-            else if(this.getGame().getPlayer().getCrewMember(this.getGame().getActiveCrewMember()-1) instanceof Engineer){
-                this.getGame().fixHullTracker();
-            }
-            else if(this.getGame().getPlayer().haveAlive_RedShirt()){
-                this.getGame().sacrificeCrewMember();
-            }
-        }else if(action == 8){
-            if(this.getGame().getPlayer().haveAlive_RedShirt()){
-                this.getGame().sacrificeCrewMember();
-            }
-        }
-        
-        return this;
+    @Override 
+    public IStates moveCrewMember(int room){
+        return new MoveCrewMember(this.getGame());
     }
     
+    @Override 
+    public IStates attackAliens(int room){
+        return new DiceRolling(this.getGame(), new AttackAliens(this.getGame()), this.getGame().getPlayer().getCrewMember(this.getGame().getActiveCrewMember()-1).getAttack());
+    }
+    
+    @Override 
+    public IStates placeTrap(Trap trap){
+        return new PlaceTrap(this.getGame());
+    }
+    
+    @Override 
+    public IStates detonateParticleDispenser(int room){
+        return new DetonateParticleDispenser(this.getGame());
+    }
+    
+    @Override 
+    public IStates sealRoom(int room){
+        return new SealRoom(this.getGame());
+    }
+    
+    @Override 
+    public boolean healPlayer(){
+        
+        if(this.getGame().getPlayer().getCrewMember(this.getGame().getActiveCrewMember()-1) instanceof Doctor){
+            return this.getGame().healPlayer();
+        }
+        
+        return false;
+    }
+    
+    @Override 
+    public boolean fixHull(){
+        
+        if(this.getGame().getPlayer().getCrewMember(this.getGame().getActiveCrewMember()-1) instanceof Engineer){
+            return this.getGame().fixHullTracker();
+        }
+        
+        return false;
+    }
+    
+    @Override 
+    public boolean sacrifice(){
+        
+        if(this.getGame().getPlayer().haveAlive_RedShirt()){
+            return this.getGame().sacrificeCrewMember();
+        }
+        
+        return false;
+    }
+  
     @Override
     public IStates leaveCrewPhase(){
         if(this.getGame().gameOverConditions()){

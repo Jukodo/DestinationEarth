@@ -90,11 +90,6 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
     
     @Override
-    public IStates executeAction(int action){
-        return this;
-    }
-    
-    @Override
     public IStates leaveCrewPhase() {
         return this;
     }
@@ -162,6 +157,21 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     @Override
     public IStates detonateParticleDispenser(int room){
         return this;
+    }
+    
+    @Override
+    public boolean healPlayer(){
+        return false;
+    }
+    
+    @Override
+    public boolean fixHull(){
+        return false;
+    }
+    
+    @Override
+    public boolean sacrifice(){
+        return false;
     }
     
     @Override

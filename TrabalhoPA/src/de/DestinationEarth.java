@@ -117,6 +117,14 @@ public class DestinationEarth implements Serializable{
         return dataGame.sacrificeCrewMember();
     }
     
+    public boolean activeIsDoctor(){
+        return dataGame.activeIsDoctor();
+    }
+    
+    public boolean activeIsEngineer(){
+        return dataGame.activeIsEngineer();
+    }
+    
     /**Data game methods - To Strings**/
     public String crewMemberInfoToString(){
         return dataGame.crewMemberInfoToString();
@@ -266,11 +274,6 @@ public class DestinationEarth implements Serializable{
     }
     
     //CrewPhase
-    public void executeAction(int action){
-        setState(getState().executeAction(action));
-    }
-    
-    //Action states
     public void moveCrewMember(int room){
         setState(getState().moveCrewMember(room));
     }
@@ -290,7 +293,19 @@ public class DestinationEarth implements Serializable{
     public void sealRoom(int room){
         setState(getState().sealRoom(room));
     }
- 
+    
+    public void healPlayer(){
+        getState().healPlayer();
+    }
+    
+    public void fixHull(){
+        getState().fixHull();
+    }
+    
+    public void sacrifice(){
+        getState().sacrifice();
+    }
+  
     //AlienPhase
     public void moveAliens(){
         setState(getState().moveAliens());

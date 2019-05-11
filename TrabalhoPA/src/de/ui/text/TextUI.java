@@ -786,12 +786,49 @@ public class TextUI {
             game.swapCrewMember();
             return;
         }
-        else if(op > 1 && op < (game.getAvailableActions_Quant() + 2)){
+        /*else if(op > 1 && op < (game.getAvailableActions_Quant() + 2)){
             game.executeAction(op);
+            return;
+        }*/
+        else if(op == 2){
+            game.moveCrewMember(0);
+            return;
+        }
+        else if(op == 3){
+            game.attackAliens(0);
+            return;
+        }
+        else if(op == 4){
+            game.placeTrap(null);
+            return;
+        }
+        else if(op == 5){
+            game.detonateParticleDispenser(0);
+            return;
+        }
+        else if(op == 6){
+            game.sealRoom(0);
+            return;
+        }
+        else if(op == 7){
+            if(game.activeIsDoctor()){
+                game.healPlayer();
+                return;
+            }
+            else if(game.activeIsEngineer()){
+                game.fixHull();
+                return;
+            }
+            else if(game.getPlayer().haveAlive_RedShirt()){
+                game.sacrifice();
+                return;
+            }
+            game.leaveCrewPhase();
             return;
         }
         else if(op == game.getAvailableActions_Quant() +2){
             game.leaveCrewPhase();
+            return;
         }
         else{
             return;

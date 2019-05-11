@@ -45,14 +45,14 @@ public interface IStates extends Serializable {
     IStates leaveRestPhase();
     
     //CrewPhase
-    IStates executeAction(int action);
-    
-    //Action states
     IStates moveCrewMember(int room);
     IStates attackAliens(int room);
     IStates placeTrap(Trap trap);
     IStates detonateParticleDispenser(int room);
     IStates sealRoom(int room);
+    boolean healPlayer();
+    boolean fixHull();
+    boolean sacrifice();
     
     //AlienPhase
     IStates moveAliens();

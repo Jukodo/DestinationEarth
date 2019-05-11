@@ -367,6 +367,24 @@ public class DataGame implements Constants, Serializable{
         return false;
     }
     
+    public boolean activeIsDoctor(){
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
+        
+        if(cm instanceof Doctor)
+            return true;
+        
+        return false;
+    }
+    
+    public boolean activeIsEngineer(){
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
+        
+        if(cm instanceof Engineer)
+            return true;
+        
+        return false;
+    }
+    
     /**Aliens methods**/
     
     public void swapActiveNewAlien(){
