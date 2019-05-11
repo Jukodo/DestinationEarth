@@ -778,62 +778,55 @@ public class TextUI {
             
         }while(op < 0 || op > game.getAvailableActions_Quant() +2);
         
-        if(op == 0){
-            quit = true;
-            return;
+        switch(op){
+            case 0:
+                quit = true;
+                break;
+                
+            case 1:
+                game.swapActiveCrewMember();
+                break;
+                
+            case 2:
+                game.AP_moveCrewMember(0);
+                break;
+                
+            case 3:
+                game.AP_attackAliens(0);
+                break;
+                
+            case 4:
+                game.AP_placeTrap(null);
+                break;
+                
+            case 5:
+                game.AP_detonateParticleDispenser(0);
+                break;
+                
+            case 6:
+                game.AP_sealRoom(0);
+                break;
+                
+            case 7:
+                if(game.activeIsDoctor()){
+                    game.AP_healPlayer();
+                    return;
+                }
+                else if(game.activeIsEngineer()){
+                    game.AP_fixHull();
+                    return;
+                }
+                else if(game.getPlayer().haveAlive_RedShirt()){
+                    game.sacrificeCrewMember();
+                    return;
+                }
+                game.leaveCrewPhase();
+                break;
+                
+            case 8:
+                game.leaveCrewPhase();
+                break;
         }
-        else if(op == 1){
-            game.swapCrewMember();
-            return;
-        }
-        /*else if(op > 1 && op < (game.getAvailableActions_Quant() + 2)){
-            game.executeAction(op);
-            return;
-        }*/
-        else if(op == 2){
-            game.moveCrewMember(0);
-            return;
-        }
-        else if(op == 3){
-            game.attackAliens(0);
-            return;
-        }
-        else if(op == 4){
-            game.placeTrap(null);
-            return;
-        }
-        else if(op == 5){
-            game.detonateParticleDispenser(0);
-            return;
-        }
-        else if(op == 6){
-            game.sealRoom(0);
-            return;
-        }
-        else if(op == 7){
-            if(game.activeIsDoctor()){
-                game.healPlayer();
-                return;
-            }
-            else if(game.activeIsEngineer()){
-                game.fixHull();
-                return;
-            }
-            else if(game.getPlayer().haveAlive_RedShirt()){
-                game.sacrifice();
-                return;
-            }
-            game.leaveCrewPhase();
-            return;
-        }
-        else if(op == game.getAvailableActions_Quant() +2){
-            game.leaveCrewPhase();
-            return;
-        }
-        else{
-            return;
-        }
-            
     }
     
     public void uiMoveCrewMember(){
@@ -896,7 +889,7 @@ public class TextUI {
                         opRoom = -1;
                 }while(opRoom < 0 || opRoom > 12);
                 
-                game.moveCrewMember(opRoom);
+                game.AP_moveCrewMember(opRoom);
                 
                 break;
         }
@@ -961,13 +954,13 @@ public class TextUI {
                             opRoom = -1;
                     }while(opRoom < 0 || opRoom > 12);
 
-                    game.attackAliens(opRoom);
+                    game.AP_attackAliens(opRoom);
 
                     break;
             }
         }
         else{
-            game.attackAliens(0); //Quarto atual
+            game.AP_attackAliens(0); //Quarto atual
         }
  
     }
@@ -1015,15 +1008,15 @@ public class TextUI {
         switch(op){
             case 0:
                 quit = true;
-                return;
+                break;
                 
             case 1:
-               game.placeTrap(new OrganicDetonator(game.getDataGame()));
-               return;
+                game.AP_placeTrap(new OrganicDetonator(game.getDataGame()));
+                break;
                
             case 2:
-                game.placeTrap(new ParticleDispenser(game.getDataGame()));
-                return;
+                game.AP_placeTrap(new ParticleDispenser(game.getDataGame()));
+                break;
         }
     }
     
@@ -1065,7 +1058,7 @@ public class TextUI {
         switch(op){
             case 0:
                 quit = true;
-                return;
+                break;
                 
             case 1:
                 int opRoom = 0;
@@ -1088,8 +1081,7 @@ public class TextUI {
                         opRoom = -1;
                 }while(opRoom < 0 || opRoom > 12);
                 
-                game.detonateParticleDispenser(opRoom);
-                
+                game.AP_detonateParticleDispenser(opRoom);
                 break;
         }
     }
@@ -1133,7 +1125,7 @@ public class TextUI {
         switch(op){
             case 0:
                 quit = true;
-                return;
+                break;
                 
             case 1:
                 int opRoom = 0;
@@ -1156,8 +1148,7 @@ public class TextUI {
                         opRoom = -1;
                 }while(opRoom < 0 || opRoom > 12);
                 
-                game.sealRoom(opRoom);
-                
+                game.AP_sealRoom(opRoom);
                 break;
         }
     }
@@ -1196,7 +1187,7 @@ public class TextUI {
         switch(op){
             case 0:
                 quit = true;
-                return;
+                break;
                 
             case 1:
                 //LOOK LATER

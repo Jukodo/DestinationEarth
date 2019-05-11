@@ -97,10 +97,6 @@ public class DestinationEarth implements Serializable{
     }
     
     /**Data game methods - Functions**/
-    public void swapActiveCrewMember(){
-        dataGame.swapActiveCrewMember();
-    }
-    
     public void swapActiveNewAlien(){
         dataGame.swapActiveNewAlien();
     }
@@ -111,10 +107,6 @@ public class DestinationEarth implements Serializable{
     
     public boolean isValid_JourneyTurn(int turn, String event){
         return dataGame.isValid_JourneyTurn(turn, event);
-    }
-    
-    public boolean sacrificeCrewMember(){
-        return dataGame.sacrificeCrewMember();
     }
     
     public boolean activeIsDoctor(){
@@ -232,10 +224,6 @@ public class DestinationEarth implements Serializable{
         setState(getState().confirmNewAliensPlacement());
     }
     
-    public void leaveCrewPhase(){
-        setState(getState().leaveCrewPhase());
-    }
-    
     //RestPhase
     public void IP_addHealthPoint(){
         setState(getState().IP_addHealthPoint());
@@ -274,38 +262,43 @@ public class DestinationEarth implements Serializable{
     }
     
     //CrewPhase
-    public void moveCrewMember(int room){
-        setState(getState().moveCrewMember(room));
+    public void AP_moveCrewMember(int room){
+        setState(getState().AP_moveCrewMember(room));
     }
     
-    public void attackAliens(int room){
-        setState(getState().attackAliens(room));
+    public void AP_attackAliens(int room){
+        setState(getState().AP_attackAliens(room));
     }
     
-    public void placeTrap(Trap trap){
-        setState(getState().placeTrap(trap));
+    public void AP_placeTrap(Trap trap){
+        setState(getState().AP_placeTrap(trap));
     }
     
-    public void detonateParticleDispenser(int room){
-        setState(getState().detonateParticleDispenser(room));
+    public void AP_detonateParticleDispenser(int room){
+        setState(getState().AP_detonateParticleDispenser(room));
     }
     
-    public void sealRoom(int room){
-        setState(getState().sealRoom(room));
+    public void AP_sealRoom(int room){
+        setState(getState().AP_sealRoom(room));
     }
     
-    public void healPlayer(){
-        getState().healPlayer();
+    public void AP_healPlayer(){
+        getState().AP_healPlayer();
     }
     
-    public void fixHull(){
-        getState().fixHull();
-    }
-    
-    public void sacrifice(){
-        getState().sacrifice();
+    public void AP_fixHull(){
+        getState().AP_fixHull();
     }
   
+    public void leaveCrewPhase(){
+        setState(getState().leaveCrewPhase());
+    }
+    
+    //CrewPhase and RestPhase
+    public void sacrificeCrewMember(){
+        getState().sacrificeCrewMember();
+    }
+    
     //AlienPhase
     public void moveAliens(){
         setState(getState().moveAliens());
@@ -317,8 +310,8 @@ public class DestinationEarth implements Serializable{
     }   
     
     //General
-    public void swapCrewMember(){
-        setState(getState().swapCrewMember());
+    public void swapActiveCrewMember(){
+        setState(getState().swapActiveCrewMember());
     }
     
     public void rollDice(){

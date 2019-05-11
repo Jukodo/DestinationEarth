@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 public interface IStates extends Serializable {
     
-    
     //Beginning
     IStates start(String playerName);
  
@@ -31,7 +30,6 @@ public interface IStates extends Serializable {
     IStates scanTurn();
     IStates placeNewAlien(int alienNumber, int roomNumber);
     IStates confirmNewAliensPlacement();
-    IStates leaveCrewPhase();
     
     //RestPhase
     IStates IP_addHealthPoint();
@@ -45,14 +43,17 @@ public interface IStates extends Serializable {
     IStates leaveRestPhase();
     
     //CrewPhase
-    IStates moveCrewMember(int room);
-    IStates attackAliens(int room);
-    IStates placeTrap(Trap trap);
-    IStates detonateParticleDispenser(int room);
-    IStates sealRoom(int room);
-    boolean healPlayer();
-    boolean fixHull();
-    boolean sacrifice();
+    IStates AP_moveCrewMember(int room);
+    IStates AP_attackAliens(int room);
+    IStates AP_placeTrap(Trap trap);
+    IStates AP_detonateParticleDispenser(int room);
+    IStates AP_sealRoom(int room);
+    IStates AP_healPlayer();
+    IStates AP_fixHull();
+    IStates leaveCrewPhase();
+    
+    //CrewPhase and RestPhase
+    IStates sacrificeCrewMember();
     
     //AlienPhase
     IStates moveAliens();
@@ -61,7 +62,7 @@ public interface IStates extends Serializable {
     IStates playAgain();
     
     //General
-    IStates swapCrewMember();
+    IStates swapActiveCrewMember();
     IStates rollDice();
     IStates setDieRoll(int dieToRoll, int value);
     IStates confirmRoll();

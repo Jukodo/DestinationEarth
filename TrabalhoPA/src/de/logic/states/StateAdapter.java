@@ -22,7 +22,13 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     public IStates start(String playerName) {
         return this;
     }
-
+    
+    @Override
+    public IStates swapActiveCrewMember(){
+        this.getGame().swapActiveCrewMember();
+        return new CrewPhase(this.getGame());
+    }
+    
     @Override
     public IStates selectCrewMember(int crewNumber, int crewType) {
         return this;
@@ -140,42 +146,42 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public IStates moveCrewMember(int room) {
+    public IStates AP_moveCrewMember(int room) {
         return this;
     }
     
      @Override
-    public IStates attackAliens(int room){
+    public IStates AP_attackAliens(int room){
         return this;
     }
  
     @Override
-    public IStates placeTrap(Trap trap){
+    public IStates AP_placeTrap(Trap trap){
         return this;
     }
     
     @Override
-    public IStates detonateParticleDispenser(int room){
+    public IStates AP_detonateParticleDispenser(int room){
         return this;
     }
     
     @Override
-    public boolean healPlayer(){
-        return false;
+    public IStates AP_healPlayer(){
+        return this;
     }
     
     @Override
-    public boolean fixHull(){
-        return false;
+    public IStates AP_fixHull(){
+        return this;
     }
     
     @Override
-    public boolean sacrifice(){
-        return false;
+    public IStates AP_sealRoom(int room) {
+        return this;
     }
     
     @Override
-    public IStates sealRoom(int room) {
+    public IStates sacrificeCrewMember(){
         return this;
     }
     
@@ -186,11 +192,6 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     
     @Override
     public IStates playAgain(){
-        return this;
-    }
-
-    @Override
-    public IStates swapCrewMember() {
         return this;
     }
 
@@ -213,18 +214,7 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     public int getQuantityOfDiceToRoll(){
         return 0;
     }
-
-    /*
-    @Override
-    public IStates saveGame() {
-        return this;
-    }
-
-    @Override
-    public IStates loadGame() {
-        return this;
-    }*/
-
+    
     @Override
     public IStates quit() {
         return this;
