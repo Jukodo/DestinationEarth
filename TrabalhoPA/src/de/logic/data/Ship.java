@@ -7,16 +7,17 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Ship implements Constants, Serializable{
+    private DataGame game;
     private HashMap<Integer, Room> rooms;
     private int hullTracker;
 
-    public Ship() {
-        
+    public Ship(DataGame game) {
+        this.game = game;
         hullTracker = DEF_HULL_TRACKER;
         rooms = new HashMap<>();
         
         for(int i = 1; i <= NUM_ROOMS; i++){
-            rooms.put(i, new Room());
+            rooms.put(i, new Room(this.getGame()));
         }
         
         for(int i = 1; i < NUM_ROOMS+1; i++){
@@ -104,6 +105,10 @@ public class Ship implements Constants, Serializable{
     }
 
     /**Getters and Setters**/
+    public DataGame getGame(){
+        return game;
+    }
+    
     public HashMap<Integer, Room> getRooms() {
         return rooms;
     }

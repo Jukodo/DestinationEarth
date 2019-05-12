@@ -27,7 +27,7 @@ public class DataGame implements Constants, Serializable{
         journeyTracker = new String[NUM_TURNS];
        
         currentTurn = 0;
-        ship = new Ship();
+        ship = new Ship(this);
         dices = new int[MAX_DICES];
         
         activeCrewMember = 1;
@@ -1500,13 +1500,15 @@ public class DataGame implements Constants, Serializable{
                 inspirationPointsEarned++;
             }
             else{
-                 room = alien.getRoom().chooseClosestRoom_Priority();
-            
+                room = alien.getRoom().chooseClosestRoom(alien.getRoom().getClosestRooms());
+                
                 //MOVE ALIEN
 
                 if(room != null){
                     alien.enterRoom(room);
                     movedAliensCount[room.getId()-1]++;
+                }else{
+                    System.out.println("ROOM NOT FOUND 404");
                 }
 
 

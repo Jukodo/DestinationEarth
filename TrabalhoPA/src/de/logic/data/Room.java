@@ -3,9 +3,11 @@ package de.logic.data;
 import de.logic.data.members.CrewMember;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class Room implements Serializable{
+public class Room implements Serializable, Constants{
+    private DataGame game;
     private static int totalRooms = 0;
     private final int id;
     private boolean isSealed;
@@ -16,14 +18,15 @@ public class Room implements Serializable{
     private List <CrewMember> membersInside;
     private Trap trapInside;
 
-    public Room() {
-       closestRooms = new ArrayList<>();
-       aliensInside = new ArrayList<>();
-       membersInside = new ArrayList<>();
+    public Room(DataGame game) {
+        this.game = game;
+        closestRooms = new ArrayList<>();
+        aliensInside = new ArrayList<>();
+        membersInside = new ArrayList<>();
        
-       id = ++totalRooms;
-       isSealed = false;
-       canBeSealed = false;
+        id = ++totalRooms;
+        isSealed = false;
+        canBeSealed = false;
     }
 
      /**Getters and Setters**/
@@ -136,21 +139,111 @@ public class Room implements Serializable{
         trapInside = null;
     }
     
-    public Room chooseClosestRoom_Priority(){
+    /*public Room _chooseClosestRoom_Priority(List <Room> roomsSeen, List <Room> path, int pathSize){
+        //Phase 1 - Check if current room is what we are looking for
+        //Phase 2 - Check if any of the closest rooms are what we are looking for
+        //Phase 3 - Check if the closest rooms of the closest rooms are what we are looking for
+        //Phase 4 - Repeat phase 2 and 3 for every closest room
         
-        Room goTo = null;
+        //If already searched for the NUM_ROOMS existing rooms (to prevent infinite loop)
+        if(pathSize >= NUM_ROOMS)
+            return null;
         
+        //Phase 1 - Only supposed to be true on first room (If the current room already has a crew member)
+        if(!this.getMembersInside().isEmpty()){
+            return this;
+        }
+        
+        pathSize++;
+        
+        //Phase 2
         for(Room room:closestRooms){
+            //Check if current (closest) room has already been checked
+            if(roomsSeen.get(room.getId()) != null)
+                continue;
+
+            roomsSeen.add(room.getId(), room);
+
+            //If there are crew members inside and the room is NOT sealed
             if(!room.getMembersInside().isEmpty() && !room.getIsSealed()){
-                goTo = room;
+                path.add(pathSize, room);
+                return room;
             }
-            if(goTo == null){
-                if(!room.getIsSealed())
-                    goTo = room;
+        }
+
+        //Phase 3
+        for(Room r:closestRooms){
+            for(Room room:r.getClosestRooms()){
+                //Check if current room has already been checked
+                if(roomsSeen.get(room.getId()) != null)
+                    continue;
+
+                roomsSeen.add(room.getId(), room);
+
+                //If there are crew members inside and the room is NOT sealed
+                if(!room.getMembersInside().isEmpty() && !room.getIsSealed()){
+
+                    return room;
+                }else if(pathSize > 1){
+                    return null;
+                }
+            }
+        }
+
+        //Phase 4
+        for(Room room:closestRooms){
+            if(roomsSeen.get(room.getId()) != null)
+                room._chooseClosestRoom_Priority(roomsSeen, path, pathSize);
+        }
+
+        return null;
+    }*/
+    
+    public Room chooseClosestRoom(List <Room> nextClosestRooms){
+        HashMap<Integer, Room> roomsSeen = new HashMap<>();
+        
+        if(this.getMembersInside().isEmpty())
+            return chooseClosestRoom_Algorithm(nextClosestRooms, roomsSeen, 0);
+        
+        game.addLog("Alien already inside a room with a crew member!");
+        return null;
+    }
+    
+    public Room chooseClosestRoom_Algorithm(List <Room> nextClosestRooms, HashMap<Integer, Room> roomsSeen, int pathSize){
+        if(++pathSize > 12)
+            return null;
+        
+        System.out.println("pathSize increased: " + pathSize);
+        
+        for(Room room:nextClosestRooms){
+            if(roomsSeen.get(room.getId()) != null){
+                System.out.println("room: " + room.getId() + " already inside");
+                continue;
+            }
+            
+            System.out.println("roomsSeen added: " + room.getId());
+            roomsSeen.put(room.getId(), room);
+
+            if(!room.getMembersInside().isEmpty() && !room.getIsSealed()){
+                System.out.println("room found: " + room.getId());
+                return room;
             }
         }
         
-        return goTo;
+        List <Room> aux_closestRooms = new ArrayList<>();
+        for(Room room:nextClosestRooms){
+            for(Room _room:room.getClosestRooms()){
+                if(roomsSeen.get(_room.getId()) != null){
+                    System.out.println("room: " + _room.getId() + " already inside");
+                    continue;
+                }
+                aux_closestRooms.add(_room);
+            }
+        }
+        
+        System.out.println("next phase: " + pathSize + " auxClosestRooms size: " + aux_closestRooms.size());
+        
+        return chooseClosestRoom_Algorithm(aux_closestRooms, roomsSeen, pathSize);
     }
 
     @Override
