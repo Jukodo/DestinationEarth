@@ -10,8 +10,8 @@ public class PlaceTrap extends StateAdapter{
     }
     
     @Override
-    public IStates AP_placeTrap(Trap trap){
-        this.getGame().placeTrap(trap);
+    public IStates AP_placeTrap(int trapType){
+        this.getGame().placeTrap(trapType);
         return new CrewPhase(this.getGame());
     }
     

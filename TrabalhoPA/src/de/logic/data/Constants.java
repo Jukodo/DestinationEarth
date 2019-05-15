@@ -26,6 +26,7 @@ public interface Constants {
     public static final int MAX_ATTACK_BUFF = 4; //AT 0 -> TO ATTACK DICE NEEDS TO BE 5+, AT 4 -> TO ATTACK DICE NEEDS TO BE 1+ (5-4)
     
     public static final int MIN_ROLL_ATTACK = 5;
+    public static final int CAPTAIN_ROLL_ATTACK = 3;
     
     public static final int DEF_HULL_TRACKER = 8;
     public static final int DEF_HEALTH_TRACKER = 8;
@@ -53,6 +54,9 @@ public interface Constants {
     public static final int DEF_COST_I_ADD_ATTACK_DIE = 6;
     public static final int DEF_COST_I_ADD_VALUE_ATTACK_DIE = 6;
     public static final int[] DEF_INSPIRATIONS_COST = {DEF_COST_I_ADD_HEALTH, DEF_COST_I_REPAIR_HULL, DEF_COST_I_BUILD_TRAP_ORGANIC, DEF_COST_I_ADD_MOVEMENT, DEF_COST_I_BUILD_TRAP_PARTICLE, DEF_COST_I_ADD_SEALED_TOKEN, DEF_COST_I_ADD_ATTACK_DIE, DEF_COST_I_ADD_VALUE_ATTACK_DIE};
+    
+    public static final int ORGANIC_TRAP = 1;
+    public static final int PARTICLE_TRAP = 2;
     
     
 }

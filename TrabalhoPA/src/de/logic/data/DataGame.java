@@ -341,27 +341,8 @@ public class DataGame implements Constants, Serializable{
     
     public boolean sacrificeCrewMember(){
         for(CrewMember cm:player.getCrew()){
-            if(cm instanceof RedShirt && ((RedShirt)cm).isAlive()){
-
-                if(cm.isInside()){
-                    cm.leaveRoom();
-                }
-
-                ((RedShirt)cm).setAlive(false);
-                
-                int i = 0;
-                
-                do{
-                    if(!addHealthToPlayer(1)){
-                      break;
-                    }
-                    i++;
-                }while(i < 5);
-                
-                swapActiveCrewMember();
-                addLog("You sacrificed Red Shirt and earned " + (i) + " health! Good journey comrade Red Shirt!");
+            if(cm.special())
                 return true;
-            }
         }
         
         return false;
@@ -386,6 +367,13 @@ public class DataGame implements Constants, Serializable{
     }
     
     /**Aliens methods**/
+    
+    public void decreaseAliensCount(){
+        aliensCount--;
+        
+        if(aliensCount < 0)
+            aliensCount = 0;
+    }
     
     public void swapActiveNewAlien(){
         if(++activeNewAlien > newAliens.size())
@@ -929,210 +917,52 @@ public class DataGame implements Constants, Serializable{
     
     public boolean moveActiveCrewMember(int roomNumber){
         
-        int cost = getMovementCost();
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(roomNumber < 1 || roomNumber > NUM_ROOMS){
-            addLog("Room selected doesn't exist!");
-            return false;
-        }
-        
-        if(cost > 0 && getActionPoints() < DEF_COST_A_MOVE){
-            addLog("Not enough AP (Action Points)!");
-            return false;
-        }
-   
-        Room roomToMove = null;
-        
-        if(cm instanceof TransporterChief){
-            roomToMove = ship.getRoom(roomNumber);
-        }else{
-            for(Room room : ship.getRoom(cm.getRoom().getId()).getClosestRooms()){
-                if(room.getId() == roomNumber){
-                    roomToMove = room;
-                }
-            }
-        }
-        
-        if(roomToMove == null || roomToMove.getIsSealed()){
-            addLog("Cannot move to selected Room! Please check if sealed or too far...");
-            return false;
-        }
-        
-        int freeMoves = cm.getMovement() - DEF_COST_A_MOVE;
-        
-        
-        if(getMovementCost() > 0)
-            removeActionPoints(getMovementCost());
-        
-        cm.setMovementsBeforeFree(cm.getMovementsBeforeFree() + 1);
-        
-        if(cm.getMovementsBeforeFree() > freeMoves){
-            cm.setMovementsBeforeFree(0);
-        }
-        
-        cm.enterRoom(roomToMove);
-        
-        addLog(cm.getName() + " moved to " + roomToMove.toString());
-        
-        return true;
+        return cm.move(roomNumber);
     }
     
 
     public int attackAliens(int roomNumber){
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(getActionPoints() < DEF_COST_A_ATTACK || roomNumber > NUM_ROOMS)
-            return 0;
-        
-        Room roomToAttack = null;
-        
-        if(cm instanceof ScienceOfficer){
-            for(Room room : ship.getRoom(cm.getRoom().getId()).getClosestRooms()){
-                if(room.getId() == roomNumber && !room.getIsSealed()){
-                    roomToAttack = room;
-                }
-            }
-        }else{
-            roomToAttack = ship.getRoom(cm.getRoom().getId());
-        }
-        
-        if(roomToAttack == null){
-            addLog("Cannot attack selected Room! Please check if sealed or too far...");
-            return 0;
-        }
-        
-        if(roomToAttack.getAliensInside().size() < 1){
-            addLog("There aren't any aliens in the room to attack!");
-            return 0;
-        }
-            
-        
-        int totalKills = 0;
-        
-        removeActionPoints(1);
-        
-        for(int i = 0; i < cm.getAttack(); i++){
-            //Se o roll for 5+ ou se for capitao e o roll for 3+
-            if((dices[i] >= MIN_ROLL_ATTACK - player.getAttackBuff()) || ((cm instanceof Captain) && (dices[i] >= 3))){
-                if(roomToAttack.removeRandomAlienFromRoom()){
-                    aliensCount--;
-                    totalKills++;
-                    addInspirationPoints(1);
-                }
-            }
-        }
-        
-        addLog(cm.getName() + " killed " + totalKills + " alien(s). You earned " + totalKills + " IP (Inspiration Points).");
-        
-        return totalKills;
+        return cm.attack(roomNumber);
     }
     
     public boolean healPlayer(){
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(cm instanceof Doctor){
-            if(cm.getRoom().getName().equalsIgnoreCase("Sick Bay") && !((Doctor)cm).hasHealedForFree()){
-                if(!addHealthToPlayer(1))
-                    return false;
-                
-                ((Doctor)cm).setHasHealedForFree(true); //TODO: inicio do turno colocar a false
-                addLog("Player was healed by 1 health!");
-                return true;
-            }else{
-                if(getActionPoints() < DEF_COST_A_HEAL){
-                    addLog("Not enough AP (Action Points)!");
-                    return false;
-                }
-                
-                if(!addHealthToPlayer(1))
-                    return false;
-
-                removeActionPoints(DEF_COST_A_HEAL);
-                
-                addLog("Player was healed by 1 health!");
-                return true;
-            }
-        }
-        
-        addLog("Selected crew member cannot execute this action!");
-        return false;
-    }
-    
-    public boolean fixHullTracker(){
-        CrewMember cm = player.getCrewMember(activeCrewMember-1);
-
-        if(cm instanceof Engineer){
-            if(cm.getRoom().getName().equalsIgnoreCase("Engineering") && !((Engineer)cm).hasFixedForFree()){
-                if(!addHealthToHull(1))
-                    return false;
-                ((Engineer)cm).setHasFixedForFree(true); //TODO: inicio do turno colocar a false
-                addLog("Ship's hull was fixed by 1 health!");
-                return true;
-            }else{
-                if(getActionPoints() < DEF_COST_A_FIX_HULL){
-                    addLog("Not enough AP (Action Points)!");
-                    return false;
-                }
-                if(!addHealthToHull(1))
-                    return false;
-                removeActionPoints(DEF_COST_A_FIX_HULL);
-                addLog("Ship's hull was fixed by 1 health!");
-                return true;
-            }
-        }
-        
-        addLog("Selected crew member cannot execute this action!");
-        return false;
-    }
-    
-    public boolean placeTrap(Trap trap){
-        CrewMember cm = player.getCrewMember(activeCrewMember-1);
-        
-        if(getActionPoints() < DEF_COST_A_TRAP_ORGANIC){
-            addLog("Not enough AP (Action Points)!");
+        if(!cm.special()){
+            addLog("Selected crew member cannot execute this action!");
             return false;
         }
-        
-        Room room = ship.getRoom(cm.getRoom().getId());
-        if(room == null){
-            addLog("Selected room doesn't exist!");
-            return false;
-        }
-        
-        if(room.getTrapInside() != null){
-            addLog("Selected room already has a trap!");
-            return false;
-        }
-        
-        if(!cm.getRoom().equals(room)){
-            addLog("Selected crew member isn't inside the selected room!");
-            return false;
-        }
-        
-        if(trap instanceof OrganicDetonator && getOrganicTrapTokens() > 0){
-            room.setTrapInside(new OrganicDetonator(this));
-            removeOrganicTrapTokens(1);
-            addLog("Organic Detonator was planted in " + room.toString());
-        }
-        else if (trap instanceof ParticleDispenser && getParticleTrapTokens() > 0){
-            room.setTrapInside(new ParticleDispenser(this));
-            removeParticleTrapTokens(1);
-            addLog("Particle Dispenser was planted in " + room.toString());
-        }
-        else{
-            addLog("Invalid trap!");
-            return false;
-        }
-       
-        removeActionPoints(DEF_COST_A_TRAP_ORGANIC);
         
         return true;
     }
     
-    public boolean detonateParticleDispenser(int roomNumber){
+    public boolean fixHullTracker(){
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
+        
+        if(!cm.special()){
+            addLog("Selected crew member cannot execute this action!");
+            return false;
+        }
+        
+        return true;
 
-        if(roomNumber < 1 || roomNumber > NUM_ROOMS){
+    }
+    
+    public boolean placeTrap(int trapType){
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
+        
+        return cm.placeTrap(trapType);
+    }
+    
+    public boolean detonateParticleDispenser(int roomNumber){
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
+        
+        return cm.detonateParticleDispenser(roomNumber);
+        /*if(roomNumber < 1 || roomNumber > NUM_ROOMS){
             addLog("Selected room doesn't exist!");
             return false;
         }
@@ -1170,53 +1000,14 @@ public class DataGame implements Constants, Serializable{
         
         addLog("Particle Dispenser detonated with success!" + " You killed " + nAliens + " aliens");
         
-        return true;
+        return true;*/
     }
     
     public boolean sealRoom(int roomNumber){
-
-        if(roomNumber < 1 || roomNumber > NUM_ROOMS){
-            addLog("Selected room doesn't exist!");
-            return false;
-        }
         
-        if(getActionPoints() < DEF_COST_A_SEAL_ROOM){
-            addLog("Not enough AP (Action Points)!");
-            return false;
-        }
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
-        if(player.getRoomSealTokens() < 1){
-            addLog("Not enough 'Seal Room' Tokens!");
-            return false;
-        }
-        
-        Room room = ship.getRoom(roomNumber);
-        if(room == null){
-            addLog("Selected room doesn't exist!");
-            return false;
-        }else if(!room.getCanBeSealed()){
-            addLog("Selected room cannot be sealed!");
-            return false;
-        }else if(room.getIsSealed()){
-            addLog("Selected room is already sealed!");
-            return false;
-        }
-        else if(room.getAliensInside().size() > 0){
-            addLog("Selected room cannot be sealed: There are aliens inside!");
-            return false;
-        }
-        else if(room.getMembersInside().size() > 0){
-            addLog("Selected room cannot be sealed: There are crew members inside!");
-            return false;
-        }
-        
-        addLog(room.toString() + " was sealed with success!");
-        
-        removeActionPoints(DEF_COST_A_SEAL_ROOM);
-        room.setSealed(true);
-        removeSealedTokens(1);
-       
-        return true;
+        return cm.sealRoom(roomNumber);
     }
 
     /**Inspiration points methods**/

@@ -6,10 +6,12 @@ public abstract class Trap implements Serializable{
     
     private DataGame dataGame;
     private int cost;
+    private Room room;
 
-    public Trap(DataGame dataGame, int cost) {
+    public Trap(DataGame dataGame, int cost, Room room) {
         this.dataGame = dataGame;
         this.cost = cost;
+        this.room = room;
     }
 
     public DataGame getDataGame() {
@@ -28,5 +30,15 @@ public abstract class Trap implements Serializable{
         this.cost = cost;
     }
     
+    public Room getRoom(){
+        return room;
+    }
     
+    public void setRoom(Room room){
+        this.room = room;
+    }
+    
+    public boolean detonate(int roomNumber){
+        return false;
+    }
 }

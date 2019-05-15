@@ -17,7 +17,8 @@ public class DetonateParticleDispenser extends StateAdapter{
         super(game);
     }
     
-    public IStates detonateParticleDispenser(int room){
+    @Override
+    public IStates AP_detonateParticleDispenser(int room){
         
         this.getGame().detonateParticleDispenser(room);
         

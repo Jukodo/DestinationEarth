@@ -270,8 +270,8 @@ public class DestinationEarth implements Serializable{
         setState(getState().AP_attackAliens(room));
     }
     
-    public void AP_placeTrap(Trap trap){
-        setState(getState().AP_placeTrap(trap));
+    public void AP_placeTrap(int trapType){
+        setState(getState().AP_placeTrap(trapType));
     }
     
     public void AP_detonateParticleDispenser(int room){

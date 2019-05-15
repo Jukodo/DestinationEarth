@@ -20,7 +20,7 @@ public class CrewPhase extends StateAdapter{
     }
     
     @Override 
-    public IStates AP_placeTrap(Trap trap){
+    public IStates AP_placeTrap(int typeTrap){
         return new PlaceTrap(this.getGame());
     }
     

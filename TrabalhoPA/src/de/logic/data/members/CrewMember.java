@@ -2,7 +2,10 @@ package de.logic.data.members;
 
 import static de.logic.data.Constants.*;
 import de.logic.data.DataGame;
+import de.logic.data.OrganicDetonator;
+import de.logic.data.ParticleDispenser;
 import de.logic.data.Room;
+import de.logic.data.Trap;
 import java.io.Serializable;
 
 public abstract class CrewMember implements Serializable{
@@ -111,5 +114,204 @@ public abstract class CrewMember implements Serializable{
     public void setMovementsBeforeFree(int movementsBeforeFree) {
         this.movementsBeforeFree = movementsBeforeFree;
     }
+    
+    public boolean move(int roomNumber){
+    
+        int cost = dataGame.getMovementCost();
+        
+        if(roomNumber < 1 || roomNumber > NUM_ROOMS){
+            dataGame.addLog("Room selected doesn't exist!");
+            return false;
+        }
+        
+        if(cost > 0 && dataGame.getActionPoints() < DEF_COST_A_MOVE){
+            dataGame.addLog("Not enough AP (Action Points)!");
+            return false;
+        }
+        
+        Room roomToMove = null;
+        
+        for(Room room : dataGame.getShip().getRoom(this.getRoom().getId()).getClosestRooms()){
+            if(room.getId() == roomNumber){
+                roomToMove = room;
+            }
+        }
+        
+        if(roomToMove == null || roomToMove.getIsSealed()){
+            dataGame.addLog("Cannot move to selected Room! Please check if sealed or too far...");
+            return false;
+        }
+        
+        int freeMoves = this.getMovement() - DEF_COST_A_MOVE;
+        
+        if(dataGame.getMovementCost() > 0)
+            dataGame.removeActionPoints(dataGame.getMovementCost());
+        
+        this.setMovementsBeforeFree(this.getMovementsBeforeFree() + 1);
+        
+        if(this.getMovementsBeforeFree() > freeMoves){
+            this.setMovementsBeforeFree(0);
+        }
+  
+        this.enterRoom(roomToMove);
+        
+        dataGame.addLog(this.getName() + " moved to " + roomToMove.toString());
+        
+        
+        return true;
+    }
+    
+    public int attack(int roomNumber){
+        
+        if(dataGame.getActionPoints() < DEF_COST_A_ATTACK)
+            return 0;
+        
+        Room roomToAttack = null;
+        
+        roomToAttack = dataGame.getShip().getRoom(this.getRoom().getId());
+        
+        if(roomToAttack == null){
+            dataGame.addLog("Cannot attack selected Room! Please check if sealed or too far...");
+            return 0;
+        }
+        
+        if(roomToAttack.getAliensInside().size() < 1){
+            dataGame.addLog("There aren't any aliens in the room to attack!");
+            return 0;
+        }
+    
+        int totalKills = 0;
+        
+        dataGame.removeActionPoints(1);
+        
+        for(int i = 0; i < this.getAttack(); i++){
+     
+            if(dataGame.getDices()[i] >= MIN_ROLL_ATTACK - dataGame.getPlayer().getAttackBuff()){
+                if(roomToAttack.removeRandomAlienFromRoom()){
+                    dataGame.decreaseAliensCount();
+                    totalKills++;
+                    dataGame.addInspirationPoints(1);
+                }
+            }
+        }
+        
+        dataGame.addLog(this.getName() + " killed " + totalKills + " alien(s). You earned " + totalKills + " IP (Inspiration Points).");
+        
+        return totalKills;
+    }
+    
+    public boolean special(){
+        return false;
+    }
+    
+    public boolean placeTrap(int trapType){
+        
+        if(dataGame.getActionPoints() < DEF_COST_A_TRAP_ORGANIC){
+            dataGame.addLog("Not enough AP (Action Points)!");
+            return false;
+        }
+        
+        Room room = dataGame.getShip().getRoom(this.getRoom().getId());
+        
+        if(room == null){
+            dataGame.addLog("Selected room doesn't exist!");
+            return false;
+        }
+        
+        if(room.getTrapInside() != null){
+            dataGame.addLog("Selected room already has a trap!");
+            return false;
+        }
+        
+        if(!this.getRoom().equals(room)){
+            dataGame.addLog("Selected crew member isn't inside the selected room!");
+            return false;
+        }
+        
+        Trap trap;
+        
+        if(trapType == ORGANIC_TRAP){
+            room.setTrapInside(new OrganicDetonator(dataGame, this.getRoom()));
+            dataGame.removeOrganicTrapTokens(1);
+            dataGame.addLog("Organic Detonator was planted in " + room.toString());
+        }else if(trapType == PARTICLE_TRAP){
+            room.setTrapInside(new ParticleDispenser(dataGame, this.getRoom()));
+            dataGame.removeParticleTrapTokens(1);
+            dataGame.addLog("Particle Dispenser was planted in " + room.toString());
+        }
+        else{
+            dataGame.addLog("Invalid trap!");
+            return false;
+        }
+       
+        dataGame.removeActionPoints(DEF_COST_A_TRAP_ORGANIC);
+        
+        return true;
+    }
+    
+    public boolean detonateParticleDispenser(int roomNumber){
 
+        if(roomNumber < 1 || roomNumber > NUM_ROOMS){
+            dataGame.addLog("Selected room doesn't exist!");
+            return false;
+        }
+        
+        if(dataGame.getActionPoints() < DEF_COST_A_DETONATE_TRAP_PARTICLE){
+            dataGame.addLog("Not enough AP (Action Points)!");
+            return false;
+        }
+        
+        if(dataGame.getShip().getRoom(roomNumber).getTrapInside() == null){
+            dataGame.addLog("Selected room doesn't have a Particle Dispenser");
+            return false;
+        }
+            
+        
+        return dataGame.getShip().getRoom(roomNumber).getTrapInside().detonate(roomNumber);
+    }
+    
+    public boolean sealRoom(int roomNumber){
+        if(roomNumber < 1 || roomNumber > NUM_ROOMS){
+            dataGame.addLog("Selected room doesn't exist!");
+            return false;
+        }
+        
+        if(dataGame.getActionPoints() < DEF_COST_A_SEAL_ROOM){
+            dataGame.addLog("Not enough AP (Action Points)!");
+            return false;
+        }
+        
+        if(dataGame.getPlayer().getRoomSealTokens() < 1){
+            dataGame.addLog("Not enough 'Seal Room' Tokens!");
+            return false;
+        }
+        
+        Room room = dataGame.getShip().getRoom(roomNumber);
+        if(room == null){
+            dataGame.addLog("Selected room doesn't exist!");
+            return false;
+        }else if(!room.getCanBeSealed()){
+            dataGame.addLog("Selected room cannot be sealed!");
+            return false;
+        }else if(room.getIsSealed()){
+            dataGame.addLog("Selected room is already sealed!");
+            return false;
+        }
+        else if(room.getAliensInside().size() > 0){
+            dataGame.addLog("Selected room cannot be sealed: There are aliens inside!");
+            return false;
+        }
+        else if(room.getMembersInside().size() > 0){
+            dataGame.addLog("Selected room cannot be sealed: There are crew members inside!");
+            return false;
+        }
+        
+        dataGame.addLog(room.toString() + " was sealed with success!");
+        
+        dataGame.removeActionPoints(DEF_COST_A_SEAL_ROOM);
+        room.setSealed(true);
+        dataGame.removeSealedTokens(1);
+       
+        return true;
+    }
 }

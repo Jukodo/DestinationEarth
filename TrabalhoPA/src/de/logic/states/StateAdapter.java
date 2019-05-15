@@ -156,7 +156,7 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
  
     @Override
-    public IStates AP_placeTrap(Trap trap){
+    public IStates AP_placeTrap(int trapType){
         return this;
     }
     

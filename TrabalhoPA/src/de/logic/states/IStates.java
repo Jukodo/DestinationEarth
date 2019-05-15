@@ -45,7 +45,7 @@ public interface IStates extends Serializable {
     //CrewPhase
     IStates AP_moveCrewMember(int room);
     IStates AP_attackAliens(int room);
-    IStates AP_placeTrap(Trap trap);
+    IStates AP_placeTrap(int trapType);
     IStates AP_detonateParticleDispenser(int room);
     IStates AP_sealRoom(int room);
     IStates AP_healPlayer();

@@ -29,4 +29,31 @@ public class RedShirt extends CrewMember implements Serializable{
     public String getName() {
         return "RedShirt";
     }
+    
+    @Override
+    public boolean special(){
+        if(this.isAlive()){
+
+          if(this.isInside()){
+              this.leaveRoom();
+          }
+
+          this.setAlive(false);
+
+          int i = 0;
+
+          do{
+              if(!getDataGame().addHealthToPlayer(1)){
+                break;
+              }
+              i++;
+          }while(i < 5);
+
+          getDataGame().swapActiveCrewMember();
+          getDataGame().addLog("You sacrificed Red Shirt and earned " + (i) + " health! Good journey comrade Red Shirt!");
+          return true;
+      }
+        
+        return false;
+    }
 }

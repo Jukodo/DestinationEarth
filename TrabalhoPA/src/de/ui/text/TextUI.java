@@ -796,7 +796,7 @@ public class TextUI {
                 break;
                 
             case 4:
-                game.AP_placeTrap(null);
+                game.AP_placeTrap(0);
                 break;
                 
             case 5:
@@ -1011,11 +1011,11 @@ public class TextUI {
                 break;
                 
             case 1:
-                game.AP_placeTrap(new OrganicDetonator(game.getDataGame()));
+                game.AP_placeTrap(ORGANIC_TRAP);
                 break;
                
             case 2:
-                game.AP_placeTrap(new ParticleDispenser(game.getDataGame()));
+                game.AP_placeTrap(PARTICLE_TRAP);
                 break;
         }
     }
