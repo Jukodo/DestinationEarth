@@ -225,40 +225,40 @@ public class DataGame implements Constants, Serializable{
             color = oldMember.getColor();
             
         switch(crewType){
-            case 1:
+            case CAPTAIN:
                 getPlayer().setCrewMember(crewNumber, new Captain(this, color));
                 break;
-            case 2:
+            case COMMANDER:
                 getPlayer().setCrewMember(crewNumber, new Commander(this, color));
                 break;
-            case 3:
+            case COOMS_OFFICER:
                 getPlayer().setCrewMember(crewNumber, new CommsOfficer(this, color));
                 break;
-            case 4:
+            case DOCTOR:
                 getPlayer().setCrewMember(crewNumber, new Doctor(this, color));
                 break;
-            case 5:
+            case ENGINEER:
                 getPlayer().setCrewMember(crewNumber, new Engineer(this, color));
                 break;
-            case 6:
+            case MORAL_OFFICER:
                 getPlayer().setCrewMember(crewNumber, new MoralOfficer(this, color));
                 break;
-            case 7:
+            case NAVIGATION_OFFICER:
                 getPlayer().setCrewMember(crewNumber, new NavigationOfficer(this, color));
                 break;
-            case 8:
+            case RED_SHIRT:
                 getPlayer().setCrewMember(crewNumber, new RedShirt(this, color));
                 break;
-            case 9:
+            case SCIENCE_OFFICER:
                 getPlayer().setCrewMember(crewNumber, new ScienceOfficer(this, color));
                 break;
-            case 10:
+            case SECURITY_OFFICER:
                 getPlayer().setCrewMember(crewNumber, new SecurityOfficer(this, color));
                 break;
-            case 11:
+            case SHUTTLE_PILOT:
                 getPlayer().setCrewMember(crewNumber, new ShuttlePilot(this, color));
                 break;
-            case 12:
+            case TRANSPORTER_CHIEF:
                 getPlayer().setCrewMember(crewNumber, new TransporterChief(this, color));
                 break;
             default:
@@ -1291,15 +1291,13 @@ public class DataGame implements Constants, Serializable{
                 inspirationPointsEarned++;
             }
             else{
-                room = alien.getRoom().chooseClosestRoom(alien.getRoom().getClosestRooms());
+                room = alien.getRoom().chooseClosestRoom();
                 
                 //MOVE ALIEN
 
                 if(room != null){
                     alien.enterRoom(room);
                     movedAliensCount[room.getId()-1]++;
-                }else{
-                    System.out.println("ROOM NOT FOUND 404");
                 }
 
 

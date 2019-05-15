@@ -141,15 +141,11 @@ public class Room implements Serializable, Constants{
         trapInside = null;
     }
     
-    public Room chooseClosestRoom(List <Room> nextClosestRooms){
+    public Room chooseClosestRoom(){
+        if(!this.getMembersInside().isEmpty())
+            return null;
         
-        Room room = chooseClosestRoom_Algorithm();
-        if(room != null)
-            System.out.println("Quarto com " + room.getMembersInside().size() + " membros");
-        else
-            System.out.println("Não encontrado");
-        
-        return room;
+        return chooseClosestRoom_Algorithm();
     }
     
     public Room chooseClosestRoom_Algorithm(){
@@ -160,12 +156,8 @@ public class Room implements Serializable, Constants{
         toBeSeen.add(this);
         
         while(alreadySeen.size() < NUM_ROOMS){
-            System.out.println("alreadySeen size: " + alreadySeen.size());
-            
             auxRoom = toBeSeen.poll();
             alreadySeen.add(auxRoom);
-            
-            System.out.println("Quarto a ser visto: " + auxRoom.getName());
             
             if(!auxRoom.getMembersInside().isEmpty() && !auxRoom.getIsSealed())
                 break;
@@ -184,10 +176,8 @@ public class Room implements Serializable, Constants{
             for(int i = 0; i < alreadySeen.size(); i++){
                 if(auxRoom.getClosestRooms().contains(alreadySeen.get(i))){
                     if(alreadySeen.get(i) == this){
-                        System.out.println("Quarto é vizinho do quarto atual... A retornar o quarto: " + auxRoom.getName() );
                         return auxRoom;
                     }
-                    System.out.println("Vizinho de: " + auxRoom.getName() + " encontrado: " + alreadySeen.get(i).getName());
                     auxRoom = alreadySeen.get(i);
                     break;
                 }

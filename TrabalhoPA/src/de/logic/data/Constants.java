@@ -58,5 +58,16 @@ public interface Constants {
     public static final int ORGANIC_TRAP = 1;
     public static final int PARTICLE_TRAP = 2;
     
-    
+    public static final int CAPTAIN = 1;
+    public static final int COMMANDER = 2;
+    public static final int COOMS_OFFICER = 3;
+    public static final int DOCTOR = 4;
+    public static final int ENGINEER = 5;
+    public static final int MORAL_OFFICER = 6;
+    public static final int NAVIGATION_OFFICER = 7;
+    public static final int RED_SHIRT = 8;
+    public static final int SCIENCE_OFFICER = 9;
+    public static final int SECURITY_OFFICER = 10;
+    public static final int SHUTTLE_PILOT = 11;
+    public static final int TRANSPORTER_CHIEF = 12;
 }
