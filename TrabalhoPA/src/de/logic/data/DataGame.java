@@ -330,13 +330,19 @@ public class DataGame implements Constants, Serializable{
     }
     
     public void swapActiveCrewMember(){
+        if(this.getPlayer().getCrewMember(activeCrewMember-1) instanceof RedShirt && 
+                !((RedShirt)this.getPlayer().getCrewMember(activeCrewMember-1)).isAlive() )
+            return;
+            
         if(++activeCrewMember > NUM_CREW_MEMBERS)
             activeCrewMember = 1;
+    }
+    
+    public void swapActiveCrewMember(int index){
+        //Validate RedShirt sacrifice
         
-        if(this.getPlayer().getCrewMember(activeCrewMember-1) instanceof RedShirt && 
-                !((RedShirt)this.getPlayer().getCrewMember(activeCrewMember-1)).isAlive() ){
-            swapActiveCrewMember();
-        }
+        if(index >= 0 && index < NUM_CREW_MEMBERS)
+            activeCrewMember = index;
     }
     
     public boolean sacrificeCrewMember(){

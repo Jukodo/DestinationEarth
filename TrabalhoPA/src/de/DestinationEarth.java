@@ -314,6 +314,10 @@ public class DestinationEarth implements Serializable{
         setState(getState().swapActiveCrewMember());
     }
     
+    public void swapActiveCrewMember(int index){
+        setState(getState().swapActiveCrewMember(index));
+    }
+    
     public void rollDice(){
         setState(getState().rollDice());
     }
