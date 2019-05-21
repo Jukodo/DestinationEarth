@@ -3,10 +3,13 @@ package test.Main13_Menu;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -66,11 +69,40 @@ public class Main13 extends Application{
         /*Basically can't click
         pasteText.setDisable(true);*/
         editMenu.getItems().add(pasteText);
+        
+        //Options Menu
+        Menu helpMenu = new Menu("_Help");
+            //Show Lines
+        CheckMenuItem showLines = new CheckMenuItem("Show Line Numbers");
+        showLines.setOnAction(e -> {
+            if(showLines.isSelected())
+                System.out.println("Show line numbers...");
+            else
+                System.out.println("Dont show line numbers");
+        });
+        showLines.setSelected(true);
+        helpMenu.getItems().add(showLines);
+        
+        //Difficulty Radio Menu
+        Menu difficultyMenu = new Menu("_Difficulty");
+        ToggleGroup difficultyToggle = new ToggleGroup();
+            //Easy
+        RadioMenuItem easyRadio = new RadioMenuItem("Easy");
+            //Medium
+        RadioMenuItem mediumRadio = new RadioMenuItem("Medium");
+            //Hard
+        RadioMenuItem hardRadio = new RadioMenuItem("Hard");
+        
+        easyRadio.setToggleGroup(difficultyToggle);
+        mediumRadio.setToggleGroup(difficultyToggle);
+        hardRadio.setToggleGroup(difficultyToggle);
+        
+        difficultyMenu.getItems().addAll(easyRadio, mediumRadio, hardRadio);
         /*Menu Items Creation END*/
         
         //Main Menu Bar
         MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(fileMenu, editMenu);
+        menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu, difficultyMenu);
         
         layout = new BorderPane();
         layout.setTop(menuBar);
