@@ -2,8 +2,6 @@ package de.ui.text;
 
 import de.DestinationEarth;
 import static de.logic.data.Constants.*;
-import de.logic.data.OrganicDetonator;
-import de.logic.data.ParticleDispenser;
 import de.logic.data.members.ScienceOfficer;
 import de.logic.states.*;
 import java.io.FileNotFoundException;

@@ -1,6 +1,8 @@
 package de.logic.data;
 
 public interface Constants {
+    public static final String GAME_TITLE = "Destination Earth";
+    
     public static final int NUM_TURNS = 13;
     public static final int NUM_ROOMS = 12;
     public static final int NUM_CREW_MEMBERS = 2;
@@ -70,4 +72,27 @@ public interface Constants {
     public static final int SECURITY_OFFICER = 10;
     public static final int SHUTTLE_PILOT = 11;
     public static final int TRANSPORTER_CHIEF = 12;
+
+    //GUI
+    public static final int WINDOW_X = 1280;
+    public static final int WINDOW_Y = 720;
+    
+    public static final int NUM_SCENES = 9;
+    public static final int SCENE_BEGINNING = 0;
+        public static final int STATE_INITIAL = 0;
+        public static final int STATE_PLAY = 1;
+        public static final int STATE_RULES = 2;
+        public static final int STATE_NEW_GAME = 3;
+    public static final int SCENE_CREWSELECTION = 1;
+    public static final int SCENE_CREWPLACEMENT = 2;
+    public static final int SCENE_JOURNEYSELECTION = 3;
+    public static final int SCENE_JOURNEYPHASE = 4;
+    public static final int SCENE_RESTPHASE = 5;
+    public static final int SCENE_CREWPHASE = 6;
+    public static final int SCENE_ALIENPHASE = 7;
+    public static final int SCENE_GAMEOVER = 8;
+    
+    //FirePropertyChange
+    public static final String FPC_SWAP_SCENE = "SwapScene";
+    public static final String FPC_CLOSE_WINDOW = "CloseWindow";
 }
