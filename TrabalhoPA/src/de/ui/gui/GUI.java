@@ -2,7 +2,7 @@ package de.ui.gui;
 
 import de.DestinationEarth;
 import de.logic.data.Constants;
-import de.ui.gui.Scenes.Beginning_layout;
+import de.ui.gui.Scenes.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
@@ -33,12 +33,12 @@ public class GUI extends Application implements Constants, PropertyChangeListene
         
         initScenes();
         
-        setScene(SCENE_BEGINNING);
+        swapScene(SCENE_BEGINNING);
         mainWindow.show();
     }
     
-    public boolean setScene(int swapTo){
-        System.out.println("Swapped to " + swapTo + " aka: " + scenes.get(swapTo).getClass().toString());
+    public boolean swapScene(int swapTo){
+        System.out.println("Swapped to " + swapTo + " aka: " + SCENE[swapTo]);
         mainWindow.setScene(scenes.get(swapTo));
         return true;
     }
@@ -54,10 +54,13 @@ public class GUI extends Application implements Constants, PropertyChangeListene
                     tempScene = new Scene(new Beginning_layout(observableModel));
                     break;
                 case SCENE_CREWSELECTION:
+                    tempScene = new Scene(new CrewSelection_layout(observableModel));
                     break;
                 case SCENE_CREWPLACEMENT:
+                    tempScene = new Scene(new CrewPlacement_layout(observableModel));
                     break;
                 case SCENE_JOURNEYSELECTION:
+                    tempScene = new Scene(new JourneySelection_layout(observableModel));
                     break;
                 case SCENE_JOURNEYPHASE:
                     break;
@@ -82,10 +85,10 @@ public class GUI extends Application implements Constants, PropertyChangeListene
         System.out.println("PropertyChange Captured");
         switch(evt.getPropertyName()){
             case FPC_SWAP_SCENE:
-                System.out.println("FPC_SWAP_SCENE fired!");
+                swapScene((int) evt.getOldValue());
                 break;
             case FPC_CLOSE_WINDOW:
-                System.out.println("FPC_CLOSE_WINDOW fired!");
+                mainWindow.close();
                 break;
         }
     }

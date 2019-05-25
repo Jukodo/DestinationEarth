@@ -72,6 +72,8 @@ public interface Constants {
     public static final int SECURITY_OFFICER = 10;
     public static final int SHUTTLE_PILOT = 11;
     public static final int TRANSPORTER_CHIEF = 12;
+    public static final String[] CREWMEMBER_TYPES = {"Captain", "Commander", "Cooms Officer", "Doctor", "Engineer", "Moral Officer", "Navigation Officer",
+                                                     "Red Shirt", "Science Officer", "Security Officer", "Shuttle Pilot", "Transporter Chief"};
 
     //GUI
     public static final int WINDOW_X = 1280;
@@ -84,6 +86,8 @@ public interface Constants {
         public static final int STATE_RULES = 2;
         public static final int STATE_NEW_GAME = 3;
     public static final int SCENE_CREWSELECTION = 1;
+        public static final int CREWMEMBER_TYPES_PER_LINE = 3;
+        public static final int CREWMEMBER_TYPES_MAX_X = ((30 * WINDOW_X) / 100); //30%
     public static final int SCENE_CREWPLACEMENT = 2;
     public static final int SCENE_JOURNEYSELECTION = 3;
     public static final int SCENE_JOURNEYPHASE = 4;
@@ -91,6 +95,18 @@ public interface Constants {
     public static final int SCENE_CREWPHASE = 6;
     public static final int SCENE_ALIENPHASE = 7;
     public static final int SCENE_GAMEOVER = 8;
+    /*Remove later*/public static final String[] SCENE = {"SCENE_BEGINNING", "SCENE_CREWSELECTION", "SCENE_CREWPLACEMENT", 
+            "SCENE_JOURNEYSELECTION", "SCENE_JOURNEYPHASE", "SCENE_RESTPHASE", "SCENE_CREWPHASE", "SCENE_ALIENPHASE", "SCENE_GAMEOVER"};
+    
+    public static final int STATE_BAR_Y = ((5 * WINDOW_Y) / 100);//5%
+    public static final int STATE_BAR_PREGAME = 0;
+    public static final int STATE_BAR_INGAME = 1;
+    public static final String[] STATE_BAR_PREGAME_STATES = {"Crew Selection", "Crew Placement", "Journey Selection"};
+    public static final String[] STATE_BAR_INGAME_STATES = {"Journey Phase", "Rest/Crew Phase", "Alien Phase"};
+    
+    public static final int CREWMEMBER_BAR_Y = ((7 * WINDOW_Y) / 100);//7%
+    
+    public static final int INSIDE_PADDING = 10;
     
     //FirePropertyChange
     public static final String FPC_SWAP_SCENE = "SwapScene";

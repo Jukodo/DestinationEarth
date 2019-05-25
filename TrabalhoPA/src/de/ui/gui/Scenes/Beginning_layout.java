@@ -20,31 +20,34 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class Beginning_layout extends HBox implements Constants{
-    ObservableModel observableModel;
+    private ObservableModel observableModel;
     
-    //Game title label
-    Label gameTitle;
+    //Game title container
+    private VBox titleContainer;
+    private Label gameTitle;
     
-    //Buttons
-    Button btn_PlayGame;
-    Button btn_ShowRules;
-    Button btn_QuitGame;
-    Button btn_NewGame;
-    Button btn_LoadGame;
-    Button btn_StartGame;
-    Button btn_GoBack_play;
-    Button btn_GoBack_newGame;
+    //Initial Container
+    private VBox initialContainer;
+    private Button btn_PlayGame;
+    private Button btn_ShowRules;
+    private Button btn_QuitGame;
     
-    //Player name field
-    TextField tf_PlayerName;
+    //Play Game Container
+    private VBox playContainer;
+    private Button btn_NewGame;
+    private Button btn_LoadGame;
+    private Button btn_GoBack_play;
     
-    //Containers
-    VBox titleContainer;
-    VBox initialContainer;
-    VBox playContainer;
-    VBox newGameContainer;
-    VBox rulesContainer;
-    Region activeContainer;
+    //New Game Container
+    private VBox newGameContainer;
+    private TextField tf_PlayerName;
+    private Button btn_StartGame;
+    private Button btn_GoBack_newGame;
+    
+    //Rules Container
+    private VBox rulesContainer;
+    
+    //Load Game Container
 
     public Beginning_layout(ObservableModel observableModel){
         this.observableModel = observableModel;
@@ -116,6 +119,7 @@ public class Beginning_layout extends HBox implements Constants{
     
     private void setComponentsHandlers(){
         btn_PlayGame.setOnAction(e -> {
+            System.out.println("btn_PlayGame clicked");
             setContainer(playContainer);
         });
         btn_ShowRules.setOnAction(e -> {
@@ -137,9 +141,11 @@ public class Beginning_layout extends HBox implements Constants{
             setContainer(playContainer);
         });
         btn_StartGame.setOnAction(e -> {
+            System.out.println("Start Game clicked");
             if(tf_PlayerName.getText().isEmpty())
                 tf_PlayerName.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.EMPTY)));
             observableModel.startGame(tf_PlayerName.getText());
+            observableModel.swapScene(SCENE_CREWSELECTION);
         });
     }
 }

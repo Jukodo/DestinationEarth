@@ -22,12 +22,10 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     
     //Methods
     public void closeWindow(){
-        System.out.println("Firing FPC_CLOSE_WINDOW");
         firePropertyChange(FPC_CLOSE_WINDOW, null, null);
     }
     
     public void swapScene(int swapTo){
-        System.out.println("Firing FPC_SWAP_SCENE");
         firePropertyChange(FPC_SWAP_SCENE, swapTo, null);
     }
     
