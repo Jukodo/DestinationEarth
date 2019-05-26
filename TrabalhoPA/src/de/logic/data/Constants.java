@@ -1,5 +1,7 @@
 package de.logic.data;
 
+import javafx.scene.paint.Color;
+
 public interface Constants {
     public static final String GAME_TITLE = "Destination Earth";
     
@@ -79,6 +81,8 @@ public interface Constants {
     public static final int WINDOW_X = 1280;
     public static final int WINDOW_Y = 720;
     
+    public static final Color BACKGROUND_COLOR = Color.rgb(37, 37, 37);
+    
     public static final int NUM_SCENES = 9;
     public static final int SCENE_BEGINNING = 0;
         public static final int STATE_INITIAL = 0;
@@ -87,7 +91,9 @@ public interface Constants {
         public static final int STATE_NEW_GAME = 3;
     public static final int SCENE_CREWSELECTION = 1;
         public static final int CREWMEMBER_TYPES_PER_LINE = 3;
-        public static final int CREWMEMBER_TYPES_MAX_X = ((30 * WINDOW_X) / 100); //30%
+        public static final int CREWMEMBER_TYPES_X = 30; //30%
+        public static final int CREWMEMBER_TYPES_X_PER_TYPE = (((CREWMEMBER_TYPES_X * WINDOW_X) / 100) / CREWMEMBER_TYPES_PER_LINE);
+        public static final int CREWMEMBER_TYPES_Y_PER_TYPE = (((30 * WINDOW_X) / 100) / CREWMEMBER_TYPES_PER_LINE); //30%
     public static final int SCENE_CREWPLACEMENT = 2;
     public static final int SCENE_JOURNEYSELECTION = 3;
     public static final int SCENE_JOURNEYPHASE = 4;
@@ -105,6 +111,8 @@ public interface Constants {
     public static final String[] STATE_BAR_INGAME_STATES = {"Journey Phase", "Rest/Crew Phase", "Alien Phase"};
     
     public static final int CREWMEMBER_BAR_Y = ((7 * WINDOW_Y) / 100);//7%
+    
+    public static final int CREWMEMBER_TYPE_INFO_Y = ((70 * WINDOW_Y) / 100);//5%
     
     public static final int INSIDE_PADDING = 10;
     
