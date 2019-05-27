@@ -1,12 +1,11 @@
 package de.ui.gui.Scenes;
 
 import de.logic.data.Constants;
-import de.ui.gui.ObservableModel;
+import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
-import de.ui.gui.Scenes.Components.CrewMemberType;
-import de.ui.gui.Scenes.Components.CrewMemberTypeInfo;
+import de.ui.gui.Scenes.Components.CrewClassList;
+import de.ui.gui.Scenes.Components.CrewClassInfo;
 import de.ui.gui.Scenes.Components.StateBar;
-import java.util.HashMap;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,36 +13,35 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class CrewSelection_layout extends VBox implements Constants{
     private ObservableModel observableModel;
     
-    //Root Container
+    //Root Container (Everywhere)
     private StateBar stateBarContainer;
     private BorderPane interactionContainer;
     
-    //Top Container
+    //Top Container (Everywhere)
     private CrewBar topContainer;
     
-    //Left Container
-    private GridPane leftContainer;
-    private HashMap<Integer, CrewMemberType> crewMemberTypes;
+    //Left Container (CrewSelection only)
+    private VBox leftContainer;
+    private CrewClassList crewContainer;
     
     //Right Container
     private VBox rightContainer;
-    private CrewMemberTypeInfo infoContainer;
+    private CrewClassInfo infoContainer;
+    
+    //Bottom Container
     private HBox buttonContainer;
         private Button quitBtn;
         private Button lockInBtn;
     
     public CrewSelection_layout(ObservableModel observableModel) {
         this.observableModel = observableModel;
-        crewMemberTypes = new HashMap<>();
         
         setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
         
@@ -57,62 +55,48 @@ public class CrewSelection_layout extends VBox implements Constants{
     }
     
     private void initInteractionContainer(){
-        //Top
+        //Top (Crew Bar)
         topContainer = new CrewBar(observableModel);
         
         interactionContainer.setTop(topContainer);
         
-        //Left
-        leftContainer = new GridPane();
-        
+        //Left (Class List)
+        leftContainer = new VBox();
         leftContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, 0));
-        leftContainer.setMinWidth(CREWMEMBER_TYPES_X);
         
-        for(int i = 0; i < CREWMEMBER_TYPES.length; i++){
-            crewMemberTypes.put(i, new CrewMemberType(i));
-            processCrewMemberTypes(i);
-        }
+        crewContainer = new CrewClassList(observableModel);
+        
+        leftContainer.getChildren().addAll(crewContainer);
         
         interactionContainer.setLeft(leftContainer);
         
-        //Right
+        //Right (Class Info + Buttons)
         rightContainer = new VBox();
         
         rightContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, INSIDE_PADDING));
-        rightContainer.setAlignment(Pos.TOP_RIGHT);
         rightContainer.setPrefWidth(((68 * WINDOW_X) / 100));
         rightContainer.setPrefHeight(WINDOW_Y);
         
-        infoContainer = new CrewMemberTypeInfo(observableModel);
-        buttonContainer = new HBox();
+        infoContainer = new CrewClassInfo(observableModel);
+        
+        rightContainer.getChildren().addAll(infoContainer);
+        
+        interactionContainer.setRight(rightContainer);
+        
+        //Bottom
+        
+        buttonContainer = new HBox(INSIDE_PADDING);
         quitBtn = new Button("Quit");
         lockInBtn = new Button("Lock In");
         
         setButtonHandles();
 
-        buttonContainer.setSpacing(INSIDE_PADDING);
         buttonContainer.setAlignment(Pos.BOTTOM_RIGHT);
         buttonContainer.getChildren().addAll(quitBtn, lockInBtn);
         
-        Pane spacer = new Pane();
-        VBox.setVgrow(spacer, Priority.ALWAYS);
-        spacer.setMinSize(10, 1);
-        
-        rightContainer.getChildren().addAll(infoContainer, spacer, buttonContainer);
-        
-        interactionContainer.setRight(rightContainer);
+        interactionContainer.setBottom(buttonContainer);
     }
     
-    private void processCrewMemberTypes(int index){
-        GridPane.setConstraints(crewMemberTypes.get(index), index % CREWMEMBER_TYPES_PER_LINE
-                                                          , Math.floorDiv(index, CREWMEMBER_TYPES_PER_LINE/*3 elements per line*/));
-        
-        crewMemberTypes.get(index).setOnMouseClicked(e -> {
-            System.out.println("Clicked on " + CREWMEMBER_TYPES[index]);
-        });
-        
-        leftContainer.getChildren().add(crewMemberTypes.get(index));
-    }
     
     private void setButtonHandles(){
         quitBtn.setOnAction(e -> {

@@ -16,13 +16,13 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class CrewMemberType extends VBox implements Constants{
+public class CrewClass extends VBox implements Constants{
 
     int type;
     private ImageView typeAvatar;
     private Label typeName;
     
-    public CrewMemberType(int type) {
+    public CrewClass(int type) {
         this.type = type;
         initCrewMemberTypeContainer();
     }

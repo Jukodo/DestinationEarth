@@ -1,4 +1,4 @@
-package de.ui.gui;
+package de.logic.data;
 
 import de.DestinationEarth;
 import de.logic.data.Constants;
@@ -17,6 +17,10 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     //Getters
     public CrewMember[] getCrewMembers(){
         return game.getPlayer().getCrew();
+    }
+    
+    public String[] getJourneyTracker(){
+        return game.getJourneyTracker();
     }
     
     

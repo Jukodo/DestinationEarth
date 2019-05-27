@@ -1,5 +1,6 @@
 package de.ui.gui;
 
+import de.logic.data.ObservableModel;
 import de.DestinationEarth;
 import de.logic.data.Constants;
 import de.ui.gui.Scenes.*;
@@ -56,7 +57,7 @@ public class GUI extends Application implements Constants, PropertyChangeListene
                 case SCENE_CREWSELECTION:
                     tempScene = new Scene(new CrewSelection_layout(observableModel));
                     break;
-                case SCENE_CREWPLACEMENT:
+                /*case SCENE_CREWPLACEMENT:
                     tempScene = new Scene(new CrewPlacement_layout(observableModel));
                     break;
                 case SCENE_JOURNEYSELECTION:
@@ -73,7 +74,7 @@ public class GUI extends Application implements Constants, PropertyChangeListene
                     break;
                 case SCENE_ALIENPHASE:
                     tempScene = new Scene(new AlienPhase_layout(observableModel));
-                    break;
+                    break;*/
                 default:
                     continue;
             }

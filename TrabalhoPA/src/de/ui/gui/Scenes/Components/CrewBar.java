@@ -1,7 +1,7 @@
 package de.ui.gui.Scenes.Components;
 
 import de.logic.data.Constants;
-import de.ui.gui.ObservableModel;
+import de.logic.data.ObservableModel;
 import java.util.HashMap;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;

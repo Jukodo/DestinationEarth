@@ -88,6 +88,10 @@ public class DestinationEarth implements Serializable{
         return dataGame.getActiveNewAlien();
     }
     
+    public String[] getJourneyTracker(){
+        return dataGame.getJourneyTracker();
+    }
+    
     public String getJourneyTrackerTurn(int turn){
         return dataGame.getJourneyTrackerTurn(turn);
     }

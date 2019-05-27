@@ -1,7 +1,7 @@
 package de.ui.gui.Scenes.Components;
 
 import de.logic.data.Constants;
-import de.ui.gui.ObservableModel;
+import de.logic.data.ObservableModel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

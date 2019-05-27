@@ -3,11 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/logic/data/Constants.java</file>
-            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/CrewSelection_layout.java</file>
-            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/Components/CrewMemberTypeInfo.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/JourneySelection_layout.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/JourneyPhase_layout.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/CrewPlacement_layout.java</file>
             <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/GUI.java</file>
-            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/Beginning_layout.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/Components/CrewBar.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/Components/JourneyBar.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/RestPhase_layout.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/AlienPhase_layout.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/CrewSelection_layout.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/Components/CrewClassInfo.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/CrewPhase_layout.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/Components/JourneyEditor.java</file>
+            <file>file:/C:/Users/Jukodo/Documents/DestinationEarth/TrabalhoPA/src/de/ui/gui/Scenes/Components/CrewMemberTab.java</file>
         </group>
     </open-files>
 </project-private>
