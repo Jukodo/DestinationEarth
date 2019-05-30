@@ -2,6 +2,8 @@ package de.ui.gui.Scenes.Components;
 
 import de.logic.data.Constants;
 import de.logic.data.ObservableModel;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,7 +19,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class JourneyDisplay extends VBox implements Constants{
+public class JourneyDisplay extends VBox implements Constants, PropertyChangeListener{
     private ObservableModel observableModel;
     private String[] journeyTracker;
     private HashMap<Integer, VBox> journeyEvents;
@@ -26,6 +28,9 @@ public class JourneyDisplay extends VBox implements Constants{
     
     public JourneyDisplay(ObservableModel observableModel, boolean interactable){
         this.observableModel = observableModel;
+        if(interactable)
+            observableModel.addPropertyChangeListener(FPC_JOURNEY_DISPLAY, this);
+        
         this.interactable = interactable;
         
         setPrefHeight(INTERACTION_Y);
@@ -41,6 +46,9 @@ public class JourneyDisplay extends VBox implements Constants{
             journeyEvents.put(i, journeyEvent);
             getChildren().add(journeyEvent);
         }
+        
+        if(interactable)
+            setComponentsHandlers();
     }
     
     private void processJourneyEvents(int index){
@@ -64,9 +72,15 @@ public class JourneyDisplay extends VBox implements Constants{
             event.setText(index + "");
         
         journeyEvent.getChildren().add(event);
-        
-        if(interactable)
-            setComponentsHandlers();
+    }
+    
+    private void setComponentsHandlers(){
+        for(int i = 1; i <= NUM_TURNS; i++){
+            final int fi = i;
+            journeyEvents.get(i).setOnMouseClicked(e -> {
+                observableModel.swapActiveJourneyTurn(fi);
+            });
+        }
     }
     
     private void updateJourneyEvents(){
@@ -80,8 +94,17 @@ public class JourneyDisplay extends VBox implements Constants{
                 ((Label) label).setText(journeyTracker[i-1]);
         }
     }
-    
-    private void setComponentsHandlers(){
-        
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if(evt.getPropertyName().equals(FPC_JOURNEY_DISPLAY)){
+            if(Integer.parseInt(evt.getNewValue().toString()) == ACTIVE){
+                ((VBox) journeyEvents.get(Integer.parseInt(evt.getOldValue().toString())-1)).
+                    setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+            }else{
+                ((VBox) journeyEvents.get(Integer.parseInt(evt.getOldValue().toString())-1)).
+                    setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+        }
     }
 }

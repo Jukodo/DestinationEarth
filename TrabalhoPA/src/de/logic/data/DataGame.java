@@ -21,6 +21,8 @@ public class DataGame implements Constants, Serializable{
     private List<Alien> newAliens;
     private int activeNewAlien;
     private boolean specialSpawn;
+    
+    private int activeJourneyTurn;
    
     public DataGame() {
         logs = new ArrayList <> ();
@@ -32,6 +34,7 @@ public class DataGame implements Constants, Serializable{
         
         activeCrewMember = 1;
         activeNewAlien = 1;
+        activeJourneyTurn = 0;
         
         newAliens = new ArrayList<>();
         
@@ -124,6 +127,10 @@ public class DataGame implements Constants, Serializable{
     
     public int getActiveNewAlien() {
         return activeNewAlien;
+    }
+    
+    public int getActiveJourneyTurn() {
+        return activeJourneyTurn;
     }
 
     public List<Alien> getNewAliens() {
@@ -355,6 +362,12 @@ public class DataGame implements Constants, Serializable{
             
         if(++activeCrewMember > NUM_CREW_MEMBERS)
             activeCrewMember = 1;
+        
+        return true;
+    }
+    
+    public boolean swapActiveJourneyTurn(int index){
+        activeJourneyTurn = index;
         
         return true;
     }

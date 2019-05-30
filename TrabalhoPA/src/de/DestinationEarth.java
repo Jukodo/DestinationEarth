@@ -4,7 +4,6 @@ import de.logic.data.Alien;
 import de.logic.data.DataGame;
 import de.logic.data.Player;
 import de.logic.data.Ship;
-import de.logic.data.Trap;
 import de.logic.states.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -70,6 +69,10 @@ public class DestinationEarth implements Serializable{
     
     public int getActiveCrewMember(){
         return dataGame.getActiveCrewMember();
+    }
+    
+    public int getActiveJourneyTurn(){
+        return dataGame.getActiveJourneyTurn();
     }
     
     public int getAvailableActions_Quant(){
@@ -327,6 +330,10 @@ public class DestinationEarth implements Serializable{
     
     public boolean swapActiveCrewMember(int index){
         return getState().swapActiveCrewMember(index);
+    }
+    
+    public boolean swapActiveJourneyTurn(int index){
+        return getState().swapActiveJourneyTurn(index);
     }
     
     public void rollDice(){

@@ -50,6 +50,21 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         }
     }
     
+    public void swapActiveJourneyTurn(int index){
+        if(game.getActiveJourneyTurn() == index)
+            return;
+        
+        if(game.swapActiveJourneyTurn(index)){
+            for(int i = 1; i <= NUM_TURNS; i++){
+                if(game.getActiveJourneyTurn() == i){
+                    firePropertyChange(FPC_JOURNEY_DISPLAY, i+1, ACTIVE);
+                }else{
+                    firePropertyChange(FPC_JOURNEY_DISPLAY, i+1, INACTIVE);
+                }
+            }
+        }
+    }
+    
     public void startGame(String playerName){
         game.currentState();
         game.start(playerName);

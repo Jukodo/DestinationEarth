@@ -7,16 +7,15 @@ import de.ui.gui.Scenes.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
-import java.util.HashSet;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class GUI extends Application implements Constants, PropertyChangeListener{
-    ObservableModel observableModel = new ObservableModel(new DestinationEarth());
+    private ObservableModel observableModel = new ObservableModel(new DestinationEarth());
     
-    Stage mainWindow;
-    HashMap<Integer, Scene> scenes;
+    private Stage mainWindow;
+    private HashMap<Integer, Scene> scenes;
     
     public static void main(String[] args) {
         launch(args);

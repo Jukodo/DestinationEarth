@@ -65,6 +65,7 @@ public interface IStates extends Serializable {
     void currentState();
     boolean swapActiveCrewMember();
     boolean swapActiveCrewMember(int index);
+    boolean swapActiveJourneyTurn(int index);
     IStates rollDice();
     IStates setDieRoll(int dieToRoll, int value);
     IStates confirmRoll();

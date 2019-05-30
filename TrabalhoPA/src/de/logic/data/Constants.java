@@ -146,4 +146,5 @@ public interface Constants {
     public static final String FPC_SWAP_SCENE = "SwapScene";
     public static final String FPC_CLOSE_WINDOW = "CloseWindow";
     public static final String FPC_CREW_TAB = "CrewTab";
+    public static final String FPC_JOURNEY_DISPLAY = "JourneyDisplay";
 }
