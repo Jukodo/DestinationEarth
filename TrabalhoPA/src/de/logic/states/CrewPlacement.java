@@ -29,4 +29,9 @@ public class CrewPlacement extends StateAdapter{
         else
             return this;//Add Log - Missing crew member(s) location(s)
     }
+    
+    @Override
+    public void currentState(){
+        System.out.println("CrewPlacement");
+    }
 }

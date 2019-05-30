@@ -14,4 +14,9 @@ public class JourneyPhase extends StateAdapter{
         this.getGame().nextTurn();
         return new ScanningPhase(this.getGame());
     }
+    
+    @Override
+    public void currentState(){
+        System.out.println("JourneyPhase");
+    }
 }

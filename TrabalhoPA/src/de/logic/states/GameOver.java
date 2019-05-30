@@ -13,4 +13,8 @@ public class GameOver extends StateAdapter{
         return new Beginning(this.getGame());
     }
     
+    @Override
+    public void currentState(){
+        System.out.println("GameOver");
+    }
 }

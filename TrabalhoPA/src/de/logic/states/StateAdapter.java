@@ -22,6 +22,11 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     public IStates start(String playerName) {
         return this;
     }
+
+    @Override
+    public void currentState() {
+        return;
+    }
     
     @Override
     public IStates swapActiveCrewMember(){

@@ -38,6 +38,9 @@ public class CrewClassInfo extends VBox implements Constants{
         setPadding(new Insets(INSIDE_PADDING));
         setSpacing(INSIDE_PADDING);
         
+        setPrefWidth(CREW_CLASS_INFO_X);
+        setPrefHeight(INTERACTION_Y);
+        
         initCrewClassInfo();
     }
     

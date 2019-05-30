@@ -20,6 +20,8 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public String[] getJourneyTracker(){
+        System.out.println(game.getJourneyTracker()[1]);
+        
         return game.getJourneyTracker();
     }
     
@@ -34,7 +36,10 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public void startGame(String playerName){
-        //game.start(playerName);
+        game.currentState();
+        game.start(playerName);
+        System.out.println("Game Started");
+        game.currentState();
     }
     
     public void changeActive(int index){

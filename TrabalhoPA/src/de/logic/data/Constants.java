@@ -85,15 +85,7 @@ public interface Constants {
     
     public static final int NUM_SCENES = 9;
     public static final int SCENE_BEGINNING = 0;
-        public static final int STATE_INITIAL = 0;
-        public static final int STATE_PLAY = 1;
-        public static final int STATE_RULES = 2;
-        public static final int STATE_NEW_GAME = 3;
     public static final int SCENE_CREWSELECTION = 1;
-        public static final int CREWMEMBER_TYPES_PER_LINE = 3;
-        public static final int CREWMEMBER_TYPES_X = 30; //30%
-        public static final int CREWMEMBER_TYPES_X_PER_TYPE = (((CREWMEMBER_TYPES_X * WINDOW_X) / 100) / CREWMEMBER_TYPES_PER_LINE);
-        public static final int CREWMEMBER_TYPES_Y_PER_TYPE = (((30 * WINDOW_X) / 100) / CREWMEMBER_TYPES_PER_LINE); //30%
     public static final int SCENE_CREWPLACEMENT = 2;
     public static final int SCENE_JOURNEYSELECTION = 3;
     public static final int SCENE_JOURNEYPHASE = 4;
@@ -104,15 +96,46 @@ public interface Constants {
     /*Remove later*/public static final String[] SCENE = {"SCENE_BEGINNING", "SCENE_CREWSELECTION", "SCENE_CREWPLACEMENT", 
             "SCENE_JOURNEYSELECTION", "SCENE_JOURNEYPHASE", "SCENE_RESTPHASE", "SCENE_CREWPHASE", "SCENE_ALIENPHASE", "SCENE_GAMEOVER"};
     
-    public static final int STATE_BAR_Y = ((5 * WINDOW_Y) / 100);//5%
+    //Used on Beginning_layout
+    public static final int STATE_INITIAL = 0;
+    public static final int STATE_PLAY = 1;
+    public static final int STATE_RULES = 2;
+    public static final int STATE_NEW_GAME = 3;
+    
     public static final int STATE_BAR_PREGAME = 0;
     public static final int STATE_BAR_INGAME = 1;
     public static final String[] STATE_BAR_PREGAME_STATES = {"Crew Selection", "Crew Placement", "Journey Selection"};
     public static final String[] STATE_BAR_INGAME_STATES = {"Journey Phase", "Rest/Crew Phase", "Alien Phase"};
     
-    public static final int CREWMEMBER_BAR_Y = ((7 * WINDOW_Y) / 100);//7%
+    public static final int CREW_CLASS_PER_LINE = 3;
     
-    public static final int CREWMEMBER_TYPE_INFO_Y = ((70 * WINDOW_Y) / 100);//5%
+    
+    //Y Sizes
+    public static final int STATE_BAR_Y = ((5 * WINDOW_Y) / 100);//5%
+    public static final int CREWMEMBER_BAR_Y = ((7 * WINDOW_Y) / 100);//7%
+    public static final int BUTTON_BAR_Y = ((6 * WINDOW_Y) / 100);//6%
+    
+    public static final int INTERACTION_Y = ((77 * WINDOW_Y) / 100);//Every container on interaction gets same height (except button bar)
+    
+    //X Sizes
+    //  Crew Selection
+    public static final int CREW_CLASS_LIST_X = ((30 * WINDOW_X) / 100);//30%
+    public static final int CREW_CLASS_INFO_X = ((int)((67.2 * WINDOW_X) / 100));//70%
+    
+    //  Crew Placement
+    public static final int SHIP_DISPLAY_X = ((30 * WINDOW_X) / 100);//30%
+    public static final int ROOM_SETTING_X = ((70 * WINDOW_X) / 100);//70%
+    
+    //  Journey Selection
+    public static final int JOURNEY_DISPLAY_X = ((3 * WINDOW_X) / 100);//10%
+    //Also has ship (SHIP_DISPLAY_X)
+    public static final int CREW_CLASS_INFO_X_ = ((int)((64.25 * WINDOW_X) / 100));//70%
+    //public static final int JOURNEY_EDITOR_X = ((60 * WINDOW_X) / 100);//60%
+    
+    //Rest of Game Phases
+    //Also has journey (JOURNEY_DISPLAY_X)
+    //Also has ship (SHIP_DISPLAY_X)
+    //Respective Editors
     
     public static final int INSIDE_PADDING = 10;
     

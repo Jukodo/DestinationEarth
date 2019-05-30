@@ -43,4 +43,9 @@ public class JourneySelection extends StateAdapter{
             //Add Log - Journey is invalid
         return this;
     }
+    
+    @Override
+    public void currentState(){
+        System.out.println("JourneySelection");
+    }
 }

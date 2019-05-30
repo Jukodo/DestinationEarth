@@ -42,4 +42,9 @@ public class ScanningPhase extends StateAdapter{
         
         return new CrewPhase(this.getGame());
     }
+    
+    @Override
+    public void currentState(){
+        System.out.println("ScanningPhase");
+    }
 }

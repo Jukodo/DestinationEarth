@@ -1,7 +1,6 @@
 package de.logic.states;
 
 import de.logic.data.DataGame;
-import de.logic.data.Trap;
 
 public class PlaceTrap extends StateAdapter{
     
@@ -15,4 +14,8 @@ public class PlaceTrap extends StateAdapter{
         return new CrewPhase(this.getGame());
     }
     
+    @Override
+    public void currentState(){
+        System.out.println("PlaceTrap");
+    }
 }

@@ -34,4 +34,9 @@ public class CrewSelection extends StateAdapter{
             return new CrewPlacement(this.getGame());
         }
     }
+    
+    @Override
+    public void currentState(){
+        System.out.println("CrewSelection");
+    }
 }

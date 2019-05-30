@@ -3,7 +3,12 @@ package de.ui.gui.Scenes.Components;
 import de.logic.data.Constants;
 import de.logic.data.ObservableModel;
 import java.util.HashMap;
+import javafx.geometry.Insets;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 public class CrewClassList extends GridPane implements Constants{
     private ObservableModel observableModel;
@@ -11,6 +16,10 @@ public class CrewClassList extends GridPane implements Constants{
     
     public CrewClassList(ObservableModel observableModel) {
         this.observableModel = observableModel;
+        
+        setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        setPrefHeight(INTERACTION_Y);
+        setPrefWidth(CREW_CLASS_LIST_X);
         
         initCrewClassList();
     }
@@ -25,8 +34,8 @@ public class CrewClassList extends GridPane implements Constants{
     }
     
     private void processCrewMemberTypes(int index){
-        GridPane.setConstraints(crewMemberTypes.get(index), index % CREWMEMBER_TYPES_PER_LINE
-                                                          , Math.floorDiv(index, CREWMEMBER_TYPES_PER_LINE/*3 elements per line*/));
+        GridPane.setConstraints(crewMemberTypes.get(index), index % CREW_CLASS_PER_LINE
+                                                          , Math.floorDiv(index, CREW_CLASS_PER_LINE/*3 elements per line*/));
         
         crewMemberTypes.get(index).setOnMouseClicked(e -> {
             System.out.println("Clicked on " + CREWMEMBER_TYPES[index]);

@@ -19,4 +19,8 @@ public class Beginning extends StateAdapter{
         return new CrewSelection(this.getGame());
     }
     
+    @Override
+    public void currentState(){
+        System.out.println("Beginning");
+    }
 }

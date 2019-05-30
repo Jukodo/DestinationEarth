@@ -60,4 +60,9 @@ public class RestPhase extends StateAdapter{
     public IStates leaveRestPhase(){
         return new JourneyPhase(this.getGame());
     }
+    
+    @Override
+    public void currentState(){
+        System.out.println("RestPhase");
+    }
 }

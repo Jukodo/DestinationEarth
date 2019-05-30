@@ -5,6 +5,7 @@ import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
 import de.ui.gui.Scenes.Components.CrewClassList;
 import de.ui.gui.Scenes.Components.CrewClassInfo;
+import de.ui.gui.Scenes.Components.ShipDisplay;
 import de.ui.gui.Scenes.Components.StateBar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,10 +34,10 @@ public class CrewSelection_layout extends VBox implements Constants{
     
     //Right Container
     private VBox rightContainer;
-    private CrewClassInfo infoContainer;
+    private CrewClassInfo classInfoContainer;
     
     //Bottom Container
-    private HBox buttonContainer;
+    private HBox buttonBar;
         private Button quitBtn;
         private Button lockInBtn;
     
@@ -62,6 +63,8 @@ public class CrewSelection_layout extends VBox implements Constants{
         
         //Left (Class List)
         leftContainer = new VBox();
+        leftContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        
         leftContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, 0));
         
         crewContainer = new CrewClassList(observableModel);
@@ -72,29 +75,30 @@ public class CrewSelection_layout extends VBox implements Constants{
         
         //Right (Class Info + Buttons)
         rightContainer = new VBox();
+        rightContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
         
         rightContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, INSIDE_PADDING));
-        rightContainer.setPrefWidth(((68 * WINDOW_X) / 100));
-        rightContainer.setPrefHeight(WINDOW_Y);
         
-        infoContainer = new CrewClassInfo(observableModel);
+        classInfoContainer = new CrewClassInfo(observableModel);
         
-        rightContainer.getChildren().addAll(infoContainer);
+        rightContainer.getChildren().addAll(classInfoContainer);
         
         interactionContainer.setRight(rightContainer);
         
         //Bottom
         
-        buttonContainer = new HBox(INSIDE_PADDING);
+        buttonBar = new HBox(INSIDE_PADDING);
+        buttonBar.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
         quitBtn = new Button("Quit");
         lockInBtn = new Button("Lock In");
         
         setButtonHandles();
 
-        buttonContainer.setAlignment(Pos.BOTTOM_RIGHT);
-        buttonContainer.getChildren().addAll(quitBtn, lockInBtn);
+        buttonBar.setPrefHeight(BUTTON_BAR_Y);
+        buttonBar.setAlignment(Pos.BOTTOM_RIGHT);
+        buttonBar.getChildren().addAll(quitBtn, lockInBtn);
         
-        interactionContainer.setBottom(buttonContainer);
+        interactionContainer.setBottom(buttonBar);
     }
     
     

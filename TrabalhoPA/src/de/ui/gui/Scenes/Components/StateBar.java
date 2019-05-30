@@ -35,6 +35,8 @@ public class StateBar extends HBox implements Constants{
             bar_states = STATE_BAR_PREGAME_STATES;
         else{
             activeState -= 3;
+            if(activeState > 1)
+                --activeState;
             bar_states = STATE_BAR_INGAME_STATES;
         }
         

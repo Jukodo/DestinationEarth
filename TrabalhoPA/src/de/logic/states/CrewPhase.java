@@ -1,7 +1,6 @@
 package de.logic.states;
 
 import de.logic.data.DataGame;
-import de.logic.data.Trap;
 
 public class CrewPhase extends StateAdapter{
  
@@ -76,6 +75,11 @@ public class CrewPhase extends StateAdapter{
         }
         
         return new JourneyPhase(this.getGame());
+    }
+    
+    @Override
+    public void currentState(){
+        System.out.println("CrewPhase");
     }
   
 }

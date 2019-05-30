@@ -25,13 +25,13 @@ public class CrewClass extends VBox implements Constants{
     public CrewClass(int type) {
         this.type = type;
         initCrewMemberTypeContainer();
+        
+        setPrefSize(CREW_CLASS_LIST_X/CREW_CLASS_PER_LINE, INTERACTION_Y/(CREWMEMBER_TYPES.length/CREW_CLASS_PER_LINE));
     }
     
     private void initCrewMemberTypeContainer(){
-        setMinSize(CREWMEMBER_TYPES_X_PER_TYPE, CREWMEMBER_TYPES_Y_PER_TYPE);
-        setMaxSize(CREWMEMBER_TYPES_X_PER_TYPE, CREWMEMBER_TYPES_Y_PER_TYPE);
         setAlignment(Pos.CENTER);
-        setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        setBackground(new Background(new BackgroundFill(Color.rgb(type*20, type*15, type*10), CornerRadii.EMPTY, Insets.EMPTY)));
         setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         
         typeAvatar = new ImageView();
