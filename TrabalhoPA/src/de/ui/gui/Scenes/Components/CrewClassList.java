@@ -27,19 +27,15 @@ public class CrewClassList extends GridPane implements Constants{
     private void initCrewClassList(){
         crewMemberTypes = new HashMap<>();
         
-        for(int i = 0; i < CREWMEMBER_TYPES.length; i++){
-            crewMemberTypes.put(i, new CrewClass(i));
+        for(int i = 1; i <= CREWMEMBER_TYPES.length; i++){
+            crewMemberTypes.put(i, new CrewClass(observableModel, i));
             processCrewMemberTypes(i);
         }
     }
     
     private void processCrewMemberTypes(int index){
-        GridPane.setConstraints(crewMemberTypes.get(index), index % CREW_CLASS_PER_LINE
-                                                          , Math.floorDiv(index, CREW_CLASS_PER_LINE/*3 elements per line*/));
-        
-        crewMemberTypes.get(index).setOnMouseClicked(e -> {
-            System.out.println("Clicked on " + CREWMEMBER_TYPES[index]);
-        });
+        GridPane.setConstraints(crewMemberTypes.get(index), (index-1) % CREW_CLASS_PER_LINE
+                                                          , Math.floorDiv((index-1), CREW_CLASS_PER_LINE/*3 elements per line*/));
         
         getChildren().add(crewMemberTypes.get(index));
     }

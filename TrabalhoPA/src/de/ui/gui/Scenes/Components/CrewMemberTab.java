@@ -36,6 +36,7 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
         this.crewMemberIndex = crewMemberIndex;
         
         observableModel.addPropertyChangeListener(FPC_CREW_TAB + crewMemberIndex, this);
+        observableModel.addPropertyChangeListener(FPC_CLASS_SWAPED + crewMemberIndex, this);
         
         setMinSize((WINDOW_X / NUM_CREW_MEMBERS) - INSIDE_PADDING/*Padding Compensation*/ - (2*NUM_CREW_MEMBERS) + (NUM_CREW_MEMBERS - 1)/*Border Compensation*/, CREWMEMBER_BAR_Y);
         setMaxSize((WINDOW_X / NUM_CREW_MEMBERS) - INSIDE_PADDING/*Padding Compensation*/ - (2*NUM_CREW_MEMBERS) + (NUM_CREW_MEMBERS - 1)/*Border Compensation*/, CREWMEMBER_BAR_Y);
@@ -58,7 +59,7 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
         memberAvatar.setFitHeight(35);
         memberAvatar.setFitWidth(35);
         
-        memberName = new Label("Testing"/*GET CREW MEMBER CLASS*/);
+        memberName = new Label("Not selected"/*GET CREW MEMBER CLASS*/);
         memberName.setPadding(new Insets(0, 0, 0, 10));
         avatarNameContainer.getChildren().addAll(memberAvatar, memberName);
         
@@ -97,6 +98,8 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
             }else if(Integer.parseInt(evt.getOldValue().toString()) == INACTIVE){
                 setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
             }
+        }else if(evt.getPropertyName().equals(FPC_CLASS_SWAPED+crewMemberIndex)){
+            memberName.setText(CREWMEMBER_TYPES[Integer.parseInt(evt.getOldValue().toString())-1]);
         }
     }
 }

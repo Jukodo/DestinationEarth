@@ -76,9 +76,12 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         //game.swapActiveCrewMember(index);
     }
     
-    public void changeCrewMember(int index){
-        //Chamar o selectCrewMember
+    public void changeCrewMember(int type){
+        game.selectCrewMember(game.getActiveCrewMember(), type);
         
-        //Desenhar informações na tab do info
+        firePropertyChange(FPC_CLASS_SWAPED, type, null);
+        firePropertyChange(FPC_CLASS_SWAPED+(game.getActiveCrewMember()-1), type, null);
+        
+        //TEST System.out.println(game.getDataGame().crewMemberInfoToString());
     }
 }

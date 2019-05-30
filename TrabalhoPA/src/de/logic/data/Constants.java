@@ -76,6 +76,38 @@ public interface Constants {
     public static final int TRANSPORTER_CHIEF = 12;
     public static final String[] CREWMEMBER_TYPES = {"Captain", "Commander", "Cooms Officer", "Doctor", "Engineer", "Moral Officer", "Navigation Officer",
                                                      "Red Shirt", "Science Officer", "Security Officer", "Shuttle Pilot", "Transporter Chief"};
+    public static final int[][] CREWMEMBER_STATS = {
+        {1, 1}, 
+        {1, 1}, 
+        {1, 1}, 
+        {1, 1}, 
+        {1, 1}, 
+        {1, 1}, 
+        {2, 1}, 
+        {1, 1}, 
+        {1, 1}, 
+        {1, 2}, 
+        {1, 1}, 
+        {0, 1}
+    };
+    
+    public static final int STATS_MOV = 0;
+    public static final int STATS_ATK = 1;
+    
+    public static final String[] CREWMEMBER_SPECIALS = {
+        "Can attack an alien on a 3+.", 
+        "6 AP per turn instead of 5.", 
+        "Before an alien attacks this crew member, roll 1D6, on a 1 or 2 that alien does not attack this officer.", 
+        "Can heal 2 Health for 1 AP when resting.\nCan heal 1 Health for 1 AP.\nCan heal 1 Health per round for free if in Sickbay.", 
+        "Can fix 2 Hull for 1 AP when resting.\nCan fix 1 Hull for 1 AP.\nCan fix 1 Hull per round for free if in Engineering.", 
+        "Starts with 5 IP.",
+        "Can move 2 rooms for 1 AP.",                          
+        "Can be sacrificed to gain 5 Health at any time. If you do, you play on with only the other single crew Member.", 
+        "Can attack aliens in any adjacent room as long as there is an open door from this crew member to the targeted alien", 
+        "Starts with 2D6 for Attack.", 
+        "Starts with 4 extra Health.", 
+        "Can teleport to any room on the ship for 1 AP."
+    };
 
     //GUI
     public static final int WINDOW_X = 1280;
@@ -120,7 +152,9 @@ public interface Constants {
     //X Sizes
     //  Crew Selection
     public static final int CREW_CLASS_LIST_X = ((30 * WINDOW_X) / 100);//30%
-    public static final int CREW_CLASS_INFO_X = ((int)((67.2 * WINDOW_X) / 100));//70%
+    public static final int CREW_CLASS_INFO_X = ((int)((67.2 * WINDOW_X) / 100));//67.2%
+    public static final int CREW_CLASS_INFO_MOVEMENT_X = ((int)((7.5 * WINDOW_X) / 100));
+    public static final int CREW_CLASS_INFO_ATTACK_X = ((int)((7.5 * WINDOW_X) / 100));
     
     //  Crew Placement
     public static final int SHIP_DISPLAY_X = ((30 * WINDOW_X) / 100);//30%
@@ -147,4 +181,5 @@ public interface Constants {
     public static final String FPC_CLOSE_WINDOW = "CloseWindow";
     public static final String FPC_CREW_TAB = "CrewTab";
     public static final String FPC_JOURNEY_DISPLAY = "JourneyDisplay";
+    public static final String FPC_CLASS_SWAPED = "ClassSwaped";
 }

@@ -1,6 +1,7 @@
 package de.ui.gui.Scenes.Components;
 
 import de.logic.data.Constants;
+import de.logic.data.ObservableModel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -17,12 +18,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class CrewClass extends VBox implements Constants{
-
-    int type;
+    private ObservableModel observableModel;
+    private int type;
     private ImageView typeAvatar;
     private Label typeName;
     
-    public CrewClass(int type) {
+    public CrewClass(ObservableModel observableModel, int type) {
+        this.observableModel = observableModel;
+        
         this.type = type;
         initCrewMemberTypeContainer();
         
@@ -39,8 +42,16 @@ public class CrewClass extends VBox implements Constants{
         typeAvatar.setFitHeight(60);
         typeAvatar.setFitWidth(60);
         
-        typeName = new Label(CREWMEMBER_TYPES[type]);
+        typeName = new Label(CREWMEMBER_TYPES[type-1]);
         
         getChildren().addAll(typeAvatar, typeName);
+        
+        setComponentsHandlers();
+    }
+    
+    private void setComponentsHandlers(){
+        setOnMousePressed(e -> {
+            observableModel.changeCrewMember(type);
+        });
     }
 }
