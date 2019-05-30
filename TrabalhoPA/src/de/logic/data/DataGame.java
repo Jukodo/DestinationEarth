@@ -329,20 +329,34 @@ public class DataGame implements Constants, Serializable{
         return true;
     }
     
-    public void swapActiveCrewMember(){
-        if(this.getPlayer().getCrewMember(activeCrewMember-1) instanceof RedShirt && 
-                !((RedShirt)this.getPlayer().getCrewMember(activeCrewMember-1)).isAlive() )
-            return;
+    public boolean swapActiveCrewMember(){
+        int tempIndex = activeCrewMember+1;
+        if(tempIndex > NUM_CREW_MEMBERS)
+            tempIndex = 1;
+        
+        if(this.getPlayer().getCrewMember(tempIndex-1) instanceof RedShirt && 
+                !((RedShirt)this.getPlayer().getCrewMember(tempIndex-1)).isAlive())
+            return false;
             
         if(++activeCrewMember > NUM_CREW_MEMBERS)
             activeCrewMember = 1;
+        
+        return true;
     }
     
-    public void swapActiveCrewMember(int index){
-        //Validate RedShirt sacrifice
+    public boolean swapActiveCrewMember(int index){
+        int tempIndex = activeCrewMember+1;
+        if(tempIndex > NUM_CREW_MEMBERS)
+            tempIndex = 1;
         
-        if(index >= 0 && index < NUM_CREW_MEMBERS)
-            activeCrewMember = index;
+        if(this.getPlayer().getCrewMember(tempIndex-1) instanceof RedShirt && 
+                !((RedShirt)this.getPlayer().getCrewMember(tempIndex-1)).isAlive())
+            return false;
+            
+        if(++activeCrewMember > NUM_CREW_MEMBERS)
+            activeCrewMember = 1;
+        
+        return true;
     }
     
     public boolean sacrificeCrewMember(){

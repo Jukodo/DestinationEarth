@@ -5,7 +5,6 @@ import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
 import de.ui.gui.Scenes.Components.CrewClassList;
 import de.ui.gui.Scenes.Components.CrewClassInfo;
-import de.ui.gui.Scenes.Components.ShipDisplay;
 import de.ui.gui.Scenes.Components.StateBar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

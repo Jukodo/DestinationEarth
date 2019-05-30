@@ -2,6 +2,8 @@ package de.ui.gui.Scenes.Components;
 
 import de.logic.data.Constants;
 import de.logic.data.ObservableModel;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -19,7 +21,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 
-public class CrewMemberTab extends HBox implements Constants{
+public class CrewMemberTab extends HBox implements Constants, PropertyChangeListener{
     private ObservableModel observableModel;
     private final int crewMemberIndex;
     
@@ -30,13 +32,18 @@ public class CrewMemberTab extends HBox implements Constants{
     private Label memberName;
     
     public CrewMemberTab(ObservableModel observableModel, int crewMemberIndex) {
-        this.crewMemberIndex = crewMemberIndex;
         this.observableModel = observableModel;
+        this.crewMemberIndex = crewMemberIndex;
+        
+        observableModel.addPropertyChangeListener(FPC_CREW_TAB + crewMemberIndex, this);
         
         setMinSize((WINDOW_X / NUM_CREW_MEMBERS) - INSIDE_PADDING/*Padding Compensation*/ - (2*NUM_CREW_MEMBERS) + (NUM_CREW_MEMBERS - 1)/*Border Compensation*/, CREWMEMBER_BAR_Y);
         setMaxSize((WINDOW_X / NUM_CREW_MEMBERS) - INSIDE_PADDING/*Padding Compensation*/ - (2*NUM_CREW_MEMBERS) + (NUM_CREW_MEMBERS - 1)/*Border Compensation*/, CREWMEMBER_BAR_Y);
         setPadding(new Insets(0, 0, 0, 10));
-        setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        if(crewMemberIndex == 0)
+            setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        else
+            setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         
         initAvatarNameContainer();
         initColorContainer();
@@ -56,6 +63,7 @@ public class CrewMemberTab extends HBox implements Constants{
         avatarNameContainer.getChildren().addAll(memberAvatar, memberName);
         
         getChildren().add(avatarNameContainer);
+        setComponentsHandlers();
     }
     
     private void initColorContainer(){
@@ -66,11 +74,29 @@ public class CrewMemberTab extends HBox implements Constants{
         
         colorContainer = new HBox();
         colorContainer.setMaxSize(CREWMEMBER_BAR_Y-2, CREWMEMBER_BAR_Y-2);
+        colorContainer.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         colorContainer.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1, 1, 1, 2))));
         colorContainer.setAlignment(Pos.CENTER_RIGHT);
         
         HBox.setHgrow(colorContainer, Priority.ALWAYS);
         
         getChildren().addAll(spacer, colorContainer);
+    }
+    
+    private void setComponentsHandlers(){
+        setOnMouseClicked(e -> {
+            observableModel.swapActiveCrewMember(crewMemberIndex);
+        });
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if(evt.getPropertyName().equals(FPC_CREW_TAB+crewMemberIndex)){
+            if(Integer.parseInt(evt.getOldValue().toString()) == ACTIVE){
+                setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+            }else if(Integer.parseInt(evt.getOldValue().toString()) == INACTIVE){
+                setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+        }
     }
 }

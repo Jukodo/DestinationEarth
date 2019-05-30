@@ -1,9 +1,6 @@
 package de.ui.gui.Scenes;
 
 import de.logic.data.Constants;
-import static de.logic.data.Constants.BUTTON_BAR_Y;
-import static de.logic.data.Constants.CREW_CLASS_INFO_X_;
-import static de.logic.data.Constants.INSIDE_PADDING;
 import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
 import de.ui.gui.Scenes.Components.CrewClassInfo;

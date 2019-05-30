@@ -5,7 +5,6 @@ import static de.logic.data.Constants.BUTTON_BAR_Y;
 import static de.logic.data.Constants.INSIDE_PADDING;
 import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
-import de.ui.gui.Scenes.Components.CrewClassList;
 import de.ui.gui.Scenes.Components.CrewClassInfo;
 import de.ui.gui.Scenes.Components.JourneyDisplay;
 import de.ui.gui.Scenes.Components.ShipDisplay;

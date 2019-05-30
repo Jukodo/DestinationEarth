@@ -29,15 +29,13 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
     
     @Override
-    public IStates swapActiveCrewMember(){
-        this.getGame().swapActiveCrewMember();
-        return this;
+    public boolean swapActiveCrewMember(){
+        return this.getGame().swapActiveCrewMember();
     }
     
     @Override
-    public IStates swapActiveCrewMember(int index){
-        this.getGame().swapActiveCrewMember(index);
-        return this;
+    public boolean swapActiveCrewMember(int index){
+        return this.getGame().swapActiveCrewMember(index);
     }
     
     @Override

@@ -83,6 +83,9 @@ public class DestinationEarth implements Serializable{
     public int getDiceValue(int numDices){
         return dataGame.getDiceValue(numDices);
     }
+    public void resetDices(){
+        dataGame.resetDices();
+    }
     
     public int getActiveNewAlien(){
         return dataGame.getActiveNewAlien();
@@ -318,12 +321,12 @@ public class DestinationEarth implements Serializable{
         getState().currentState();
     }
     
-    public void swapActiveCrewMember(){
-        setState(getState().swapActiveCrewMember());
+    public boolean swapActiveCrewMember(){
+        return getState().swapActiveCrewMember();
     }
     
-    public void swapActiveCrewMember(int index){
-        setState(getState().swapActiveCrewMember(index));
+    public boolean swapActiveCrewMember(int index){
+        return getState().swapActiveCrewMember(index);
     }
     
     public void rollDice(){

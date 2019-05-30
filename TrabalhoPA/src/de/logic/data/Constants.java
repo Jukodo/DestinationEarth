@@ -137,9 +137,13 @@ public interface Constants {
     //Also has ship (SHIP_DISPLAY_X)
     //Respective Editors
     
+    public static final int INACTIVE = 0;
+    public static final int ACTIVE = 1;
+    
     public static final int INSIDE_PADDING = 10;
     
     //FirePropertyChange
     public static final String FPC_SWAP_SCENE = "SwapScene";
     public static final String FPC_CLOSE_WINDOW = "CloseWindow";
+    public static final String FPC_CREW_TAB = "CrewTab";
 }
