@@ -22,9 +22,11 @@ public class JourneyDisplay extends VBox implements Constants{
     private String[] journeyTracker;
     private HashMap<Integer, VBox> journeyEvents;
     private VBox journeyEvent;
+    private static boolean interactable;
     
-    public JourneyDisplay(ObservableModel observableModel){
+    public JourneyDisplay(ObservableModel observableModel, boolean interactable){
         this.observableModel = observableModel;
+        this.interactable = interactable;
         
         setPrefHeight(INTERACTION_Y);
         
@@ -48,9 +50,9 @@ public class JourneyDisplay extends VBox implements Constants{
         journeyEvent.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         
         if(index == 0)
-            journeyEvent.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
+            journeyEvent.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1, 0, 1, 1))));
         else
-            journeyEvent.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 1, 1, 1))));
+            journeyEvent.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 1, 1))));
         
         Label event = new Label();
         
@@ -62,6 +64,9 @@ public class JourneyDisplay extends VBox implements Constants{
             event.setText(index + "");
         
         journeyEvent.getChildren().add(event);
+        
+        if(interactable)
+            setComponentsHandlers();
     }
     
     private void updateJourneyEvents(){
@@ -74,5 +79,9 @@ public class JourneyDisplay extends VBox implements Constants{
             if(label instanceof Label && (i != 0 && i != NUM_TURNS + 1))
                 ((Label) label).setText(journeyTracker[i-1]);
         }
+    }
+    
+    private void setComponentsHandlers(){
+        
     }
 }

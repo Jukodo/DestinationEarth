@@ -72,8 +72,8 @@ public class JourneySelection_layout extends VBox implements Constants{
         leftContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, 0));
         
         mixContainer = new HBox();
-        journeyContainer = new JourneyDisplay(observableModel);
-        shipContainer = new ShipDisplay(observableModel);
+        journeyContainer = new JourneyDisplay(observableModel, true);
+        shipContainer = new ShipDisplay(observableModel, false);
         
         mixContainer.getChildren().addAll(journeyContainer, shipContainer);
         

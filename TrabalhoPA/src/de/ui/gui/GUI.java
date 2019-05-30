@@ -7,6 +7,7 @@ import de.ui.gui.Scenes.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
+import java.util.HashSet;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -79,6 +80,7 @@ public class GUI extends Application implements Constants, PropertyChangeListene
                     continue;
             }
             if(tempScene != null){
+                tempScene.getStylesheets().add("de/ui/gui/css/DestinationEarthStyle.css");
                 scenes.put(i, tempScene);
                 tempScene = null;
             }

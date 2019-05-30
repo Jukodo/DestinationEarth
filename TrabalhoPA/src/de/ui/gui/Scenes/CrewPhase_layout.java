@@ -70,8 +70,8 @@ public class CrewPhase_layout extends VBox implements Constants{
         leftContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, 0));
         
         mixContainer = new HBox();
-        journeyContainer = new JourneyDisplay(observableModel);
-        shipContainer = new ShipDisplay(observableModel);
+        journeyContainer = new JourneyDisplay(observableModel, false);
+        shipContainer = new ShipDisplay(observableModel, true);
         
         mixContainer.getChildren().addAll(journeyContainer, shipContainer);
         
