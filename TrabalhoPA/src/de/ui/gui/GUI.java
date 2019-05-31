@@ -91,6 +91,7 @@ public class GUI extends Application implements Constants, PropertyChangeListene
         System.out.println("PropertyChange Captured");
         switch(evt.getPropertyName()){
             case FPC_SWAP_SCENE:
+                System.out.println("Swapping to " + (int) evt.getOldValue());
                 swapScene((int) evt.getOldValue());
                 break;
             case FPC_CLOSE_WINDOW:

@@ -1,7 +1,7 @@
 package de.logic.states;
 
-import de.logic.data.Trap;
 import java.io.Serializable;
+import javafx.scene.paint.Color;
 
 public interface IStates extends Serializable {
     
@@ -11,6 +11,7 @@ public interface IStates extends Serializable {
     //CrewSelection
     IStates selectCrewMember(int crewNumber, int crewType);
     IStates selectCrewMemberColor(int crewNumber, int crewMemberColor);
+    IStates selectCrewMemberColor(int crewNumber, Color crewMemberColor);
     IStates confirmCrewMemberSelection();
     
     //CrewPlacement

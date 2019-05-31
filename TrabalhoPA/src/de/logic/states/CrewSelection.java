@@ -1,6 +1,7 @@
 package de.logic.states;
 
 import de.logic.data.DataGame;
+import javafx.scene.paint.Color;
 
 public class CrewSelection extends StateAdapter{
     
@@ -23,14 +24,24 @@ public class CrewSelection extends StateAdapter{
     }
     
     @Override
+    public IStates selectCrewMemberColor(int crewNumber, Color crewMemberColor){
+        this.getGame().selectCrewMemberColor(crewNumber, crewMemberColor);
+        return this;
+    }
+    
+    @Override
     public IStates confirmCrewMemberSelection(){
         if(!this.getGame().getPlayer().hasAllMembers()){
+            System.out.println("!hasAllMembers");
             return this;
         }else if(!this.getGame().crewClassNotRepeated()){
+            System.out.println("!crewClassNotRepeated");
             return this;
         }else if(!this.getGame().crewColorNotRepeated()){
+            System.out.println("!crewColorNotRepeated");
             return this;
         }else{
+            System.out.println("Swapping to CP");
             return new CrewPlacement(this.getGame());
         }
     }

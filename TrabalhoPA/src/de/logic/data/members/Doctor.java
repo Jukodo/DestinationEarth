@@ -1,10 +1,10 @@
 package de.logic.data.members;
 
-import static de.logic.data.Constants.DEF_COST_A_HEAL;
+import de.logic.data.Constants;
 import de.logic.data.DataGame;
 import java.io.Serializable;
 
-public class Doctor extends CrewMember implements Serializable{
+public class Doctor extends CrewMember implements Constants, Serializable{
 
     private boolean hasHealedForFree;
     

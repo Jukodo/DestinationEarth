@@ -7,6 +7,7 @@ import de.logic.data.ParticleDispenser;
 import de.logic.data.Room;
 import de.logic.data.Trap;
 import java.io.Serializable;
+import javafx.scene.paint.Color;
 
 public abstract class CrewMember implements Serializable{
     
@@ -16,6 +17,7 @@ public abstract class CrewMember implements Serializable{
     private DataGame dataGame;
     private Room room;
     private int movementsBeforeFree;
+    private Color customColor;
     
     //Doesn't recieve color
     public CrewMember(DataGame dataGame, int movement, int attack){
@@ -30,7 +32,7 @@ public abstract class CrewMember implements Serializable{
         this.dataGame = dataGame;
         this.movement = movement;
         this.attack = attack;
-        if(color < 0 || color > 11)
+        if(color < -1 || color > 11)
             color = 0;
         this.color = color;
     }
@@ -68,9 +70,17 @@ public abstract class CrewMember implements Serializable{
     public int getColor() {
         return color;
     }
+    
+    public Color getCustomColor() {
+        return customColor;
+    }
 
     public void setColor(int color) {
         this.color = color;
+    }
+    
+    public void setCustomColor(Color color){
+        this.customColor = color;
     }
 
     public DataGame getDataGame() {

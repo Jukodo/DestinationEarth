@@ -15,6 +15,7 @@ public interface Constants {
     
     public static final int MAX_COLOR = 12;
     public static final String[] COLOR = {"White", "Blue", "Cyan", "Dark Gray", "Gray", "Green", "Yellow", "Magenta", "Orange", "Pink", "Red", "Black"};
+    public static final int CUSTOM_COLOR = -1;
     
     public static final int MAX_DICES = 3;
     
@@ -103,7 +104,7 @@ public interface Constants {
         "Starts with 5 IP.",
         "Can move 2 rooms for 1 AP.",                          
         "Can be sacrificed to gain 5 Health at any time. If you do, you play on with only the other single crew Member.", 
-        "Can attack aliens in any adjacent room as long as there is an open door from this crew member to the targeted alien", 
+        "Can attack aliens in any adjacent room as long as there is an open door from this crew member to the targeted alien.", 
         "Starts with 2D6 for Attack.", 
         "Starts with 4 extra Health.", 
         "Can teleport to any room on the ship for 1 AP."
@@ -112,9 +113,7 @@ public interface Constants {
     //GUI
     public static final int WINDOW_X = 1280;
     public static final int WINDOW_Y = 720;
-    
-    public static final Color BACKGROUND_COLOR = Color.rgb(37, 37, 37);
-    
+        
     public static final int NUM_SCENES = 9;
     public static final int SCENE_BEGINNING = 0;
     public static final int SCENE_CREWSELECTION = 1;
@@ -176,10 +175,20 @@ public interface Constants {
     
     public static final int INSIDE_PADDING = 10;
     
+    //Colors
+    public static final Color BACKGROUND_COLOR = Color.rgb(37, 37, 37);
+    public static final Color NORMAL_BACKGROUND_COLOR = Color.rgb(240, 240, 240);
+    public static final Color NORMAL_TEXT_COLOR = Color.rgb(0, 0, 0);
+    public static final Color SELECTED_BACKGROUND_COLOR = Color.rgb(118, 165, 242);
+    public static final Color SELECTED_TEXT_COLOR = Color.rgb(255, 255, 255);
+    
     //FirePropertyChange
     public static final String FPC_SWAP_SCENE = "SwapScene";
     public static final String FPC_CLOSE_WINDOW = "CloseWindow";
     public static final String FPC_CREW_TAB = "CrewTab";
     public static final String FPC_JOURNEY_DISPLAY = "JourneyDisplay";
-    public static final String FPC_CLASS_SWAPED = "ClassSwaped";
+    public static final String FPC_CLASS_SWAPED_BAR = "ClassSwaped_Bar";
+    public static final String FPC_CLASS_SWAPED_INFO = "ClassSwaped_Info";
+    public static final String FPC_CLASS_SWAPED_LIST = "ClassSwaped_List";
+    public static final String FPC_COLOR_SWAPED = "ColorSwaped";
 }

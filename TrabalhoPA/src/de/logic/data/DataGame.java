@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.scene.paint.Color;
 
 public class DataGame implements Constants, Serializable{
     private Player player;
@@ -226,51 +227,63 @@ public class DataGame implements Constants, Serializable{
     public boolean selectCrewMember(int crewNumber, int crewType){
         crewNumber--; //ARRAY INDEX = -1 of its number
         
-        int color=-1;//KEEP THE COLOR OF THE CLASS BEFORE (IF BEING CHANGED INSTEAD OF CREATED FOR THE FIRST TIME)
+        int color=0;//KEEP THE COLOR OF THE CLASS BEFORE (IF BEING CHANGED INSTEAD OF CREATED FOR THE FIRST TIME)
         CrewMember oldMember = getPlayer().getCrewMember(crewNumber);
-        if(oldMember != null)
+        Color customColor = null;
+        if(oldMember != null){
             color = oldMember.getColor();
+            if(color == -1)
+                customColor = oldMember.getCustomColor();
+        }
+        
+        CrewMember member = null;
             
         switch(crewType){
             case CAPTAIN:
-                getPlayer().setCrewMember(crewNumber, new Captain(this, color));
+                member = new Captain(this, color);
                 break;
             case COMMANDER:
-                getPlayer().setCrewMember(crewNumber, new Commander(this, color));
+                member = new Commander(this, color);
                 break;
             case COOMS_OFFICER:
-                getPlayer().setCrewMember(crewNumber, new CommsOfficer(this, color));
+                member = new CommsOfficer(this, color);
                 break;
             case DOCTOR:
-                getPlayer().setCrewMember(crewNumber, new Doctor(this, color));
+                member = new Doctor(this, color);
                 break;
             case ENGINEER:
-                getPlayer().setCrewMember(crewNumber, new Engineer(this, color));
+                member = new Engineer(this, color);
                 break;
             case MORAL_OFFICER:
-                getPlayer().setCrewMember(crewNumber, new MoralOfficer(this, color));
+                member = new MoralOfficer(this, color);
                 break;
             case NAVIGATION_OFFICER:
-                getPlayer().setCrewMember(crewNumber, new NavigationOfficer(this, color));
+                member = new NavigationOfficer(this, color);
                 break;
             case RED_SHIRT:
-                getPlayer().setCrewMember(crewNumber, new RedShirt(this, color));
+                member = new RedShirt(this, color);
                 break;
             case SCIENCE_OFFICER:
-                getPlayer().setCrewMember(crewNumber, new ScienceOfficer(this, color));
+                member = new ScienceOfficer(this, color);
                 break;
             case SECURITY_OFFICER:
-                getPlayer().setCrewMember(crewNumber, new SecurityOfficer(this, color));
+                member = new SecurityOfficer(this, color);
                 break;
             case SHUTTLE_PILOT:
-                getPlayer().setCrewMember(crewNumber, new ShuttlePilot(this, color));
+                member = new ShuttlePilot(this, color);
                 break;
             case TRANSPORTER_CHIEF:
-                getPlayer().setCrewMember(crewNumber, new TransporterChief(this, color));
+                member = new TransporterChief(this, color);
                 break;
             default:
                 addLog("Crew Member class is invalid!");
                 return false;
+        }
+        
+        if(member != null){
+            if(customColor != null)
+                member.setCustomColor(customColor);
+            getPlayer().setCrewMember(crewNumber, member);
         }
         return true;
     }
@@ -281,13 +294,23 @@ public class DataGame implements Constants, Serializable{
             return false;
         }
 
-        CrewMember cm = getPlayer().getCrewMember(crewNumber-1);
-        if(cm == null){
+        if(getPlayer().getCrewMember(crewNumber-1) == null){
             addLog("Crew Member selected doesn't exist!");
             return false;
         }
         
-        cm.setColor(crewMemberColor-1);
+        getPlayer().getCrewMember(crewNumber-1).setColor(crewMemberColor-1);
+        return true;
+    }
+    
+    public boolean selectCrewMemberColor(int crewNumber, Color crewMemberColor){
+        if(getPlayer().getCrewMember(crewNumber-1) == null){
+            addLog("Crew Member selected doesn't exist!");
+            return false;
+        }
+        
+        getPlayer().getCrewMember(crewNumber-1).setColor(-1);
+        getPlayer().getCrewMember(crewNumber-1).setCustomColor(crewMemberColor);
         return true;
     }
    
@@ -328,9 +351,16 @@ public class DataGame implements Constants, Serializable{
     
     public boolean crewColorNotRepeated(){
         for(int i=0; i<player.getCrew().length-1; i++){
-            if(player.getCrewMember(i).getColor() == player.getCrewMember(i+1).getColor()){
-                addLog("Your crew has two equal colors! Please change one of them...");
-                return false;
+            if(player.getCrewMember(i).getColor() == CUSTOM_COLOR){
+                if(player.getCrewMember(i).getCustomColor() == player.getCrewMember(i+1).getCustomColor()){
+                    addLog("Your crew has two equal colors! Please change one of them...");
+                    return false;
+                }
+            }else{
+                if(player.getCrewMember(i).getColor() == player.getCrewMember(i+1).getColor()){
+                    addLog("Your crew has two equal colors! Please change one of them...");
+                    return false;
+                }
             }
         }
         return true;

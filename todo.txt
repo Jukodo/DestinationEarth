@@ -1,2 +1,30 @@
-Polimorfismo
-Movimento Aliens (Pesquisa)
+General
+	Toasts style
+		Logs
+		Roll Dice
+	CSS
+
+Crew Placement
+	Ship Display
+		Select room
+		Highlight possible rooms
+		Hover rooms to display info
+	Room picker
+
+Journey Selection
+	Journey Editor
+
+Journey Phase
+	Game Stats
+
+Rest Phase
+	Spending Inspiration Points (Lots of stuff)
+
+Crew Phase
+	Spending Action Points (Lots of stuff)
+
+Alien Phase
+	?
+
+Game Over
+	?

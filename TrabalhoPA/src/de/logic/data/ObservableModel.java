@@ -1,9 +1,11 @@
 package de.logic.data;
 
 import de.DestinationEarth;
-import de.logic.data.Constants;
 import de.logic.data.members.CrewMember;
+import de.logic.states.*;
+import de.logic.states.IStates;
 import java.beans.PropertyChangeSupport;
+import javafx.scene.paint.Color;
 
 public class ObservableModel extends PropertyChangeSupport implements Constants{
     
@@ -72,16 +74,39 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         game.currentState();
     }
     
-    public void changeActive(int index){
-        //game.swapActiveCrewMember(index);
-    }
-    
     public void changeCrewMember(int type){
         game.selectCrewMember(game.getActiveCrewMember(), type);
         
-        firePropertyChange(FPC_CLASS_SWAPED, type, null);
-        firePropertyChange(FPC_CLASS_SWAPED+(game.getActiveCrewMember()-1), type, null);
+        for(int i = 1; i <= CREWMEMBER_TYPES.length; i++){
+            if(i == type)
+                firePropertyChange(FPC_CLASS_SWAPED_LIST, i+1, ACTIVE);
+            else
+                firePropertyChange(FPC_CLASS_SWAPED_LIST, i+1, INACTIVE);
+        }
+        
+        firePropertyChange(FPC_CLASS_SWAPED_INFO, type, null);
+        firePropertyChange(FPC_CLASS_SWAPED_BAR+(game.getActiveCrewMember()-1), type, null);
         
         //TEST System.out.println(game.getDataGame().crewMemberInfoToString());
+    }
+    
+    public void changeCrewMemberColor(Color color){
+        game.selectCrewMemberColor(game.getActiveCrewMember(), color);
+        
+        firePropertyChange(FPC_COLOR_SWAPED+(game.getActiveCrewMember()-1), color, null);
+    }
+    
+    public void lockIn(){
+        IStates state = game.getState();
+        
+        if(state instanceof CrewSelection){
+            game.confirmCrewMemberSelection();
+            state = game.getState();
+            if(state instanceof CrewPlacement){
+                System.out.println("Changing state");
+                swapScene(SCENE_CREWPLACEMENT);
+                return;
+            }
+        }
     }
 }

@@ -62,7 +62,6 @@ public class CrewSelection_layout extends VBox implements Constants{
         
         //Left (Class List)
         leftContainer = new VBox();
-        leftContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
         
         leftContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, 0));
         
@@ -74,7 +73,6 @@ public class CrewSelection_layout extends VBox implements Constants{
         
         //Right (Class Info + Buttons)
         rightContainer = new VBox();
-        rightContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
         
         rightContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, INSIDE_PADDING));
         
@@ -87,7 +85,6 @@ public class CrewSelection_layout extends VBox implements Constants{
         //Bottom
         
         buttonBar = new HBox(INSIDE_PADDING);
-        buttonBar.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
         quitBtn = new Button("Quit");
         lockInBtn = new Button("Lock In");
         
@@ -107,7 +104,7 @@ public class CrewSelection_layout extends VBox implements Constants{
         });
         
         lockInBtn.setOnAction(e -> {
-            observableModel.swapScene(SCENE_CREWPLACEMENT);
+            observableModel.lockIn();
         });
     }
 }

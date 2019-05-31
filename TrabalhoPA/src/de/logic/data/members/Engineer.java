@@ -1,10 +1,10 @@
 package de.logic.data.members;
 
-import static de.logic.data.Constants.DEF_COST_A_FIX_HULL;
+import de.logic.data.Constants;
 import de.logic.data.DataGame;
 import java.io.Serializable;
 
-public class Engineer extends CrewMember implements Serializable{
+public class Engineer extends CrewMember implements Constants, Serializable{
     
     private boolean hasFixedForFree;
     

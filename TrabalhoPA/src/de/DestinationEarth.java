@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
+import javafx.scene.paint.Color;
 
 public class DestinationEarth implements Serializable{
     private DataGame dataGame;
@@ -183,6 +184,10 @@ public class DestinationEarth implements Serializable{
     }
     
     public void selectCrewMemberColor(int crewNumber, int crewMemberColor){
+        setState(getState().selectCrewMemberColor(crewNumber, crewMemberColor));
+    }
+    
+    public void selectCrewMemberColor(int crewNumber, Color crewMemberColor){
         setState(getState().selectCrewMemberColor(crewNumber, crewMemberColor));
     }
     

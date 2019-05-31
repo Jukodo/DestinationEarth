@@ -36,15 +36,12 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
         this.crewMemberIndex = crewMemberIndex;
         
         observableModel.addPropertyChangeListener(FPC_CREW_TAB + crewMemberIndex, this);
-        observableModel.addPropertyChangeListener(FPC_CLASS_SWAPED + crewMemberIndex, this);
+        observableModel.addPropertyChangeListener(FPC_CLASS_SWAPED_BAR + crewMemberIndex, this);
+        observableModel.addPropertyChangeListener(FPC_COLOR_SWAPED + crewMemberIndex, this);
         
         setMinSize((WINDOW_X / NUM_CREW_MEMBERS) - INSIDE_PADDING/*Padding Compensation*/ - (2*NUM_CREW_MEMBERS) + (NUM_CREW_MEMBERS - 1)/*Border Compensation*/, CREWMEMBER_BAR_Y);
         setMaxSize((WINDOW_X / NUM_CREW_MEMBERS) - INSIDE_PADDING/*Padding Compensation*/ - (2*NUM_CREW_MEMBERS) + (NUM_CREW_MEMBERS - 1)/*Border Compensation*/, CREWMEMBER_BAR_Y);
         setPadding(new Insets(0, 0, 0, 10));
-        if(crewMemberIndex == 0)
-            setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-        else
-            setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         
         initAvatarNameContainer();
         initColorContainer();
@@ -55,13 +52,21 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
         avatarNameContainer.setAlignment(Pos.CENTER_LEFT);
         
         memberAvatar = new ImageView();
-        memberAvatar.setImage(new Image("file:src\\de\\ui\\gui\\Images\\tempAvatar.png"));
+        memberAvatar.setImage(new Image("file:src\\de\\ui\\gui\\Images\\tempAvatar_i.png"));
         memberAvatar.setFitHeight(35);
         memberAvatar.setFitWidth(35);
         
         memberName = new Label("Not selected"/*GET CREW MEMBER CLASS*/);
         memberName.setPadding(new Insets(0, 0, 0, 10));
         avatarNameContainer.getChildren().addAll(memberAvatar, memberName);
+        
+        if(crewMemberIndex == 0){
+            setBackground(new Background(new BackgroundFill(SELECTED_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+            memberName.setTextFill(SELECTED_TEXT_COLOR);
+        }else{
+            setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+            memberName.setTextFill(NORMAL_TEXT_COLOR);
+        }
         
         getChildren().add(avatarNameContainer);
         setComponentsHandlers();
@@ -93,13 +98,17 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().equals(FPC_CREW_TAB+crewMemberIndex)){
-            if(Integer.parseInt(evt.getOldValue().toString()) == ACTIVE){
-                setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-            }else if(Integer.parseInt(evt.getOldValue().toString()) == INACTIVE){
-                setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+            if((int) evt.getOldValue() == ACTIVE){
+                setBackground(new Background(new BackgroundFill(SELECTED_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+                memberName.setTextFill(SELECTED_TEXT_COLOR);
+            }else if((int) evt.getOldValue() == INACTIVE){
+                setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+                memberName.setTextFill(NORMAL_TEXT_COLOR);
             }
-        }else if(evt.getPropertyName().equals(FPC_CLASS_SWAPED+crewMemberIndex)){
-            memberName.setText(CREWMEMBER_TYPES[Integer.parseInt(evt.getOldValue().toString())-1]);
+        }else if(evt.getPropertyName().equals(FPC_CLASS_SWAPED_BAR+crewMemberIndex)){
+            memberName.setText(CREWMEMBER_TYPES[(int) evt.getOldValue()-1]);
+        }else if(evt.getPropertyName().equals(FPC_COLOR_SWAPED+crewMemberIndex)){
+            colorContainer.setBackground(new Background(new BackgroundFill((Color) evt.getOldValue(), CornerRadii.EMPTY, Insets.EMPTY)));
         }
     }
 }

@@ -5,9 +5,9 @@ import de.logic.data.ObservableModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
-import java.util.List;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -36,9 +36,12 @@ public class CrewClassInfo extends VBox implements Constants, PropertyChangeList
     private Label specialsLabel;
     private Label specials;
     
+    private Label colorLabel;
+    private ColorPicker colorPicker;
+    
     public CrewClassInfo(ObservableModel observableModel) {
         this.observableModel = observableModel;
-        observableModel.addPropertyChangeListener(FPC_CLASS_SWAPED, this);
+        observableModel.addPropertyChangeListener(FPC_CLASS_SWAPED_INFO, this);
         
         setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -57,11 +60,14 @@ public class CrewClassInfo extends VBox implements Constants, PropertyChangeList
         attackLabel = new Label("Attack");
         specialsLabel = new Label("Specials");
         specials = new Label();
+        colorLabel = new Label("Color");
+        colorPicker = new ColorPicker();
         
         processMovement();
         processAttack();
+        setComponentsHandlers();
         
-        getChildren().addAll(title, movementLabel, movement, attackLabel, attack, specialsLabel, specials);
+        getChildren().addAll(title, movementLabel, movement, attackLabel, attack, specialsLabel, specials, colorLabel, colorPicker);
     }
     
     private void processMovement(){
@@ -112,6 +118,12 @@ public class CrewClassInfo extends VBox implements Constants, PropertyChangeList
         }
     }
 
+    private void setComponentsHandlers(){
+        colorPicker.setOnAction(e -> {
+            observableModel.changeCrewMemberColor(colorPicker.getValue());
+        });
+    }
+    
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         title.setText(CREWMEMBER_TYPES[Integer.parseInt(evt.getOldValue().toString())-1]);

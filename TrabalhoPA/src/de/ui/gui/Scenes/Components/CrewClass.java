@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 
 public class CrewClass extends VBox implements Constants{
     private ObservableModel observableModel;
@@ -34,15 +35,20 @@ public class CrewClass extends VBox implements Constants{
     
     private void initCrewMemberTypeContainer(){
         setAlignment(Pos.CENTER);
-        setBackground(new Background(new BackgroundFill(Color.rgb(type*20, type*15, type*10), CornerRadii.EMPTY, Insets.EMPTY)));
+        setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
         setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         
         typeAvatar = new ImageView();
-        typeAvatar.setImage(new Image("file:src\\de\\ui\\gui\\Images\\tempAvatar.png"));
+        typeAvatar.setImage(new Image("file:src\\de\\ui\\gui\\Images\\tempAvatar_i.png"));
         typeAvatar.setFitHeight(60);
         typeAvatar.setFitWidth(60);
         
         typeName = new Label(CREWMEMBER_TYPES[type-1]);
+        typeName.setAlignment(Pos.CENTER);
+        typeName.setTextAlignment(TextAlignment.CENTER);
+        typeName.setMaxWidth(CREW_CLASS_LIST_X/CREW_CLASS_PER_LINE);
+        typeName.setWrapText(true);
+        typeName.setPadding(new Insets(INSIDE_PADDING/2 ));
         
         getChildren().addAll(typeAvatar, typeName);
         
@@ -53,5 +59,15 @@ public class CrewClass extends VBox implements Constants{
         setOnMousePressed(e -> {
             observableModel.changeCrewMember(type);
         });
+    }
+    
+    public void setState(int state){
+        if(state == ACTIVE){
+            setBackground(new Background(new BackgroundFill(SELECTED_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+            typeName.setTextFill(SELECTED_TEXT_COLOR);
+        }else{
+            setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+            typeName.setTextFill(NORMAL_TEXT_COLOR);
+        }
     }
 }

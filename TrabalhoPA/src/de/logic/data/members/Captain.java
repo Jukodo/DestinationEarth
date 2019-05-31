@@ -1,13 +1,11 @@
 package de.logic.data.members;
 
-import static de.logic.data.Constants.CAPTAIN_ROLL_ATTACK;
-import static de.logic.data.Constants.DEF_COST_A_ATTACK;
-import static de.logic.data.Constants.MIN_ROLL_ATTACK;
+import de.logic.data.Constants;
 import de.logic.data.DataGame;
 import de.logic.data.Room;
 import java.io.Serializable;
 
-public class Captain extends CrewMember implements Serializable{
+public class Captain extends CrewMember implements Constants, Serializable{
     
     public Captain(DataGame dataGame) {
         super(dataGame, 1, 1);

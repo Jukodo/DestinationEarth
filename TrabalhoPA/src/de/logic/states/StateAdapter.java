@@ -1,6 +1,7 @@
 package de.logic.states;
 
 import de.logic.data.DataGame;
+import javafx.scene.paint.Color;
 
 public class StateAdapter implements IStates, de.logic.data.Constants{
     private DataGame game;
@@ -49,6 +50,11 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
 
     @Override
     public IStates selectCrewMemberColor(int crewNumber, int crewNumberColor) {
+        return this;
+    }
+
+    @Override
+    public IStates selectCrewMemberColor(int crewNumber, Color crewNumberColor) {
         return this;
     }
 

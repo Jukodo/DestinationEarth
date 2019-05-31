@@ -56,10 +56,12 @@ public class StateBar extends HBox implements Constants{
         tempLabel.setMinHeight(STATE_BAR_Y);
         tempLabel.setAlignment(Pos.CENTER);
         if(active){
-            tempLabel.setTextFill(Color.WHITE);
-            tempLabel.setBackground(new Background(new BackgroundFill(Color.LIGHTSLATEGREY, CornerRadii.EMPTY, Insets.EMPTY)));
-        }else
-            tempLabel.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+            tempLabel.setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+            tempLabel.setTextFill(SELECTED_TEXT_COLOR);
+        }else{
+            tempLabel.setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+            tempLabel.setTextFill(NORMAL_TEXT_COLOR);
+        }
         if(index == 0)
             tempLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         else
