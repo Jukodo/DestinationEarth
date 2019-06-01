@@ -1,9 +1,6 @@
 package de.ui.gui.Scenes.Components;
 
 import de.logic.data.Constants;
-import static de.logic.data.Constants.CREW_CLASS_INFO_X;
-import static de.logic.data.Constants.INSIDE_PADDING;
-import static de.logic.data.Constants.INTERACTION_Y;
 import de.logic.data.ObservableModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -59,7 +56,7 @@ public class JourneyEditor extends VBox implements Constants, PropertyChangeList
     public JourneyEditor(ObservableModel observableModel) {
         this.observableModel = observableModel;
         
-        setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
         setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         setPadding(new Insets(INSIDE_PADDING));
         setSpacing(INSIDE_PADDING);
@@ -166,16 +163,18 @@ public class JourneyEditor extends VBox implements Constants, PropertyChangeList
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if(evt.getPropertyName().equals(FPC_JOURNEY_DISPLAY)){
-            int activeTurn = (int) evt.getOldValue();
-            
-            turn.setText(Integer.toString(activeTurn));
-            
-            event.setText(observableModel.getJourneyTrackerTurn(activeTurn));
-            
-            min.setText(Integer.toString(MIN_SPAWN_ALIENS_TURN[activeTurn-1]));
-            max.setText(Integer.toString(MAX_SPAWN_ALIENS_TURN[activeTurn-1]));
-            newEvent.clear();
+        switch(evt.getPropertyName()){
+            case FPC_JOURNEY_DISPLAY:
+                int activeTurn = (int) evt.getOldValue();
+
+                turn.setText(Integer.toString(activeTurn));
+
+                event.setText(observableModel.getJourneyTrackerTurn(activeTurn));
+
+                min.setText(Integer.toString(MIN_SPAWN_ALIENS_TURN[activeTurn-1]));
+                max.setText(Integer.toString(MAX_SPAWN_ALIENS_TURN[activeTurn-1]));
+                newEvent.clear();
+                break;
         }
     }
 }

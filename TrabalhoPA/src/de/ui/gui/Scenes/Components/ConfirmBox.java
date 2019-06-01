@@ -6,8 +6,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -73,7 +78,7 @@ public class ConfirmBox implements Constants{
         layout.setPadding(new Insets(INSIDE_PADDING));
         layout.setAlignment(Pos.CENTER);
         layout.getChildren().addAll(labelContainer, buttonContainer);
-        layout.setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, new CornerRadii(5), Insets.EMPTY)));
+        layout.setBackground(new Background(new BackgroundFill(CONFIRMBOX_BACKGROUND_COLOR, new CornerRadii(5), Insets.EMPTY)));
         layout.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
         
         //Scene

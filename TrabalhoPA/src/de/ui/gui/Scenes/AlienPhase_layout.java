@@ -46,7 +46,7 @@ public class AlienPhase_layout extends VBox implements Constants{
     public AlienPhase_layout(ObservableModel observableModel) {
         this.observableModel = observableModel;
         
-        setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+        setId("background-image");
         
         stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_ALIENPHASE);
         interactionContainer = new BorderPane();

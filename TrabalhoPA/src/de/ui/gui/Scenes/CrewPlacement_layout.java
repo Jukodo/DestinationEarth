@@ -37,7 +37,7 @@ public class CrewPlacement_layout extends VBox implements Constants{
     public CrewPlacement_layout(ObservableModel observableModel) {
         this.observableModel = observableModel;
         
-        setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+        setId("background-image");
         
         stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREWPLACEMENT);
         interactionContainer = new BorderPane();

@@ -46,7 +46,7 @@ public class CrewPhase_layout extends VBox implements Constants{
     public CrewPhase_layout(ObservableModel observableModel) {
         this.observableModel = observableModel;
         
-        setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+        setId("background-image");
         
         stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_CREWPHASE);
         interactionContainer = new BorderPane();
@@ -115,7 +115,7 @@ public class CrewPhase_layout extends VBox implements Constants{
         });
         
         lockInBtn.setOnAction(e -> {
-            observableModel.swapScene(SCENE_ALIENPHASE);
+            observableModel.lockIn();
         });
     }
 }

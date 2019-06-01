@@ -38,6 +38,34 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         return game.getActiveCrewMember();
     }
     
+    public String getPlayerName(){
+        return game.getPlayer().getName();
+    }
+    
+    public int getCurrentTurn(){
+        return game.getDataGame().getCurrentTurn();
+    }
+    
+    public int getAliensCount(){
+        return game.getDataGame().getAliensCount();
+    }
+    
+    public int getActionPoints(){
+        return game.getPlayer().getActionPoints();
+    }
+    
+    public int getInspirationPoints(){
+        return game.getPlayer().getInspirationPoints();
+    }
+    
+    public int getHullTracker(){
+        return game.getShip().getHullTracker();
+    }
+    
+    public int getHealthTracker(){
+        return game.getPlayer().getHealthTracker();
+    }
+    
     
     //Methods
     public void closeWindow(){
@@ -101,6 +129,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     public void startGame(String playerName){
         game.start(playerName);
         
+        firePropertyChange(FPC_GAME_STATS_UPDATE, null, null);
         firePropertyChange(FPC_JOURNEY_DISPLAY, game.getActiveJourneyTurn(), null);
         firePropertyChange(FPC_JOURNEY_UPDATE_EVENTS, null, null);
     }
@@ -148,7 +177,6 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
             if(state instanceof CrewPlacement){
                 System.out.println("Changing state");
                 swapScene(SCENE_CREWPLACEMENT);
-                return;
             }
         }else if(state instanceof CrewPlacement){
             game.confirmCrewMemberPlacement();
@@ -156,7 +184,6 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
             if(state instanceof JourneySelection){
                 System.out.println("Changing state");
                 swapScene(SCENE_JOURNEYSELECTION);
-                return;
             }
         }else if(state instanceof JourneySelection){
             game.confirmJourneySelection();
@@ -164,7 +191,37 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
             if(state instanceof JourneyPhase){
                 System.out.println("Changing state");
                 swapScene(SCENE_JOURNEYPHASE);
-                return;
+            }
+        }else if(state instanceof JourneyPhase){
+            game.nextTurn();
+            state = game.getState();
+            if(state instanceof ScanningPhase){
+                game.scanTurn();
+                game.confirmNewAliensPlacement();
+                state = game.getState();
+                if(state instanceof RestPhase){
+                    System.out.println("Changing state");
+                    swapScene(SCENE_RESTPHASE);
+                }else if(state instanceof CrewPhase){
+                    System.out.println("Changing state");
+                    swapScene(SCENE_CREWPHASE);
+                }
+            }
+        }else if(state instanceof RestPhase){
+            game.leaveRestPhase();
+            state = game.getState();
+            if(state instanceof JourneyPhase){
+                System.out.println("Changing state");
+                firePropertyChange(FPC_GAME_STATS_UPDATE, null, null);
+                swapScene(SCENE_JOURNEYPHASE);
+            }
+        }else if(state instanceof CrewPhase){
+            game.leaveCrewPhase();
+            state = game.getState();
+            if(state instanceof JourneyPhase){
+                System.out.println("Changing state");
+                firePropertyChange(FPC_GAME_STATS_UPDATE, null, null);
+                swapScene(SCENE_ALIENPHASE);
             }
         }
     }

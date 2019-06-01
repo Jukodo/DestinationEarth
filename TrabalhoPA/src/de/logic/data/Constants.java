@@ -147,7 +147,9 @@ public interface Constants {
     public static final int CREWMEMBER_BAR_Y = ((7 * WINDOW_Y) / 100);//7%
     public static final int BUTTON_BAR_Y = ((6 * WINDOW_Y) / 100);//6%
     
-    public static final int INTERACTION_Y = ((77 * WINDOW_Y) / 100);//Every container on interaction gets same height (except button bar)
+    public static final int INTERACTION_Y = ((77 * WINDOW_Y) / 100);
+    public static final int GAME_STATS_Y = ((10 * WINDOW_Y) / 100);
+    public static final int INFO_PANEL_Y = ((56 * WINDOW_Y) / 100);
     
     //X Sizes
     //  Crew Selection
@@ -188,6 +190,11 @@ public interface Constants {
     public static final Color SELECTABLE_BACKGROUND_COLOR = Color.rgb(118, 165, 242);
     public static final Color SELECTABLE_BACKGROUND_COLOR_O = Color.rgb(118, 165, 242, SELECTABLE_BACKGROUND_OPACITY);
     public static final Color SELECTABLE_TEXT_COLOR = Color.rgb(255, 255, 255);
+    //Confirm Box
+    public static final double CONFIRMBOX_BACKGROUND_OPACITY = 0.5;
+    public static final Color CONFIRMBOX_BACKGROUND_COLOR = Color.rgb(118, 165, 242);
+    public static final Color CONFIRMBOX_BACKGROUND_COLOR_O = Color.rgb(118, 165, 242, SELECTABLE_BACKGROUND_OPACITY);
+    public static final Color CONFIRMBOX_TEXT_COLOR = Color.rgb(255, 255, 255);
     
     //FirePropertyChange
     public static final String FPC_SWAP_SCENE = "SwapScene";
@@ -200,4 +207,5 @@ public interface Constants {
     public static final String FPC_COLOR_SWAPED = "ColorSwaped";
     public static final String FPC_PLACED_CREWMEMBER = "PlacedCrewMember";
     public static final String FPC_JOURNEY_UPDATE_EVENTS = "JourneyUpdateEvents";
+    public static final String FPC_GAME_STATS_UPDATE = "GameStatsUpdate";
 }

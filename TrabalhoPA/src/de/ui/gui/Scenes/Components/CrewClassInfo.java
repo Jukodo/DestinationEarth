@@ -43,7 +43,7 @@ public class CrewClassInfo extends VBox implements Constants, PropertyChangeList
         this.observableModel = observableModel;
         observableModel.addPropertyChangeListener(FPC_CLASS_SWAPED_INFO, this);
         
-        setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
         setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         setPadding(new Insets(INSIDE_PADDING));
         setSpacing(INSIDE_PADDING);

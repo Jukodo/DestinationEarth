@@ -15,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class CrewSelection_layout extends VBox implements Constants{
     private ObservableModel observableModel;
@@ -43,7 +42,7 @@ public class CrewSelection_layout extends VBox implements Constants{
     public CrewSelection_layout(ObservableModel observableModel) {
         this.observableModel = observableModel;
         
-        setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+        setId("background-image");
         
         stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREWSELECTION);
         interactionContainer = new BorderPane();

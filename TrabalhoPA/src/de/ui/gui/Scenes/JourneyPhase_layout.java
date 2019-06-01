@@ -4,6 +4,7 @@ import de.logic.data.Constants;
 import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
 import de.ui.gui.Scenes.Components.CrewClassInfo;
+import de.ui.gui.Scenes.Components.GameStatsInfo;
 import de.ui.gui.Scenes.Components.JourneyDisplay;
 import de.ui.gui.Scenes.Components.ShipDisplay;
 import de.ui.gui.Scenes.Components.StateBar;
@@ -31,12 +32,12 @@ public class JourneyPhase_layout extends VBox implements Constants{
     //Left Container
     private VBox leftContainer;
     private HBox mixContainer;
-    private JourneyDisplay journeyContainer;
-    private ShipDisplay shipContainer;
+    private JourneyDisplay journeyDisplay;
+    private ShipDisplay shipDisplay;
     
     //Right Container
     private VBox rightContainer;
-    private CrewClassInfo classInfoContainer;
+    private GameStatsInfo gameStatsInfo;
     
     //Bottom Container
     private HBox buttonBar;
@@ -46,7 +47,7 @@ public class JourneyPhase_layout extends VBox implements Constants{
     public JourneyPhase_layout(ObservableModel observableModel) {
         this.observableModel = observableModel;
         
-        setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+        setId("background-image");
         
         stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_JOURNEYPHASE);
         interactionContainer = new BorderPane();
@@ -65,15 +66,13 @@ public class JourneyPhase_layout extends VBox implements Constants{
         
         //Left (Class List)
         leftContainer = new VBox();
-        leftContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-        
         leftContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, 0));
         
         mixContainer = new HBox();
-        journeyContainer = new JourneyDisplay(observableModel, false);
-        shipContainer = new ShipDisplay(observableModel, false, SCENE_JOURNEYPHASE);
+        journeyDisplay = new JourneyDisplay(observableModel, false);
+        shipDisplay = new ShipDisplay(observableModel, false, SCENE_JOURNEYPHASE);
         
-        mixContainer.getChildren().addAll(journeyContainer, shipContainer);
+        mixContainer.getChildren().addAll(journeyDisplay, shipDisplay);
         
         leftContainer.getChildren().addAll(mixContainer);
         
@@ -81,21 +80,17 @@ public class JourneyPhase_layout extends VBox implements Constants{
         
         //Right (Class Info + Buttons)
         rightContainer = new VBox();
-        rightContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-        
         rightContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, INSIDE_PADDING));
         
-        classInfoContainer = new CrewClassInfo(observableModel);
-        classInfoContainer.setPrefWidth(JOURNEY_EDITOR_X);
+        gameStatsInfo = new GameStatsInfo(observableModel);
         
-        rightContainer.getChildren().addAll(classInfoContainer);
+        rightContainer.getChildren().addAll(gameStatsInfo);
         
         interactionContainer.setRight(rightContainer);
         
         //Bottom
         
         buttonBar = new HBox(INSIDE_PADDING);
-        buttonBar.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
         quitBtn = new Button("Quit");
         lockInBtn = new Button("Lock In");
         
@@ -115,7 +110,7 @@ public class JourneyPhase_layout extends VBox implements Constants{
         });
         
         lockInBtn.setOnAction(e -> {
-            observableModel.swapScene(SCENE_RESTPHASE);
+            observableModel.lockIn();
         });
     }
 }

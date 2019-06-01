@@ -1,7 +1,9 @@
-.root :not(ConfirmBox){
+.root{
     -fx-font-family: "Courier New";
     -fx-font-weight: bold;
-    
+}
+
+#background-image{
     /*Background image*/
     -fx-background-image: url("../Images/Background.jpg");
     -fx-background-repeat: stretch;   
