@@ -176,10 +176,16 @@ public interface Constants {
     public static final int INSIDE_PADDING = 10;
     
     //Colors
+    public static final Color TOKEN_ALIEN = Color.rgb(24, 142, 26);
+    public static final Color TOKEN_TRAP = Color.rgb(109, 40, 29);
     public static final Color BACKGROUND_COLOR = Color.rgb(37, 37, 37);
+    public static final double NORMAL_BACKGROUND_OPACITY = 0.5;
     public static final Color NORMAL_BACKGROUND_COLOR = Color.rgb(240, 240, 240);
+    public static final Color NORMAL_BACKGROUND_COLOR_O = Color.rgb(240, 240, 240, NORMAL_BACKGROUND_OPACITY);
     public static final Color NORMAL_TEXT_COLOR = Color.rgb(0, 0, 0);
+    public static final double SELECTED_BACKGROUND_OPACITY = 0.5;
     public static final Color SELECTED_BACKGROUND_COLOR = Color.rgb(118, 165, 242);
+    public static final Color SELECTED_BACKGROUND_COLOR_O = Color.rgb(118, 165, 242, SELECTED_BACKGROUND_OPACITY);
     public static final Color SELECTED_TEXT_COLOR = Color.rgb(255, 255, 255);
     
     //FirePropertyChange
@@ -191,4 +197,5 @@ public interface Constants {
     public static final String FPC_CLASS_SWAPED_INFO = "ClassSwaped_Info";
     public static final String FPC_CLASS_SWAPED_LIST = "ClassSwaped_List";
     public static final String FPC_COLOR_SWAPED = "ColorSwaped";
+    public static final String FPC_PLACED_CREWMEMBER = "PlacedCrewMember";
 }

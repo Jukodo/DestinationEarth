@@ -25,9 +25,10 @@ public class CrewPlacement extends StateAdapter{
         if(this.getGame().getPlayer().hasAllMembersOnBoard()){
             this.getGame().startupSpecials();
             return new JourneySelection(this.getGame());
-        }
-        else
+        }else{
+            System.out.println("!hasAllMembersOnBoard");
             return this;//Add Log - Missing crew member(s) location(s)
+        }
     }
     
     @Override

@@ -3,7 +3,7 @@ package de.ui.gui.Scenes;
 import de.logic.data.Constants;
 import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
-import de.ui.gui.Scenes.Components.CrewClassInfo;
+import de.ui.gui.Scenes.Components.RoomSelector;
 import de.ui.gui.Scenes.Components.ShipDisplay;
 import de.ui.gui.Scenes.Components.StateBar;
 import javafx.geometry.Insets;
@@ -33,7 +33,7 @@ public class CrewPlacement_layout extends VBox implements Constants{
     
     //Right Container
     private VBox rightContainer;
-    private CrewClassInfo classInfoContainer;
+    private RoomSelector roomSelectorContainer;
     
     //Bottom Container
     private HBox buttonBar;
@@ -62,11 +62,9 @@ public class CrewPlacement_layout extends VBox implements Constants{
         
         //Left (Class List)
         leftContainer = new VBox();
-        leftContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-        
         leftContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, 0));
         
-        shipContainer = new ShipDisplay(observableModel, true);
+        shipContainer = new ShipDisplay(observableModel, true, SCENE_CREWPLACEMENT);
         
         leftContainer.getChildren().addAll(shipContainer);
         
@@ -74,20 +72,17 @@ public class CrewPlacement_layout extends VBox implements Constants{
         
         //Right (Class Info + Buttons)
         rightContainer = new VBox();
-        rightContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-        
         rightContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, INSIDE_PADDING));
         
-        classInfoContainer = new CrewClassInfo(observableModel);
+        //roomSelectorContainer = new RoomSelector(observableModel);
         
-        rightContainer.getChildren().addAll(classInfoContainer);
+        //rightContainer.getChildren().addAll(roomSelectorContainer);
         
         interactionContainer.setRight(rightContainer);
         
         //Bottom
         
         buttonBar = new HBox(INSIDE_PADDING);
-        buttonBar.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
         quitBtn = new Button("Quit");
         lockInBtn = new Button("Lock In");
         
@@ -107,7 +102,7 @@ public class CrewPlacement_layout extends VBox implements Constants{
         });
         
         lockInBtn.setOnAction(e -> {
-            observableModel.swapScene(SCENE_JOURNEYSELECTION);
+            observableModel.lockIn();
         });
     }
 }

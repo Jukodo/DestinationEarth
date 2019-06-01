@@ -73,7 +73,7 @@ public class JourneySelection_layout extends VBox implements Constants{
         
         mixContainer = new HBox();
         journeyContainer = new JourneyDisplay(observableModel, true);
-        shipContainer = new ShipDisplay(observableModel, false);
+        shipContainer = new ShipDisplay(observableModel, false, SCENE_JOURNEYSELECTION);
         
         mixContainer.getChildren().addAll(journeyContainer, shipContainer);
         

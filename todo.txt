@@ -3,13 +3,13 @@ General
 		Logs
 		Roll Dice
 	CSS
+Crew Selection
+	Make more fluid (Selected and color change when swap active crew member)
 
 Crew Placement
 	Ship Display
-		Select room
 		Highlight possible rooms
-		Hover rooms to display info
-	Room picker
+		Display Sealed rooms
 
 Journey Selection
 	Journey Editor

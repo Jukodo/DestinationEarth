@@ -1445,7 +1445,10 @@ public class DataGame implements Constants, Serializable{
     }
     
     public String getCrewMemberColorToString(int crewMember){
-        return getColorToString(player.getCrewMember(crewMember).getColor());
+        if(player.getCrewMember(crewMember).getColor() == -1)
+            return "Custom Color";
+        else
+            return getColorToString(player.getCrewMember(crewMember).getColor());
     }
     
     public String crewMemberInfoToString(){

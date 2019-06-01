@@ -5,6 +5,7 @@ import de.logic.data.members.CrewMember;
 import de.logic.states.*;
 import de.logic.states.IStates;
 import java.beans.PropertyChangeSupport;
+import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 public class ObservableModel extends PropertyChangeSupport implements Constants{
@@ -25,6 +26,14 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         System.out.println(game.getJourneyTracker()[1]);
         
         return game.getJourneyTracker();
+    }
+    
+    public HashMap<Integer, Room> getRooms(){
+        return game.getShip().getRooms();
+    }
+    
+    public int getActiveCrewMember(){
+        return game.getActiveCrewMember();
     }
     
     
@@ -68,10 +77,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public void startGame(String playerName){
-        game.currentState();
         game.start(playerName);
-        System.out.println("Game Started");
-        game.currentState();
     }
     
     public void changeCrewMember(int type){
@@ -91,9 +97,21 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public void changeCrewMemberColor(Color color){
+        if(game.getPlayer().getCrewMember(game.getActiveCrewMember()-1) == null)
+            return;
+        
         game.selectCrewMemberColor(game.getActiveCrewMember(), color);
         
         firePropertyChange(FPC_COLOR_SWAPED+(game.getActiveCrewMember()-1), color, null);
+    }
+    
+    public void placeCrewMember(int room){
+        System.out.println("EXECUTING placeCrewMember for room " + room);
+        game.placeCrewMember(game.getActiveCrewMember(), room);
+        
+        System.out.println(game.getDataGame().crewMemberInfoToString());
+        
+        firePropertyChange(FPC_PLACED_CREWMEMBER, null, null);
     }
     
     public void lockIn(){
@@ -107,6 +125,19 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
                 swapScene(SCENE_CREWPLACEMENT);
                 return;
             }
+        }else if(state instanceof CrewPlacement){
+            game.confirmCrewMemberPlacement();
+            state = game.getState();
+            if(state instanceof JourneySelection){
+                System.out.println("Changing state");
+                swapScene(SCENE_JOURNEYSELECTION);
+                return;
+            }
         }
+    }
+
+    //REMOVE LATER
+    public void currentState(){
+        game.currentState();
     }
 }

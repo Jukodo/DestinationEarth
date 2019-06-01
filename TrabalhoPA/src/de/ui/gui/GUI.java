@@ -41,6 +41,7 @@ public class GUI extends Application implements Constants, PropertyChangeListene
     public boolean swapScene(int swapTo){
         System.out.println("Swapped to " + swapTo + " aka: " + SCENE[swapTo]);
         mainWindow.setScene(scenes.get(swapTo));
+        observableModel.currentState();
         return true;
     }
     

@@ -71,7 +71,7 @@ public class AlienPhase_layout extends VBox implements Constants{
         
         mixContainer = new HBox();
         journeyContainer = new JourneyDisplay(observableModel, false);
-        shipContainer = new ShipDisplay(observableModel, false);
+        shipContainer = new ShipDisplay(observableModel, false, SCENE_ALIENPHASE);
         
         mixContainer.getChildren().addAll(journeyContainer, shipContainer);
         
