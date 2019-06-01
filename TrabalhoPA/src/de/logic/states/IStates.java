@@ -19,7 +19,7 @@ public interface IStates extends Serializable {
     IStates confirmCrewMemberPlacement();
     
     //JourneySelection
-    IStates generateJourney_ByChoice(int turn, String choice);
+    boolean generateJourney_ByChoice(int turn, String choice);
     IStates generateJourney_ByRandom();
     IStates generateJourney_ByDefault();
     IStates confirmJourneySelection();

@@ -24,16 +24,15 @@ public class JourneyDisplay extends VBox implements Constants, PropertyChangeLis
     private String[] journeyTracker;
     private HashMap<Integer, VBox> journeyEvents;
     private VBox journeyEvent;
-    private static boolean interactable;
+    private final boolean interactable;
     
     public JourneyDisplay(ObservableModel observableModel, boolean interactable){
         this.observableModel = observableModel;
-        if(interactable)
-            observableModel.addPropertyChangeListener(FPC_JOURNEY_DISPLAY, this);
-        
         this.interactable = interactable;
         
         setPrefHeight(INTERACTION_Y);
+        
+        setPropertyChangeListeners();
         
         initJourneyEvents();
     }
@@ -55,7 +54,11 @@ public class JourneyDisplay extends VBox implements Constants, PropertyChangeLis
         journeyEvent = new VBox();
         journeyEvent.setPrefSize(JOURNEY_DISPLAY_X, INTERACTION_Y/(NUM_TURNS+2));
         journeyEvent.setAlignment(Pos.CENTER);
-        journeyEvent.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        
+        if(interactable && index == 1)
+            journeyEvent.setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+        else
+            journeyEvent.setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
         
         if(index == 0)
             journeyEvent.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1, 0, 1, 1))));
@@ -83,27 +86,31 @@ public class JourneyDisplay extends VBox implements Constants, PropertyChangeLis
         }
     }
     
-    private void updateJourneyEvents(){
-        Node label;
-        journeyTracker = observableModel.getJourneyTracker();
-        
-        for(int i = 0; i < NUM_TURNS; i++){
-            label = journeyEvents.get(i).getChildren().get(0);
-            
-            if(label instanceof Label && (i != 0 && i != NUM_TURNS + 1))
-                ((Label) label).setText(journeyTracker[i-1]);
-        }
+    private void setPropertyChangeListeners(){
+        if(interactable)
+            observableModel.addPropertyChangeListener(FPC_JOURNEY_DISPLAY, this);
+        observableModel.addPropertyChangeListener(FPC_JOURNEY_UPDATE_EVENTS, this);
     }
-
+    
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().equals(FPC_JOURNEY_DISPLAY)){
-            if(Integer.parseInt(evt.getNewValue().toString()) == ACTIVE){
-                ((VBox) journeyEvents.get(Integer.parseInt(evt.getOldValue().toString())-1)).
-                    setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
-            }else{
-                ((VBox) journeyEvents.get(Integer.parseInt(evt.getOldValue().toString())-1)).
-                    setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+            for(int i = 1; i <= journeyEvents.size()-2; i++){
+                if((int) evt.getOldValue() == i){
+                    ((VBox) journeyEvents.get(i)).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+                }else{
+                    ((VBox) journeyEvents.get(i)).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+                }
+            }
+        }else if(evt.getPropertyName().equals(FPC_JOURNEY_UPDATE_EVENTS)){
+            Node label;
+            journeyTracker = observableModel.getJourneyTracker();
+
+            for(int i = 1; i <= NUM_TURNS; i++){
+                label = journeyEvents.get(i).getChildren().get(0);
+
+                if(label instanceof Label)
+                    ((Label) label).setText(journeyTracker[i-1]);
             }
         }
     }

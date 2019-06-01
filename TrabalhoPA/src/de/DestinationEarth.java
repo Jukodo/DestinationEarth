@@ -205,8 +205,8 @@ public class DestinationEarth implements Serializable{
     }
     
     //JourneySelection
-    public void generateJourney_ByChoice(int turn, String choice){
-        setState(getState().generateJourney_ByChoice(turn, choice));
+    public boolean generateJourney_ByChoice(int turn, String choice){
+        return getState().generateJourney_ByChoice(turn, choice);
     }
     
     public void generateJourney_ByRandom(){

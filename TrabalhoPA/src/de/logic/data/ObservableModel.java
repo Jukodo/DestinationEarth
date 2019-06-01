@@ -23,9 +23,11 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public String[] getJourneyTracker(){
-        System.out.println(game.getJourneyTracker()[1]);
-        
         return game.getJourneyTracker();
+    }
+    
+    public String getJourneyTrackerTurn(int turn){
+        return game.getJourneyTrackerTurn(turn);
     }
     
     public HashMap<Integer, Room> getRooms(){
@@ -66,18 +68,41 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
             return;
         
         if(game.swapActiveJourneyTurn(index)){
-            for(int i = 1; i <= NUM_TURNS; i++){
-                if(game.getActiveJourneyTurn() == i){
-                    firePropertyChange(FPC_JOURNEY_DISPLAY, i+1, ACTIVE);
-                }else{
-                    firePropertyChange(FPC_JOURNEY_DISPLAY, i+1, INACTIVE);
-                }
+            firePropertyChange(FPC_JOURNEY_DISPLAY, index, null);
+        }
+    }
+    
+    public void setJourney_byChoice(String event){
+        if(game.getJourneyTrackerTurn(game.getActiveJourneyTurn()).equals(event))
+            return;
+        
+        if(game.isValid_JourneyTurn(game.getActiveJourneyTurn(), event)){
+            if(game.generateJourney_ByChoice(game.getActiveJourneyTurn(), event)){
+                firePropertyChange(FPC_JOURNEY_DISPLAY, game.getActiveJourneyTurn(), null);
+                firePropertyChange(FPC_JOURNEY_UPDATE_EVENTS, null, null);
             }
         }
     }
     
+    public void setJourney_byDefault(){
+        game.generateJourney_ByDefault();
+        
+        firePropertyChange(FPC_JOURNEY_DISPLAY, game.getActiveJourneyTurn(), null);
+        firePropertyChange(FPC_JOURNEY_UPDATE_EVENTS, null, null);
+    }
+    
+    public void setJourney_byRandom(){
+        game.generateJourney_ByRandom();
+        
+        firePropertyChange(FPC_JOURNEY_DISPLAY, game.getActiveJourneyTurn(), null);
+        firePropertyChange(FPC_JOURNEY_UPDATE_EVENTS, null, null);
+    }
+    
     public void startGame(String playerName){
         game.start(playerName);
+        
+        firePropertyChange(FPC_JOURNEY_DISPLAY, game.getActiveJourneyTurn(), null);
+        firePropertyChange(FPC_JOURNEY_UPDATE_EVENTS, null, null);
     }
     
     public void changeCrewMember(int type){
@@ -131,6 +156,14 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
             if(state instanceof JourneySelection){
                 System.out.println("Changing state");
                 swapScene(SCENE_JOURNEYSELECTION);
+                return;
+            }
+        }else if(state instanceof JourneySelection){
+            game.confirmJourneySelection();
+            state = game.getState();
+            if(state instanceof JourneyPhase){
+                System.out.println("Changing state");
+                swapScene(SCENE_JOURNEYPHASE);
                 return;
             }
         }

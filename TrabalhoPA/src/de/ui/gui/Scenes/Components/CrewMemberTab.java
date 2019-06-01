@@ -61,8 +61,8 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
         avatarNameContainer.getChildren().addAll(memberAvatar, memberName);
         
         if(crewMemberIndex == 0){
-            setBackground(new Background(new BackgroundFill(SELECTED_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
-            memberName.setTextFill(SELECTED_TEXT_COLOR);
+            setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+            memberName.setTextFill(SELECTABLE_TEXT_COLOR);
         }else{
             setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
             memberName.setTextFill(NORMAL_TEXT_COLOR);
@@ -99,8 +99,8 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().equals(FPC_CREW_TAB+crewMemberIndex)){
             if((int) evt.getOldValue() == ACTIVE){
-                setBackground(new Background(new BackgroundFill(SELECTED_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
-                memberName.setTextFill(SELECTED_TEXT_COLOR);
+                setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+                memberName.setTextFill(SELECTABLE_TEXT_COLOR);
             }else if((int) evt.getOldValue() == INACTIVE){
                 setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
                 memberName.setTextFill(NORMAL_TEXT_COLOR);

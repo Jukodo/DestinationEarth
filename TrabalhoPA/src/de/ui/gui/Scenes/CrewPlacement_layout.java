@@ -3,7 +3,6 @@ package de.ui.gui.Scenes;
 import de.logic.data.Constants;
 import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
-import de.ui.gui.Scenes.Components.RoomSelector;
 import de.ui.gui.Scenes.Components.ShipDisplay;
 import de.ui.gui.Scenes.Components.StateBar;
 import javafx.geometry.Insets;
@@ -15,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class CrewPlacement_layout extends VBox implements Constants{
     private ObservableModel observableModel;
@@ -30,10 +28,6 @@ public class CrewPlacement_layout extends VBox implements Constants{
     //Left Container
     private VBox leftContainer;
     private ShipDisplay shipContainer;
-    
-    //Right Container
-    private VBox rightContainer;
-    private RoomSelector roomSelectorContainer;
     
     //Bottom Container
     private HBox buttonBar;
@@ -70,18 +64,7 @@ public class CrewPlacement_layout extends VBox implements Constants{
         
         interactionContainer.setLeft(leftContainer);
         
-        //Right (Class Info + Buttons)
-        rightContainer = new VBox();
-        rightContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, INSIDE_PADDING));
-        
-        //roomSelectorContainer = new RoomSelector(observableModel);
-        
-        //rightContainer.getChildren().addAll(roomSelectorContainer);
-        
-        interactionContainer.setRight(rightContainer);
-        
         //Bottom
-        
         buttonBar = new HBox(INSIDE_PADDING);
         quitBtn = new Button("Quit");
         lockInBtn = new Button("Lock In");

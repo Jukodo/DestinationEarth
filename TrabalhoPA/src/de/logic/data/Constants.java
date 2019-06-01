@@ -12,6 +12,7 @@ public interface Constants {
     public static final String[] DEF_JOURNEY = {"2A", "3A", "4A", "5A*", "R", "4A", "5A", "6A*", "R", "6A", "7A*", "R", "8A"};
     public static final int[] MAX_SPAWN_ALIENS_TURN = {2, 3, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9};
     public static final int[] MIN_SPAWN_ALIENS_TURN = {1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7};
+    public static final String ACCEPTABLE_EVENTS = "#A | #A* | R";
     
     public static final int MAX_COLOR = 12;
     public static final String[] COLOR = {"White", "Blue", "Cyan", "Dark Gray", "Gray", "Green", "Yellow", "Magenta", "Orange", "Pink", "Red", "Black"};
@@ -161,9 +162,7 @@ public interface Constants {
     
     //  Journey Selection
     public static final int JOURNEY_DISPLAY_X = ((3 * WINDOW_X) / 100);//10%
-    //Also has ship (SHIP_DISPLAY_X)
-    public static final int CREW_CLASS_INFO_X_ = ((int)((64.25 * WINDOW_X) / 100));//70%
-    //public static final int JOURNEY_EDITOR_X = ((60 * WINDOW_X) / 100);//60%
+    public static final int JOURNEY_EDITOR_X = ((int)((64.10 * WINDOW_X) / 100));//70%
     
     //Rest of Game Phases
     //Also has journey (JOURNEY_DISPLAY_X)
@@ -179,14 +178,16 @@ public interface Constants {
     public static final Color TOKEN_ALIEN = Color.rgb(24, 142, 26);
     public static final Color TOKEN_TRAP = Color.rgb(109, 40, 29);
     public static final Color BACKGROUND_COLOR = Color.rgb(37, 37, 37);
+    //Normal
     public static final double NORMAL_BACKGROUND_OPACITY = 0.5;
     public static final Color NORMAL_BACKGROUND_COLOR = Color.rgb(240, 240, 240);
     public static final Color NORMAL_BACKGROUND_COLOR_O = Color.rgb(240, 240, 240, NORMAL_BACKGROUND_OPACITY);
     public static final Color NORMAL_TEXT_COLOR = Color.rgb(0, 0, 0);
-    public static final double SELECTED_BACKGROUND_OPACITY = 0.5;
-    public static final Color SELECTED_BACKGROUND_COLOR = Color.rgb(118, 165, 242);
-    public static final Color SELECTED_BACKGROUND_COLOR_O = Color.rgb(118, 165, 242, SELECTED_BACKGROUND_OPACITY);
-    public static final Color SELECTED_TEXT_COLOR = Color.rgb(255, 255, 255);
+    //Selectable
+    public static final double SELECTABLE_BACKGROUND_OPACITY = 0.5;
+    public static final Color SELECTABLE_BACKGROUND_COLOR = Color.rgb(118, 165, 242);
+    public static final Color SELECTABLE_BACKGROUND_COLOR_O = Color.rgb(118, 165, 242, SELECTABLE_BACKGROUND_OPACITY);
+    public static final Color SELECTABLE_TEXT_COLOR = Color.rgb(255, 255, 255);
     
     //FirePropertyChange
     public static final String FPC_SWAP_SCENE = "SwapScene";
@@ -198,4 +199,5 @@ public interface Constants {
     public static final String FPC_CLASS_SWAPED_LIST = "ClassSwaped_List";
     public static final String FPC_COLOR_SWAPED = "ColorSwaped";
     public static final String FPC_PLACED_CREWMEMBER = "PlacedCrewMember";
+    public static final String FPC_JOURNEY_UPDATE_EVENTS = "JourneyUpdateEvents";
 }

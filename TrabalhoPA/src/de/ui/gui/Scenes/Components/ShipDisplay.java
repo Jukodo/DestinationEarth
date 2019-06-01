@@ -66,11 +66,9 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
         
         getChildren().add(shipImage);
         
-        if(interactable){
-            processGhostRooms();
-            getChildren().add(ghostContainer);
-            setComponentsHandlers();
-        }
+        processGhostRooms();
+        getChildren().add(ghostContainer);
+        setComponentsHandlers();
         
         //Hover Info
         hoverInfo = new VBox();
@@ -181,12 +179,19 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
         CornerRadii room1Corner = new CornerRadii(50, 100, 100, 50, 0, 0, 0, 0, true, true, true, true, true, true, true, true);
         CornerRadii room6Corner = new CornerRadii(13);
         for(int i = 1; i <= rooms.size(); i++){
-            if(i == 1)
-                rooms.get(i).setBackground(new Background(new BackgroundFill(SELECTED_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
-            else if(i == 6)
-                rooms.get(i).setBackground(new Background(new BackgroundFill(SELECTED_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+            Color backgroundColor;
+            
+            if(interactable)
+                backgroundColor = SELECTABLE_BACKGROUND_COLOR_O;
             else
-                rooms.get(i).setBackground(new Background(new BackgroundFill(SELECTED_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+                backgroundColor = NORMAL_BACKGROUND_COLOR_O;
+            
+            if(i == 1)
+                rooms.get(i).setBackground(new Background(new BackgroundFill(backgroundColor, room1Corner, Insets.EMPTY)));
+            else if(i == 6)
+                rooms.get(i).setBackground(new Background(new BackgroundFill(backgroundColor, room6Corner, Insets.EMPTY)));
+            else
+                rooms.get(i).setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
                 
             rooms.get(i).setPadding(new Insets(2));
             rooms.get(i).setSpacing(2);
@@ -201,12 +206,17 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
     private void setComponentsHandlers(){
         for(int i = 1; i <= rooms.size(); i++){
             final int fi = i;
-            rooms.get(i).setOnMousePressed(e -> {
-                observableModel.placeCrewMember(fi);
-            });
+            
+            if(interactable){
+                rooms.get(i).setOnMousePressed(e -> {
+                    observableModel.placeCrewMember(fi);
+                });
+            }
+            
             rooms.get(i).setOnMouseEntered(e -> {
                 updateHoverInfo(fi);
             });
+            
             rooms.get(i).setOnMouseExited(e -> {
                 hoverInfo.getChildren().clear();
             });

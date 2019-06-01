@@ -9,13 +9,13 @@ public class JourneySelection extends StateAdapter{
     }
     
     @Override
-    public IStates generateJourney_ByChoice(int turn, String choice){
+    public boolean generateJourney_ByChoice(int turn, String choice){
         
         if(!this.getGame().editJourney_Choice(turn, choice)){
-            //Add Log
+            return false;
         }
         
-        return this;
+        return true;
     }
     
     @Override
@@ -40,6 +40,7 @@ public class JourneySelection extends StateAdapter{
         if(this.getGame().isValid_JourneyTracker())
             return new JourneyPhase(this.getGame());
         else
+            System.out.println("!isValid_JourneyTracker");
             //Add Log - Journey is invalid
         return this;
     }

@@ -63,8 +63,8 @@ public class CrewClass extends VBox implements Constants{
     
     public void setState(int state){
         if(state == ACTIVE){
-            setBackground(new Background(new BackgroundFill(SELECTED_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
-            typeName.setTextFill(SELECTED_TEXT_COLOR);
+            setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+            typeName.setTextFill(SELECTABLE_TEXT_COLOR);
         }else{
             setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
             typeName.setTextFill(NORMAL_TEXT_COLOR);

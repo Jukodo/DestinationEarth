@@ -62,6 +62,7 @@ public class CrewClassInfo extends VBox implements Constants, PropertyChangeList
         specials = new Label();
         colorLabel = new Label("Color");
         colorPicker = new ColorPicker();
+        colorPicker.setPadding(new Insets(0));
         
         processMovement();
         processAttack();

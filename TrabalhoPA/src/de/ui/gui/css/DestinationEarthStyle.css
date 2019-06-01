@@ -1,4 +1,4 @@
-.root{
+.root :not(ConfirmBox){
     -fx-font-family: "Courier New";
     -fx-font-weight: bold;
     
@@ -7,11 +7,12 @@
     -fx-background-repeat: stretch;   
     -fx-background-size: 1280 720;
     -fx-background-position: center center;
-    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
 
 .button{
-    -fx-background-color:#fff;
-    -fx-border:0px;
-    -fx-border-radius:0px;
+    -fx-background-color: #fff;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-border-color: #000;
+    -fx-border-radius: 0px;
 }

@@ -74,8 +74,8 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
     
     @Override
-    public IStates generateJourney_ByChoice(int turn, String choice){
-        return this;
+    public boolean generateJourney_ByChoice(int turn, String choice){
+        return false;
     }
     
     @Override

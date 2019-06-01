@@ -35,7 +35,7 @@ public class DataGame implements Constants, Serializable{
         
         activeCrewMember = 1;
         activeNewAlien = 1;
-        activeJourneyTurn = 0;
+        activeJourneyTurn = 1;
         
         newAliens = new ArrayList<>();
         
@@ -518,7 +518,7 @@ public class DataGame implements Constants, Serializable{
             sb = new StringBuilder();
             if(journeyTracker[i] == null){
                 //Randomize number of aliens to spawn, in between the range of MIN and MAX
-                sb.append((int) (Math.random() * (MAX_SPAWN_ALIENS_TURN[i] - MIN_SPAWN_ALIENS_TURN[i])) + MIN_SPAWN_ALIENS_TURN[i]);
+                sb.append((int) (MIN_SPAWN_ALIENS_TURN[i] + (Math.random() * (MAX_SPAWN_ALIENS_TURN[i] - MIN_SPAWN_ALIENS_TURN[i] + 1))));
                 sb.append("A");
                 //IF NOT LAST && NEXT NOT NULL && NEXT IS R -> ADD SPECIAL
                 if(i < NUM_TURNS-1 && journeyTracker[i+1] != null && journeyTracker[i+1].compareToIgnoreCase("R") == 0)

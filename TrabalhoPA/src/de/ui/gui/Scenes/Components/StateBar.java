@@ -57,7 +57,7 @@ public class StateBar extends HBox implements Constants{
         tempLabel.setAlignment(Pos.CENTER);
         if(active){
             tempLabel.setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
-            tempLabel.setTextFill(SELECTED_TEXT_COLOR);
+            tempLabel.setTextFill(SELECTABLE_TEXT_COLOR);
         }else{
             tempLabel.setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
             tempLabel.setTextFill(NORMAL_TEXT_COLOR);

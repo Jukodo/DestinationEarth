@@ -1,12 +1,11 @@
 package de.ui.gui.Scenes;
 
 import de.logic.data.Constants;
-import static de.logic.data.Constants.BUTTON_BAR_Y;
-import static de.logic.data.Constants.INSIDE_PADDING;
 import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
 import de.ui.gui.Scenes.Components.CrewClassInfo;
 import de.ui.gui.Scenes.Components.JourneyDisplay;
+import de.ui.gui.Scenes.Components.JourneyEditor;
 import de.ui.gui.Scenes.Components.ShipDisplay;
 import de.ui.gui.Scenes.Components.StateBar;
 import javafx.geometry.Insets;
@@ -33,12 +32,12 @@ public class JourneySelection_layout extends VBox implements Constants{
     //Left Container
     private VBox leftContainer;
     private HBox mixContainer;
-    private JourneyDisplay journeyContainer;
-    private ShipDisplay shipContainer;
+    private JourneyDisplay journeyDisplay;
+    private ShipDisplay shipDisplay;
     
     //Right Container
     private VBox rightContainer;
-    private CrewClassInfo classInfoContainer;
+    private JourneyEditor journeyEditor;
     
     //Bottom Container
     private HBox buttonBar;
@@ -67,15 +66,13 @@ public class JourneySelection_layout extends VBox implements Constants{
         
         //Left (Class List)
         leftContainer = new VBox();
-        leftContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-        
         leftContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, 0));
         
         mixContainer = new HBox();
-        journeyContainer = new JourneyDisplay(observableModel, true);
-        shipContainer = new ShipDisplay(observableModel, false, SCENE_JOURNEYSELECTION);
+        journeyDisplay = new JourneyDisplay(observableModel, true);
+        shipDisplay = new ShipDisplay(observableModel, false, SCENE_JOURNEYSELECTION);
         
-        mixContainer.getChildren().addAll(journeyContainer, shipContainer);
+        mixContainer.getChildren().addAll(journeyDisplay, shipDisplay);
         
         leftContainer.getChildren().addAll(mixContainer);
         
@@ -83,21 +80,15 @@ public class JourneySelection_layout extends VBox implements Constants{
         
         //Right (Class Info + Buttons)
         rightContainer = new VBox();
-        rightContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-        
         rightContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, INSIDE_PADDING));
         
-        classInfoContainer = new CrewClassInfo(observableModel);
-        classInfoContainer.setPrefWidth(CREW_CLASS_INFO_X_);
-        
-        rightContainer.getChildren().addAll(classInfoContainer);
+        journeyEditor = new JourneyEditor(observableModel);
+        rightContainer.getChildren().add(journeyEditor);
         
         interactionContainer.setRight(rightContainer);
         
         //Bottom
-        
         buttonBar = new HBox(INSIDE_PADDING);
-        buttonBar.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
         quitBtn = new Button("Quit");
         lockInBtn = new Button("Lock In");
         
@@ -117,7 +108,7 @@ public class JourneySelection_layout extends VBox implements Constants{
         });
         
         lockInBtn.setOnAction(e -> {
-            observableModel.swapScene(SCENE_JOURNEYPHASE);
+            observableModel.lockIn();
         });
     }
 }

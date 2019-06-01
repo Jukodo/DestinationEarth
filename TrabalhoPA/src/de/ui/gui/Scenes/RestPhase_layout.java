@@ -86,7 +86,7 @@ public class RestPhase_layout extends VBox implements Constants{
         rightContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, INSIDE_PADDING));
         
         classInfoContainer = new CrewClassInfo(observableModel);
-        classInfoContainer.setPrefWidth(CREW_CLASS_INFO_X_);
+        classInfoContainer.setPrefWidth(JOURNEY_EDITOR_X);
         
         rightContainer.getChildren().addAll(classInfoContainer);
         
