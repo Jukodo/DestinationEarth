@@ -37,7 +37,7 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
     
     public ShipDisplay(ObservableModel observableModel, boolean interactable, int fromScene){
         this.observableModel = observableModel;
-        observableModel.addPropertyChangeListener(FPC_PLACED_CREWMEMBER, this);
+        observableModel.addPropertyChangeListener(FPC_DISPLAY_SHIP_UPDATE, this);
         
         this.interactable = interactable;
         this.fromScene = fromScene;
@@ -258,20 +258,22 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
     
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if(evt.getPropertyName().equals(FPC_PLACED_CREWMEMBER)){
-            for(int i = 1; i < rooms.size(); i++){
-                rooms.get(i).getChildren().clear();
-                
-                if(!roomsObj.get(i).getAliensInside().isEmpty()){
-                    rooms.get(i).getChildren().add(new Circle(5, TOKEN_ALIEN));
+        switch(evt.getPropertyName()){
+            case FPC_DISPLAY_SHIP_UPDATE:
+                for(int i = 1; i < rooms.size(); i++){
+                    rooms.get(i).getChildren().clear();
+
+                    if(!roomsObj.get(i).getAliensInside().isEmpty()){
+                        rooms.get(i).getChildren().add(new Circle(5, TOKEN_ALIEN));
+                    }
+                    if(roomsObj.get(i).getTrapInside() != null){
+                        rooms.get(i).getChildren().add(new Circle(5, TOKEN_TRAP));
+                    }
+                    for(int j = 0; j < roomsObj.get(i).getMembersInside().size(); j++){
+                        rooms.get(i).getChildren().add(new Circle(5, roomsObj.get(i).getMembersInside().get(j).getCustomColor()));
+                    }
                 }
-                if(roomsObj.get(i).getTrapInside() != null){
-                    rooms.get(i).getChildren().add(new Circle(5, TOKEN_TRAP));
-                }
-                for(int j = 0; j < roomsObj.get(i).getMembersInside().size(); j++){
-                    rooms.get(i).getChildren().add(new Circle(5, roomsObj.get(i).getMembersInside().get(j).getCustomColor()));
-                }
-            }
+                break;
         }
     }
 }

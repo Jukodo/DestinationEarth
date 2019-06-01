@@ -70,7 +70,7 @@ public class JourneyEditor extends VBox implements Constants, PropertyChangeList
     }
     
     private void setPropertyChangeListeners(){
-        observableModel.addPropertyChangeListener(FPC_JOURNEY_DISPLAY, this);
+        observableModel.addPropertyChangeListener(FPC_JOURNEY_TURN_UPDATE, this);
     }
     
     private void initJourneyEditor(){
@@ -164,9 +164,9 @@ public class JourneyEditor extends VBox implements Constants, PropertyChangeList
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch(evt.getPropertyName()){
-            case FPC_JOURNEY_DISPLAY:
+            case FPC_JOURNEY_TURN_UPDATE:
                 int activeTurn = (int) evt.getOldValue();
-
+                
                 turn.setText(Integer.toString(activeTurn));
 
                 event.setText(observableModel.getJourneyTrackerTurn(activeTurn));

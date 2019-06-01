@@ -5,6 +5,13 @@ import javafx.scene.paint.Color;
 public interface Constants {
     public static final String GAME_TITLE = "Destination Earth";
     
+    public static final int STATE_BEGINNING = 0;
+    public static final int STATE_CREW_SELECTION = 1;
+    public static final int STATE_CREW_PLACEMENT = 2;
+    public static final int STATE_JOURNEY_SELECTION = 3;
+    public static final int STATE_REST_PHASE = 4;
+    public static final int STATE_CREW_PHASE = 5;
+    
     public static final int NUM_TURNS = 13;
     public static final int NUM_ROOMS = 12;
     public static final int NUM_CREW_MEMBERS = 2;
@@ -200,12 +207,12 @@ public interface Constants {
     public static final String FPC_SWAP_SCENE = "SwapScene";
     public static final String FPC_CLOSE_WINDOW = "CloseWindow";
     public static final String FPC_CREW_TAB = "CrewTab";
-    public static final String FPC_JOURNEY_DISPLAY = "JourneyDisplay";
     public static final String FPC_CLASS_SWAPED_BAR = "ClassSwaped_Bar";
     public static final String FPC_CLASS_SWAPED_INFO = "ClassSwaped_Info";
     public static final String FPC_CLASS_SWAPED_LIST = "ClassSwaped_List";
     public static final String FPC_COLOR_SWAPED = "ColorSwaped";
-    public static final String FPC_PLACED_CREWMEMBER = "PlacedCrewMember";
-    public static final String FPC_JOURNEY_UPDATE_EVENTS = "JourneyUpdateEvents";
+    public static final String FPC_DISPLAY_SHIP_UPDATE = "DisplayShipUpdate";
+    public static final String FPC_JOURNEY_EVENTS_UPDATE = "JourneyEventsUpdate";
+    public static final String FPC_JOURNEY_TURN_UPDATE = "JourneyTurnUpdate";
     public static final String FPC_GAME_STATS_UPDATE = "GameStatsUpdate";
 }

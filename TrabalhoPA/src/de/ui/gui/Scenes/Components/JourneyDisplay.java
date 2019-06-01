@@ -87,31 +87,34 @@ public class JourneyDisplay extends VBox implements Constants, PropertyChangeLis
     }
     
     private void setPropertyChangeListeners(){
-        if(interactable)
-            observableModel.addPropertyChangeListener(FPC_JOURNEY_DISPLAY, this);
-        observableModel.addPropertyChangeListener(FPC_JOURNEY_UPDATE_EVENTS, this);
+        observableModel.addPropertyChangeListener(FPC_JOURNEY_TURN_UPDATE, this);
+        observableModel.addPropertyChangeListener(FPC_JOURNEY_EVENTS_UPDATE, this);
     }
     
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if(evt.getPropertyName().equals(FPC_JOURNEY_DISPLAY)){
-            for(int i = 1; i <= journeyEvents.size()-2; i++){
-                if((int) evt.getOldValue() == i){
-                    ((VBox) journeyEvents.get(i)).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
-                }else{
-                    ((VBox) journeyEvents.get(i)).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+        switch(evt.getPropertyName()){
+            case FPC_JOURNEY_TURN_UPDATE:
+                for(int i = 1; i <= journeyEvents.size()-2; i++){
+                    if((int) evt.getOldValue() == i){
+                        ((VBox) journeyEvents.get(i)).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+                    }else{
+                        ((VBox) journeyEvents.get(i)).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
+                    }
                 }
-            }
-        }else if(evt.getPropertyName().equals(FPC_JOURNEY_UPDATE_EVENTS)){
-            Node label;
-            journeyTracker = observableModel.getJourneyTracker();
+                break;
+                
+            case FPC_JOURNEY_EVENTS_UPDATE:
+                Node label;
+                journeyTracker = observableModel.getJourneyTracker();
 
-            for(int i = 1; i <= NUM_TURNS; i++){
-                label = journeyEvents.get(i).getChildren().get(0);
+                for(int i = 1; i <= NUM_TURNS; i++){
+                    label = journeyEvents.get(i).getChildren().get(0);
 
-                if(label instanceof Label)
-                    ((Label) label).setText(journeyTracker[i-1]);
-            }
+                    if(label instanceof Label)
+                        ((Label) label).setText(journeyTracker[i-1]);
+                }
+                break;
         }
     }
 }
