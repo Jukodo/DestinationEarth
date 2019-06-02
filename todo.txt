@@ -8,9 +8,6 @@ Crew Placement
 	Ship Display
 		Display Sealed rooms
 
-Rest Phase
-	Spending Inspiration Points (Lots of stuff)
-
 Crew Phase
 	Attack
 	Place Trap

@@ -253,56 +253,56 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     public void IP_addHealthPoint(){
         game.IP_addHealthPoint();
         
-        updateActionSelection();
+        updateInspirationSelection();
         updateGameStats();
     }
     
     public void IP_repairHull(){
         game.IP_repairHull();
         
-        updateActionSelection();
+        updateInspirationSelection();
         updateGameStats();
     }
     
     public void IP_buildOrganicDetonator(){
         game.IP_buildOrganicDetonator();
         
-        updateActionSelection();
+        updateInspirationSelection();
         updateGameStats();
     }
     
     public void IP_addMovement(){
         game.IP_addMovement();
         
-        updateActionSelection();
+        updateInspirationSelection();
         updateGameStats();
     }
     
     public void IP_buildParticleDesperser(){
         game.IP_buildParticleDesperser();
         
-        updateActionSelection();
+        updateInspirationSelection();
         updateGameStats();
     }
     
     public void IP_addSealedRoomToken(){
         game.IP_addSealedRoomToken();
         
-        updateActionSelection();
+        updateInspirationSelection();
         updateGameStats();
     }
     
     public void IP_addAttackDie(){
         game.IP_addAttackDie();
         
-        updateActionSelection();
+        updateInspirationSelection();
         updateGameStats();
     }
     
     public void IP_addValueToAttackDie(){
         game.IP_addValueToAttackDie();
         
-        updateActionSelection();
+        updateInspirationSelection();
         updateGameStats();
     }
     
@@ -377,9 +377,10 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
                 executeUpdateJourneyDisplay();
                 state = game.currentState();
                 updateGameStats();
-                if(state == STATE_REST_PHASE)
+                if(state == STATE_REST_PHASE){
+                    updateInspirationSelection();
                     swapScene(SCENE_REST_PHASE);
-                else if(state == STATE_CREW_PHASE){
+                }else if(state == STATE_CREW_PHASE){
                     updateActionSelection();
                     swapScene(SCENE_CREW_PHASE);
                 }
