@@ -84,6 +84,9 @@ public interface Constants {
     public static final int DEF_COST_I_ADD_VALUE_ATTACK_DIE = 6;
     public static final int[] DEF_INSPIRATIONS_COST = {DEF_COST_I_ADD_HEALTH, DEF_COST_I_REPAIR_HULL, DEF_COST_I_BUILD_TRAP_ORGANIC, DEF_COST_I_ADD_MOVEMENT, DEF_COST_I_BUILD_TRAP_PARTICLE, DEF_COST_I_ADD_SEALED_TOKEN, DEF_COST_I_ADD_ATTACK_DIE, DEF_COST_I_ADD_VALUE_ATTACK_DIE};
     
+    public static final int DEF_COST_REDSHIRT_SACRIFICE = 0;
+    public static final String DEF_REDSHIRT_SACRIFICE = "Sacrifice Red Shirt";
+    
     public static final int ORGANIC_TRAP = 1;
     public static final int PARTICLE_TRAP = 2;
     
@@ -232,9 +235,8 @@ public interface Constants {
     public static final String FPC_JOURNEY_EVENTS_UPDATE = "JourneyEventsUpdate";
     public static final String FPC_JOURNEY_TURN_UPDATE = "JourneyTurnUpdate";
     public static final String FPC_GAME_STATS_UPDATE = "GameStatsUpdate";
-    public static final String FPC_AP_AVAILABLE_UPDATE = "APAvailable";
-    public static final String FPC_IP_AVAILABLE_UPDATE = "IPAvailable";
     public static final String FPC_GAME_STARTED = "GameStarted";
     public static final String FPC_DISPLAY_POSSIBLE_ROOMS = "DisplayPossibleRooms";
     public static final String FPC_ACTION_SELECTION_UPDATE = "ActionSelectionUpdate";
+    public static final String FPC_INSPIRATION_SELECTION_UPDATE = "InspirationSelectionUpdate";
 }

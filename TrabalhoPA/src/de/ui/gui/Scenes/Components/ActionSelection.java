@@ -42,16 +42,15 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
         
         setPropertyChangeListeners();
         
-        initCrewClassInfo();
+        initActionSelection();
     }
     
     private void setPropertyChangeListeners(){
         observableModel.addPropertyChangeListener(FPC_GAME_STARTED, this);
-        observableModel.addPropertyChangeListener(FPC_AP_AVAILABLE_UPDATE, this);
         observableModel.addPropertyChangeListener(FPC_ACTION_SELECTION_UPDATE, this);
     }
     
-    private void initCrewClassInfo(){
+    private void initActionSelection(){
         mainTitle = new Label("Actions: ");
         getChildren().add(mainTitle);
         

@@ -55,7 +55,7 @@ public class CrewPhase extends StateAdapter implements Constants{
     @Override 
     public IStates sacrificeCrewMember(){
         
-        if(this.getGame().getPlayer().haveAlive_RedShirt())
+        if(this.getGame().getPlayer().have_RedShirt(true))
             this.getGame().sacrificeCrewMember();
         
         return this;

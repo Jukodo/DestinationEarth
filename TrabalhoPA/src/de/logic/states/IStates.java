@@ -36,10 +36,10 @@ public interface IStates extends Serializable {
     IStates IP_addHealthPoint();
     IStates IP_repairHull();
     IStates IP_buildOrganicDetonator();
-    IStates IP_addMovement(int activeCrewMember);
+    IStates IP_addMovement();
     IStates IP_buildParticleDesperser();
     IStates IP_addSealedRoomToken();
-    IStates IP_addAttackDie(int activeCrewMember);
+    IStates IP_addAttackDie();
     IStates IP_addValueToAttackDie();
     IStates leaveRestPhase();
     

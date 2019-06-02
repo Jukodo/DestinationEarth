@@ -475,8 +475,10 @@ public class DataGame implements Constants, Serializable{
     
     public boolean sacrificeCrewMember(){
         for(CrewMember cm:player.getCrew()){
-            if(cm.special())
-                return true;
+            if(cm instanceof RedShirt){
+                if(cm.special())
+                    return true;
+            }
         }
         
         return false;
@@ -764,7 +766,7 @@ public class DataGame implements Constants, Serializable{
             i++;
         else if(cm instanceof Engineer)
             i++;
-        if(player.haveAlive_RedShirt())
+        if(player.have_RedShirt(true))
             i++;
         
         return i;
@@ -797,7 +799,7 @@ public class DataGame implements Constants, Serializable{
             i++;
             s+= (i+1) + " - Fix One Hull (" + this.getFixHullCost() + " AP)" + System.lineSeparator();
         }
-        if(player.haveAlive_RedShirt()){
+        if(player.have_RedShirt(true)){
             i++;
             s+= (i+1) + " - Sacrifice for 5 health (0 AP)" + System.lineSeparator();
         }
@@ -1195,7 +1197,7 @@ public class DataGame implements Constants, Serializable{
             
         }
         
-        if(getPlayer().haveAlive_RedShirt()){
+        if(getPlayer().have_RedShirt(true)){
             s += (i+2) + " - Sacrifice Red Shirt (0 IP)" + System.lineSeparator();
         }
         
@@ -1299,13 +1301,13 @@ public class DataGame implements Constants, Serializable{
         return true;
     }
     
-    public boolean IP_addMovement(int crewNumber){
+    public boolean IP_addMovement(){
         if(player.getInspirationPoints() < DEF_COST_I_ADD_MOVEMENT){
             addLog("Not enough IP (Inspiration Points)!");
             return false;
         }
         
-        CrewMember cm = player.getCrewMember(crewNumber-1);
+        CrewMember cm = player.getCrewMember(getActiveCrewMember()-1);
         if(cm == null){
             addLog("Selected crew member doesn't exist!");
             return false;
@@ -1356,13 +1358,15 @@ public class DataGame implements Constants, Serializable{
         return true;
     }
     
-    public boolean IP_addAttackDie(int crewNumber){
+    public boolean IP_addAttackDie(){
+        System.out.println("Increasing attack dice");
+        
         if(player.getInspirationPoints() < DEF_COST_I_ADD_ATTACK_DIE){
             addLog("Not enough IP (Inspiration Points)!");
             return false;
         }
         
-        CrewMember cm = player.getCrewMember(crewNumber-1);
+        CrewMember cm = player.getCrewMember(activeCrewMember -1);
         if(cm == null){
             addLog("Selected crew member doesn't exist!");
             return false;

@@ -701,7 +701,7 @@ public class TextUI {
                 break;
                 
             case 5:
-                game.IP_addMovement(game.getActiveCrewMember());
+                game.IP_addMovement();
                 break;
                 
             case 6:
@@ -713,7 +713,7 @@ public class TextUI {
                 break;
                 
             case 8:
-                game.IP_addAttackDie(game.getActiveCrewMember());
+                game.IP_addAttackDie();
                 break;
                 
             case 9:
@@ -721,7 +721,7 @@ public class TextUI {
                 break;
                 
             case 10:
-                if(game.getPlayer().haveAlive_RedShirt()){
+                if(game.getPlayer().have_RedShirt(true)){
                     game.sacrificeCrewMember();
                     break;
                 }
@@ -814,7 +814,7 @@ public class TextUI {
                     game.AP_fixHull();
                     return;
                 }
-                else if(game.getPlayer().haveAlive_RedShirt()){
+                else if(game.getPlayer().have_RedShirt(true)){
                     game.sacrificeCrewMember();
                     return;
                 }

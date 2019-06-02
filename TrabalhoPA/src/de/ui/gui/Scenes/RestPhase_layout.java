@@ -67,7 +67,7 @@ public class RestPhase_layout extends VBox implements Constants{
         
         mixContainer = new HBox();
         journeyContainer = new JourneyDisplay(observableModel, false);
-        shipContainer = new ShipDisplay(observableModel, true, SCENE_REST_PHASE);
+        shipContainer = new ShipDisplay(observableModel, false, SCENE_REST_PHASE);
         
         mixContainer.getChildren().addAll(journeyContainer, shipContainer);
         

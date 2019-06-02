@@ -3,7 +3,6 @@ package de.logic.data;
 import de.DestinationEarth;
 import de.logic.data.members.CrewMember;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javafx.scene.paint.Color;
@@ -74,6 +73,10 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         return game.getPossibleRooms(game.getActiveCrewMember()-1);
     }
     
+    public boolean have_RedShirt(boolean alive){
+        return game.getPlayer().have_RedShirt(alive);
+    }
+    
     public boolean have_CommsOfficer(){
         return game.getPlayer().have_CommsOfficer();
     }
@@ -108,17 +111,11 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
             return;
         
         if(game.swapActiveCrewMember(index)){
-            for(int i = 0; i < NUM_CREW_MEMBERS; i++){
-                if(game.getActiveCrewMember()-1 == i){
-                    firePropertyChange(FPC_CREW_TAB+i, ACTIVE, null);
-                }else{
-                    firePropertyChange(FPC_CREW_TAB+i, INACTIVE, null);
-                }
-                updateActionSelection();
-        
-                if(currentState() == STATE_MOVE_CREW_MEMBER){
-                    updatePossibleRooms(ACTIVE);
-                }
+            updateMemberBar();
+            updateActionSelection();
+
+            if(currentState() == STATE_MOVE_CREW_MEMBER){
+                updatePossibleRooms(ACTIVE);
             }
         }
     }
@@ -253,12 +250,93 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         updateGameStats();
     }
     
+    public void IP_addHealthPoint(){
+        game.IP_addHealthPoint();
+        
+        updateActionSelection();
+        updateGameStats();
+    }
+    
+    public void IP_repairHull(){
+        game.IP_repairHull();
+        
+        updateActionSelection();
+        updateGameStats();
+    }
+    
+    public void IP_buildOrganicDetonator(){
+        game.IP_buildOrganicDetonator();
+        
+        updateActionSelection();
+        updateGameStats();
+    }
+    
+    public void IP_addMovement(){
+        game.IP_addMovement();
+        
+        updateActionSelection();
+        updateGameStats();
+    }
+    
+    public void IP_buildParticleDesperser(){
+        game.IP_buildParticleDesperser();
+        
+        updateActionSelection();
+        updateGameStats();
+    }
+    
+    public void IP_addSealedRoomToken(){
+        game.IP_addSealedRoomToken();
+        
+        updateActionSelection();
+        updateGameStats();
+    }
+    
+    public void IP_addAttackDie(){
+        game.IP_addAttackDie();
+        
+        updateActionSelection();
+        updateGameStats();
+    }
+    
+    public void IP_addValueToAttackDie(){
+        game.IP_addValueToAttackDie();
+        
+        updateActionSelection();
+        updateGameStats();
+    }
+    
+    public void sacrificeCrewMember(){
+        if(!game.getPlayer().have_RedShirt(true))
+            return;
+        
+        game.sacrificeCrewMember();
+        
+        updateMemberBar();
+        updateInspirationSelection();
+        updateGameStats();
+    }
+    
+    public void updateMemberBar(){
+        for(int i = 0; i < NUM_CREW_MEMBERS; i++){
+            if(game.getActiveCrewMember()-1 == i){
+                firePropertyChange(FPC_CREW_TAB+i, ACTIVE, null);
+            }else{
+                firePropertyChange(FPC_CREW_TAB+i, INACTIVE, null);
+            }
+        }
+    }
+    
     public void updateGameStats(){
         firePropertyChange(FPC_GAME_STATS_UPDATE, null, null);
     }
     
     public void updateActionSelection(){
         firePropertyChange(FPC_ACTION_SELECTION_UPDATE, null, null);
+    }
+    
+    public void updateInspirationSelection(){
+        firePropertyChange(FPC_INSPIRATION_SELECTION_UPDATE, null, null);
     }
     
     public void updatePossibleRooms(int toState){

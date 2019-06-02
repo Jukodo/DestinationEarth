@@ -135,7 +135,7 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
     
     @Override
-    public IStates IP_addMovement(int activeCrewMember){
+    public IStates IP_addMovement(){
         return this;
     }
     
@@ -150,7 +150,7 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
     
     @Override
-    public IStates IP_addAttackDie(int activeCrewMember){
+    public IStates IP_addAttackDie(){
         return this;
     }
     

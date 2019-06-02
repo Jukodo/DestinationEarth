@@ -27,8 +27,8 @@ public class RestPhase extends StateAdapter{
     }
     
     @Override
-    public IStates IP_addMovement(int activeCrewMember){
-        this.getGame().IP_addMovement(activeCrewMember);
+    public IStates IP_addMovement(){
+        this.getGame().IP_addMovement();
         return this;
     }
     
@@ -45,14 +45,25 @@ public class RestPhase extends StateAdapter{
     }
     
     @Override
-    public IStates IP_addAttackDie(int activeCrewMember){
-        this.getGame().IP_addAttackDie(activeCrewMember);
+    public IStates IP_addAttackDie(){
+        System.out.println("IP_addAttackDie");
+        this.getGame().IP_addAttackDie();
         return this;
     }
     
     @Override
     public IStates IP_addValueToAttackDie(){
+        System.out.println("IP_addValueToAttackDie");
         this.getGame().IP_addValueToAttackDie();
+        return this;
+    }
+    
+    @Override 
+    public IStates sacrificeCrewMember(){
+        
+        if(this.getGame().getPlayer().have_RedShirt(true))
+            this.getGame().sacrificeCrewMember();
+        
         return this;
     }
     

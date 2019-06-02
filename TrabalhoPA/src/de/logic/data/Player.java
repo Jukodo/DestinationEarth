@@ -154,10 +154,14 @@ public class Player implements Serializable{
         }
         return true;
     }
-    public boolean haveAlive_RedShirt(){
+    public boolean have_RedShirt(boolean alive){
         for(CrewMember cm:getCrew()){
-            if(cm instanceof RedShirt && ((RedShirt)cm).isAlive()){
-                return true;
+            if(alive){
+                if(cm instanceof RedShirt && ((RedShirt)cm).isAlive())
+                    return true;
+            }else{
+                if(cm instanceof RedShirt)
+                    return true;
             }
         }
         return false;

@@ -257,8 +257,8 @@ public class DestinationEarth implements Serializable{
         setState(getState().IP_buildOrganicDetonator());
     }
     
-    public void IP_addMovement(int activeCrewMember){
-        setState(getState().IP_addMovement(activeCrewMember));
+    public void IP_addMovement(){
+        setState(getState().IP_addMovement());
     }
     
     public void IP_buildParticleDesperser(){
@@ -269,8 +269,8 @@ public class DestinationEarth implements Serializable{
         setState(getState().IP_addSealedRoomToken());
     }
     
-    public void IP_addAttackDie(int activeCrewMember){
-        setState(getState().IP_addAttackDie(activeCrewMember));
+    public void IP_addAttackDie(){
+        setState(getState().IP_addAttackDie());
     }
     
     public void IP_addValueToAttackDie(){
