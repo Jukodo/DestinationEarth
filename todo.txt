@@ -11,9 +11,6 @@ Crew Placement
 		Highlight possible rooms
 		Display Sealed rooms
 
-Journey Phase
-	Game Stats
-
 Rest Phase
 	Spending Inspiration Points (Lots of stuff)
 

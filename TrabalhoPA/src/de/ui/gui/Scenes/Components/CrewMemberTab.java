@@ -19,6 +19,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class CrewMemberTab extends HBox implements Constants, PropertyChangeListener{
@@ -26,9 +27,13 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
     private final int crewMemberIndex;
     
     private HBox avatarNameContainer; 
-    private HBox colorContainer; 
+    
+    private StackPane colorContainer;
+    private ImageView colorFrame;
+    private HBox color; 
     
     private ImageView memberAvatar;
+    
     private Label memberName;
     
     public CrewMemberTab(ObservableModel observableModel, int crewMemberIndex) {
@@ -77,14 +82,20 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 1);
         
+        colorContainer = new StackPane();
         
-        colorContainer = new HBox();
-        colorContainer.setMaxSize(CREWMEMBER_BAR_Y-2, CREWMEMBER_BAR_Y-2);
-        colorContainer.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        colorContainer.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1, 1, 1, 2))));
-        colorContainer.setAlignment(Pos.CENTER_RIGHT);
+        color = new HBox();
+        color.setMaxSize(CREWMEMBER_BAR_Y-2, CREWMEMBER_BAR_Y-2);
+        color.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        color.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1, 1, 1, 2))));
+        color.setAlignment(Pos.CENTER_RIGHT);
         
-        HBox.setHgrow(colorContainer, Priority.ALWAYS);
+        colorFrame = new ImageView();
+        colorFrame.setImage(new Image("file:src\\de\\ui\\gui\\Images\\memberColorFrame.png"));
+        colorFrame.setFitHeight(CREWMEMBER_BAR_Y-2);
+        colorFrame.setFitWidth(CREWMEMBER_BAR_Y-2);
+        
+        colorContainer.getChildren().addAll(color, colorFrame);
         
         getChildren().addAll(spacer, colorContainer);
     }
@@ -108,7 +119,7 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
         }else if(evt.getPropertyName().equals(FPC_CLASS_SWAPED_BAR+crewMemberIndex)){
             memberName.setText(CREWMEMBER_TYPES[(int) evt.getOldValue()-1]);
         }else if(evt.getPropertyName().equals(FPC_COLOR_SWAPED+crewMemberIndex)){
-            colorContainer.setBackground(new Background(new BackgroundFill((Color) evt.getOldValue(), CornerRadii.EMPTY, Insets.EMPTY)));
+            color.setBackground(new Background(new BackgroundFill((Color) evt.getOldValue(), CornerRadii.EMPTY, Insets.EMPTY)));
         }
     }
 }

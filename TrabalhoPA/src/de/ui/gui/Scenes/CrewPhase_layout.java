@@ -2,8 +2,10 @@ package de.ui.gui.Scenes;
 
 import de.logic.data.Constants;
 import de.logic.data.ObservableModel;
+import de.ui.gui.Scenes.Components.ActionSelection;
 import de.ui.gui.Scenes.Components.CrewBar;
 import de.ui.gui.Scenes.Components.CrewClassInfo;
+import de.ui.gui.Scenes.Components.GameStatsInfo;
 import de.ui.gui.Scenes.Components.JourneyDisplay;
 import de.ui.gui.Scenes.Components.ShipDisplay;
 import de.ui.gui.Scenes.Components.StateBar;
@@ -36,7 +38,8 @@ public class CrewPhase_layout extends VBox implements Constants{
     
     //Right Container
     private VBox rightContainer;
-    private CrewClassInfo classInfoContainer;
+    private GameStatsInfo gameStatsInfo;
+    private ActionSelection actionSelection;
     
     //Bottom Container
     private HBox buttonBar;
@@ -65,8 +68,6 @@ public class CrewPhase_layout extends VBox implements Constants{
         
         //Left (Class List)
         leftContainer = new VBox();
-        leftContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-        
         leftContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, 0));
         
         mixContainer = new HBox();
@@ -80,22 +81,19 @@ public class CrewPhase_layout extends VBox implements Constants{
         interactionContainer.setLeft(leftContainer);
         
         //Right (Class Info + Buttons)
-        rightContainer = new VBox();
-        rightContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-        
+        rightContainer = new VBox(INSIDE_PADDING);
         rightContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, INSIDE_PADDING));
         
-        classInfoContainer = new CrewClassInfo(observableModel);
-        classInfoContainer.setPrefWidth(JOURNEY_EDITOR_X);
+        gameStatsInfo = new GameStatsInfo(observableModel);
+        actionSelection = new ActionSelection(observableModel);
         
-        rightContainer.getChildren().addAll(classInfoContainer);
+        rightContainer.getChildren().addAll(gameStatsInfo, actionSelection);
         
         interactionContainer.setRight(rightContainer);
         
         //Bottom
         
         buttonBar = new HBox(INSIDE_PADDING);
-        buttonBar.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
         quitBtn = new Button("Quit");
         lockInBtn = new Button("Lock In");
         

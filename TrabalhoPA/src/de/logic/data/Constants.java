@@ -156,7 +156,6 @@ public interface Constants {
     
     public static final int INTERACTION_Y = ((77 * WINDOW_Y) / 100);
     public static final int GAME_STATS_Y = ((10 * WINDOW_Y) / 100);
-    public static final int INFO_PANEL_Y = ((56 * WINDOW_Y) / 100);
     
     //X Sizes
     //  Crew Selection
@@ -166,14 +165,16 @@ public interface Constants {
     public static final int CREW_CLASS_INFO_ATTACK_X = ((int)((7.5 * WINDOW_X) / 100));
     
     //  Crew Placement
-    public static final int SHIP_DISPLAY_X = ((30 * WINDOW_X) / 100);//30%
-    public static final int ROOM_SETTING_X = ((70 * WINDOW_X) / 100);//70%
+    public static final int SHIP_DISPLAY_X = ((30 * WINDOW_X) / 100);
+    public static final int ROOM_SETTING_X = ((70 * WINDOW_X) / 100);
     
     //  Journey Selection
-    public static final int JOURNEY_DISPLAY_X = ((3 * WINDOW_X) / 100);//10%
-    public static final int JOURNEY_EDITOR_X = ((int)((64.10 * WINDOW_X) / 100));//70%
+    public static final int JOURNEY_DISPLAY_X = ((3 * WINDOW_X) / 100);
+    public static final int JOURNEY_EDITOR_X = ((int)((64.10 * WINDOW_X) / 100));
     
-    //Rest of Game Phases
+    //  Crew Phase
+    public static final int ACTION_SELECTION_X = JOURNEY_EDITOR_X;
+    
     //Also has journey (JOURNEY_DISPLAY_X)
     //Also has ship (SHIP_DISPLAY_X)
     //Respective Editors
