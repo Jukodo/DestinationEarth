@@ -119,7 +119,6 @@ public class Beginning_layout extends HBox implements Constants{
     
     private void setComponentsHandlers(){
         btn_PlayGame.setOnAction(e -> {
-            System.out.println("btn_PlayGame clicked");
             setContainer(playContainer);
         });
         btn_ShowRules.setOnAction(e -> {
@@ -141,7 +140,6 @@ public class Beginning_layout extends HBox implements Constants{
             setContainer(playContainer);
         });
         btn_StartGame.setOnAction(e -> {
-            System.out.println("Start Game clicked");
             System.out.println(tf_PlayerName.getText().isEmpty());
             if(tf_PlayerName.getText().isEmpty())
                 tf_PlayerName.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));

@@ -22,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import de.logic.data.Room;
+import java.util.List;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -37,10 +38,10 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
     
     public ShipDisplay(ObservableModel observableModel, boolean interactable, int fromScene){
         this.observableModel = observableModel;
-        observableModel.addPropertyChangeListener(FPC_DISPLAY_SHIP_UPDATE, this);
-        
         this.interactable = interactable;
         this.fromScene = fromScene;
+        
+        setPropertyChangeListeners();
         
         rooms = new HashMap<>();
         roomsObj = observableModel.getRooms();
@@ -54,6 +55,13 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
         setPrefHeight(INTERACTION_Y);
         
         initShipDisplay();
+    }
+    
+    private void setPropertyChangeListeners(){
+        observableModel.addPropertyChangeListener(FPC_DISPLAY_SHIP_UPDATE, this);
+        
+        if(interactable && fromScene == SCENE_CREW_PHASE)
+            observableModel.addPropertyChangeListener(FPC_DISPLAY_POSSIBLE_ROOMS, this);
     }
     
     private void initShipDisplay(){
@@ -181,7 +189,7 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
         for(int i = 1; i <= rooms.size(); i++){
             Color backgroundColor;
             
-            if(interactable)
+            if(interactable && fromScene != SCENE_CREW_PHASE)
                 backgroundColor = SELECTABLE_BACKGROUND_COLOR_O;
             else
                 backgroundColor = NORMAL_BACKGROUND_COLOR_O;
@@ -207,7 +215,7 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
         for(int i = 1; i <= rooms.size(); i++){
             final int fi = i;
             
-            if(interactable){
+            if(interactable && fromScene != SCENE_CREW_PHASE){
                 rooms.get(i).setOnMousePressed(e -> {
                     observableModel.placeCrewMember(fi);
                 });
@@ -271,6 +279,40 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
                     }
                     for(int j = 0; j < roomsObj.get(i).getMembersInside().size(); j++){
                         rooms.get(i).getChildren().add(new Circle(5, roomsObj.get(i).getMembersInside().get(j).getCustomColor()));
+                    }
+                }
+                break;
+            case FPC_DISPLAY_POSSIBLE_ROOMS:
+                CornerRadii room1Corner = new CornerRadii(50, 100, 100, 50, 0, 0, 0, 0, true, true, true, true, true, true, true, true);
+                CornerRadii room6Corner = new CornerRadii(13);
+                
+                for(int i = 1; i <= rooms.size(); i++){
+                    rooms.get(i).setOnMouseClicked(null);
+                    if(i == 1)
+                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
+                    else if(i == 6)
+                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+                    else
+                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+                }
+                
+                if((int) evt.getOldValue() != INACTIVE){
+                    List<Room> possibleRooms = observableModel.getPossibleRooms();
+
+                    for(Room room:possibleRooms){
+                        rooms.get(room.getId()).setOnMouseClicked(e -> {
+                            observableModel.AP_moveCrewMember(room.getId());
+                        });
+                        if(room.getId() == 1)
+                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
+                        else if(room.getId() == 6)
+                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+                        else
+                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+
+                        rooms.get(room.getId()).setPadding(new Insets(2));
+                        rooms.get(room.getId()).setSpacing(2);
+                        rooms.get(room.getId()).setAlignment(Pos.BOTTOM_RIGHT);
                     }
                 }
                 break;

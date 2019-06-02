@@ -61,14 +61,16 @@ public interface Constants {
     public static final int DEF_ACTION_POINTS = 5;
     //Actions
     public static final String[] DEF_ACTIONS = {"Move", "Attack", "Place Trap", "Detonate Particle Dispenser", "Seal Room"};
-    public static final int DEF_COST_A_TRAP_ORGANIC = 1;
-    public static final int DEF_COST_A_TRAP_PARTICLE = 1;
+    public static final String DEF_ACTION_HEAL = "Heal";
+    public static final String DEF_ACTION_FIX_HULL = "Fix Hull";
     public static final int DEF_COST_A_MOVE = 1;
     public static final int DEF_COST_A_ATTACK = 1;
-    public static final int DEF_COST_A_HEAL = 1;
-    public static final int DEF_COST_A_FIX_HULL = 1;
+    public static final int DEF_COST_A_TRAP_ORGANIC = 1;
+    public static final int DEF_COST_A_TRAP_PARTICLE = 1;
     public static final int DEF_COST_A_DETONATE_TRAP_PARTICLE = 1;
     public static final int DEF_COST_A_SEAL_ROOM = 1;
+    public static final int DEF_COST_A_HEAL = 1;
+    public static final int DEF_COST_A_FIX_HULL = 1;
     public static final int[] DEF_ACTIONS_COST = {DEF_COST_A_MOVE, DEF_COST_A_ATTACK, DEF_COST_A_TRAP_ORGANIC, DEF_COST_A_DETONATE_TRAP_PARTICLE, DEF_COST_A_SEAL_ROOM};
     //Inspitations
     public static final String[] DEF_INSPIRATIONS = {"Recover Health", "Repair Hull", "Build Organic Detonator", "Increase Member Movement", "Build Particle Desperser", "Build Room Blocker", "Increase Attack Dice", "Increase Attack"};
@@ -230,4 +232,9 @@ public interface Constants {
     public static final String FPC_JOURNEY_EVENTS_UPDATE = "JourneyEventsUpdate";
     public static final String FPC_JOURNEY_TURN_UPDATE = "JourneyTurnUpdate";
     public static final String FPC_GAME_STATS_UPDATE = "GameStatsUpdate";
+    public static final String FPC_AP_AVAILABLE_UPDATE = "APAvailable";
+    public static final String FPC_IP_AVAILABLE_UPDATE = "IPAvailable";
+    public static final String FPC_GAME_STARTED = "GameStarted";
+    public static final String FPC_DISPLAY_POSSIBLE_ROOMS = "DisplayPossibleRooms";
+    public static final String FPC_ACTION_SELECTION_UPDATE = "ActionSelectionUpdate";
 }

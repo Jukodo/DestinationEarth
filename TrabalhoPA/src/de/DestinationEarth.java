@@ -3,6 +3,7 @@ package de;
 import de.logic.data.Alien;
 import de.logic.data.DataGame;
 import de.logic.data.Player;
+import de.logic.data.Room;
 import de.logic.data.Ship;
 import de.logic.states.*;
 import java.io.File;
@@ -105,6 +106,10 @@ public class DestinationEarth implements Serializable{
     
     public boolean getTurnScanned(){
         return dataGame.getTurnScanned();
+    }
+    
+    public List<Room> getPossibleRooms(int crewMember){
+        return dataGame.getPossibleRooms(crewMember);
     }
     
     /**Data game methods - Functions**/
@@ -277,6 +282,10 @@ public class DestinationEarth implements Serializable{
     }
     
     //CrewPhase
+    public void cancelAction(){
+        setState(getState().cancelAction());
+    }
+    
     public void AP_moveCrewMember(int room){
         setState(getState().AP_moveCrewMember(room));
     }

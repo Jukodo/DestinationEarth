@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 public abstract class CrewMember implements Serializable{
     
     private int movement;
+    private int currentMovement;
     private int attack;
     int color;
     private DataGame dataGame;
@@ -31,6 +32,7 @@ public abstract class CrewMember implements Serializable{
     public CrewMember(DataGame dataGame, int movement, int attack, int color){
         this.dataGame = dataGame;
         this.movement = movement;
+        this.currentMovement = movement;
         this.attack = attack;
         if(color < -1 || color > 11)
             color = 0;
@@ -44,7 +46,7 @@ public abstract class CrewMember implements Serializable{
         return movement;
     }
 
-    public boolean setMovement(int movement) {
+    public boolean setMovement(int movement){
         if(this.movement == MAX_MOVEMENT)//Already has maxed out movement
             return false;
         
@@ -54,6 +56,14 @@ public abstract class CrewMember implements Serializable{
         this.movement = movement;
         
         return true;
+    }
+    
+    public int getCurrentMovement() {
+        return currentMovement;
+    }
+    
+    public void setCurrentMovement(int currentMovement){
+        this.currentMovement = currentMovement;
     }
 
     public int getAttack() {
@@ -126,46 +136,48 @@ public abstract class CrewMember implements Serializable{
     }
     
     public boolean move(int roomNumber){
-    
-        int cost = dataGame.getMovementCost();
+        int cost;// = dataGame.getMovementCost();
+        
+        int numMoves = dataGame.getRequiredMoves(getRoom().getId(), roomNumber);
+        
+        if(!dataGame.getPossibleRooms(dataGame.getActiveCrewMember()-1).contains(dataGame.getShip().getRoom(roomNumber))){
+            dataGame.addLog("Crew Member cannot move to this room!");
+            return false;
+        }
         
         if(roomNumber < 1 || roomNumber > NUM_ROOMS){
             dataGame.addLog("Room selected doesn't exist!");
             return false;
         }
         
-        if(cost > 0 && dataGame.getActionPoints() < DEF_COST_A_MOVE){
+        if(dataGame.getActionPoints() < DEF_COST_A_MOVE){
             dataGame.addLog("Not enough AP (Action Points)!");
             return false;
         }
-        
-        Room roomToMove = null;
-        
-        for(Room room : dataGame.getShip().getRoom(this.getRoom().getId()).getClosestRooms()){
-            if(room.getId() == roomNumber){
-                roomToMove = room;
-            }
-        }
-        
-        if(roomToMove == null || roomToMove.getIsSealed()){
-            dataGame.addLog("Cannot move to selected Room! Please check if sealed or too far...");
+
+        if(currentMovement < numMoves){
+            dataGame.addLog("Crew Member doesnt have enough movement points!");
             return false;
         }
         
-        int freeMoves = this.getMovement() - DEF_COST_A_MOVE;
+        System.out.println("numMoves = " + numMoves);
+        
+        currentMovement -= numMoves;
+        
+        //int freeMoves = this.getMovement() - DEF_COST_A_MOVE;
         
         if(dataGame.getMovementCost() > 0)
             dataGame.removeActionPoints(dataGame.getMovementCost());
         
-        this.setMovementsBeforeFree(this.getMovementsBeforeFree() + 1);
+        //this.setMovementsBeforeFree(this.getMovementsBeforeFree() + 1);
         
-        if(this.getMovementsBeforeFree() > freeMoves){
+        /*if(this.getMovementsBeforeFree() > freeMoves){
             this.setMovementsBeforeFree(0);
-        }
-  
-        this.enterRoom(roomToMove);
+        }*/
         
-        dataGame.addLog(this.getName() + " moved to " + roomToMove.toString());
+        this.enterRoom(dataGame.getShip().getRoom(roomNumber));
+        
+        dataGame.addLog(this.getName() + " moved to " + dataGame.getShip().getRoom(roomNumber).toString());
         
         
         return true;

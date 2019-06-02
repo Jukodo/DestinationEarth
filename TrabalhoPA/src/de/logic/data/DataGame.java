@@ -3,7 +3,9 @@ package de.logic.data;
 import de.logic.data.members.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.scene.paint.Color;
@@ -144,6 +146,10 @@ public class DataGame implements Constants, Serializable{
   
     /**Methods**/    
     public void nextTurn(){
+        for(int i = 0; i < NUM_CREW_MEMBERS; i++){
+            player.getCrewMember(i).setCurrentMovement(player.getCrewMember(i).getMovement());
+        }
+        
         if(specialSpawn)
             despawnAliens();
         turnScanned = false;
@@ -337,6 +343,71 @@ public class DataGame implements Constants, Serializable{
         
         cm.enterRoom(room);
         return true;
+    }
+    
+    public int getRequiredMoves(int roomFrom, int roomTo){
+        int requiredMoves = 0;
+        
+        List<Room> layer1 = new ArrayList<>();
+        List<Room> layer2 = new ArrayList<>();
+        List<Room> seenRooms = new ArrayList<>();
+
+        layer1.addAll(player.getCrewMember(activeCrewMember-1).getRoom().getClosestRooms());
+
+        for(int i = 0; i < player.getCrewMember(activeCrewMember-1).getMovement(); i++){
+            requiredMoves++;
+            for(Room neighbor:layer1){
+                if(!neighbor.getIsSealed() && !seenRooms.contains(neighbor) && neighbor != player.getCrewMember(activeCrewMember-1).getRoom()){
+                    if(neighbor.getId() == roomTo)
+                        return requiredMoves;
+                    seenRooms.add(neighbor);
+                    for(Room _neighbor:neighbor.getClosestRooms()){
+                        if(!_neighbor.getIsSealed() && !seenRooms.contains(_neighbor)){
+                            layer2.add(_neighbor);
+                        }
+                    }
+                }
+            }
+            if(layer2.isEmpty())
+                break;
+            layer1 = new ArrayList<>(layer2);
+            layer2.clear();
+        }
+        
+        return 0;
+    }
+    
+    public List<Room> getPossibleRooms(int crewMember){
+        List<Room> possibleRooms;
+        
+        if(player.getCrewMember(crewMember) instanceof TransporterChief){
+            possibleRooms = new ArrayList<>(ship.getRooms().values());
+        }else{
+            List<Room> layer1 = new ArrayList<>();
+            List<Room> layer2 = new ArrayList<>();
+            possibleRooms = new ArrayList<>();
+
+            layer1.addAll(player.getCrewMember(crewMember).getRoom().getClosestRooms());
+            
+            for(int i = 0; i < player.getCrewMember(crewMember).getCurrentMovement(); i++){
+                for(Room neighbor:layer1){
+                    if(!neighbor.getIsSealed() && !possibleRooms.contains(neighbor) && neighbor != player.getCrewMember(crewMember).getRoom()){
+                        possibleRooms.add(neighbor);
+                        for(Room _neighbor:neighbor.getClosestRooms()){
+                            if(!_neighbor.getIsSealed() && !possibleRooms.contains(_neighbor)){
+                                layer2.add(_neighbor);
+                            }
+                        }
+                    }
+                }
+                if(layer2.isEmpty())
+                    break;
+                layer1 = new ArrayList<>(layer2);
+                layer2.clear();
+            }
+        }
+            
+        return possibleRooms;
     }
     
     public boolean crewClassNotRepeated(){
@@ -979,17 +1050,12 @@ public class DataGame implements Constants, Serializable{
     }
     
     public boolean moveActiveCrewMember(int roomNumber){
-        
-        CrewMember cm = player.getCrewMember(activeCrewMember-1);
-        
-        return cm.move(roomNumber);
+        return player.getCrewMember(activeCrewMember-1).move(roomNumber);
     }
     
 
     public int attackAliens(int roomNumber){
-        CrewMember cm = player.getCrewMember(activeCrewMember-1);
-        
-        return cm.attack(roomNumber);
+        return player.getCrewMember(activeCrewMember-1).attack(roomNumber);
     }
     
     public boolean healPlayer(){

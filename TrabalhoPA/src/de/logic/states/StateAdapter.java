@@ -168,6 +168,11 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     public IStates AP_moveCrewMember(int room) {
         return this;
     }
+
+    @Override
+    public IStates cancelAction() {
+        return this;
+    }
     
      @Override
     public IStates AP_attackAliens(int room){

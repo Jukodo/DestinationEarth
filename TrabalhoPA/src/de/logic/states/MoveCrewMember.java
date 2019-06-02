@@ -13,6 +13,11 @@ public class MoveCrewMember extends StateAdapter{
         this.getGame().moveActiveCrewMember(roomToMove);
         return new CrewPhase(this.getGame());
     }
+ 
+    @Override
+    public IStates cancelAction(){
+        return new CrewPhase(this.getGame());
+    }
     
     @Override
     public int currentState(){

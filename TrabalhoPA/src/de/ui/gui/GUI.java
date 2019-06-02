@@ -39,7 +39,6 @@ public class GUI extends Application implements Constants, PropertyChangeListene
     }
     
     public boolean swapScene(int swapTo){
-        System.out.println("Swapped to " + swapTo + " aka: " + SCENE[swapTo]);
         mainWindow.setScene(scenes.get(swapTo));
         observableModel.currentState();
         return true;
@@ -89,10 +88,8 @@ public class GUI extends Application implements Constants, PropertyChangeListene
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("PropertyChange Captured");
         switch(evt.getPropertyName()){
             case FPC_SWAP_SCENE:
-                System.out.println("Swapping to " + (int) evt.getOldValue());
                 swapScene((int) evt.getOldValue());
                 break;
             case FPC_CLOSE_WINDOW:

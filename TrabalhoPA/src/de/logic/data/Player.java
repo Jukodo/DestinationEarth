@@ -180,4 +180,13 @@ public class Player implements Serializable{
         }
         return false;
     }
+    
+    public boolean have_Engineer(){
+        for(CrewMember cm:getCrew()){
+            if(cm instanceof Engineer){
+                return true;
+            }
+        }
+        return false;
+    }
 }

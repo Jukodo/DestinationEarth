@@ -3,19 +3,20 @@ General
 		Logs
 		Roll Dice
 	CSS
-Crew Selection
-	Make more fluid (Selected and color change when swap active crew member)
 
 Crew Placement
 	Ship Display
-		Highlight possible rooms
 		Display Sealed rooms
 
 Rest Phase
 	Spending Inspiration Points (Lots of stuff)
 
 Crew Phase
-	Spending Action Points (Lots of stuff)
+	Attack
+	Place Trap
+	Detonate
+	Seal
+	RedShirt Sacrifice
 
 Alien Phase
 	?
@@ -26,4 +27,5 @@ Game Over
 
 Known bugs:
 	If doesnt pick color (stays white), it wont be able to draw the token
-	JourneyPhase lockIn force quits on turn 13
+	Force quits on turn 13
+	
