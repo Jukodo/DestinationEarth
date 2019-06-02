@@ -39,7 +39,7 @@ public class CrewClass extends VBox implements Constants{
         setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         
         typeAvatar = new ImageView();
-        typeAvatar.setImage(new Image("file:src\\de\\ui\\gui\\Images\\tempAvatar_i.png"));
+        typeAvatar.setImage(new Image(getClass().getResourceAsStream("Images/tempAvatar_i.png")));
         typeAvatar.setFitHeight(60);
         typeAvatar.setFitWidth(60);
         

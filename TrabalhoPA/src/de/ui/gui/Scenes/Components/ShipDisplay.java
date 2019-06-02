@@ -60,7 +60,7 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
         ghostContainer = new Pane();
         
         shipImage = new ImageView();
-        shipImage.setImage(new Image("file:src\\de\\ui\\gui\\Images\\shipStructure_Unnamed.jpg"));
+        shipImage.setImage(new Image(getClass().getResourceAsStream("Images/shipStructure_Unnamed.jpg")));
         shipImage.setFitWidth(305);
         shipImage.setFitHeight(506);
         

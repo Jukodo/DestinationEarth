@@ -5,7 +5,7 @@
 
 #background-image{
     /*Background image*/
-    -fx-background-image: url("../Images/Background.jpg");
+    -fx-background-image: url("../Scenes/Components/Images/Background.jpg");
     -fx-background-repeat: stretch;   
     -fx-background-size: 1280 720;
     -fx-background-position: center center;

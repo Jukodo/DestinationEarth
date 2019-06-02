@@ -4,6 +4,7 @@ import de.logic.data.Constants;
 import de.logic.data.ObservableModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.URL;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -36,20 +37,23 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
     
     private Label memberName;
     
-    public CrewMemberTab(ObservableModel observableModel, int crewMemberIndex) {
+    public CrewMemberTab(ObservableModel observableModel, int crewMemberIndex){
         this.observableModel = observableModel;
         this.crewMemberIndex = crewMemberIndex;
-        
-        observableModel.addPropertyChangeListener(FPC_CREW_TAB + crewMemberIndex, this);
-        observableModel.addPropertyChangeListener(FPC_CLASS_SWAPED_BAR + crewMemberIndex, this);
-        observableModel.addPropertyChangeListener(FPC_COLOR_SWAPED + crewMemberIndex, this);
         
         setMinSize((WINDOW_X / NUM_CREW_MEMBERS) - INSIDE_PADDING/*Padding Compensation*/ - (2*NUM_CREW_MEMBERS) + (NUM_CREW_MEMBERS - 1)/*Border Compensation*/, CREWMEMBER_BAR_Y);
         setMaxSize((WINDOW_X / NUM_CREW_MEMBERS) - INSIDE_PADDING/*Padding Compensation*/ - (2*NUM_CREW_MEMBERS) + (NUM_CREW_MEMBERS - 1)/*Border Compensation*/, CREWMEMBER_BAR_Y);
         setPadding(new Insets(0, 0, 0, 10));
         
+        setPropertyChangeListeners();
         initAvatarNameContainer();
         initColorContainer();
+    }
+    
+    private void setPropertyChangeListeners(){
+        observableModel.addPropertyChangeListener(FPC_CREW_TAB + crewMemberIndex, this);
+        observableModel.addPropertyChangeListener(FPC_CLASS_SWAPED_BAR + crewMemberIndex, this);
+        observableModel.addPropertyChangeListener(FPC_COLOR_SWAPED + crewMemberIndex, this);
     }
     
     private void initAvatarNameContainer(){
@@ -57,7 +61,7 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
         avatarNameContainer.setAlignment(Pos.CENTER_LEFT);
         
         memberAvatar = new ImageView();
-        memberAvatar.setImage(new Image("file:src\\de\\ui\\gui\\Images\\tempAvatar_i.png"));
+        memberAvatar.setImage(new Image(getClass().getResourceAsStream("Images/tempAvatar_i.png")));
         memberAvatar.setFitHeight(35);
         memberAvatar.setFitWidth(35);
         
@@ -91,7 +95,7 @@ public class CrewMemberTab extends HBox implements Constants, PropertyChangeList
         color.setAlignment(Pos.CENTER_RIGHT);
         
         colorFrame = new ImageView();
-        colorFrame.setImage(new Image("file:src\\de\\ui\\gui\\Images\\memberColorFrame.png"));
+        colorFrame.setImage(new Image(getClass().getResourceAsStream("Images/memberColorFrame.png")));
         colorFrame.setFitHeight(CREWMEMBER_BAR_Y-2);
         colorFrame.setFitWidth(CREWMEMBER_BAR_Y-2);
         

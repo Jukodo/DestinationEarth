@@ -3,7 +3,6 @@ package de.logic.data;
 import de.logic.data.members.CrewMember;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -149,8 +148,8 @@ public class Room implements Serializable, Constants{
     }
     
     public Room chooseClosestRoom_Algorithm(){
-        Queue<Room> toBeSeen = new LinkedList();
-        List<Room> alreadySeen = new ArrayList();
+        Queue<Room> toBeSeen = new LinkedList<>();
+        List<Room> alreadySeen = new ArrayList<>();
         
         Room auxRoom = null;
         toBeSeen.add(this);
