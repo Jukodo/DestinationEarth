@@ -16,7 +16,7 @@ public class JourneyPhase extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("JourneyPhase");
+    public int currentState(){
+        return STATE_JOURNEY_PHASE;
     }
 }

@@ -39,7 +39,7 @@ public class CrewPlacement_layout extends VBox implements Constants{
         
         setId("background-image");
         
-        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREWPLACEMENT);
+        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREW_PLACEMENT);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));
         
@@ -58,7 +58,7 @@ public class CrewPlacement_layout extends VBox implements Constants{
         leftContainer = new VBox();
         leftContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, 0));
         
-        shipContainer = new ShipDisplay(observableModel, true, SCENE_CREWPLACEMENT);
+        shipContainer = new ShipDisplay(observableModel, true, SCENE_CREW_PLACEMENT);
         
         leftContainer.getChildren().addAll(shipContainer);
         

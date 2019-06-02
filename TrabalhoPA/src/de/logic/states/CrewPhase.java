@@ -1,8 +1,9 @@
 package de.logic.states;
 
+import de.logic.data.Constants;
 import de.logic.data.DataGame;
 
-public class CrewPhase extends StateAdapter{
+public class CrewPhase extends StateAdapter implements Constants{
  
     public CrewPhase(DataGame game) {
         super(game);
@@ -78,8 +79,8 @@ public class CrewPhase extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("CrewPhase");
+    public int currentState(){
+        return STATE_CREW_PHASE;
     }
   
 }

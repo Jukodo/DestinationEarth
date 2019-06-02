@@ -41,7 +41,7 @@ public class DiceRolling extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("DiceRolling");
+    public int currentState(){
+        return STATE_DICE_ROLLING;
     }
 }

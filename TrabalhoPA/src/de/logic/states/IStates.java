@@ -63,7 +63,7 @@ public interface IStates extends Serializable {
     IStates playAgain();
     
     //General
-    void currentState();
+    int currentState();
     boolean swapActiveCrewMember();
     boolean swapActiveCrewMember(int index);
     boolean swapActiveJourneyTurn(int index);

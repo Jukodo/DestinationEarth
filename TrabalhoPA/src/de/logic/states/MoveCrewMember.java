@@ -15,7 +15,7 @@ public class MoveCrewMember extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("MoveCrewMember");
+    public int currentState(){
+        return STATE_MOVE_CREW_MEMBER;
     }
 }

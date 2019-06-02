@@ -15,8 +15,8 @@ public class AttackAliens extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("AttackAliens");
+    public int currentState(){
+        return STATE_ATTACK_ALIENS;
     }
     
 }

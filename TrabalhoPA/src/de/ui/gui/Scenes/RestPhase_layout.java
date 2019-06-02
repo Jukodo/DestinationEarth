@@ -2,9 +2,7 @@ package de.ui.gui.Scenes;
 
 import de.logic.data.Constants;
 import de.logic.data.ObservableModel;
-import de.ui.gui.Scenes.Components.ActionSelection;
 import de.ui.gui.Scenes.Components.CrewBar;
-import de.ui.gui.Scenes.Components.CrewClassInfo;
 import de.ui.gui.Scenes.Components.GameStatsInfo;
 import de.ui.gui.Scenes.Components.InspirationSelection;
 import de.ui.gui.Scenes.Components.JourneyDisplay;
@@ -13,13 +11,9 @@ import de.ui.gui.Scenes.Components.StateBar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class RestPhase_layout extends VBox implements Constants{
     private ObservableModel observableModel;
@@ -52,7 +46,7 @@ public class RestPhase_layout extends VBox implements Constants{
         
         setId("background-image");
         
-        stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_RESTPHASE);
+        stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_REST_PHASE);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));
         
@@ -73,7 +67,7 @@ public class RestPhase_layout extends VBox implements Constants{
         
         mixContainer = new HBox();
         journeyContainer = new JourneyDisplay(observableModel, false);
-        shipContainer = new ShipDisplay(observableModel, true, SCENE_RESTPHASE);
+        shipContainer = new ShipDisplay(observableModel, true, SCENE_REST_PHASE);
         
         mixContainer.getChildren().addAll(journeyContainer, shipContainer);
         
@@ -82,7 +76,7 @@ public class RestPhase_layout extends VBox implements Constants{
         interactionContainer.setLeft(leftContainer);
         
         //Right (Class Info + Buttons)
-        rightContainer = new VBox();
+        rightContainer = new VBox(INSIDE_PADDING);
         rightContainer.setPadding(new Insets(INSIDE_PADDING, 0, 0, INSIDE_PADDING));
         
         gameStatsInfo = new GameStatsInfo(observableModel);

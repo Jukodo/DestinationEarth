@@ -17,7 +17,7 @@ public class DetonateParticleDispenser extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("DetonateParticleDispenser");
+    public int currentState(){
+        return STATE_DETONATE_PARTICLE;
     }
 }

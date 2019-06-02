@@ -47,7 +47,7 @@ public class CrewSelection extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("CrewSelection");
+    public int currentState(){
+        return STATE_CREW_SELECTION;
     }
 }

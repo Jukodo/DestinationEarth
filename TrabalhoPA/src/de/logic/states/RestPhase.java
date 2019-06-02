@@ -62,7 +62,7 @@ public class RestPhase extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("RestPhase");
+    public int currentState(){
+        return STATE_REST_PHASE;
     }
 }

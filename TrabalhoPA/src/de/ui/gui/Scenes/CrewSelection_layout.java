@@ -44,7 +44,7 @@ public class CrewSelection_layout extends VBox implements Constants{
         
         setId("background-image");
         
-        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREWSELECTION);
+        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREW_SELECTION);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));
         

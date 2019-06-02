@@ -147,7 +147,7 @@ public class Beginning_layout extends HBox implements Constants{
                 tf_PlayerName.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             else{
                 observableModel.startGame(tf_PlayerName.getText());
-                observableModel.swapScene(SCENE_CREWSELECTION);
+                observableModel.swapScene(SCENE_CREW_SELECTION);
             }
         });
     }

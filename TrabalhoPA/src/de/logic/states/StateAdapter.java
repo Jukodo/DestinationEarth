@@ -24,8 +24,8 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
     }
 
     @Override
-    public void currentState() {
-        return;
+    public int currentState() {
+        return STATE_UNKNOWN;
     }
     
     @Override

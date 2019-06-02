@@ -5,12 +5,26 @@ import javafx.scene.paint.Color;
 public interface Constants {
     public static final String GAME_TITLE = "Destination Earth";
     
+    public static final int STATE_UNKNOWN = -1;
     public static final int STATE_BEGINNING = 0;
     public static final int STATE_CREW_SELECTION = 1;
     public static final int STATE_CREW_PLACEMENT = 2;
     public static final int STATE_JOURNEY_SELECTION = 3;
-    public static final int STATE_REST_PHASE = 4;
-    public static final int STATE_CREW_PHASE = 5;
+    public static final int STATE_JOURNEY_PHASE = 4;
+    public static final int STATE_SCANNING_PHASE = 5;
+    public static final int STATE_REST_PHASE = 6;
+    public static final int STATE_CREW_PHASE = 7;
+        public static final int STATE_ATTACK_ALIENS = 8;
+        public static final int STATE_DETONATE_PARTICLE = 9;
+        public static final int STATE_MOVE_CREW_MEMBER = 10;
+        public static final int STATE_PLACE_TRAP = 11;
+        public static final int STATE_SEAL_ROOM = 12;
+    public static final int STATE_GAME_OVER = 13;
+    public static final int STATE_DICE_ROLLING = 14;
+    public static final String[] STATES = {"STATE_BEGINNING", "STATE_CREW_SELECTION", "STATE_CREW_PLACEMENT", "STATE_JOURNEY_SELECTION",
+                                           "STATE_JOURNEY_PHASE", "STATE_SCANNING_PHASE", "STATE_REST_PHASE", "STATE_CREW_PHASE",
+                                           "STATE_ATTACK_ALIENS", "STATE_DETONATE_PARTICLE", "STATE_MOVE_CREW_MEMBER", "STATE_PLACE_TRAP",
+                                           "STATE_SEAL_ROOM", "STATE_GAME_OVER", "STATE_DICE_ROLLING"};
     
     public static final int NUM_TURNS = 13;
     public static final int NUM_ROOMS = 12;
@@ -124,13 +138,13 @@ public interface Constants {
         
     public static final int NUM_SCENES = 9;
     public static final int SCENE_BEGINNING = 0;
-    public static final int SCENE_CREWSELECTION = 1;
-    public static final int SCENE_CREWPLACEMENT = 2;
-    public static final int SCENE_JOURNEYSELECTION = 3;
-    public static final int SCENE_JOURNEYPHASE = 4;
-    public static final int SCENE_RESTPHASE = 5;
-    public static final int SCENE_CREWPHASE = 6;
-    public static final int SCENE_ALIENPHASE = 7;
+    public static final int SCENE_CREW_SELECTION = 1;
+    public static final int SCENE_CREW_PLACEMENT = 2;
+    public static final int SCENE_JOURNEY_SELECTION = 3;
+    public static final int SCENE_JOURNEY_PHASE = 4;
+    public static final int SCENE_REST_PHASE = 5;
+    public static final int SCENE_CREW_PHASE = 6;
+    public static final int SCENE_ALIEN_PHASE = 7;
     public static final int SCENE_GAMEOVER = 8;
     /*Remove later*/public static final String[] SCENE = {"SCENE_BEGINNING", "SCENE_CREWSELECTION", "SCENE_CREWPLACEMENT", 
             "SCENE_JOURNEYSELECTION", "SCENE_JOURNEYPHASE", "SCENE_RESTPHASE", "SCENE_CREWPHASE", "SCENE_ALIENPHASE", "SCENE_GAMEOVER"};
@@ -155,7 +169,7 @@ public interface Constants {
     public static final int BUTTON_BAR_Y = ((6 * WINDOW_Y) / 100);//6%
     
     public static final int INTERACTION_Y = ((77 * WINDOW_Y) / 100);
-    public static final int GAME_STATS_Y = ((10 * WINDOW_Y) / 100);
+    public static final int GAME_STATS_Y = (int) ( (8 * WINDOW_Y) / 100);
     
     //X Sizes
     //  Crew Selection

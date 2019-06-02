@@ -49,7 +49,7 @@ public class JourneySelection_layout extends VBox implements Constants{
         
         setId("background-image");
         
-        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_JOURNEYSELECTION);
+        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_JOURNEY_SELECTION);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));
         
@@ -70,7 +70,7 @@ public class JourneySelection_layout extends VBox implements Constants{
         
         mixContainer = new HBox();
         journeyDisplay = new JourneyDisplay(observableModel, true);
-        shipDisplay = new ShipDisplay(observableModel, false, SCENE_JOURNEYSELECTION);
+        shipDisplay = new ShipDisplay(observableModel, false, SCENE_JOURNEY_SELECTION);
         
         mixContainer.getChildren().addAll(journeyDisplay, shipDisplay);
         

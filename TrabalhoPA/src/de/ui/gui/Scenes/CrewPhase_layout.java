@@ -4,7 +4,6 @@ import de.logic.data.Constants;
 import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.ActionSelection;
 import de.ui.gui.Scenes.Components.CrewBar;
-import de.ui.gui.Scenes.Components.CrewClassInfo;
 import de.ui.gui.Scenes.Components.GameStatsInfo;
 import de.ui.gui.Scenes.Components.JourneyDisplay;
 import de.ui.gui.Scenes.Components.ShipDisplay;
@@ -12,13 +11,9 @@ import de.ui.gui.Scenes.Components.StateBar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class CrewPhase_layout extends VBox implements Constants{
     private ObservableModel observableModel;
@@ -51,7 +46,7 @@ public class CrewPhase_layout extends VBox implements Constants{
         
         setId("background-image");
         
-        stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_CREWPHASE);
+        stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_CREW_PHASE);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));
         
@@ -72,7 +67,7 @@ public class CrewPhase_layout extends VBox implements Constants{
         
         mixContainer = new HBox();
         journeyContainer = new JourneyDisplay(observableModel, false);
-        shipContainer = new ShipDisplay(observableModel, true, SCENE_CREWPHASE);
+        shipContainer = new ShipDisplay(observableModel, true, SCENE_CREW_PHASE);
         
         mixContainer.getChildren().addAll(journeyContainer, shipContainer);
         

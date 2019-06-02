@@ -44,7 +44,7 @@ public class ScanningPhase extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("ScanningPhase");
+    public int currentState(){
+        return STATE_SCANNING_PHASE;
     }
 }

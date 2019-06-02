@@ -15,7 +15,7 @@ public class PlaceTrap extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("PlaceTrap");
+    public int currentState(){
+        return STATE_PLACE_TRAP;
     }
 }

@@ -44,7 +44,7 @@ public class JourneyPhase_layout extends VBox implements Constants{
         
         setId("background-image");
         
-        stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_JOURNEYPHASE);
+        stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_JOURNEY_PHASE);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));
         
@@ -65,7 +65,7 @@ public class JourneyPhase_layout extends VBox implements Constants{
         
         mixContainer = new HBox();
         journeyDisplay = new JourneyDisplay(observableModel, false);
-        shipDisplay = new ShipDisplay(observableModel, false, SCENE_JOURNEYPHASE);
+        shipDisplay = new ShipDisplay(observableModel, false, SCENE_JOURNEY_PHASE);
         
         mixContainer.getChildren().addAll(journeyDisplay, shipDisplay);
         

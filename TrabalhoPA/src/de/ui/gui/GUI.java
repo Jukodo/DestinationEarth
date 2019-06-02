@@ -55,25 +55,25 @@ public class GUI extends Application implements Constants, PropertyChangeListene
                 case SCENE_BEGINNING:
                     tempScene = new Scene(new Beginning_layout(observableModel));
                     break;
-                case SCENE_CREWSELECTION:
+                case SCENE_CREW_SELECTION:
                     tempScene = new Scene(new CrewSelection_layout(observableModel));
                     break;
-                case SCENE_CREWPLACEMENT:
+                case SCENE_CREW_PLACEMENT:
                     tempScene = new Scene(new CrewPlacement_layout(observableModel));
                     break;
-                case SCENE_JOURNEYSELECTION:
+                case SCENE_JOURNEY_SELECTION:
                     tempScene = new Scene(new JourneySelection_layout(observableModel));
                     break;
-                case SCENE_JOURNEYPHASE:
+                case SCENE_JOURNEY_PHASE:
                     tempScene = new Scene(new JourneyPhase_layout(observableModel));
                     break;
-                case SCENE_RESTPHASE:
+                case SCENE_REST_PHASE:
                     tempScene = new Scene(new RestPhase_layout(observableModel));
                     break;
-                case SCENE_CREWPHASE:
+                case SCENE_CREW_PHASE:
                     tempScene = new Scene(new CrewPhase_layout(observableModel));
                     break;
-                case SCENE_ALIENPHASE:
+                case SCENE_ALIEN_PHASE:
                     tempScene = new Scene(new AlienPhase_layout(observableModel));
                     break;
                 default:

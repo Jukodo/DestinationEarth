@@ -3,7 +3,6 @@ package de.logic.data;
 import de.DestinationEarth;
 import de.logic.data.members.CrewMember;
 import de.logic.states.*;
-import de.logic.states.IStates;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import javafx.scene.paint.Color;
@@ -160,71 +159,65 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public void placeCrewMember(int room){
-        System.out.println("EXECUTING placeCrewMember for room " + room);
         game.placeCrewMember(game.getActiveCrewMember(), room);
-        
-        System.out.println(game.getDataGame().crewMemberInfoToString());
         
         firePropertyChange(FPC_DISPLAY_SHIP_UPDATE, null, null);
     }
     
     public void lockIn(){
-        IStates state = game.getState();
+        int state = game.currentState();
         
-        if(state instanceof CrewSelection){
-            game.confirmCrewMemberSelection();
-            state = game.getState();
-            if(state instanceof CrewPlacement){
-                System.out.println("Changing state");
-                swapScene(SCENE_CREWPLACEMENT);
-            }
-        }else if(state instanceof CrewPlacement){
-            game.confirmCrewMemberPlacement();
-            state = game.getState();
-            if(state instanceof JourneySelection){
-                System.out.println("Changing state");
-                swapScene(SCENE_JOURNEYSELECTION);
-            }
-        }else if(state instanceof JourneySelection){
-            game.confirmJourneySelection();
-            state = game.getState();
-            if(state instanceof JourneyPhase){
-                executeUpdateJourneyDisplay();
-                System.out.println("Changing state");
-                swapScene(SCENE_JOURNEYPHASE);
-            }
-        }else if(state instanceof JourneyPhase){
-            game.nextTurn();
-            state = game.getState();
-            if(state instanceof ScanningPhase){
+        switch(state){
+            case STATE_CREW_SELECTION:
+                game.confirmCrewMemberSelection();
+                state = game.currentState();
+                if(state == STATE_CREW_PLACEMENT)
+                    swapScene(SCENE_CREW_PLACEMENT);
+                break;
+            case STATE_CREW_PLACEMENT:
+                game.confirmCrewMemberPlacement();
+                state = game.currentState();
+                if(state == STATE_JOURNEY_SELECTION)
+                    swapScene(SCENE_JOURNEY_SELECTION);
+                break;
+            case STATE_JOURNEY_SELECTION:
+                game.confirmJourneySelection();
+                state = game.currentState();
+                if(state == STATE_JOURNEY_PHASE){
+                    swapScene(SCENE_JOURNEY_PHASE);
+                }
+                break;
+            case STATE_JOURNEY_PHASE:
+                game.nextTurn();
                 executeScanningPhase();
                 executeUpdateJourneyDisplay();
-                state = game.getState();
-                if(state instanceof RestPhase){
-                    System.out.println("Changing state");
-                    swapScene(SCENE_RESTPHASE);
-                }else if(state instanceof CrewPhase){
-                    System.out.println("Changing state");
-                    swapScene(SCENE_CREWPHASE);
+                state = game.currentState();
+                if(state == STATE_REST_PHASE)
+                    swapScene(SCENE_REST_PHASE);
+                else if(state == STATE_CREW_PHASE)
+                    swapScene(SCENE_CREW_PHASE);
+                break;
+            case STATE_REST_PHASE:
+                game.leaveRestPhase();
+                state = game.currentState();
+                if(state == STATE_JOURNEY_PHASE){
+                    executeAlienPhase();
+                    swapScene(SCENE_JOURNEY_PHASE);
                 }
-            }
-        }else if(state instanceof RestPhase){
-            game.leaveRestPhase();
-            state = game.getState();
-            if(state instanceof JourneyPhase){
-                executeAlienPhase();
-                System.out.println("Changing state");
-                swapScene(SCENE_JOURNEYPHASE);
-            }
-        }else if(state instanceof CrewPhase){
-            game.leaveCrewPhase();
-            state = game.getState();
-            if(state instanceof JourneyPhase){
-                executeAlienPhase();
-                System.out.println("Changing state");
-                swapScene(SCENE_ALIENPHASE);
-            }
+                break;
+            case STATE_CREW_PHASE:
+                game.leaveCrewPhase();
+                state = game.currentState();
+                if(state == STATE_JOURNEY_PHASE){
+                    executeAlienPhase();
+                    swapScene(SCENE_ALIEN_PHASE);
+                }
+                break;
+            default:
+                System.out.println("locked in on an unknown state");
+                break;
         }
+        System.out.println(STATES[game.currentState()]);
     }
     
     private void executeScanningPhase(){
@@ -245,6 +238,8 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
 
     //REMOVE LATER
     public void currentState(){
-        game.currentState();
+        switch(game.currentState()){
+            
+        }
     }
 }

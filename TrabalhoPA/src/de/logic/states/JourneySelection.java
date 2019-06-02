@@ -46,7 +46,7 @@ public class JourneySelection extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("JourneySelection");
+    public int currentState(){
+        return STATE_JOURNEY_SELECTION;
     }
 }

@@ -20,7 +20,7 @@ public class Beginning extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("Beginning");
+    public int currentState(){
+        return STATE_BEGINNING;
     }
 }

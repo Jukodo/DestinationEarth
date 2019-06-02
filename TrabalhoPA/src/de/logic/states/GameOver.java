@@ -14,7 +14,7 @@ public class GameOver extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("GameOver");
+    public int currentState(){
+        return STATE_GAME_OVER;
     }
 }

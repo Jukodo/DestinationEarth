@@ -44,7 +44,7 @@ public class AlienPhase_layout extends VBox implements Constants{
         
         setId("background-image");
         
-        stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_ALIENPHASE);
+        stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_ALIEN_PHASE);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));
         
@@ -65,7 +65,7 @@ public class AlienPhase_layout extends VBox implements Constants{
         
         mixContainer = new HBox();
         journeyContainer = new JourneyDisplay(observableModel, false);
-        shipContainer = new ShipDisplay(observableModel, false, SCENE_ALIENPHASE);
+        shipContainer = new ShipDisplay(observableModel, false, SCENE_ALIEN_PHASE);
         
         mixContainer.getChildren().addAll(journeyContainer, shipContainer);
         
@@ -107,7 +107,7 @@ public class AlienPhase_layout extends VBox implements Constants{
         });
         
         lockInBtn.setOnAction(e -> {
-            observableModel.swapScene(SCENE_JOURNEYPHASE);
+            observableModel.swapScene(SCENE_JOURNEY_PHASE);
         });
     }
 }

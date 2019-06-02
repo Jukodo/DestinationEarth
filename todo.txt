@@ -26,4 +26,4 @@ Game Over
 
 Known bugs:
 	If doesnt pick color (stays white), it wont be able to draw the token
-	
+	JourneyPhase lockIn force quits on turn 13

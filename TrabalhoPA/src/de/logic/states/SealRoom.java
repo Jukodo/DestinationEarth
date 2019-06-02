@@ -15,7 +15,7 @@ public class SealRoom extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("SealRoom");
+    public int currentState(){
+        return STATE_SEAL_ROOM;
     }
 }

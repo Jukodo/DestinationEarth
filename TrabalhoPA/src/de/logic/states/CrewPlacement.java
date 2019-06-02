@@ -32,7 +32,7 @@ public class CrewPlacement extends StateAdapter{
     }
     
     @Override
-    public void currentState(){
-        System.out.println("CrewPlacement");
+    public int currentState(){
+        return STATE_CREW_PLACEMENT;
     }
 }

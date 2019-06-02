@@ -325,8 +325,8 @@ public class DestinationEarth implements Serializable{
     }   
     
     //General
-    public void currentState(){
-        getState().currentState();
+    public int currentState(){
+        return getState().currentState();
     }
     
     public boolean swapActiveCrewMember(){
