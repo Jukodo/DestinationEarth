@@ -105,7 +105,7 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
                         observableModel.AP_moveCrewMember(0);
                         break;
                     case 1:
-                        observableModel.AP_attackAlien();
+                        observableModel.AP_attackAlien(0);
                         break;
                     case 2:
                         observableModel.AP_placeTrap();
@@ -164,6 +164,12 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
                     case STATE_MOVE_CREW_MEMBER:
                         getChildren().clear();
                         getChildren().addAll(moveTitle, moveText, cancelBtn);
+                        break;
+                        //CHANGE THIS
+                     case STATE_ATTACK_ALIENS:
+                        getChildren().clear();
+                        getChildren().addAll(moveTitle, moveText, cancelBtn);
+                        break;
                 }
                 break;
         }

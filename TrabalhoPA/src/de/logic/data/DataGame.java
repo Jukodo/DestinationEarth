@@ -410,6 +410,28 @@ public class DataGame implements Constants, Serializable{
         return possibleRooms;
     }
     
+    public List<Room> getRooms_ToAttack(int crewMember){
+        List<Room> possibleRooms;
+        
+        possibleRooms = new ArrayList<>();
+        
+        if(player.getCrewMember(crewMember).getRoom().getAliensInside().size() > 0 && !player.getCrewMember(crewMember).getRoom().getIsSealed()){
+            possibleRooms.add(player.getCrewMember(crewMember).getRoom());
+        }
+        
+        if(activeIsScienceOfficer()){
+    
+            
+            for(Room neighbor:player.getCrewMember(crewMember).getRoom().getClosestRooms()){
+                if(!neighbor.getIsSealed() && neighbor.getAliensInside().size() > 0){
+                    possibleRooms.add(neighbor);
+                }
+            } 
+        }
+            
+        return possibleRooms;
+    }
+    
     public boolean crewClassNotRepeated(){
         for(int i=0; i<player.getCrew().length-1; i++){
             if(player.getCrewMember(i).getName().equals(player.getCrewMember(i+1).getName())){
@@ -497,6 +519,14 @@ public class DataGame implements Constants, Serializable{
         CrewMember cm = player.getCrewMember(activeCrewMember-1);
         
         if(cm instanceof Engineer)
+            return true;
+        
+        return false;
+    }
+      public boolean activeIsScienceOfficer(){
+        CrewMember cm = player.getCrewMember(activeCrewMember-1);
+        
+        if(cm instanceof ScienceOfficer)
             return true;
         
         return false;

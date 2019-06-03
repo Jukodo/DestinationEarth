@@ -5,6 +5,7 @@ import de.logic.data.DataGame;
 import de.logic.data.Player;
 import de.logic.data.Room;
 import de.logic.data.Ship;
+import de.logic.data.members.ScienceOfficer;
 import de.logic.states.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -112,6 +113,10 @@ public class DestinationEarth implements Serializable{
         return dataGame.getPossibleRooms(crewMember);
     }
     
+    public List<Room> getRooms_ToAttack(int crewMember){
+        return dataGame.getRooms_ToAttack(crewMember);
+    }
+    
     /**Data game methods - Functions**/
     public void swapActiveNewAlien(){
         dataGame.swapActiveNewAlien();
@@ -131,6 +136,10 @@ public class DestinationEarth implements Serializable{
     
     public boolean activeIsEngineer(){
         return dataGame.activeIsEngineer();
+    }
+    
+    public boolean activeIsScienceOfficer(){
+        return dataGame.activeIsScienceOfficer();
     }
     
     /**Data game methods - To Strings**/

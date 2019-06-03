@@ -283,38 +283,87 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
                 }
                 break;
             case FPC_DISPLAY_POSSIBLE_ROOMS:
-                CornerRadii room1Corner = new CornerRadii(50, 100, 100, 50, 0, 0, 0, 0, true, true, true, true, true, true, true, true);
-                CornerRadii room6Corner = new CornerRadii(13);
                 
-                for(int i = 1; i <= rooms.size(); i++){
-                    rooms.get(i).setOnMouseClicked(null);
-                    if(i == 1)
-                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
-                    else if(i == 6)
-                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
-                    else
-                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
-                }
+                  CornerRadii room1Corner = new CornerRadii(50, 100, 100, 50, 0, 0, 0, 0, true, true, true, true, true, true, true, true);
+                  CornerRadii room6Corner = new CornerRadii(13);
+
                 
-                if((int) evt.getOldValue() != INACTIVE){
-                    List<Room> possibleRooms = observableModel.getPossibleRooms();
+                 switch((int) evt.getNewValue()){
+                    case AP_MOVE:
+                      
+                        for(int i = 1; i <= rooms.size(); i++){
+                            rooms.get(i).setOnMouseClicked(null);
+                            if(i == 1)
+                                rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
+                            else if(i == 6)
+                                rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+                            else
+                                rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+                        }
 
-                    for(Room room:possibleRooms){
-                        rooms.get(room.getId()).setOnMouseClicked(e -> {
-                            observableModel.AP_moveCrewMember(room.getId());
-                        });
-                        if(room.getId() == 1)
-                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
-                        else if(room.getId() == 6)
-                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
-                        else
-                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+                        if((int) evt.getOldValue() != INACTIVE){
+                            List<Room> possibleRooms = observableModel.getPossibleRooms();
 
-                        rooms.get(room.getId()).setPadding(new Insets(2));
-                        rooms.get(room.getId()).setSpacing(2);
-                        rooms.get(room.getId()).setAlignment(Pos.BOTTOM_RIGHT);
-                    }
+                            for(Room room:possibleRooms){
+                                rooms.get(room.getId()).setOnMouseClicked(e -> {
+                                    observableModel.AP_moveCrewMember(room.getId());
+                                });
+                                if(room.getId() == 1)
+                                    rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
+                                else if(room.getId() == 6)
+                                    rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+                                else
+                                    rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+
+                                rooms.get(room.getId()).setPadding(new Insets(2));
+                                rooms.get(room.getId()).setSpacing(2);
+                                rooms.get(room.getId()).setAlignment(Pos.BOTTOM_RIGHT);
+                            }
+                        }
+                        break;
+    
+                        case AP_ATTACK:
+ 
+                          
+                                for(int i = 1; i <= rooms.size(); i++){
+                                    rooms.get(i).setOnMouseClicked(null);
+                                    if(i == 1)
+                                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
+                                    else if(i == 6)
+                                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+                                    else
+                                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+                                }
+
+                                if((int) evt.getOldValue() != INACTIVE){
+                                    List<Room> possibleRooms = observableModel.getRooms_ToAttack();
+
+                                    for(Room room:possibleRooms){
+                                        rooms.get(room.getId()).setOnMouseClicked(e -> {
+                                            observableModel.AP_attackAlien(room.getId());
+                                        });
+                                        if(room.getId() == 1)
+                                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
+                                        else if(room.getId() == 6)
+                                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+                                        else
+                                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+
+                                        rooms.get(room.getId()).setPadding(new Insets(2));
+                                        rooms.get(room.getId()).setSpacing(2);
+                                        rooms.get(room.getId()).setAlignment(Pos.BOTTOM_RIGHT);
+                                    }
+                                }
+              
+                            System.out.print(observableModel.getActionPoints());
+                            break;
+                            
+                        
+                    default:
+                        break;
                 }
+                 
+               
                 break;
         }
     }

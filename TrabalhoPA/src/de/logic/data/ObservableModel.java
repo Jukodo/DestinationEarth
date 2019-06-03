@@ -73,6 +73,10 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         return game.getPossibleRooms(game.getActiveCrewMember()-1);
     }
     
+     public List<Room> getRooms_ToAttack(){
+        return game.getRooms_ToAttack(game.getActiveCrewMember()-1);
+    }
+    
     public boolean have_RedShirt(boolean alive){
         return game.getPlayer().have_RedShirt(alive);
     }
@@ -97,6 +101,10 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         return game.activeIsEngineer();
     }
     
+    public boolean activeIsScienceOfficer(){
+        return game.activeIsScienceOfficer();
+    }
+    
     //Methods
     public void closeWindow(){
         firePropertyChange(FPC_CLOSE_WINDOW, null, null);
@@ -104,6 +112,10 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     
     public void swapScene(int swapTo){
         firePropertyChange(FPC_SWAP_SCENE, swapTo, null);
+    }
+
+    public void rollDice(){
+        game.rollDice();
     }
     
     public void swapActiveCrewMember(int index){
@@ -115,7 +127,11 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
             updateActionSelection();
 
             if(currentState() == STATE_MOVE_CREW_MEMBER){
-                updatePossibleRooms(ACTIVE);
+                updatePossibleRooms(ACTIVE, AP_MOVE);
+            }
+            
+            if(currentState() == STATE_ATTACK_ALIENS){
+                updatePossibleRooms(ACTIVE, AP_ATTACK);
             }
         }
     }
@@ -197,18 +213,18 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     public void cancelAction(){
         game.cancelAction();
         
-        updatePossibleRooms(INACTIVE);
+        updatePossibleRooms(INACTIVE, 0);
         updateActionSelection();
     }
     
     public void AP_moveCrewMember(int room){
         if(game.currentState() == STATE_CREW_PHASE){
             game.AP_moveCrewMember(0);
-            updatePossibleRooms(ACTIVE);
+            updatePossibleRooms(ACTIVE, AP_MOVE);
         }
         else{
             game.AP_moveCrewMember(room);
-            updatePossibleRooms(INACTIVE);
+            updatePossibleRooms(INACTIVE, 0);
         }
         
         updateGameStats();
@@ -216,9 +232,23 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         firePropertyChange(FPC_ACTION_SELECTION_UPDATE, null, null);
     }
     
-    public void AP_attackAlien(){
+    public void AP_attackAlien(int room){
         System.out.println("AP_attackAlien");
-        //game.AP_attackAliens();
+        
+        if(game.currentState() == STATE_CREW_PHASE){
+            game.AP_attackAliens(0);
+            this.rollDice();
+            updatePossibleRooms(ACTIVE, AP_ATTACK);
+        }
+        else{
+            game.AP_attackAliens(room);
+            updatePossibleRooms(INACTIVE, 0);
+        }
+        
+        updateGameStats();
+        updateShipDisplay();
+        firePropertyChange(FPC_ACTION_SELECTION_UPDATE, null, null);
+        
     }
     
     public void AP_placeTrap(){
@@ -339,8 +369,8 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         firePropertyChange(FPC_INSPIRATION_SELECTION_UPDATE, null, null);
     }
     
-    public void updatePossibleRooms(int toState){
-        firePropertyChange(FPC_DISPLAY_POSSIBLE_ROOMS, toState, null);
+    public void updatePossibleRooms(int toState, int action){
+        firePropertyChange(FPC_DISPLAY_POSSIBLE_ROOMS, toState, action);
     }
     
     public void updateShipDisplay(){

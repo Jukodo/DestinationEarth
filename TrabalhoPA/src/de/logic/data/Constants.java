@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 public interface Constants {
     public static final String GAME_TITLE = "Destination Earth";
-    
+
     public static final int STATE_UNKNOWN = -1;
     public static final int STATE_BEGINNING = 0;
     public static final int STATE_CREW_SELECTION = 1;
@@ -198,8 +198,8 @@ public interface Constants {
     //Also has ship (SHIP_DISPLAY_X)
     //Respective Editors
     
-    public static final int INACTIVE = 0;
-    public static final int ACTIVE = 1;
+    public static final int INACTIVE = -2;
+    public static final int ACTIVE = -3;
     
     public static final int INSIDE_PADDING = 10;
     
@@ -239,4 +239,9 @@ public interface Constants {
     public static final String FPC_DISPLAY_POSSIBLE_ROOMS = "DisplayPossibleRooms";
     public static final String FPC_ACTION_SELECTION_UPDATE = "ActionSelectionUpdate";
     public static final String FPC_INSPIRATION_SELECTION_UPDATE = "InspirationSelectionUpdate";
+    
+    public static final int UNKNOWN = -1;
+    
+    public static final int AP_MOVE = 1;
+    public static final int AP_ATTACK = 2;
 }
