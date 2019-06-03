@@ -138,6 +138,16 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         updateGame();
     }
     
+    public void replayGame(){
+        game.getShip().getRoom(1).resetTotalRooms();
+        game = new DestinationEarth();
+
+        game.playAgain();
+        
+        firePropertyChange(FPC_REPLAY_GAME, null, null);
+        swapScene(SCENE_BEGINNING);
+    }
+    
     public void rollDice(){
         game.rollDice();
     }

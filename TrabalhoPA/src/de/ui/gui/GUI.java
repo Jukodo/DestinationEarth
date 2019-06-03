@@ -27,6 +27,7 @@ public class GUI extends Application implements Constants, PropertyChangeListene
         
         observableModel.addPropertyChangeListener(FPC_CLOSE_WINDOW, this);
         observableModel.addPropertyChangeListener(FPC_SWAP_SCENE, this);
+        observableModel.addPropertyChangeListener(FPC_REPLAY_GAME, this);
         
         this.mainWindow = mainWindow;
         mainWindow.setTitle(GAME_TITLE);
@@ -78,6 +79,9 @@ public class GUI extends Application implements Constants, PropertyChangeListene
                 case SCENE_CREW_PHASE:
                     tempScene = new Scene(new CrewPhase_layout(observableModel));
                     break;
+                case SCENE_GAME_OVER:
+                    tempScene = new Scene(new GameOver_layout(observableModel));
+                    break;
                 default:
                     continue;
             }
@@ -97,6 +101,9 @@ public class GUI extends Application implements Constants, PropertyChangeListene
                 break;
             case FPC_CLOSE_WINDOW:
                 mainWindow.close();
+                break;
+            case FPC_REPLAY_GAME:
+                initScenes();
                 break;
         }
     }

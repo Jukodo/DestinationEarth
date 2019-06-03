@@ -243,6 +243,7 @@ public interface Constants {
     public static final String FPC_DISPLAY_POSSIBLE_ROOMS = "DisplayPossibleRooms";
     public static final String FPC_ACTION_SELECTION_UPDATE = "ActionSelectionUpdate";
     public static final String FPC_INSPIRATION_SELECTION_UPDATE = "InspirationSelectionUpdate";
+    public static final String FPC_REPLAY_GAME = "ReplayGame";
     
     public static final int UNKNOWN = -1;
     

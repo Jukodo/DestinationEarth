@@ -1,7 +1,6 @@
 General
 	Logs
 
-
 Ship Display
 	Display Sealed rooms
 
@@ -11,16 +10,9 @@ Crew Phase
 	Seal
 	RedShirt Sacrifice
 
-Alien Phase
-	?
-
-Game Over
-	?
-
 
 Known bugs
 	If doesnt pick color (stays white), it wont be able to draw the token
-	Force quits on turn 13
 	Attack Cancel
 	Attack 1st turn
 	LoadGame
