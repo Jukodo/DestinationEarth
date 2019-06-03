@@ -6,7 +6,6 @@ Crew Phase
 	Seal
 	RedShirt Sacrifice
 
-
 Known bugs
 	LoadGame
 	

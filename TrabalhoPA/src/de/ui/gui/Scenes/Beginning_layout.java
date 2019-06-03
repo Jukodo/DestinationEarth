@@ -112,7 +112,7 @@ public class Beginning_layout extends BorderPane implements Constants{
         titleContainer.setAlignment(Pos.CENTER);
             
         //Initial Phase
-        initialContainer.getChildren().addAll(btn_PlayGame, btn_ShowRules, btn_QuitGame);
+        initialContainer.getChildren().addAll(btn_PlayGame, btn_QuitGame);
         initialContainer.setAlignment(Pos.CENTER);
         
         //Play Phase

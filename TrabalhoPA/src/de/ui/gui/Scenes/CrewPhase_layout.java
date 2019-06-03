@@ -52,7 +52,6 @@ public class CrewPhase_layout extends VBox implements Constants{
         rootTopContainer = new VBox();
         
         if(SHOW_MENU){
-            System.out.println("SHOWING MENU");
             menuDisplay = new MenuDisplay(observableModel);
             rootTopContainer.getChildren().add(menuDisplay);
         }

@@ -1,10 +1,6 @@
 package de.ui.gui.Scenes;
 
 import de.logic.data.Constants;
-import static de.logic.data.Constants.INSIDE_PADDING;
-import static de.logic.data.Constants.SCENE_CREW_SELECTION;
-import static de.logic.data.Constants.SHOW_MENU;
-import static de.logic.data.Constants.STATE_BAR_PREGAME;
 import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
 import de.ui.gui.Scenes.Components.MenuDisplay;
@@ -46,7 +42,6 @@ public class CrewPlacement_layout extends VBox implements Constants{
         rootTopContainer = new VBox();
         
         if(SHOW_MENU){
-            System.out.println("SHOWING MENU");
             menuDisplay = new MenuDisplay(observableModel);
             rootTopContainer.getChildren().add(menuDisplay);
         }

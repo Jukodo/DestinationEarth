@@ -10,10 +10,7 @@ import de.ui.gui.Scenes.Components.StateBar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -50,7 +47,6 @@ public class CrewSelection_layout extends VBox implements Constants{
         rootTopContainer = new VBox();
         
         if(SHOW_MENU){
-            System.out.println("SHOWING MENU");
             menuDisplay = new MenuDisplay(observableModel);
             rootTopContainer.getChildren().add(menuDisplay);
         }

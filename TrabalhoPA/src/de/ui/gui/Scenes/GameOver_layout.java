@@ -1,7 +1,6 @@
 package de.ui.gui.Scenes;
 
 import de.logic.data.Constants;
-import static de.logic.data.Constants.GAME_TITLE;
 import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.MenuDisplay;
 import javafx.geometry.Insets;

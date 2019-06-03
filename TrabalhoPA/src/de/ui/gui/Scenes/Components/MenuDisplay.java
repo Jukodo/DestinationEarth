@@ -55,5 +55,9 @@ public class MenuDisplay extends MenuBar{
             if(saveFile != null)
                 observableModel.loadGame(saveFile);
         });
+        
+        exitGame.setOnAction(e -> {
+            observableModel.closeWindow();
+        });
     }
 }
