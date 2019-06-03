@@ -87,15 +87,15 @@ public class JourneyDisplay extends VBox implements Constants, PropertyChangeLis
     }
     
     private void setPropertyChangeListeners(){
-        observableModel.addPropertyChangeListener(FPC_JOURNEY_TURN_UPDATE, this);
+        observableModel.addPropertyChangeListener(FPC_JOURNEY_DISPLAY_UPDATE, this);
         observableModel.addPropertyChangeListener(FPC_JOURNEY_EVENTS_UPDATE, this);
     }
     
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch(evt.getPropertyName()){
-            case FPC_JOURNEY_TURN_UPDATE:
-                for(int i = 1; i <= journeyEvents.size()-2; i++){
+            case FPC_JOURNEY_DISPLAY_UPDATE:
+                for(int i = 0; i <= journeyEvents.size()-2; i++){
                     if((int) evt.getOldValue() == i){
                         ((VBox) journeyEvents.get(i)).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR, CornerRadii.EMPTY, Insets.EMPTY)));
                     }else{

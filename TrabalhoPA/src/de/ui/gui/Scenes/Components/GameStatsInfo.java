@@ -125,10 +125,10 @@ public class GameStatsInfo extends VBox implements Constants, PropertyChangeList
             case FPC_GAME_STATS_UPDATE:
                 playerName.setText(observableModel.getPlayerName());
                 
-                /*if(observableModel.getCurrentTurn() == 0)
+                if(observableModel.getCurrentTurn() == 0)
                     turn.setText("Start");
-                else*/
-                turn.setText(Integer.toString(observableModel.getCurrentTurn()+1));
+                else
+                    turn.setText(Integer.toString(observableModel.getCurrentTurn()));
                 
                 totalAliens.setText(Integer.toString(observableModel.getAliensCount()));
                 

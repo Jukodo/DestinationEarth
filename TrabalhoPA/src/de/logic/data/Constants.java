@@ -153,8 +153,7 @@ public interface Constants {
     public static final int SCENE_JOURNEY_PHASE = 4;
     public static final int SCENE_REST_PHASE = 5;
     public static final int SCENE_CREW_PHASE = 6;
-    public static final int SCENE_ALIEN_PHASE = 7;
-    public static final int SCENE_GAMEOVER = 8;
+    public static final int SCENE_GAME_OVER = 7;
     /*Remove later*/public static final String[] SCENE = {"SCENE_BEGINNING", "SCENE_CREWSELECTION", "SCENE_CREWPLACEMENT", 
             "SCENE_JOURNEYSELECTION", "SCENE_JOURNEYPHASE", "SCENE_RESTPHASE", "SCENE_CREWPHASE", "SCENE_ALIENPHASE", "SCENE_GAMEOVER"};
     
@@ -167,7 +166,7 @@ public interface Constants {
     public static final int STATE_BAR_PREGAME = 0;
     public static final int STATE_BAR_INGAME = 1;
     public static final String[] STATE_BAR_PREGAME_STATES = {"Crew Selection", "Crew Placement", "Journey Selection"};
-    public static final String[] STATE_BAR_INGAME_STATES = {"Journey Phase", "Rest/Crew Phase", "Alien Phase"};
+    public static final String[] STATE_BAR_INGAME_STATES = {"Journey Phase", "Rest Phase", "Crew Phase"};
     
     public static final int CREW_CLASS_PER_LINE = 3;
     
@@ -238,6 +237,7 @@ public interface Constants {
     public static final String FPC_DISPLAY_SHIP_UPDATE = "DisplayShipUpdate";
     public static final String FPC_JOURNEY_EVENTS_UPDATE = "JourneyEventsUpdate";
     public static final String FPC_JOURNEY_TURN_UPDATE = "JourneyTurnUpdate";
+    public static final String FPC_JOURNEY_DISPLAY_UPDATE = "JourneyDisplayUpdate";
     public static final String FPC_GAME_STATS_UPDATE = "GameStatsUpdate";
     public static final String FPC_GAME_STARTED = "GameStarted";
     public static final String FPC_DISPLAY_POSSIBLE_ROOMS = "DisplayPossibleRooms";

@@ -165,7 +165,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
             return;
         
         if(game.swapActiveJourneyTurn(index)){
-            firePropertyChange(FPC_JOURNEY_TURN_UPDATE, index, null);
+            updateJourneyTurn(index);
         }
     }
     
@@ -418,6 +418,15 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         firePropertyChange(FPC_GAME_STATS_UPDATE, null, null);
     }
     
+    public void updateJourneyTurn(int index){
+        firePropertyChange(FPC_JOURNEY_TURN_UPDATE, index, null);
+        firePropertyChange(FPC_JOURNEY_DISPLAY_UPDATE, index, null);
+    }
+    
+    public void updateJourneyDisplay(){
+        firePropertyChange(FPC_JOURNEY_DISPLAY_UPDATE, game.getDataGame().getCurrentTurn(), null);
+    }
+    
     public void updateActionSelection(){
         firePropertyChange(FPC_ACTION_SELECTION_UPDATE, null, null);
     }
@@ -461,7 +470,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
             case STATE_JOURNEY_PHASE:
                 game.nextTurn();
                 executeScanningPhase();
-                executeUpdateJourneyDisplay();
+                updateJourneyDisplay();
                 state = game.currentState();
                 updateGameStats();
                 if(state == STATE_REST_PHASE){
@@ -487,7 +496,10 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
                 if(state == STATE_JOURNEY_PHASE){
                     updateGameStats();
                     executeAlienPhase();
-                    swapScene(SCENE_ALIEN_PHASE);
+                    swapScene(SCENE_JOURNEY_PHASE);
+                }else if(state == STATE_GAME_OVER){
+                    updateGameStats();
+                    swapScene(SCENE_GAME_OVER);
                 }
                 break;
             default:
@@ -498,6 +510,8 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     private void executeEndOf_JourneySelection(){
+        updateJourneyDisplay();
+        
         firePropertyChange(FPC_GAME_STARTED, null, null);
     }
     
@@ -510,11 +524,6 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     
     private void executeAlienPhase(){
         firePropertyChange(FPC_DISPLAY_SHIP_UPDATE, null, null);
-        updateGameStats();
-    }
-    
-    private void executeUpdateJourneyDisplay(){
-        firePropertyChange(FPC_JOURNEY_TURN_UPDATE, game.getDataGame().getCurrentTurn()+1, null);
     }
 
     //REMOVE LATER

@@ -13,10 +13,7 @@ import de.ui.gui.Scenes.Components.StateBar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -54,7 +51,7 @@ public class CrewPlacement_layout extends VBox implements Constants{
             rootTopContainer.getChildren().add(menuDisplay);
         }
         
-        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREW_SELECTION);
+        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREW_PLACEMENT);
         rootTopContainer.getChildren().add(stateBarContainer);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));

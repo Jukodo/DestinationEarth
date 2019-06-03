@@ -61,7 +61,7 @@ public class RestPhase_layout extends VBox implements Constants{
             rootTopContainer.getChildren().add(menuDisplay);
         }
         
-        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREW_SELECTION);
+        stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_REST_PHASE);
         rootTopContainer.getChildren().add(stateBarContainer);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));

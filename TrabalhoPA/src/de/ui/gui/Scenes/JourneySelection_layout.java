@@ -7,7 +7,6 @@ import static de.logic.data.Constants.SHOW_MENU;
 import static de.logic.data.Constants.STATE_BAR_PREGAME;
 import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
-import de.ui.gui.Scenes.Components.CrewClassInfo;
 import de.ui.gui.Scenes.Components.JourneyDisplay;
 import de.ui.gui.Scenes.Components.JourneyEditor;
 import de.ui.gui.Scenes.Components.MenuDisplay;
@@ -16,13 +15,9 @@ import de.ui.gui.Scenes.Components.StateBar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class JourneySelection_layout extends VBox implements Constants{
     private ObservableModel observableModel;
@@ -64,7 +59,7 @@ public class JourneySelection_layout extends VBox implements Constants{
             rootTopContainer.getChildren().add(menuDisplay);
         }
         
-        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREW_SELECTION);
+        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_JOURNEY_SELECTION);
         rootTopContainer.getChildren().add(stateBarContainer);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));

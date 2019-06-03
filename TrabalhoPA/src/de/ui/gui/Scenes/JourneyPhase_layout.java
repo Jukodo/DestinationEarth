@@ -62,7 +62,7 @@ public class JourneyPhase_layout extends VBox implements Constants{
             rootTopContainer.getChildren().add(menuDisplay);
         }
         
-        stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREW_SELECTION);
+        stateBarContainer = new StateBar(STATE_BAR_INGAME, SCENE_JOURNEY_PHASE);
         rootTopContainer.getChildren().add(stateBarContainer);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));
@@ -107,7 +107,7 @@ public class JourneyPhase_layout extends VBox implements Constants{
         buttonBar = new HBox(INSIDE_PADDING);
         quitBtn = new Button("Quit");
         saveGame = new Button("Save Game");
-        lockInBtn = new Button("Start Turn");
+        lockInBtn = new Button("Next Turn");
         
         setButtonHandles();
 
