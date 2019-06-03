@@ -1,15 +1,11 @@
 General
-	Toasts style
-		Logs
-		Roll Dice
-	CSS
+	Logs
 
-Crew Placement
-	Ship Display
-		Display Sealed rooms
+
+Ship Display
+	Display Sealed rooms
 
 Crew Phase
-	Attack
 	Place Trap
 	Detonate
 	Seal
@@ -22,7 +18,10 @@ Game Over
 	?
 
 
-Known bugs:
+Known bugs
 	If doesnt pick color (stays white), it wont be able to draw the token
 	Force quits on turn 13
+	Attack Cancel
+	Attack 1st turn
+	LoadGame
 	

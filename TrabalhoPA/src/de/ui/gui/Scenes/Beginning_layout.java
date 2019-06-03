@@ -2,6 +2,8 @@ package de.ui.gui.Scenes;
 
 import de.logic.data.Constants;
 import de.logic.data.ObservableModel;
+import de.ui.gui.Scenes.Components.MenuDisplay;
+import java.io.File;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
@@ -18,9 +21,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 
-public class Beginning_layout extends HBox implements Constants{
+public class Beginning_layout extends BorderPane implements Constants{
     private ObservableModel observableModel;
+    
+    //Main Container
+    private HBox mainContainer;
+    
+    //Menu
+    private MenuDisplay menuDisplay;
     
     //Game title container
     private VBox titleContainer;
@@ -59,17 +69,20 @@ public class Beginning_layout extends HBox implements Constants{
     
     private void initializeComponents(){
         //Containers
+        mainContainer = new HBox();
         titleContainer = new VBox();
         initialContainer = new VBox(20/*V Spacing*/);
         playContainer = new VBox(20/*V Spacing*/);
         newGameContainer = new VBox(20/*V Spacing*/);
         rulesContainer = new VBox(20/*V Spacing*/);
         
-        titleContainer.setMinSize(WINDOW_X/2, WINDOW_Y);
-        initialContainer.setMinSize(WINDOW_X/2, WINDOW_Y);
-        playContainer.setMinSize(WINDOW_X/2, WINDOW_Y);
-        newGameContainer.setMinSize(WINDOW_X/2, WINDOW_Y);
-        rulesContainer.setMinSize(WINDOW_X/2, WINDOW_Y);
+        setCenter(mainContainer);
+        
+        titleContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
+        initialContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
+        playContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
+        newGameContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
+        rulesContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
         
         //Temp stuff DELETE LATER
             titleContainer.setBackground(new Background(new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -89,6 +102,12 @@ public class Beginning_layout extends HBox implements Constants{
         tf_PlayerName = new TextField(); 
         tf_PlayerName.setPromptText("Player name");
         btn_StartGame = new Button("Start Game");
+        
+        //Menu
+        if(SHOW_MENU){
+            menuDisplay = new MenuDisplay(observableModel);
+            setTop(menuDisplay);
+        }
         
         //Title Container
         gameTitle = new Label(GAME_TITLE);
@@ -113,8 +132,8 @@ public class Beginning_layout extends HBox implements Constants{
     }
     
     private void setContainer(Region swapTo){
-        getChildren().clear();
-        getChildren().addAll(titleContainer, swapTo);
+        mainContainer.getChildren().clear();
+        mainContainer.getChildren().addAll(titleContainer, swapTo);
     }
     
     private void setComponentsHandlers(){
@@ -131,7 +150,12 @@ public class Beginning_layout extends HBox implements Constants{
             setContainer(newGameContainer);
         });
         btn_LoadGame.setOnAction(e -> {
-            observableModel.swapScene(SCENE_BEGINNING);
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Binary files", "*.bin"));
+            File saveFile = fileChooser.showOpenDialog(null);
+            
+            if(saveFile != null)
+                observableModel.loadGame(saveFile);
         });
         btn_GoBack_play.setOnAction(e -> {
             setContainer(initialContainer);

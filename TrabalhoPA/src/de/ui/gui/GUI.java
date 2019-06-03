@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class GUI extends Application implements Constants, PropertyChangeListener{
-    private ObservableModel observableModel = new ObservableModel(new DestinationEarth());
+    private ObservableModel observableModel;
     
     private Stage mainWindow;
     private HashMap<Integer, Scene> scenes;
@@ -23,6 +23,8 @@ public class GUI extends Application implements Constants, PropertyChangeListene
     
     @Override
     public void start(Stage mainWindow) {
+        observableModel = new ObservableModel(new DestinationEarth(), mainWindow);
+        
         observableModel.addPropertyChangeListener(FPC_CLOSE_WINDOW, this);
         observableModel.addPropertyChangeListener(FPC_SWAP_SCENE, this);
         
@@ -30,7 +32,11 @@ public class GUI extends Application implements Constants, PropertyChangeListene
         mainWindow.setTitle(GAME_TITLE);
         mainWindow.setResizable(false);
         mainWindow.setWidth(WINDOW_X);
-        mainWindow.setHeight(WINDOW_Y);
+        
+        if(SHOW_MENU)
+            mainWindow.setHeight(WINDOW_Y_WITH_MENU);
+        else
+            mainWindow.setHeight(WINDOW_Y);
         
         initScenes();
         

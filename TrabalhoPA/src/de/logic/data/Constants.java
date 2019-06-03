@@ -141,6 +141,10 @@ public interface Constants {
     public static final int WINDOW_X = 1280;
     public static final int WINDOW_Y = 720;
         
+    public static final boolean SHOW_MENU = false;
+    public static final int MENU_Y = 50;
+    public static final int WINDOW_Y_WITH_MENU = WINDOW_Y + MENU_Y;
+    
     public static final int NUM_SCENES = 9;
     public static final int SCENE_BEGINNING = 0;
     public static final int SCENE_CREW_SELECTION = 1;

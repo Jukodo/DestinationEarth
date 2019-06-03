@@ -381,23 +381,34 @@ public class DestinationEarth implements Serializable{
     
     /**Save and Load**/
     
-     public void saveGame() throws FileNotFoundException, IOException{
-        try(ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream("SaveFile"))) { 
+    public void saveGame(File saveFile){
+        FileOutputStream fileName;
+        
+        try{
+            if(saveFile == null)
+                fileName = new FileOutputStream("SaveFile.bin");
+            else
+                fileName = new FileOutputStream(saveFile);
+
+            ObjectOutputStream save = new ObjectOutputStream(fileName);
+
             save.writeUnshared(this);
             this.getDataGame().addLog("Game saved!");
+        }catch(IOException e){
+            
         }
     }
     
-    public DestinationEarth loadGame() throws FileNotFoundException, IOException, ClassNotFoundException{
+    public DestinationEarth loadGame(File loadFile){
+        if(loadFile == null)
+            loadFile = new File("saveFile");
         
-        File saveFile = new File("saveFile");
-        
-        if(!saveFile.isFile() || !saveFile.canRead()){
+        if(!loadFile.isFile() || !loadFile.canRead()){
             this.getDataGame().addLog("Game loading failed! File not found...");
             return this;
         }
         
-        try(ObjectInputStream load = new ObjectInputStream(new FileInputStream(saveFile))) { 
+        try(ObjectInputStream load = new ObjectInputStream(new FileInputStream(loadFile))) { 
             DestinationEarth loadedGame = (DestinationEarth) load.readUnshared();
             if(loadedGame != null){
                 loadedGame.getDataGame().addLog("Game loaded!");
@@ -406,6 +417,9 @@ public class DestinationEarth implements Serializable{
                 this.getDataGame().addLog("Game loading failed!");
                 return this;
             }
+        }catch(ClassNotFoundException | IOException ex){
+            this.getDataGame().addLog("Game loading failed!");
         }
+        return this;
     }
 }

@@ -5,6 +5,7 @@ import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
 import de.ui.gui.Scenes.Components.CrewClassList;
 import de.ui.gui.Scenes.Components.CrewClassInfo;
+import de.ui.gui.Scenes.Components.MenuDisplay;
 import de.ui.gui.Scenes.Components.StateBar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,6 +21,8 @@ public class CrewSelection_layout extends VBox implements Constants{
     private ObservableModel observableModel;
     
     //Root Container (Everywhere)
+    private VBox rootTopContainer;
+    private MenuDisplay menuDisplay;
     private StateBar stateBarContainer;
     private BorderPane interactionContainer;
     
@@ -44,11 +47,20 @@ public class CrewSelection_layout extends VBox implements Constants{
         
         setId("background-image");
         
+        rootTopContainer = new VBox();
+        
+        if(SHOW_MENU){
+            System.out.println("SHOWING MENU");
+            menuDisplay = new MenuDisplay(observableModel);
+            rootTopContainer.getChildren().add(menuDisplay);
+        }
+        
         stateBarContainer = new StateBar(STATE_BAR_PREGAME, SCENE_CREW_SELECTION);
+        rootTopContainer.getChildren().add(stateBarContainer);
         interactionContainer = new BorderPane();
         interactionContainer.setPadding(new Insets(INSIDE_PADDING));
         
-        getChildren().addAll(stateBarContainer, interactionContainer);
+        getChildren().addAll(rootTopContainer, interactionContainer);
         
         initInteractionContainer();
     }

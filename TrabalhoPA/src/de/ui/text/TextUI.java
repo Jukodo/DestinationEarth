@@ -69,7 +69,7 @@ public class TextUI {
                 return;
                 
             case 2:
-                game = game.loadGame();
+                game = game.loadGame(null);
         }
         
     }
@@ -545,7 +545,7 @@ public class TextUI {
                 break;
             
             case 2:
-                game.saveGame();
+                game.saveGame(null);
                 break;
         }
     }

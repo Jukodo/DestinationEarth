@@ -3,20 +3,34 @@ package de.logic.data;
 import de.DestinationEarth;
 import de.logic.data.members.CrewMember;
 import java.beans.PropertyChangeSupport;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class ObservableModel extends PropertyChangeSupport implements Constants{
     
     private DestinationEarth game;
+    private Stage mainWindow;
+    
+    public ObservableModel(DestinationEarth game, Stage mainWindow){
+        super(game);
+        this.game = game;
+        this.mainWindow = mainWindow;
+    }
     
     public ObservableModel(DestinationEarth game){
         super(game);
         this.game = game;
+        this.mainWindow = null;
     }
     
     //Getters
+    public Stage getMainWindow(){
+        return mainWindow;
+    }
+    
     public CrewMember[] getCrewMembers(){
         return game.getPlayer().getCrew();
     }
@@ -114,6 +128,16 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         firePropertyChange(FPC_SWAP_SCENE, swapTo, null);
     }
 
+    public void saveGame(File saveFile){
+        game.saveGame(saveFile);
+    }
+    
+    public void loadGame(File loadFile){
+        game = game.loadGame(loadFile);
+        
+        updateGame();
+    }
+    
     public void rollDice(){
         game.rollDice();
     }
@@ -345,6 +369,39 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         updateMemberBar();
         updateInspirationSelection();
         updateGameStats();
+    }
+    
+    public void updateGame(){
+        switch(game.currentState()){
+            case STATE_BEGINNING:
+                swapScene(SCENE_BEGINNING);
+                break;
+            case STATE_CREW_SELECTION:
+                swapScene(SCENE_CREW_SELECTION);
+                break;
+            case STATE_CREW_PLACEMENT:
+                swapScene(SCENE_CREW_PLACEMENT);
+                break;
+            case STATE_JOURNEY_SELECTION:
+                swapScene(SCENE_JOURNEY_SELECTION);
+                break;
+            case STATE_JOURNEY_PHASE:
+                swapScene(SCENE_JOURNEY_PHASE);
+                break;
+            case STATE_REST_PHASE:
+                swapScene(SCENE_REST_PHASE);
+                break;
+            case STATE_CREW_PHASE:
+                swapScene(SCENE_CREW_PHASE);
+                break;
+        }
+        
+        updateActionSelection();
+        updateGameStats();
+        updateInspirationSelection();
+        updateMemberBar();
+        updatePossibleRooms(INACTIVE, UNKNOWN);
+        updateShipDisplay();
     }
     
     public void updateMemberBar(){
