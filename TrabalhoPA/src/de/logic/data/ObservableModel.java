@@ -289,8 +289,6 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public void AP_attackAlien(int room){
-        System.out.println("AP_attackAlien");
-        
         if(game.currentState() == STATE_CREW_PHASE){
             game.AP_attackAliens(0);
             this.rollDice();
@@ -308,8 +306,6 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public void AP_placeTrap(int trapType){
-        System.out.println("AP_placeTrap");
-        
         if(game.currentState() == STATE_CREW_PHASE){
             game.AP_placeTrap(0);
             updatePossibleRooms(ACTIVE, AP_PLACETRAP);

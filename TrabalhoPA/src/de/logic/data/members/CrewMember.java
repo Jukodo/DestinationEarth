@@ -184,13 +184,12 @@ public abstract class CrewMember implements Serializable{
     }
     
     public int attack(int roomNumber){
-        
         if(dataGame.getActionPoints() < DEF_COST_A_ATTACK)
             return 0;
         
         Room roomToAttack = null;
         
-        roomToAttack = dataGame.getShip().getRoom(this.getRoom().getId());
+        roomToAttack = dataGame.getShip().getRoom(roomNumber);
         
         if(roomToAttack == null){
             dataGame.addLog("Cannot attack selected Room! Please check if sealed or too far...");

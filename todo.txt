@@ -1,6 +1,3 @@
-General
-	Logs
-
 Ship Display
 	Display Sealed rooms
 
@@ -11,6 +8,5 @@ Crew Phase
 
 
 Known bugs
-	Attack 1st turn
 	LoadGame
 	
