@@ -133,12 +133,8 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
             observableModel.AP_placeTrap(ORGANIC_TRAP);
         });
         
-        trapOrganicBtn.setOnAction(e -> {
+        trapParticleBtn.setOnAction(e -> {
             observableModel.AP_placeTrap(PARTICLE_TRAP);
-        });
-        
-         trapOrganicBtn.setOnAction(e -> {
-            observableModel.AP_placeTrap(ORGANIC_TRAP);
         });
     }
     
@@ -195,7 +191,7 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
                     case STATE_PLACE_TRAP:
                         getChildren().clear();
                         title = new Label("Place Trap: ");
-                        text = new Label("Select trap tpe: ");
+                        text = new Label("Select trap type: ");
                         
                         if(this.observableModel.getOrganicTrapTokens() > 0){
                             trapOrganicBtn.setDisable(false);
@@ -211,7 +207,7 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
                             trapParticleBtn.setDisable(true);
                         }
                         
-                        getChildren().addAll(title, text, trapOrganicBtn, trapParticleBtn);
+                        getChildren().addAll(title, text, trapOrganicBtn, trapParticleBtn, cancelBtn);
                         break;
                 }
                 break;

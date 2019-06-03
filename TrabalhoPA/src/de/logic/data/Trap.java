@@ -42,5 +42,6 @@ public abstract class Trap implements Serializable{
         return false;
     }
     
+    public abstract int getType();
   
 }

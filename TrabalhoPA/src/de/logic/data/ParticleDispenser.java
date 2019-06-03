@@ -48,4 +48,9 @@ public class ParticleDispenser extends Trap implements Constants, Serializable{
         
         return true;
     }
+
+    @Override
+    public int getType() {
+       return PARTICLE_TRAP;
+    }
 }

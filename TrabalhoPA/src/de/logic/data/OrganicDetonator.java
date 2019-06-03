@@ -12,5 +12,10 @@ public class OrganicDetonator extends Trap implements Constants, Serializable{
     public String toString() {
         return "Organic Detonator";
     }   
+
+    @Override
+    public int getType() {
+        return ORGANIC_TRAP;
+    }
     
 }

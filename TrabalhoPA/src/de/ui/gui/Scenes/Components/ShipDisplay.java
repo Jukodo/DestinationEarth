@@ -247,8 +247,14 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
             hoverInfo.getChildren().add(alienInfo);
         }
         if(roomsObj.get(index).getTrapInside() != null){
-            //if(roomsObj.get(index).getTrapInside().)
             Label trapText = new Label("1x Trap");
+            if(roomsObj.get(index).getTrapInside().getType() == ORGANIC_TRAP){
+               trapText.setText("1x Organic Detonator");
+            }
+            else{
+                 trapText.setText("1x Particle Dispenser");
+            }
+            
             trapInfo.getChildren().addAll(new Circle(5, TOKEN_TRAP), trapText);
             hoverInfo.getChildren().add(trapInfo);
         }
