@@ -1,11 +1,3 @@
-Ship Display
-	Display Sealed rooms
-
-Crew Phase
-	Detonate
-	Seal
-	RedShirt Sacrifice
-
 Known bugs
 	LoadGame
 	
