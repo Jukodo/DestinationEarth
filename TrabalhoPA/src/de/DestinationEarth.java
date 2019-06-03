@@ -159,18 +159,6 @@ public class DestinationEarth implements Serializable{
         return dataGame.isValid_JourneyTurn(turn, event);
     }
     
-    public boolean activeIsDoctor(){
-        return dataGame.activeIsDoctor();
-    }
-    
-    public boolean activeIsEngineer(){
-        return dataGame.activeIsEngineer();
-    }
-    
-    public boolean activeIsScienceOfficer(){
-        return dataGame.activeIsScienceOfficer();
-    }
-    
     /**Data game methods - To Strings**/
     public String crewMemberInfoToString(){
         return dataGame.crewMemberInfoToString();

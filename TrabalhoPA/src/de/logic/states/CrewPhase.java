@@ -37,7 +37,7 @@ public class CrewPhase extends StateAdapter implements Constants{
     @Override 
     public IStates AP_healPlayer(){
         
-        if(this.getGame().activeIsDoctor())
+        if(this.getGame().getPlayer().have_Doctor(true))
             this.getGame().healPlayer();
             
         return this;
@@ -46,7 +46,7 @@ public class CrewPhase extends StateAdapter implements Constants{
     @Override 
     public IStates AP_fixHull(){
         
-        if(this.getGame().activeIsEngineer())
+        if(this.getGame().getPlayer().have_Engineer(true))
             this.getGame().fixHullTracker();
         
         return this;

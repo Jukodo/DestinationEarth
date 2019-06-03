@@ -2,7 +2,6 @@ package de.ui.text;
 
 import de.DestinationEarth;
 import static de.logic.data.Constants.*;
-import de.logic.data.members.ScienceOfficer;
 import de.logic.states.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -806,11 +805,11 @@ public class TextUI {
                 break;
                 
             case 7:
-                if(game.activeIsDoctor()){
+                if(game.have_Doctor(true)){
                     game.AP_healPlayer();
                     return;
                 }
-                else if(game.activeIsEngineer()){
+                else if(game.have_Engineer(true)){
                     game.AP_fixHull();
                     return;
                 }

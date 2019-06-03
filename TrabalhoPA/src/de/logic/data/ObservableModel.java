@@ -299,12 +299,12 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         else{
             game.AP_attackAliens(room);
             updatePossibleRooms(INACTIVE, 0);
+            showLogs();
         }
         
         updateGameStats();
         updateShipDisplay();
         firePropertyChange(FPC_ACTION_SELECTION_UPDATE, null, null);
-        showLogs();
     }
     
     public void AP_placeTrap(int trapType){

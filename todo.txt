@@ -5,15 +5,12 @@ Ship Display
 	Display Sealed rooms
 
 Crew Phase
-	Place Trap
 	Detonate
 	Seal
 	RedShirt Sacrifice
 
 
 Known bugs
-	If doesnt pick color (stays white), it wont be able to draw the token
-	Attack Cancel
 	Attack 1st turn
 	LoadGame
 	
