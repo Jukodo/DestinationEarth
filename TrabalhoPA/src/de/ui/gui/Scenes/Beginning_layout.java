@@ -17,7 +17,6 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -27,7 +26,7 @@ public class Beginning_layout extends BorderPane implements Constants{
     private ObservableModel observableModel;
     
     //Main Container
-    private HBox mainContainer;
+    private VBox mainContainer;
     
     //Menu
     private MenuDisplay menuDisplay;
@@ -62,6 +61,8 @@ public class Beginning_layout extends BorderPane implements Constants{
     public Beginning_layout(ObservableModel observableModel){
         this.observableModel = observableModel;
         
+        setId("init-background-image");
+        
         initializeComponents();
         setComponentsHandlers();
         setContainer(initialContainer);
@@ -69,27 +70,20 @@ public class Beginning_layout extends BorderPane implements Constants{
     
     private void initializeComponents(){
         //Containers
-        mainContainer = new HBox();
+        mainContainer = new VBox(50);
+        mainContainer.setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+        mainContainer.setPrefSize(BEGINNING_X, BEGINNING_Y);
+        mainContainer.setAlignment(Pos.CENTER);
+        
         titleContainer = new VBox();
         initialContainer = new VBox(20/*V Spacing*/);
         playContainer = new VBox(20/*V Spacing*/);
         newGameContainer = new VBox(20/*V Spacing*/);
         rulesContainer = new VBox(20/*V Spacing*/);
         
-        setCenter(mainContainer);
-        
-        titleContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
-        initialContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
-        playContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
-        newGameContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
-        rulesContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
+        setLeft(mainContainer);
         
         //Temp stuff DELETE LATER
-            titleContainer.setBackground(new Background(new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, Insets.EMPTY)));
-            initialContainer.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
-            playContainer.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
-            newGameContainer.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
-            rulesContainer.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
             
         //Components
         btn_PlayGame = new Button("Play");
@@ -111,6 +105,9 @@ public class Beginning_layout extends BorderPane implements Constants{
         
         //Title Container
         gameTitle = new Label(GAME_TITLE);
+        gameTitle.setId("GameTitle");
+        gameTitle.setTextFill(SELECTABLE_TEXT_COLOR);
+        
         titleContainer.getChildren().add(gameTitle);
         titleContainer.setAlignment(Pos.CENTER);
             

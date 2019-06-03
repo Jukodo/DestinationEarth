@@ -20,7 +20,7 @@ public class GameOver_layout extends BorderPane implements Constants{
     private ObservableModel observableModel;
     
     //Main Container
-    private HBox mainContainer;
+    private VBox mainContainer;
     
     //Menu
     private MenuDisplay menuDisplay;
@@ -38,35 +38,40 @@ public class GameOver_layout extends BorderPane implements Constants{
     public GameOver_layout(ObservableModel observableModel){
         this.observableModel = observableModel;
         
+        setId("init-background-image");
+        
         initializeComponents();
         setComponentsHandlers();
     }
     
     private void initializeComponents(){
+        //Containers
+        mainContainer = new VBox(50);
+        mainContainer.setBackground(new Background(new BackgroundFill(BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+        mainContainer.setPrefSize(BEGINNING_X, BEGINNING_Y);
+        mainContainer.setAlignment(Pos.CENTER);
+        
         if(SHOW_MENU){
             menuDisplay = new MenuDisplay(observableModel);
             setTop(menuDisplay);
         }
-        
-        mainContainer = new HBox();
         titleContainer = new VBox();
         gameoverContainer = new VBox(INSIDE_PADDING);
         
-        setCenter(mainContainer);
-        
-        titleContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
-        gameoverContainer.setPrefSize(WINDOW_X/2, WINDOW_Y);
-        //Temp stuff DELETE LATER
-            titleContainer.setBackground(new Background(new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, Insets.EMPTY)));
-            gameoverContainer.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
+        setLeft(mainContainer);
         
         //Title Container
         gameTitle = new Label(GAME_TITLE);
+        gameTitle.setId("GameTitle");
+        gameTitle.setTextFill(SELECTABLE_TEXT_COLOR);
+        
         titleContainer.getChildren().add(gameTitle);
         titleContainer.setAlignment(Pos.CENTER);
         
         //GameOver container
         gameoverLabel = new Label("Game Over!");
+        gameoverLabel.setId("GameTitle");
+        gameoverLabel.setTextFill(SELECTABLE_TEXT_COLOR);
         replayBtn = new Button("Replay");
         exitBtn = new Button("Exit");
         gameoverContainer.getChildren().addAll(gameoverLabel, replayBtn, exitBtn);

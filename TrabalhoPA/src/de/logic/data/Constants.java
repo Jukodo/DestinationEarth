@@ -180,6 +180,10 @@ public interface Constants {
     public static final int GAME_STATS_Y = (int) ( (8 * WINDOW_Y) / 100);
     
     //X Sizes
+    //  Beginning
+    public static final int BEGINNING_X = ((30 * WINDOW_X) / 100);//30%
+    public static final int BEGINNING_Y = ((30 * WINDOW_Y) / 100);//30%
+    
     //  Crew Selection
     public static final int CREW_CLASS_LIST_X = ((30 * WINDOW_X) / 100);//30%
     public static final int CREW_CLASS_INFO_X = ((int)((67.2 * WINDOW_X) / 100));//67.2%
@@ -209,7 +213,9 @@ public interface Constants {
     //Colors
     public static final Color TOKEN_ALIEN = Color.rgb(24, 142, 26);
     public static final Color TOKEN_TRAP = Color.rgb(109, 40, 29);
+    public static final double BACKGROUND_OPACITY = 0.7;
     public static final Color BACKGROUND_COLOR = Color.rgb(37, 37, 37);
+    public static final Color BACKGROUND_COLOR_O = Color.rgb(37, 37, 37, BACKGROUND_OPACITY);
     //Normal
     public static final double NORMAL_BACKGROUND_OPACITY = 0.5;
     public static final Color NORMAL_BACKGROUND_COLOR = Color.rgb(240, 240, 240);

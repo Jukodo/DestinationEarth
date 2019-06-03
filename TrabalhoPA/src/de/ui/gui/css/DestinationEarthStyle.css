@@ -11,6 +11,19 @@
     -fx-background-position: center center;
 }
 
+#init-background-image{
+    /*Background image*/
+    -fx-background-image: url("../Scenes/Components/Images/StartBackground.jpg");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 1280 720;
+    -fx-background-position: center center;
+}
+
+#GameTitle{
+    -fx-font-color: rgb(240,240,240);
+    -fx-font-size: 30px;
+}
+
 .button{
     -fx-background-color: #fff;
     -fx-border-width: 1px;
