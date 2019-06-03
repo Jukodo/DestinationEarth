@@ -23,9 +23,12 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
     
     private Label mainTitle;
     
-    private Label moveTitle;
-    private Label moveText;
+    private Label title;
+    private Label text;
     private Button cancelBtn;
+    
+    private Button trapOrganicBtn;
+    private Button trapParticleBtn;
     
     private HashMap<Integer, Button> actions;
     
@@ -56,9 +59,11 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
         
         actions = new HashMap<>();
         
-        moveTitle = new Label("Move Crew Member: ");
-        moveText = new Label("To move a crew member choose a room on the ship display!");
+        title = new Label("Move Crew Member: ");
+        text = new Label("To move a crew member choose a room on the ship display!");
         cancelBtn = new Button("Cancel");
+        trapOrganicBtn = new Button("Organic Detonator");
+        trapParticleBtn = new Button("Particle Dispenser");
     }
     
     private void processActions(){
@@ -108,7 +113,7 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
                         observableModel.AP_attackAlien(0);
                         break;
                     case 2:
-                        observableModel.AP_placeTrap();
+                        observableModel.AP_placeTrap(0);
                         break;
                     case 3:
                         observableModel.AP_detonateParticleDispenser();
@@ -122,6 +127,18 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
         
         cancelBtn.setOnAction(e -> {
             observableModel.cancelAction();
+        });
+        
+        trapOrganicBtn.setOnAction(e -> {
+            observableModel.AP_placeTrap(ORGANIC_TRAP);
+        });
+        
+        trapOrganicBtn.setOnAction(e -> {
+            observableModel.AP_placeTrap(PARTICLE_TRAP);
+        });
+        
+         trapOrganicBtn.setOnAction(e -> {
+            observableModel.AP_placeTrap(ORGANIC_TRAP);
         });
     }
     
@@ -163,12 +180,38 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
                         break;
                     case STATE_MOVE_CREW_MEMBER:
                         getChildren().clear();
-                        getChildren().addAll(moveTitle, moveText, cancelBtn);
+                        title = new Label("Move Crew Member: ");
+                        text = new Label("To move a crew member, choose a room on the ship display!");
+                        getChildren().addAll(title, text, cancelBtn);
                         break;
                         //CHANGE THIS
                      case STATE_ATTACK_ALIENS:
                         getChildren().clear();
-                        getChildren().addAll(moveTitle, moveText, cancelBtn);
+                        title = new Label("Attack Aliens: ");
+                        text = new Label("To attack an alien, choose a room on the ship display!");
+                        getChildren().addAll(title, text, cancelBtn);
+                        break;
+                        
+                    case STATE_PLACE_TRAP:
+                        getChildren().clear();
+                        title = new Label("Place Trap: ");
+                        text = new Label("Select trap tpe: ");
+                        
+                        if(this.observableModel.getOrganicTrapTokens() > 0){
+                            trapOrganicBtn.setDisable(false);
+                        }
+                        else{
+                            trapOrganicBtn.setDisable(true);
+                        }
+                        
+                        if(this.observableModel.getParticleTrapTokens() > 0){
+                            trapParticleBtn.setDisable(false);
+                        }
+                        else{
+                            trapParticleBtn.setDisable(true);
+                        }
+                        
+                        getChildren().addAll(title, text, trapOrganicBtn, trapParticleBtn);
                         break;
                 }
                 break;

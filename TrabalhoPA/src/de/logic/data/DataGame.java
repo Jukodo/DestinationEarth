@@ -430,6 +430,18 @@ public class DataGame implements Constants, Serializable{
         return possibleRooms;
     }
     
+    public List<Room> getRooms_ToPlaceTrap(int crewMember){
+        List<Room> possibleRooms;
+        
+        possibleRooms = new ArrayList<>();
+        
+        if(player.getCrewMember(crewMember).getRoom().getAliensInside().size() > 0 && !player.getCrewMember(crewMember).getRoom().getIsSealed()){
+            possibleRooms.add(player.getCrewMember(crewMember).getRoom());
+        }
+            
+        return possibleRooms;
+    }
+    
     public boolean crewClassNotRepeated(){
         for(int i=0; i<player.getCrew().length-1; i++){
             if(player.getCrewMember(i).getName().equals(player.getCrewMember(i+1).getName())){

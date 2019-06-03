@@ -255,4 +255,5 @@ public interface Constants {
     
     public static final int AP_MOVE = 1;
     public static final int AP_ATTACK = 2;
+    public static final int AP_PLACETRAP = 3;
 }

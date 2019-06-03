@@ -41,4 +41,6 @@ public abstract class Trap implements Serializable{
     public boolean detonate(int roomNumber){
         return false;
     }
+    
+  
 }

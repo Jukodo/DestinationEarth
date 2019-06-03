@@ -18,4 +18,9 @@ public class PlaceTrap extends StateAdapter{
     public int currentState(){
         return STATE_PLACE_TRAP;
     }
+    
+     @Override
+    public IStates cancelAction(){
+        return new CrewPhase(this.getGame());
+    }
 }

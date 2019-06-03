@@ -90,6 +90,10 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
      public List<Room> getRooms_ToAttack(){
         return game.getRooms_ToAttack(game.getActiveCrewMember()-1);
     }
+     
+     public List<Room> getRooms_ToPlaceTrap(){
+        return game.getRooms_ToPlaceTrap(game.getActiveCrewMember()-1);
+    }
     
     public boolean have_RedShirt(boolean alive){
         return game.getPlayer().have_RedShirt(alive);
@@ -276,6 +280,14 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         updateActionSelection();
     }
     
+    public int getOrganicTrapTokens(){
+        return game.getOrganicTrapTokens();
+    }
+    
+    public int getParticleTrapTokens(){
+        return game.getParticleTrapTokens();
+    }
+    
     public void AP_moveCrewMember(int room){
         if(game.currentState() == STATE_CREW_PHASE){
             game.AP_moveCrewMember(0);
@@ -311,10 +323,21 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         showLogs();
     }
     
-    public void AP_placeTrap(){
+    public void AP_placeTrap(int trapType){
         System.out.println("AP_placeTrap");
-        //game.AP_placeTrap();
-        showLogs();
+        
+        if(game.currentState() == STATE_CREW_PHASE){
+            game.AP_placeTrap(0);
+            updatePossibleRooms(ACTIVE, AP_PLACETRAP);
+        }
+        else{
+            game.AP_placeTrap(trapType);
+            updatePossibleRooms(INACTIVE, 0);
+        }
+        
+        updateGameStats();
+        updateShipDisplay();
+        firePropertyChange(FPC_ACTION_SELECTION_UPDATE, null, null);
     }
     
     public void AP_detonateParticleDispenser(){

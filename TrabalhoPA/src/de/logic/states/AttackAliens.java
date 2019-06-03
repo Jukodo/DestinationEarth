@@ -19,4 +19,9 @@ public class AttackAliens extends StateAdapter{
         return STATE_ATTACK_ALIENS;
     }
     
+     @Override
+    public IStates cancelAction(){
+        return new CrewPhase(this.getGame());
+    }
+    
 }

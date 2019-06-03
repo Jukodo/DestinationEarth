@@ -247,6 +247,7 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
             hoverInfo.getChildren().add(alienInfo);
         }
         if(roomsObj.get(index).getTrapInside() != null){
+            //if(roomsObj.get(index).getTrapInside().)
             Label trapText = new Label("1x Trap");
             trapInfo.getChildren().addAll(new Circle(5, TOKEN_TRAP), trapText);
             hoverInfo.getChildren().add(trapInfo);
@@ -340,6 +341,41 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
 
                                     for(Room room:possibleRooms){
                                         rooms.get(room.getId()).setOnMouseClicked(e -> {
+                                            observableModel.AP_attackAlien(room.getId());
+                                        });
+                                        if(room.getId() == 1)
+                                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
+                                        else if(room.getId() == 6)
+                                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+                                        else
+                                            rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+
+                                        rooms.get(room.getId()).setPadding(new Insets(2));
+                                        rooms.get(room.getId()).setSpacing(2);
+                                        rooms.get(room.getId()).setAlignment(Pos.BOTTOM_RIGHT);
+                                    }
+                                }
+              
+                            System.out.print(observableModel.getActionPoints());
+                            break;
+                            
+                            case AP_PLACETRAP:
+                                for(int i = 1; i <= rooms.size(); i++){
+                                    rooms.get(i).setOnMouseClicked(null);
+                                    if(i == 1)
+                                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
+                                    else if(i == 6)
+                                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+                                    else
+                                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+                                }
+
+                                if((int) evt.getOldValue() != INACTIVE){
+                                    List<Room> possibleRooms = observableModel.getRooms_ToPlaceTrap();
+
+                                    for(Room room:possibleRooms){
+                                        rooms.get(room.getId()).setOnMouseClicked(e -> {
+                                            System.out.println(room.getId());
                                             observableModel.AP_attackAlien(room.getId());
                                         });
                                         if(room.getId() == 1)
