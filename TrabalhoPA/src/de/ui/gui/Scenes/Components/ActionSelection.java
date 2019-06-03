@@ -78,7 +78,7 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
         }
         
         //Specials
-        if(observableModel.have_Doctor()){
+        if(observableModel.have_Doctor(false)){
             Button actionBtn = new Button(DEF_COST_A_HEAL + "AP " + DEF_ACTION_HEAL);
             actionBtn.setId("DOCTOR");
             actionBtn.setOnAction(e -> {
@@ -89,7 +89,7 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
             i++;
         }
         
-        if(observableModel.have_Engineer()){
+        if(observableModel.have_Engineer(false)){
             Button actionBtn = new Button(DEF_COST_A_FIX_HULL + "AP " + DEF_ACTION_FIX_HULL);
             actionBtn.setId("ENGINEER");
             actionBtn.setOnAction(e -> {
@@ -158,13 +158,13 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
                                     actions.get(i).setDisable(false);
                                 getChildren().add(actions.get(i));
                             }else{
-                                if(actions.get(i).getId().equals("DOCTOR") && observableModel.activeIsDoctor()){
+                                if(actions.get(i).getId().equals("DOCTOR") && observableModel.have_Doctor(true)){
                                     if(DEF_COST_A_HEAL > observableModel.getActionPoints() || observableModel.getHealthTracker() >= MAX_HEALTH)
                                         actions.get(i).setDisable(true);
                                     else
                                         actions.get(i).setDisable(false);
                                     getChildren().add(actions.get(i));
-                                }else if(actions.get(i).getId().equals("ENGINEER") && observableModel.activeIsEngineer()){
+                                }else if(actions.get(i).getId().equals("ENGINEER") && observableModel.have_Engineer(true)){
                                     if(DEF_COST_A_FIX_HULL > observableModel.getActionPoints() || observableModel.getHullTracker() >= MAX_HULL)
                                         actions.get(i).setDisable(true);
                                     else

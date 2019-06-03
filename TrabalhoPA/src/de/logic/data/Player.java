@@ -156,7 +156,7 @@ public class Player implements Serializable{
     }
     public boolean have_RedShirt(boolean active, boolean alive){
         if(active){
-            if(crew[game.getActiveCrewMember()] instanceof RedShirt)
+            if(crew[game.getActiveCrewMember()-1] instanceof RedShirt)
                 return true;
             else
                 return false;
@@ -176,7 +176,7 @@ public class Player implements Serializable{
     
     public boolean have_CommsOfficer(boolean active){
         if(active){
-            if(crew[game.getActiveCrewMember()] instanceof CommsOfficer)
+            if(crew[game.getActiveCrewMember()-1] instanceof CommsOfficer)
                 return true;
             else
                 return false;
@@ -191,7 +191,7 @@ public class Player implements Serializable{
     
     public boolean have_Doctor(boolean active){
         if(active){
-            if(crew[game.getActiveCrewMember()] instanceof Doctor)
+            if(crew[game.getActiveCrewMember()-1] instanceof Doctor)
                 return true;
             else
                 return false;
@@ -206,7 +206,7 @@ public class Player implements Serializable{
     
     public boolean have_Engineer(boolean active){
         if(active){
-            if(crew[game.getActiveCrewMember()] instanceof Engineer)
+            if(crew[game.getActiveCrewMember()-1] instanceof Engineer)
                 return true;
             else
                 return false;
@@ -221,7 +221,7 @@ public class Player implements Serializable{
     
     public boolean have_ScienceOfficer(boolean active){
         if(active){
-            if(crew[game.getActiveCrewMember()] instanceof ScienceOfficer)
+            if(crew[game.getActiveCrewMember()-1] instanceof ScienceOfficer)
                 return true;
             else
                 return false;

@@ -189,6 +189,8 @@ public class DataGame implements Constants, Serializable{
         for(int i = 0; i < quantityOfDice; i++){
             rollDie(i);
         }
+        
+        addLog("You rolled " + quantityOfDice + " and got " + getDiceValue(quantityOfDice));
     }
     
     public int getDieValue(int dieId){

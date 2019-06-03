@@ -31,12 +31,8 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         return mainWindow;
     }
     
-    public CrewMember[] getCrewMembers(){
-        return game.getPlayer().getCrew();
-    }
-    
     public CrewMember getCrewMember(int index){
-        return game.getPlayer().getCrewMember(index);
+        return game.getCrewMember(index);
     }
     
     public String[] getJourneyTracker(){
@@ -48,7 +44,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public HashMap<Integer, Room> getRooms(){
-        return game.getShip().getRooms();
+        return game.getRooms();
     }
     
     public int getActiveCrewMember(){
@@ -56,31 +52,31 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public String getPlayerName(){
-        return game.getPlayer().getName();
+        return game.getPlayerName();
     }
     
     public int getCurrentTurn(){
-        return game.getDataGame().getCurrentTurn();
+        return game.getCurrentTurn();
     }
     
     public int getAliensCount(){
-        return game.getDataGame().getAliensCount();
+        return game.getAliensCount();
     }
     
     public int getActionPoints(){
-        return game.getPlayer().getActionPoints();
+        return game.getActionPoints();
     }
     
     public int getInspirationPoints(){
-        return game.getPlayer().getInspirationPoints();
+        return game.getInspirationPoints();
     }
     
     public int getHullTracker(){
-        return game.getShip().getHullTracker();
+        return game.getHullTracker();
     }
     
     public int getHealthTracker(){
-        return game.getPlayer().getHealthTracker();
+        return game.getHealthTracker();
     }
     
     public List<Room> getPossibleRooms(){
@@ -96,31 +92,19 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public boolean have_RedShirt(boolean alive){
-        return game.getPlayer().have_RedShirt(alive);
+        return game.have_RedShirt(false, alive);
     }
     
-    public boolean have_CommsOfficer(){
-        return game.getPlayer().have_CommsOfficer();
+    public boolean have_CommsOfficer(boolean active){
+        return game.have_CommsOfficer(active);
     }
     
-    public boolean have_Doctor(){
-        return game.getPlayer().have_Doctor();
+    public boolean have_Doctor(boolean active){
+        return game.have_Doctor(active);
     }
     
-    public boolean have_Engineer(){
-        return game.getPlayer().have_Engineer();
-    }
-    
-    public boolean activeIsDoctor(){
-        return game.activeIsDoctor();
-    }
-    
-    public boolean activeIsEngineer(){
-        return game.activeIsEngineer();
-    }
-    
-    public boolean activeIsScienceOfficer(){
-        return game.activeIsScienceOfficer();
+    public boolean have_Engineer(boolean active){
+        return game.have_Engineer(active);
     }
     
     //Methods
@@ -160,7 +144,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public void replayGame(){
-        game.getShip().getRoom(1).resetTotalRooms();
+        game.resetTotalRooms();
         game = new DestinationEarth();
 
         game.playAgain();
@@ -257,7 +241,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public void changeCrewMemberColor(Color color){
-        if(game.getPlayer().getCrewMember(game.getActiveCrewMember()-1) == null)
+        if(getCrewMember(game.getActiveCrewMember()-1) == null)
             return;
         
         game.selectCrewMemberColor(game.getActiveCrewMember(), color);
@@ -433,7 +417,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public void sacrificeCrewMember(){
-        if(!game.getPlayer().have_RedShirt(true))
+        if(!game.have_RedShirt(false, true))
             return;
         
         game.sacrificeCrewMember();
@@ -498,7 +482,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     }
     
     public void updateJourneyDisplay(){
-        firePropertyChange(FPC_JOURNEY_DISPLAY_UPDATE, game.getDataGame().getCurrentTurn(), null);
+        firePropertyChange(FPC_JOURNEY_DISPLAY_UPDATE, game.getCurrentTurn(), null);
     }
     
     public void updateActionSelection(){

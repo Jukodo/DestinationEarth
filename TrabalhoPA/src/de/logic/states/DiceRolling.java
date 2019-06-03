@@ -26,6 +26,7 @@ public class DiceRolling extends StateAdapter{
     @Override
     public IStates rollDice(){
         this.getGame().rollDice(quantityOfDice);
+        
         return returnState;
     }
     

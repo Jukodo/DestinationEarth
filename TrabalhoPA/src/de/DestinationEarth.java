@@ -3,6 +3,7 @@ package de;
 import de.logic.data.Alien;
 import de.logic.data.DataGame;
 import de.logic.data.Room;
+import de.logic.data.members.CrewMember;
 import de.logic.states.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import javafx.scene.paint.Color;
 
@@ -71,6 +73,42 @@ public class DestinationEarth implements Serializable{
     
     public int getAvailableInspirations_Quant(){
         return dataGame.getAvailableInspirations_Quant();
+    }
+    
+    public CrewMember getCrewMember(int index){
+        return dataGame.getPlayer().getCrewMember(index);
+    }
+    
+    public HashMap<Integer, Room> getRooms(){
+        return dataGame.getShip().getRooms();
+    }
+    
+    public String getPlayerName(){
+        return dataGame.getPlayer().getName();
+    }
+    
+    public int getCurrentTurn(){
+        return dataGame.getCurrentTurn();
+    }
+    
+    public int getAliensCount(){
+        return dataGame.getAliensCount();
+    }
+    
+    public int getActionPoints(){
+        return dataGame.getActionPoints();
+    }
+    
+    public int getInspirationPoints(){
+        return dataGame.getInspirationPoints();
+    }
+    
+    public int getHullTracker(){
+        return dataGame.getShip().getHullTracker();
+    }
+    
+    public int getHealthTracker(){
+        return dataGame.getPlayer().getHealthTracker();
     }
     
     public int getDiceValue(int numDices){
@@ -375,11 +413,23 @@ public class DestinationEarth implements Serializable{
     }
     
     public boolean have_RedShirt(boolean active, boolean alive){
-        return getState().have_RedShirt(active, alive);
+        return dataGame.getPlayer().have_RedShirt(active, alive);
     }
 
     public boolean have_ScienceOfficer(boolean active) {
-        return getState().have_ScienceOfficer(active);
+        return dataGame.getPlayer().have_ScienceOfficer(active);
+    }
+
+    public boolean have_CommsOfficer(boolean active) {
+        return dataGame.getPlayer().have_CommsOfficer(active);
+    }
+
+    public boolean have_Doctor(boolean active) {
+        return dataGame.getPlayer().have_Doctor(active);
+    }
+
+    public boolean have_Engineer(boolean active) {
+        return dataGame.getPlayer().have_Engineer(active);
     }
 
     public void resetTotalRooms() {
