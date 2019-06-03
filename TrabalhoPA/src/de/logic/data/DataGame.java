@@ -691,16 +691,16 @@ public class DataGame implements Constants, Serializable{
             //Spawned
             if(spawnedAliensCount[i] > 0){
                 if(spawnedAliensCount[i] == 1)
-                    addLog("An alien has spawned at " + ship.getRoom(i+1));
+                    addLog("An alien has spawned at " + ship.getRoom(i));
                 else
-                    addLog(spawnedAliensCount[i] + " aliens have spawned at " + ship.getRoom(i+1));  
+                    addLog(spawnedAliensCount[i] + " aliens have spawned at " + ship.getRoom(i));
             }
             //Canceled
             if(canceledAliensCount[i] > 0){
                 if(canceledAliensCount[i] == 1)
-                    addLog("An alien failed to spawn because " + ship.getRoom(i+1) + " is sealed");
+                    addLog("An alien failed to spawn because " + ship.getRoom(i) + " is sealed");
                 else
-                    addLog(canceledAliensCount[i] + " aliens failed to spawn because " + ship.getRoom(i+1) + " is sealed");  
+                    addLog(canceledAliensCount[i] + " aliens failed to spawn because " + ship.getRoom(i) + " is sealed");  
             }
         }
         

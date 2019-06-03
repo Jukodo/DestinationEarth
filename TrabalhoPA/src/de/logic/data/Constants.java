@@ -222,9 +222,14 @@ public interface Constants {
     public static final Color SELECTABLE_TEXT_COLOR = Color.rgb(255, 255, 255);
     //Confirm Box
     public static final double CONFIRMBOX_BACKGROUND_OPACITY = 0.5;
-    public static final Color CONFIRMBOX_BACKGROUND_COLOR = Color.rgb(118, 165, 242);
-    public static final Color CONFIRMBOX_BACKGROUND_COLOR_O = Color.rgb(118, 165, 242, SELECTABLE_BACKGROUND_OPACITY);
-    public static final Color CONFIRMBOX_TEXT_COLOR = Color.rgb(255, 255, 255);
+    public static final Color CONFIRMBOX_BACKGROUND_COLOR = BACKGROUND_COLOR;
+    public static final Color CONFIRMBOX_BACKGROUND_COLOR_O = Color.rgb(118, 165, 242, CONFIRMBOX_BACKGROUND_OPACITY);
+    public static final Color CONFIRMBOX_TEXT_COLOR = SELECTABLE_TEXT_COLOR;
+    //Log Box
+    public static final double LOGBOX_BACKGROUND_OPACITY = 0.5;
+    public static final Color LOGBOX_BACKGROUND_COLOR = BACKGROUND_COLOR;
+    public static final Color LOGBOX_BACKGROUND_COLOR_O = Color.rgb(118, 165, 242, LOGBOX_BACKGROUND_OPACITY);
+    public static final Color LOGBOX_TEXT_COLOR = SELECTABLE_TEXT_COLOR;
     
     //FirePropertyChange
     public static final String FPC_SWAP_SCENE = "SwapScene";
@@ -244,6 +249,7 @@ public interface Constants {
     public static final String FPC_ACTION_SELECTION_UPDATE = "ActionSelectionUpdate";
     public static final String FPC_INSPIRATION_SELECTION_UPDATE = "InspirationSelectionUpdate";
     public static final String FPC_REPLAY_GAME = "ReplayGame";
+    public static final String FPC_SHOW_LOGS = "ShowLogs";
     
     public static final int UNKNOWN = -1;
     

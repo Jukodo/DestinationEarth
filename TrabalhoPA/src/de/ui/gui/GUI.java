@@ -4,6 +4,7 @@ import de.logic.data.ObservableModel;
 import de.DestinationEarth;
 import de.logic.data.Constants;
 import de.ui.gui.Scenes.*;
+import de.ui.gui.Scenes.Components.LogBox;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class GUI extends Application implements Constants, PropertyChangeListene
         observableModel.addPropertyChangeListener(FPC_CLOSE_WINDOW, this);
         observableModel.addPropertyChangeListener(FPC_SWAP_SCENE, this);
         observableModel.addPropertyChangeListener(FPC_REPLAY_GAME, this);
+        observableModel.addPropertyChangeListener(FPC_SHOW_LOGS, this);
         
         this.mainWindow = mainWindow;
         mainWindow.setTitle(GAME_TITLE);
@@ -104,6 +106,10 @@ public class GUI extends Application implements Constants, PropertyChangeListene
                 break;
             case FPC_REPLAY_GAME:
                 initScenes();
+                break;
+            case FPC_SHOW_LOGS:
+                LogBox.display(observableModel.getLogs());
+                observableModel.clearLogs();
                 break;
         }
     }

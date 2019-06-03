@@ -128,6 +128,23 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         firePropertyChange(FPC_SWAP_SCENE, swapTo, null);
     }
 
+    public List<String> getLogs(){
+        if(game.getLogs().size() > 0){
+            return game.getLogs();
+        }
+        return null;
+    }
+    
+    public void showLogs(){
+        if(getLogs() != null){
+            firePropertyChange(FPC_SHOW_LOGS, null, null);
+        }
+    }
+    
+    public void clearLogs(){
+        game.clearLogs();
+    }
+    
     public void saveGame(File saveFile){
         game.saveGame(saveFile);
     }
@@ -168,6 +185,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
                 updatePossibleRooms(ACTIVE, AP_ATTACK);
             }
         }
+        showLogs();
     }
     
     public void swapActiveJourneyTurn(int index){
@@ -189,6 +207,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
                 firePropertyChange(FPC_JOURNEY_EVENTS_UPDATE, null, null);
             }
         }
+        showLogs();
     }
     
     public void setJourney_byDefault(){
@@ -196,6 +215,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         firePropertyChange(FPC_JOURNEY_TURN_UPDATE, game.getActiveJourneyTurn(), null);
         firePropertyChange(FPC_JOURNEY_EVENTS_UPDATE, null, null);
+        showLogs();
     }
     
     public void setJourney_byRandom(){
@@ -203,6 +223,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         firePropertyChange(FPC_JOURNEY_TURN_UPDATE, game.getActiveJourneyTurn(), null);
         firePropertyChange(FPC_JOURNEY_EVENTS_UPDATE, null, null);
+        showLogs();
     }
     
     public void startGame(String playerName){
@@ -211,6 +232,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         updateGameStats();
         firePropertyChange(FPC_JOURNEY_TURN_UPDATE, game.getActiveJourneyTurn(), null);
         firePropertyChange(FPC_JOURNEY_EVENTS_UPDATE, null, null);
+        showLogs();
     }
     
     public void changeCrewMember(int type){
@@ -227,6 +249,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         firePropertyChange(FPC_CLASS_SWAPED_BAR+(game.getActiveCrewMember()-1), type, null);
         
         //TEST System.out.println(game.getDataGame().crewMemberInfoToString());
+        showLogs();
     }
     
     public void changeCrewMemberColor(Color color){
@@ -236,12 +259,14 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         game.selectCrewMemberColor(game.getActiveCrewMember(), color);
         
         firePropertyChange(FPC_COLOR_SWAPED+(game.getActiveCrewMember()-1), color, null);
+        showLogs();
     }
     
     public void placeCrewMember(int room){
         game.placeCrewMember(game.getActiveCrewMember(), room);
         
-        firePropertyChange(FPC_DISPLAY_SHIP_UPDATE, null, null);
+        updateShipDisplay();
+        showLogs();
     }
     
     public void cancelAction(){
@@ -264,6 +289,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         updateGameStats();
         updateShipDisplay();
         firePropertyChange(FPC_ACTION_SELECTION_UPDATE, null, null);
+        showLogs();
     }
     
     public void AP_attackAlien(int room){
@@ -282,22 +308,25 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         updateGameStats();
         updateShipDisplay();
         firePropertyChange(FPC_ACTION_SELECTION_UPDATE, null, null);
-        
+        showLogs();
     }
     
     public void AP_placeTrap(){
         System.out.println("AP_placeTrap");
         //game.AP_placeTrap();
+        showLogs();
     }
     
     public void AP_detonateParticleDispenser(){
         System.out.println("AP_detonateParticleDispenser");
         //game.AP_detonateParticleDispenser();
+        showLogs();
     }
     
     public void AP_sealRoom(){
         System.out.println("AP_sealRoom");
         //game.AP_sealRoom();
+        showLogs();
     }
     
     public void AP_healPlayer(){
@@ -305,6 +334,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         updateActionSelection();
         updateGameStats();
+        showLogs();
     }
     
     public void AP_fixHull(){
@@ -312,6 +342,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         updateActionSelection();
         updateGameStats();
+        showLogs();
     }
     
     public void IP_addHealthPoint(){
@@ -319,6 +350,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         updateInspirationSelection();
         updateGameStats();
+        showLogs();
     }
     
     public void IP_repairHull(){
@@ -326,6 +358,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         updateInspirationSelection();
         updateGameStats();
+        showLogs();
     }
     
     public void IP_buildOrganicDetonator(){
@@ -333,6 +366,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         updateInspirationSelection();
         updateGameStats();
+        showLogs();
     }
     
     public void IP_addMovement(){
@@ -340,6 +374,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         updateInspirationSelection();
         updateGameStats();
+        showLogs();
     }
     
     public void IP_buildParticleDesperser(){
@@ -347,6 +382,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         updateInspirationSelection();
         updateGameStats();
+        showLogs();
     }
     
     public void IP_addSealedRoomToken(){
@@ -354,6 +390,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         updateInspirationSelection();
         updateGameStats();
+        showLogs();
     }
     
     public void IP_addAttackDie(){
@@ -361,6 +398,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         updateInspirationSelection();
         updateGameStats();
+        showLogs();
     }
     
     public void IP_addValueToAttackDie(){
@@ -368,6 +406,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         
         updateInspirationSelection();
         updateGameStats();
+        showLogs();
     }
     
     public void sacrificeCrewMember(){
@@ -379,6 +418,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         updateMemberBar();
         updateInspirationSelection();
         updateGameStats();
+        showLogs();
     }
     
     public void updateGame(){
@@ -412,6 +452,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         updateMemberBar();
         updatePossibleRooms(INACTIVE, UNKNOWN);
         updateShipDisplay();
+        showLogs();
     }
     
     public void updateMemberBar(){
@@ -517,6 +558,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
                 break;
         }
         System.out.println(STATES[game.currentState()]);
+        showLogs();
     }
     
     private void executeEndOf_JourneySelection(){
@@ -529,11 +571,11 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         game.scanTurn();
         game.confirmNewAliensPlacement();
 
-        firePropertyChange(FPC_DISPLAY_SHIP_UPDATE, null, null);
+        updateShipDisplay();
     }
     
     private void executeAlienPhase(){
-        firePropertyChange(FPC_DISPLAY_SHIP_UPDATE, null, null);
+        updateShipDisplay();
     }
 
     //REMOVE LATER

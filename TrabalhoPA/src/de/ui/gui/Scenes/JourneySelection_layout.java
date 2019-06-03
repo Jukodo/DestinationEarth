@@ -1,10 +1,6 @@
 package de.ui.gui.Scenes;
 
 import de.logic.data.Constants;
-import static de.logic.data.Constants.INSIDE_PADDING;
-import static de.logic.data.Constants.SCENE_CREW_SELECTION;
-import static de.logic.data.Constants.SHOW_MENU;
-import static de.logic.data.Constants.STATE_BAR_PREGAME;
 import de.logic.data.ObservableModel;
 import de.ui.gui.Scenes.Components.CrewBar;
 import de.ui.gui.Scenes.Components.JourneyDisplay;
