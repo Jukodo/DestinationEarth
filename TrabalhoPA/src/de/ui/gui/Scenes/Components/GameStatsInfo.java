@@ -31,6 +31,9 @@ public class GameStatsInfo extends VBox implements Constants, PropertyChangeList
     private Label totalAliensLabel;
     private Label totalAliens;
     
+    private Label organicTokensLabel;
+    private Label organicTokens;
+    
     //Bottom line
     private HBox bottomContainer;
     
@@ -45,6 +48,9 @@ public class GameStatsInfo extends VBox implements Constants, PropertyChangeList
     
     private Label healthTrackerLabel;
     private Label healthTracker;
+    
+    private Label particleTokensLabel;
+    private Label particleTokens;
     
     public GameStatsInfo(ObservableModel observableModel) {
         this.observableModel = observableModel;
@@ -85,7 +91,12 @@ public class GameStatsInfo extends VBox implements Constants, PropertyChangeList
         totalAliens = new Label();
         totalAliens.setTextFill(SELECTABLE_TEXT_COLOR);
         
-        topContainer.getChildren().addAll(playerNameLabel, playerName, turnLabel, turn, totalAliensLabel, totalAliens);
+        organicTokensLabel = new Label("Organic Detonator: ");
+        organicTokensLabel.setTextFill(SELECTABLE_TEXT_COLOR);
+        organicTokens = new Label();
+        organicTokens.setTextFill(SELECTABLE_TEXT_COLOR);
+        
+        topContainer.getChildren().addAll(playerNameLabel, playerName, turnLabel, turn, totalAliensLabel, totalAliens, organicTokensLabel, organicTokens);
         
         //Bottom line
         bottomContainer = new HBox(INSIDE_PADDING);
@@ -110,7 +121,13 @@ public class GameStatsInfo extends VBox implements Constants, PropertyChangeList
         healthTracker = new Label();
         healthTracker.setTextFill(SELECTABLE_TEXT_COLOR);
         
-        bottomContainer.getChildren().addAll(actionPointsLabel, actionPoints, inspirationPointsLabel, inspirationPoints, hullTrackerLabel, hullTracker, healthTrackerLabel, healthTracker);
+        particleTokensLabel = new Label("Particle Dispenser: ");
+        particleTokensLabel.setTextFill(SELECTABLE_TEXT_COLOR);
+        particleTokens = new Label();
+        particleTokens.setTextFill(SELECTABLE_TEXT_COLOR);
+        
+        
+        bottomContainer.getChildren().addAll(actionPointsLabel, actionPoints, inspirationPointsLabel, inspirationPoints, hullTrackerLabel, hullTracker, healthTrackerLabel, healthTracker, particleTokensLabel, particleTokens);
         
         getChildren().addAll(topContainer, bottomContainer);
     }
@@ -130,15 +147,19 @@ public class GameStatsInfo extends VBox implements Constants, PropertyChangeList
                 else
                     turn.setText(Integer.toString(observableModel.getCurrentTurn()));
                 
-                totalAliens.setText(Integer.toString(observableModel.getAliensCount()));
+                    totalAliens.setText(Integer.toString(observableModel.getAliensCount()));
+
+                    actionPoints.setText(Integer.toString(observableModel.getActionPoints()));
+
+                    inspirationPoints.setText(Integer.toString(observableModel.getInspirationPoints()));
+
+                    hullTracker.setText(Integer.toString(observableModel.getHullTracker()));
+
+                    healthTracker.setText(Integer.toString(observableModel.getHealthTracker()));
                 
-                actionPoints.setText(Integer.toString(observableModel.getActionPoints()));
-                
-                inspirationPoints.setText(Integer.toString(observableModel.getInspirationPoints()));
-                
-                hullTracker.setText(Integer.toString(observableModel.getHullTracker()));
-                
-                healthTracker.setText(Integer.toString(observableModel.getHealthTracker()));
+                    organicTokens.setText(Integer.toString(observableModel.getOrganicTrapTokens()));
+                    
+                    particleTokens.setText(Integer.toString(observableModel.getParticleTrapTokens()));
                 
                 break;
         }

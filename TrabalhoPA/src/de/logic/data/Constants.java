@@ -216,6 +216,9 @@ public interface Constants {
     public static final double BACKGROUND_OPACITY = 0.7;
     public static final Color BACKGROUND_COLOR = Color.rgb(37, 37, 37);
     public static final Color BACKGROUND_COLOR_O = Color.rgb(37, 37, 37, BACKGROUND_OPACITY);
+    //Hover
+    public static final double HOVER_BACKGROUND_OPACITY = 0.9;
+    public static final Color HOVER_BACKGROUND_COLOR_O = Color.rgb(240, 240, 240, HOVER_BACKGROUND_OPACITY);
     //Normal
     public static final double NORMAL_BACKGROUND_OPACITY = 0.5;
     public static final Color NORMAL_BACKGROUND_COLOR = Color.rgb(240, 240, 240);
@@ -262,4 +265,6 @@ public interface Constants {
     public static final int AP_MOVE = 1;
     public static final int AP_ATTACK = 2;
     public static final int AP_PLACETRAP = 3;
+    public static final int AP_SEALROOM = 4;
+    public static final int AP_DETONATE = 5;
 }

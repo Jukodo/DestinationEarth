@@ -25,4 +25,9 @@ public class DetonateParticleDispenser extends StateAdapter{
     public int currentState(){
         return STATE_DETONATE_PARTICLE;
     }
+    
+    @Override
+    public IStates cancelAction(){
+        return new CrewPhase(this.getGame());
+    }
 }

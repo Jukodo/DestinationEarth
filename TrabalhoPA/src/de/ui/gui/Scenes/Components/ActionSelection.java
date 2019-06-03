@@ -99,6 +99,16 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
             getChildren().add(actions.get(i));
             i++;
         }
+        if(observableModel.have_RedShirt(false)){
+            Button actionBtn = new Button(DEF_COST_REDSHIRT_SACRIFICE+ "IP " + DEF_REDSHIRT_SACRIFICE);
+            actionBtn.setId("REDSHIRT");
+            actionBtn.setOnAction(e -> {
+                observableModel.sacrificeCrewMember();
+            });
+            actions.put(i, actionBtn);
+            getChildren().add(actions.get(i));
+            i++;
+        }
     }
 
     private void setComponentsHandlers(){
@@ -116,10 +126,10 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
                         observableModel.AP_placeTrap(0);
                         break;
                     case 3:
-                        observableModel.AP_detonateParticleDispenser();
+                        observableModel.AP_detonateParticleDispenser(0);
                         break;
                     case 4:
-                        observableModel.AP_sealRoom();
+                        observableModel.AP_sealRoom(0);
                         break;
                 }
             });
@@ -171,6 +181,13 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
                                         actions.get(i).setDisable(false);
                                     getChildren().add(actions.get(i));
                                 }
+                                else if(actions.get(i).getId().equals("REDSHIRT")){
+                                    if(!observableModel.have_RedShirt(true))
+                                        actions.get(i).setDisable(true);
+                                    else
+                                        actions.get(i).setDisable(false);
+                                    getChildren().add(actions.get(i));
+                                }
                             }
                         }
                         break;
@@ -208,6 +225,20 @@ public class ActionSelection extends VBox implements Constants, PropertyChangeLi
                         }
                         
                         getChildren().addAll(title, text, trapOrganicBtn, trapParticleBtn, cancelBtn);
+                        break;
+                        
+                    case STATE_SEAL_ROOM:
+                        getChildren().clear();
+                        title = new Label("Seal room: ");
+                        text = new Label("To seal a room, choose a room on the ship display!");
+                        getChildren().addAll(title, text, cancelBtn);
+                        break;
+                        
+                    case STATE_DETONATE_PARTICLE:
+                        getChildren().clear();
+                        title = new Label("Detonate particle dispenser: ");
+                        text = new Label("To detonate a particle dispenser, choose a room on the ship display!");
+                        getChildren().addAll(title, text, cancelBtn);
                         break;
                 }
                 break;

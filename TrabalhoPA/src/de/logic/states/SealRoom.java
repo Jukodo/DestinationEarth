@@ -23,4 +23,9 @@ public class SealRoom extends StateAdapter{
     public int currentState(){
         return STATE_SEAL_ROOM;
     }
+    
+    @Override
+    public IStates cancelAction(){
+        return new CrewPhase(this.getGame());
+    }
 }

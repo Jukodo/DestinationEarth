@@ -442,6 +442,35 @@ public class DataGame implements Constants, Serializable{
         return possibleRooms;
     }
     
+    public List<Room> getRooms_ToSeal(int crewMember){
+        List<Room> possibleRooms;
+        
+        possibleRooms = new ArrayList<>();
+        
+        for(Room room : this.getShip().getRooms().values()){
+            if(room.getCanBeSealed() && !room.getIsSealed() && room.getMembersInside().size() < 1 && room.getAliensInside().size() < 1){
+                possibleRooms.add(room);
+            }
+        }
+        
+        return possibleRooms;
+    }
+    
+     public List<Room> getRooms_ToDetonate(int crewMember){
+        List<Room> possibleRooms;
+        
+        possibleRooms = new ArrayList<>();
+        
+        for(Room room : this.getShip().getRooms().values()){
+           if(room.getTrapInside() != null){
+               if(room.getTrapInside().getType() == PARTICLE_TRAP)
+                   possibleRooms.add(room);
+           }
+        }
+        
+        return possibleRooms;
+    }
+    
     public boolean crewClassNotRepeated(){
         for(int i=0; i<player.getCrew().length-1; i++){
             if(player.getCrewMember(i).getName().equals(player.getCrewMember(i+1).getName())){

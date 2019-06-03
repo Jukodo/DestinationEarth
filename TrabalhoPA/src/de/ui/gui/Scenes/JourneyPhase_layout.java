@@ -79,7 +79,7 @@ public class JourneyPhase_layout extends VBox implements Constants{
         
         mixContainer = new HBox();
         journeyDisplay = new JourneyDisplay(observableModel, false);
-        shipDisplay = new ShipDisplay(observableModel, false, SCENE_JOURNEY_PHASE);
+        shipDisplay = new ShipDisplay(observableModel, true, SCENE_JOURNEY_PHASE);
         
         mixContainer.getChildren().addAll(journeyDisplay, shipDisplay);
         

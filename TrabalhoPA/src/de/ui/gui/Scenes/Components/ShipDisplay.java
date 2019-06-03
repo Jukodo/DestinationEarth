@@ -60,7 +60,7 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
     private void setPropertyChangeListeners(){
         observableModel.addPropertyChangeListener(FPC_DISPLAY_SHIP_UPDATE, this);
         
-        if(interactable && fromScene == SCENE_CREW_PHASE)
+        if(interactable && (fromScene == SCENE_CREW_PHASE || fromScene == SCENE_REST_PHASE || fromScene == SCENE_JOURNEY_PHASE))
             observableModel.addPropertyChangeListener(FPC_DISPLAY_POSSIBLE_ROOMS, this);
     }
     
@@ -81,6 +81,13 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
         //Hover Info
         hoverInfo = new VBox();
         hoverInfo.relocate(107, 457);
+        
+        hoverInfo.setBackground(new Background(new BackgroundFill(HOVER_BACKGROUND_COLOR_O, new CornerRadii(5), Insets.EMPTY)));
+        hoverInfo.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderWidths.DEFAULT)));
+        hoverInfo.setPadding(new Insets(INSIDE_PADDING));
+        
+        hoverInfo.setVisible(false);
+        
         ghostContainer.getChildren().add(hoverInfo);
     }
     
@@ -189,7 +196,7 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
         for(int i = 1; i <= rooms.size(); i++){
             Color backgroundColor;
             
-            if(interactable && fromScene != SCENE_CREW_PHASE)
+            if(interactable && (fromScene != SCENE_CREW_PHASE && fromScene != SCENE_REST_PHASE && fromScene != SCENE_JOURNEY_PHASE))
                 backgroundColor = SELECTABLE_BACKGROUND_COLOR_O;
             else
                 backgroundColor = NORMAL_BACKGROUND_COLOR_O;
@@ -223,10 +230,12 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
             
             rooms.get(i).setOnMouseEntered(e -> {
                 updateHoverInfo(fi);
+                hoverInfo.setVisible(true);
             });
             
             rooms.get(i).setOnMouseExited(e -> {
                 hoverInfo.getChildren().clear();
+                hoverInfo.setVisible(false);
             });
         }
     }
@@ -273,8 +282,15 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
     
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        
+        CornerRadii room1Corner = new CornerRadii(50, 100, 100, 50, 0, 0, 0, 0, true, true, true, true, true, true, true, true);
+        CornerRadii room6Corner = new CornerRadii(13);
+        
         switch(evt.getPropertyName()){
             case FPC_DISPLAY_SHIP_UPDATE:
+                
+                Color background;
+                
                 for(int i = 1; i < rooms.size(); i++){
                     rooms.get(i).getChildren().clear();
 
@@ -292,18 +308,24 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
             case FPC_DISPLAY_POSSIBLE_ROOMS:
                 
                 List<Room> possibleRooms = null;
-                
-                CornerRadii room1Corner = new CornerRadii(50, 100, 100, 50, 0, 0, 0, 0, true, true, true, true, true, true, true, true);
-                CornerRadii room6Corner = new CornerRadii(13);
-
+ 
                 for(int i = 1; i <= rooms.size(); i++){
-                    rooms.get(i).setOnMouseClicked(null);
-                    if(i == 1)
-                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
-                    else if(i == 6)
-                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+                    
+  
+                    if(roomsObj.get(i).getIsSealed())
+                        background = BACKGROUND_COLOR_O;
                     else
-                        rooms.get(i).setBackground(new Background(new BackgroundFill(NORMAL_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+                        background = NORMAL_BACKGROUND_COLOR_O;
+
+                    if(i == 1)
+                        rooms.get(i).setBackground(new Background(new BackgroundFill(background, room1Corner, Insets.EMPTY)));
+                    else if(i == 6)
+                        rooms.get(i).setBackground(new Background(new BackgroundFill(background, room6Corner, Insets.EMPTY)));
+                    else
+                        rooms.get(i).setBackground(new Background(new BackgroundFill(background, CornerRadii.EMPTY, Insets.EMPTY)));
+                    
+                    rooms.get(i).setOnMouseClicked(null);
+                    
                 }
                 
                 if((int) evt.getOldValue() != INACTIVE){
@@ -349,31 +371,51 @@ public class ShipDisplay extends StackPane implements Constants, PropertyChangeL
 
                             System.out.print(observableModel.getActionPoints());
                             break;
+                            
+                            case AP_SEALROOM:
+                                possibleRooms = observableModel.getRooms_ToSeal();
 
-                        case AP_PLACETRAP:
-                            possibleRooms = observableModel.getRooms_ToPlaceTrap();
+                                for(Room room:possibleRooms){
+                                    rooms.get(room.getId()).setOnMouseClicked(e -> {
+                                        observableModel.AP_sealRoom(room.getId());
+                                    });
+                                    if(room.getId() == 1)
+                                        rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
+                                    else if(room.getId() == 6)
+                                        rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+                                    else
+                                        rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
 
-                            for(Room room:possibleRooms){
-                                rooms.get(room.getId()).setOnMouseClicked(e -> {
-                                    System.out.println(room.getId());
-                                    observableModel.AP_attackAlien(room.getId());
-                                });
-                                if(room.getId() == 1)
-                                    rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
-                                else if(room.getId() == 6)
-                                    rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
-                                else
-                                    rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
+                                    rooms.get(room.getId()).setPadding(new Insets(2));
+                                    rooms.get(room.getId()).setSpacing(2);
+                                    rooms.get(room.getId()).setAlignment(Pos.BOTTOM_RIGHT);
+                                }
 
-                                rooms.get(room.getId()).setPadding(new Insets(2));
-                                rooms.get(room.getId()).setSpacing(2);
-                                rooms.get(room.getId()).setAlignment(Pos.BOTTOM_RIGHT);
-                            }
+                                System.out.print(observableModel.getActionPoints());
+                                break;
+                                
+                                case AP_DETONATE:
+                                possibleRooms = observableModel.getRooms_ToDetonate();
 
-                            System.out.print(observableModel.getActionPoints());
-                            break;
+                                for(Room room:possibleRooms){
+                                    rooms.get(room.getId()).setOnMouseClicked(e -> {
+                                        observableModel.AP_detonateParticleDispenser(room.getId());
+                                    });
+                                    if(room.getId() == 1)
+                                        rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room1Corner, Insets.EMPTY)));
+                                    else if(room.getId() == 6)
+                                        rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, room6Corner, Insets.EMPTY)));
+                                    else
+                                        rooms.get(room.getId()).setBackground(new Background(new BackgroundFill(SELECTABLE_BACKGROUND_COLOR_O, CornerRadii.EMPTY, Insets.EMPTY)));
 
+                                    rooms.get(room.getId()).setPadding(new Insets(2));
+                                    rooms.get(room.getId()).setSpacing(2);
+                                    rooms.get(room.getId()).setAlignment(Pos.BOTTOM_RIGHT);
+                                }
 
+                                System.out.print(observableModel.getActionPoints());
+                                break;
+                            
                         default:
                             break;
                     }

@@ -95,6 +95,7 @@ public class Beginning_layout extends BorderPane implements Constants{
         btn_GoBack_newGame = new Button("Go Back");
         tf_PlayerName = new TextField(); 
         tf_PlayerName.setPromptText("Player name");
+        tf_PlayerName.setMaxWidth(150);
         btn_StartGame = new Button("Start Game");
         
         //Menu

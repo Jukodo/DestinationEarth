@@ -87,8 +87,16 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         return game.getRooms_ToAttack(game.getActiveCrewMember()-1);
     }
      
-     public List<Room> getRooms_ToPlaceTrap(){
+    public List<Room> getRooms_ToPlaceTrap(){
         return game.getRooms_ToPlaceTrap(game.getActiveCrewMember()-1);
+    }
+    
+    public List<Room> getRooms_ToSeal(){
+        return game.getRooms_ToSeal(game.getActiveCrewMember()-1);
+    }
+    
+     public List<Room> getRooms_ToDetonate(){
+        return game.getRooms_Detonate(game.getActiveCrewMember()-1);
     }
     
     public boolean have_RedShirt(boolean alive){
@@ -173,7 +181,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
                 updatePossibleRooms(ACTIVE, AP_ATTACK);
             }
         }
-        showLogs();
+        
     }
     
     public void swapActiveJourneyTurn(int index){
@@ -260,6 +268,8 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
     public void cancelAction(){
         game.cancelAction();
         
+        game.clearLogs();
+        
         updatePossibleRooms(INACTIVE, 0);
         updateActionSelection();
     }
@@ -316,19 +326,44 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         }
         
         updateGameStats();
+        showLogs();
         updateShipDisplay();
         firePropertyChange(FPC_ACTION_SELECTION_UPDATE, null, null);
     }
     
-    public void AP_detonateParticleDispenser(){
-        System.out.println("AP_detonateParticleDispenser");
-        //game.AP_detonateParticleDispenser();
+    public void AP_detonateParticleDispenser(int room){
+         System.out.println("AP_detonateParticleDispenser");
+        
+        if(game.currentState() == STATE_CREW_PHASE){
+            game.AP_detonateParticleDispenser(0);
+            updatePossibleRooms(ACTIVE, AP_DETONATE);
+        }
+        else{
+            game.AP_detonateParticleDispenser(room);
+            updatePossibleRooms(INACTIVE, 0);
+        }
+        
+        updateGameStats();
+        updateShipDisplay();
+        firePropertyChange(FPC_ACTION_SELECTION_UPDATE, null, null);
         showLogs();
     }
     
-    public void AP_sealRoom(){
+    public void AP_sealRoom(int room){
         System.out.println("AP_sealRoom");
-        //game.AP_sealRoom();
+        
+        if(game.currentState() == STATE_CREW_PHASE){
+            game.AP_sealRoom(0);
+            updatePossibleRooms(ACTIVE, AP_SEALROOM);
+        }
+        else{
+            game.AP_sealRoom(room);
+            updatePossibleRooms(INACTIVE, 0);
+        }
+        
+        updateGameStats();
+        updateShipDisplay();
+        firePropertyChange(FPC_ACTION_SELECTION_UPDATE, null, null);
         showLogs();
     }
     
@@ -419,6 +454,7 @@ public class ObservableModel extends PropertyChangeSupport implements Constants{
         game.sacrificeCrewMember();
         
         updateMemberBar();
+        updateShipDisplay();
         updateInspirationSelection();
         updateGameStats();
         showLogs();
