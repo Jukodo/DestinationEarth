@@ -15,6 +15,11 @@ public class SealRoom extends StateAdapter{
     }
     
     @Override
+    public String getShipToString(){
+        return getGame().getShip().toString();
+    }
+    
+    @Override
     public int currentState(){
         return STATE_SEAL_ROOM;
     }

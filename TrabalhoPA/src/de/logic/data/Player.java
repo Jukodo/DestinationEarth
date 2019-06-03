@@ -154,43 +154,83 @@ public class Player implements Serializable{
         }
         return true;
     }
-    public boolean have_RedShirt(boolean alive){
-        for(CrewMember cm:getCrew()){
-            if(alive){
-                if(cm instanceof RedShirt && ((RedShirt)cm).isAlive())
+    public boolean have_RedShirt(boolean active, boolean alive){
+        if(active){
+            if(crew[game.getActiveCrewMember()] instanceof RedShirt)
+                return true;
+            else
+                return false;
+        }else{
+            for(CrewMember cm:getCrew()){
+                if(alive){
+                    if(cm instanceof RedShirt && ((RedShirt)cm).isAlive())
+                        return true;
+                }else{
+                    if(cm instanceof RedShirt)
+                        return true;
+                }
+            }
+            return false;
+        }
+    }
+    
+    public boolean have_CommsOfficer(boolean active){
+        if(active){
+            if(crew[game.getActiveCrewMember()] instanceof CommsOfficer)
+                return true;
+            else
+                return false;
+        }else{
+            for(CrewMember cm:getCrew()){
+                if(cm instanceof CommsOfficer)
                     return true;
-            }else{
-                if(cm instanceof RedShirt)
+            }
+            return false;
+        }
+    }
+    
+    public boolean have_Doctor(boolean active){
+        if(active){
+            if(crew[game.getActiveCrewMember()] instanceof Doctor)
+                return true;
+            else
+                return false;
+        }else{
+            for(CrewMember cm:getCrew()){
+                if(cm instanceof Doctor)
                     return true;
             }
+            return false;
         }
-        return false;
     }
     
-    public boolean have_CommsOfficer(){
-        for(CrewMember cm:getCrew()){
-            if(cm instanceof CommsOfficer){
+    public boolean have_Engineer(boolean active){
+        if(active){
+            if(crew[game.getActiveCrewMember()] instanceof Engineer)
                 return true;
+            else
+                return false;
+        }else{
+            for(CrewMember cm:getCrew()){
+                if(cm instanceof Engineer)
+                    return true;
             }
+            return false;
         }
-        return false;
     }
     
-    public boolean have_Doctor(){
-        for(CrewMember cm:getCrew()){
-            if(cm instanceof Doctor){
+    public boolean have_ScienceOfficer(boolean active){
+        if(active){
+            if(crew[game.getActiveCrewMember()] instanceof ScienceOfficer)
                 return true;
+            else
+                return false;
+        }else{
+            for(CrewMember cm:getCrew()){
+                if(cm instanceof ScienceOfficer)
+                    return true;
             }
+            return false;
         }
-        return false;
-    }
-    
-    public boolean have_Engineer(){
-        for(CrewMember cm:getCrew()){
-            if(cm instanceof Engineer){
-                return true;
-            }
-        }
-        return false;
     }
 }

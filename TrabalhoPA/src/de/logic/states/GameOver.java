@@ -14,6 +14,11 @@ public class GameOver extends StateAdapter{
     }
     
     @Override
+    public void resetTotalRooms(){
+        getGame().getShip().getRoom(1).resetTotalRooms();
+    }
+    
+    @Override
     public int currentState(){
         return STATE_GAME_OVER;
     }

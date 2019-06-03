@@ -157,7 +157,7 @@ public class TextUI {
     
     public void uiCrewSelection() throws IOException, ClassNotFoundException{
         //REMOVE LATER
-        if(inDebug){
+        /*if(inDebug){
             if(!game.getPlayer().hasAllMembers()){
                 game.selectCrewMember(1, 8);
                 game.selectCrewMemberColor(1, 2);
@@ -165,7 +165,7 @@ public class TextUI {
                 game.selectCrewMemberColor(2, 3);
                 game.clearLogs();
             }
-        }
+        }*/
         
         int op;
         String input;
@@ -308,13 +308,13 @@ public class TextUI {
             game.placeCrewMember(game.getActiveCrewMember(), game.getDiceValue(2));
         
         //REMOVE LATER
-        if(inDebug){
+        /*if(inDebug){
             if(!game.getPlayer().hasAllMembersOnBoard()){
                 game.placeCrewMember(1, 1);
                 game.placeCrewMember(2, 2);
                 game.clearLogs();
             }
-        }
+        }*/
         
         int op;
         String input;
@@ -369,7 +369,7 @@ public class TextUI {
                 game.rollDice();
                 break;
             case 3:
-                System.out.println(game.getShip().toString());
+                System.out.println(game.getShipToString());
                 break;
             case 4:
                 game.confirmCrewMemberPlacement();
@@ -629,7 +629,7 @@ public class TextUI {
                 break;
 
             case 3:
-                System.out.println(game.getShip().toString());
+                System.out.println(game.getShipToString());
                 break;
                 
             case 4:
@@ -721,7 +721,7 @@ public class TextUI {
                 break;
                 
             case 10:
-                if(game.getPlayer().have_RedShirt(true)){
+                if(game.have_RedShirt(false, true)){
                     game.sacrificeCrewMember();
                     break;
                 }
@@ -814,7 +814,7 @@ public class TextUI {
                     game.AP_fixHull();
                     return;
                 }
-                else if(game.getPlayer().have_RedShirt(true)){
+                else if(game.have_RedShirt(false, true)){
                     game.sacrificeCrewMember();
                     return;
                 }
@@ -869,7 +869,7 @@ public class TextUI {
             case 1:
                 int opRoom = 0;
                 do{
-                    System.out.println(game.getShip().toString());
+                    System.out.println(game.getShipToString());
                     System.out.print("Room: ");
 
                     input = sc.next();
@@ -901,7 +901,7 @@ public class TextUI {
         Scanner sc = new Scanner(System.in);
         
         
-        if(game.getPlayer().getCrewMember(game.getActiveCrewMember()-1) instanceof ScienceOfficer){
+        if(game.have_ScienceOfficer(true)){
              do{
                 System.out.println("Attack aliens");
 
@@ -934,7 +934,7 @@ public class TextUI {
                 case 1:
                     int opRoom = 0;
                     do{
-                        System.out.println(game.getShip().toString());
+                        System.out.println(game.getShipToString());
                         System.out.print("Room: ");
 
                         input = sc.next();
@@ -1061,7 +1061,7 @@ public class TextUI {
             case 1:
                 int opRoom = 0;
                 do{
-                    System.out.println(game.getShip().toString());
+                    System.out.println(game.getShipToString());
                     System.out.print("Room: ");
 
                     input = sc.next();
@@ -1128,7 +1128,7 @@ public class TextUI {
             case 1:
                 int opRoom = 0;
                 do{
-                    System.out.println(game.getShip().toString());
+                    System.out.println(game.getShipToString());
                     System.out.print("Room: ");
 
                     input = sc.next();
@@ -1189,7 +1189,7 @@ public class TextUI {
                 
             case 1:
                 //LOOK LATER
-                game.getShip().getRoom(1).resetTotalRooms();
+                game.resetTotalRooms();
                 game = new DestinationEarth();
                 
                 game.playAgain();

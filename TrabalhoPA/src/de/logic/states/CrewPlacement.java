@@ -26,9 +26,13 @@ public class CrewPlacement extends StateAdapter{
             this.getGame().startupSpecials();
             return new JourneySelection(this.getGame());
         }else{
-            System.out.println("!hasAllMembersOnBoard");
             return this;//Add Log - Missing crew member(s) location(s)
         }
+    }
+    
+    @Override
+    public String getShipToString(){
+        return getGame().getShip().toString();
     }
     
     @Override

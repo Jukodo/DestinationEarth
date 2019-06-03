@@ -806,7 +806,7 @@ public class DataGame implements Constants, Serializable{
             i++;
         else if(cm instanceof Engineer)
             i++;
-        if(player.have_RedShirt(true))
+        if(player.have_RedShirt(false, true))
             i++;
         
         return i;
@@ -839,7 +839,7 @@ public class DataGame implements Constants, Serializable{
             i++;
             s+= (i+1) + " - Fix One Hull (" + this.getFixHullCost() + " AP)" + System.lineSeparator();
         }
-        if(player.have_RedShirt(true)){
+        if(player.have_RedShirt(false, true)){
             i++;
             s+= (i+1) + " - Sacrifice for 5 health (0 AP)" + System.lineSeparator();
         }
@@ -1237,7 +1237,7 @@ public class DataGame implements Constants, Serializable{
             
         }
         
-        if(getPlayer().have_RedShirt(true)){
+        if(getPlayer().have_RedShirt(false, true)){
             s += (i+2) + " - Sacrifice Red Shirt (0 IP)" + System.lineSeparator();
         }
         
@@ -1272,7 +1272,7 @@ public class DataGame implements Constants, Serializable{
         }
         
         //Doctor can add 2 health for 1 IP if in rest phase
-        if(player.have_Doctor()){
+        if(player.have_Doctor(false)){
             quant = 2;
             if(!addHealthToPlayer(quant)){
                 quant = 1;
@@ -1486,7 +1486,7 @@ public class DataGame implements Constants, Serializable{
                 //CHECK FOR CREW MEMBERS
                 else if(!alien.getRoom().getMembersInside().isEmpty()){
                     if(rollDie(1) >= 5){
-                        if(player.have_CommsOfficer()){
+                        if(player.have_CommsOfficer(false)){
                             if(rollDie(1) > 2){
                                 removeHealthFromPlayer(1);
                                 playerHealthLoss++;

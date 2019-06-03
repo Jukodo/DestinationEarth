@@ -244,4 +244,24 @@ public class StateAdapter implements IStates, de.logic.data.Constants{
         return this;
     }
 
+    @Override
+    public String getShipToString() {
+        return null;
+    }
+
+    @Override
+    public boolean have_RedShirt(boolean active, boolean alive) {
+        return false;
+    }
+
+    @Override
+    public boolean have_ScienceOfficer(boolean active) {
+        return false;
+    }
+
+    @Override
+    public void resetTotalRooms() {
+        
+    }
+
 }

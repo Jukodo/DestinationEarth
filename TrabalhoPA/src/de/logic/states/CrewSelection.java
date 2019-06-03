@@ -32,16 +32,12 @@ public class CrewSelection extends StateAdapter{
     @Override
     public IStates confirmCrewMemberSelection(){
         if(!this.getGame().getPlayer().hasAllMembers()){
-            System.out.println("!hasAllMembers");
             return this;
         }else if(!this.getGame().crewClassNotRepeated()){
-            System.out.println("!crewClassNotRepeated");
             return this;
         }else if(!this.getGame().crewColorNotRepeated()){
-            System.out.println("!crewColorNotRepeated");
             return this;
         }else{
-            System.out.println("Swapping to CP");
             return new CrewPlacement(this.getGame());
         }
     }

@@ -64,6 +64,10 @@ public interface IStates extends Serializable {
     IStates playAgain();
     
     //General
+    String getShipToString();
+    boolean have_RedShirt(boolean active, boolean alive);
+    boolean have_ScienceOfficer(boolean active);
+    void resetTotalRooms();
     int currentState();
     boolean swapActiveCrewMember();
     boolean swapActiveCrewMember(int index);

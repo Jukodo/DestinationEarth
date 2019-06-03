@@ -19,7 +19,17 @@ public class AttackAliens extends StateAdapter{
         return STATE_ATTACK_ALIENS;
     }
     
-     @Override
+    @Override
+    public boolean have_ScienceOfficer(boolean active){
+        return getGame().getPlayer().have_ScienceOfficer(active);
+    }
+    
+    @Override
+    public String getShipToString(){
+        return getGame().getShip().toString();
+    }
+    
+    @Override
     public IStates cancelAction(){
         return new CrewPhase(this.getGame());
     }

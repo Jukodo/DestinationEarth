@@ -20,6 +20,11 @@ public class MoveCrewMember extends StateAdapter{
     }
     
     @Override
+    public String getShipToString(){
+        return getGame().getShip().toString();
+    }
+    
+    @Override
     public int currentState(){
         return STATE_MOVE_CREW_MEMBER;
     }

@@ -61,7 +61,7 @@ public class RestPhase extends StateAdapter{
     @Override 
     public IStates sacrificeCrewMember(){
         
-        if(this.getGame().getPlayer().have_RedShirt(true))
+        if(this.getGame().getPlayer().have_RedShirt(false, true))
             this.getGame().sacrificeCrewMember();
         
         return this;
@@ -70,6 +70,11 @@ public class RestPhase extends StateAdapter{
     @Override
     public IStates leaveRestPhase(){
         return new JourneyPhase(this.getGame());
+    }
+    
+    @Override
+    public boolean have_RedShirt(boolean active, boolean alive){
+        return getGame().getPlayer().have_RedShirt(active, alive);
     }
     
     @Override

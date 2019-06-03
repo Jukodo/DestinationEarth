@@ -2,14 +2,10 @@ package de;
 
 import de.logic.data.Alien;
 import de.logic.data.DataGame;
-import de.logic.data.Player;
 import de.logic.data.Room;
-import de.logic.data.Ship;
-import de.logic.data.members.ScienceOfficer;
 import de.logic.states.*;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -28,10 +24,6 @@ public class DestinationEarth implements Serializable{
     }
 
     /**Getters and Setters**/
-    public DataGame getDataGame() {
-        return dataGame;
-    }
-
     public void setDataGame(DataGame dataGame) {
         this.dataGame = dataGame;
     }
@@ -45,9 +37,12 @@ public class DestinationEarth implements Serializable{
     }
     
     /**Data game methods - Gets**/
-    
     public List<String> getLogs(){
         return dataGame.getLogs();
+    }
+    
+    public void addLog(String msg){
+        dataGame.addLog(msg);
     }
     
     public int getOrganicTrapTokens(){
@@ -56,14 +51,6 @@ public class DestinationEarth implements Serializable{
     
     public int getParticleTrapTokens(){
         return dataGame.getParticleTrapTokens();
-    }
-    
-    public Player getPlayer(){
-        return dataGame.getPlayer();
-    }
-    
-    public Ship getShip(){
-        return dataGame.getShip();
     }
     
     public List<Alien> getNewAliens(){
@@ -383,6 +370,22 @@ public class DestinationEarth implements Serializable{
         setState(getState().quit());
     }
     
+    public String getShipToString(){
+        return getState().getShipToString();
+    }
+    
+    public boolean have_RedShirt(boolean active, boolean alive){
+        return getState().have_RedShirt(active, alive);
+    }
+
+    public boolean have_ScienceOfficer(boolean active) {
+        return getState().have_ScienceOfficer(active);
+    }
+
+    public void resetTotalRooms() {
+        getState().resetTotalRooms();
+    }
+    
     /**Save and Load**/
     
     public void saveGame(File saveFile){
@@ -397,7 +400,7 @@ public class DestinationEarth implements Serializable{
             ObjectOutputStream save = new ObjectOutputStream(fileName);
 
             save.writeUnshared(this);
-            this.getDataGame().addLog("Game saved!");
+            addLog("Game saved!");
         }catch(IOException e){
             
         }
@@ -408,21 +411,21 @@ public class DestinationEarth implements Serializable{
             loadFile = new File("saveFile.bin");
         
         if(!loadFile.isFile() || !loadFile.canRead()){
-            this.getDataGame().addLog("Game loading failed! File not found...");
+            addLog("Game loading failed! File not found...");
             return this;
         }
         
         try(ObjectInputStream load = new ObjectInputStream(new FileInputStream(loadFile))) { 
             DestinationEarth loadedGame = (DestinationEarth) load.readUnshared();
             if(loadedGame != null){
-                loadedGame.getDataGame().addLog("Game loaded!");
+                loadedGame.addLog("Game loaded!");
                 return loadedGame;
             }else{
-                this.getDataGame().addLog("Game loading failed!");
+                addLog("Game loading failed!");
                 return this;
             }
         }catch(ClassNotFoundException | IOException ex){
-            this.getDataGame().addLog("Game loading failed!");
+            addLog("Game loading failed!");
         }
         return this;
     }

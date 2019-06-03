@@ -17,6 +17,11 @@ public class DetonateParticleDispenser extends StateAdapter{
     }
     
     @Override
+    public String getShipToString(){
+        return getGame().getShip().toString();
+    }
+    
+    @Override
     public int currentState(){
         return STATE_DETONATE_PARTICLE;
     }

@@ -44,6 +44,11 @@ public class ScanningPhase extends StateAdapter{
     }
     
     @Override
+    public String getShipToString(){
+        return getGame().getShip().toString();
+    }
+    
+    @Override
     public int currentState(){
         return STATE_SCANNING_PHASE;
     }
