@@ -401,7 +401,7 @@ public class DestinationEarth implements Serializable{
     
     public DestinationEarth loadGame(File loadFile){
         if(loadFile == null)
-            loadFile = new File("saveFile");
+            loadFile = new File("saveFile.bin");
         
         if(!loadFile.isFile() || !loadFile.canRead()){
             this.getDataGame().addLog("Game loading failed! File not found...");
