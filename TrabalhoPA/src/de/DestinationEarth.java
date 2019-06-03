@@ -117,6 +117,10 @@ public class DestinationEarth implements Serializable{
         return dataGame.getRooms_ToAttack(crewMember);
     }
     
+    public List<Room> getRooms_ToPlaceTrap(int crewMember){
+        return dataGame.getRooms_ToPlaceTrap(crewMember);
+    }
+    
     /**Data game methods - Functions**/
     public void swapActiveNewAlien(){
         dataGame.swapActiveNewAlien();
