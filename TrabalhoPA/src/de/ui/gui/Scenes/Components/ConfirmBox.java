@@ -49,6 +49,8 @@ public class ConfirmBox implements Constants{
         //Labels
         mainLabel = new Label(mainText);
         infoLabel = new Label(infoText);
+        mainLabel.setTextFill(CONFIRMBOX_TEXT_COLOR);
+        infoLabel.setTextFill(CONFIRMBOX_TEXT_COLOR);
         
         labelContainer.getChildren().addAll(mainLabel, infoLabel);
         
